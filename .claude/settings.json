@@ -1,0 +1,70 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "PowerShell(git status*)",
+      "PowerShell(git diff*)",
+      "PowerShell(git log*)"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(git restore*)",
+      "Bash(git checkout -- *)",
+      "PowerShell(Remove-Item*)",
+      "PowerShell(ri *)",
+      "PowerShell(del *)",
+      "PowerShell(rd *)",
+      "PowerShell(rmdir *)",
+      "PowerShell(git restore*)",
+      "PowerShell(git checkout -- *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "PowerShell(Remove-Item -Recurse -Force*)",
+      "PowerShell(Remove-Item -Force -Recurse*)",
+
+      "Bash(git push*)",
+      "Bash(git remote *)",
+      "Bash(gh *)",
+      "PowerShell(git push*)",
+      "PowerShell(git remote *)",
+      "PowerShell(gh *)",
+
+      "Bash(git reset --hard*)",
+      "Bash(git clean *)",
+      "PowerShell(git reset --hard*)",
+      "PowerShell(git clean *)",
+
+      "Bash(npx prisma migrate*)",
+      "Bash(npx prisma db push*)",
+      "Bash(npx drizzle-kit push*)",
+      "Bash(npx drizzle-kit migrate*)",
+      "Bash(npx typeorm migration:run*)",
+      "Bash(npx sequelize db:migrate*)",
+      "Bash(alembic *)",
+      "Bash(npm run migrate*)",
+      "Bash(npm run db:*)",
+      "Bash(yarn migrate*)",
+      "Bash(yarn db:*)",
+      "PowerShell(npx prisma *)",
+      "PowerShell(npx drizzle-kit *)",
+      "PowerShell(alembic *)",
+      "PowerShell(npm run migrate*)",
+      "PowerShell(npm run db:*)",
+
+      "Bash(kubectl *)",
+      "Bash(helm *)",
+      "Bash(terraform apply*)",
+      "Bash(terraform destroy*)",
+      "Bash(docker system prune*)",
+      "PowerShell(kubectl *)",
+      "PowerShell(helm *)",
+      "PowerShell(terraform apply*)",
+      "PowerShell(terraform destroy*)",
+      "PowerShell(docker system prune*)"
+    ]
+  }
+}
