@@ -1,0 +1,29 @@
+{
+  "heading": "Контакти",
+  "intro": "Напишіть, над чим працюєте і чим я можу допомогти.",
+  "name": "Ваше ім'я",
+  "nameError": "Вкажіть, будь ласка, ім'я.",
+  "email": "Пошта",
+  "emailError": "Це не схоже на адресу пошти.",
+  "message": "Повідомлення",
+  "messageError": "Трохи докладніше, будь ласка — щонайменше десять символів.",
+  "submit": "Надіслати",
+  "note": "Відкриє ваш поштовий застосунок із готовим листом.",
+  "mailSubject": "Повідомлення від {name}",
+  "direct": {
+    "email": "Пошта",
+    "phone": "Телефон",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "open": "Написати мені",
+  "close": "Сховати форму",
+  "phone": "Телефон",
+  "optional": "(необовʼязково)",
+  "messengers": {
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "telegram": "Telegram"
+  },
+  "messengersLabel": "Месенджери"
+}

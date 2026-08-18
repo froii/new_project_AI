@@ -1,0 +1,20 @@
+{
+  "heading": "About",
+  "body": "Senior Frontend / Full Stack Developer with 11+ years of experience building scalable enterprise systems, low-code platforms and real-time data applications. I focus on architecture, performance and code that stays maintainable at scale — the kind of work where a component written once has to survive years of changing requirements. Most of my career has been spent in small, highly professional teams: shaping architecture, reviewing code and mentoring the people who come after me. I prefer building our own well-understood components over pulling in dependencies I cannot reason about.",
+  "achievementsHeading": "Selected results",
+  "achievements": {
+    "scale": "concurrent users on a frontend platform I architected",
+    "performance": "faster through code splitting and lazy loading",
+    "bundle": "smaller bundle via optimisation and tree shaking",
+    "functions": "custom functions for data manipulation and visualisation",
+    "queries": "faster responses after query optimisation",
+    "mentoring": "developers mentored, with a code review process I established"
+  },
+  "personalHeading": "Off the clock",
+  "personal": [
+    "I have travelled a great deal and lived in many countries. Working with German, American, Israeli and Ukrainian teams showed me that the same sentence carries different weight depending on who says it — Erin Meyer describes this well in The Culture Map. Direct feedback that is ordinary in one team reads as rudeness in another. Knowing that removes a lot of friction that has nothing to do with the work itself.",
+    "Settling into a new place or a new team is not difficult for me. Most of my career has been remote, across timezones, with colleagues I have only ever met on a call.",
+    "I play the Dark Souls series. It teaches you to understand rather than to push harder: you get through a difficult place once you know how it works. Bugs are the same — guessing rarely gets you there, careful reading does.",
+    "I read manga, walk a lot, and make tea. The better solutions usually arrive somewhere in the middle of a walk rather than at the keyboard. Tea, incidentally, is the only skill on my LinkedIn that was endorsed without me asking."
+  ]
+}

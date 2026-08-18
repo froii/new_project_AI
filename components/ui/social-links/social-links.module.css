@@ -1,0 +1,64 @@
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  width: var(--social-size, 2.25rem);
+  height: var(--social-size, 2.25rem);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.link svg {
+  width: var(--social-icon, 1.05rem);
+  height: var(--social-icon, 1.05rem);
+}
+
+.compact {
+  --social-size: 1.9rem;
+  --social-icon: 0.9rem;
+  gap: 0.2rem;
+}
+
+.link:hover {
+  color: var(--color-bg);
+}
+
+.email:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.linkedin:hover {
+  background: #0a66c2;
+  border-color: #0a66c2;
+}
+
+.whatsapp:hover {
+  background: #25d366;
+  border-color: #25d366;
+}
+
+.viber:hover {
+  background: #7360f2;
+  border-color: #7360f2;
+}
+
+.telegram:hover {
+  background: #29a9eb;
+  border-color: #29a9eb;
+}
+
+.github:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}

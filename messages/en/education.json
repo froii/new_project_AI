@@ -1,0 +1,22 @@
+{
+  "heading": "Education",
+  "skillsLabel": "What it gave me",
+  "entries": {
+    "neoversity": {
+      "degree": "MSc in Computer Science, AI & Machine Learning",
+      "note": "Ongoing"
+    },
+    "kai": {
+      "degree": "Master's degree, Project Management",
+      "note": "Ran student conferences"
+    },
+    "shevchenko": {
+      "degree": "Bachelor's degree, Hydrometeorology",
+      "note": "Played chess for the university"
+    },
+    "nas": {
+      "degree": "Postgraduate studies, Environmental Safety",
+      "note": ""
+    }
+  }
+}

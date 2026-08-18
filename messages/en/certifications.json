@@ -1,0 +1,27 @@
+{
+  "heading": "Certifications",
+  "entries": {
+    "aws": {
+      "name": "AWS Cloud Technical Essentials",
+      "issuer": "Amazon Web Services"
+    },
+    "d3": {
+      "name": "Introduction to D3.js",
+      "issuer": "Coursera"
+    },
+    "algoexpert": {
+      "name": "AlgoExpert Certificate",
+      "issuer": "AlgoExpert"
+    },
+    "frontendexpert": {
+      "name": "FrontendExpert Certificate",
+      "issuer": "AlgoExpert"
+    },
+    "english": {
+      "name": "English Proficiency B2–C1",
+      "issuer": ""
+    }
+  },
+  "view": "View certificate",
+  "credentialId": "Credential ID"
+}

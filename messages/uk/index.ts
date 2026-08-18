@@ -1,0 +1,26 @@
+import type { Messages } from "../types";
+import about from "./about.json";
+import certifications from "./certifications.json";
+import common from "./common.json";
+import contact from "./contact.json";
+import education from "./education.json";
+import experience from "./experience.json";
+import hero from "./hero.json";
+import noscript from "./noscript.json";
+import sections from "./sections.json";
+import skills from "./skills.json";
+
+const uk = {
+  about,
+  certifications,
+  common,
+  contact,
+  education,
+  experience,
+  hero,
+  noscript,
+  sections,
+  skills,
+} satisfies Messages;
+
+export default uk;
