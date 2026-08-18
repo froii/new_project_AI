@@ -161,11 +161,19 @@ after hydration — visible on every load for a dark-theme visitor. The inline s
 before paint, so CSS has it right on the first frame. React state drives only `aria-pressed`, which
 is what assistive technology reads.
 
+Switching locale remounts the root layout on the client, so `next-themes` re-creates its inline
+`<script>` there and React 19.2 logs *"Encountered a script tag while rendering React component"*.
+**Accepted, not a defect**: the warning exists only in `react-dom-client.development.js`, fires once
+per page session, and the script has already done its work from the server HTML — the theme is on
+`<html>` before the switch and `ThemeProvider` re-reads `localStorage` on mount. `next-themes` 0.4.6
+renders that script unconditionally and exposes no prop to suppress it; removing the warning means
+removing the dependency, which costs more than the warning does.
+
 `next-intl` is configured with the locale prefix **always on** including `en` (FR-008),
 `localeCookie: false` (FR-009 — nothing may contradict the URL) and `localeDetection: false`.
 
-**There is no middleware.** `generateStaticParams` prerenders `/en` and `/uk` as static pages, and
-`app/page.tsx` redirects the bare root to `/en`. The cost is that a Ukrainian-speaking visitor
+**There is no middleware.** `generateStaticParams` prerenders `/en` and `/uk` as static pages, and a
+`redirects()` entry in `next.config.ts` sends the bare root to `/en`. The cost is that a Ukrainian-speaking visitor
 arriving at the root gets English until they switch — accepted in exchange for a fully static site
 with no request-time layer.
 
@@ -176,9 +184,9 @@ with no request-time layer.
 
 **First load, no prior visit, OS in dark mode**
 
-1. Request `/uk` (or `/` → middleware redirects to `/en`).
-2. Server renders: root layout links `globals.css` and the theme script runs; `[locale]/layout.tsx`
-   loads `messages/uk.json` and renders header, sections and footer with content read at the locale.
+1. Request `/uk` (or `/` → the config redirect sends the visitor to `/en`).
+2. Server renders: `[locale]/layout.tsx` is the root layout — it links `globals.css`, runs the theme
+   script, loads `messages/uk.json` and renders header, sections and footer with content read at the locale.
 3. The theme script runs before paint, reads `localStorage` (empty) → falls back to the OS media
    query → sets `data-theme="dark"`. The dark custom properties are already in the stylesheet, so the
    first painted frame is correct.

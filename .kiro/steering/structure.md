@@ -9,9 +9,7 @@ service: server work (PDF is client-side, AI and email are not) lives in Next.js
 /
 ├── app/
 │   ├── globals.css       # custom properties + layout primitives
-│   ├── layout.tsx        # pass-through; <html> lives in [locale]/layout.tsx
-│   ├── page.tsx          # bare root → redirect to the default locale
-│   ├── [locale]/         # pages — locale is a route segment, statically generated
+│   ├── [locale]/         # root layout; locale is a root param, statically generated
 │   └── api/contact/      # route handler: contact form → email
 ├── i18n/                 # config.ts, routing.ts, navigation.ts, request.ts
 ├── content/              # structure only: ids, dates, links, images, proper nouns
