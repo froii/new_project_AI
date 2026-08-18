@@ -1,0 +1,78 @@
+.button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: -0.35rem;
+}
+
+.button:hover {
+  color: var(--color-text);
+  box-shadow: 0 0 0 4px var(--color-surface);
+}
+
+.button:active {
+  scale: 0.94;
+}
+
+.sun,
+.moon {
+  grid-area: 1 / 1;
+  transition:
+    opacity 250ms ease,
+    rotate 250ms ease,
+    scale 250ms ease;
+}
+
+.sun {
+  opacity: 0;
+  rotate: -90deg;
+  scale: 0.4;
+}
+
+.moon {
+  opacity: 1;
+  rotate: 0deg;
+  scale: 1;
+}
+
+:global(:root[data-theme="dark"]) .sun {
+  opacity: 1;
+  rotate: 0deg;
+  scale: 1;
+}
+
+:global(:root[data-theme="dark"]) .moon {
+  opacity: 0;
+  rotate: 90deg;
+  scale: 0.4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme])) .sun {
+    opacity: 1;
+    rotate: 0deg;
+    scale: 1;
+  }
+
+  :global(:root:not([data-theme])) .moon {
+    opacity: 0;
+    rotate: 90deg;
+    scale: 0.4;
+  }
+}

@@ -1,0 +1,29 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.list > * {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.term {
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.value a {
+  overflow-wrap: anywhere;
+}
+
+@container (min-width: 40rem) {
+  .list > * {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    column-gap: var(--space-l);
+    align-items: baseline;
+  }
+}

@@ -1,0 +1,11 @@
+.footer {
+  padding-block: var(--space-l);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.bar {
+  display: flex;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+}

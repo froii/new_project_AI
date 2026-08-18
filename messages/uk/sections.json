@@ -1,0 +1,41 @@
+{
+  "menu": "Розділи",
+  "hint": "Перейти до розділу або прибрати його частини.",
+  "toggle": "Показувати «{section}»",
+  "labels": {
+    "hero": "Вступ",
+    "about": "Про мене",
+    "skills": "Навички",
+    "experience": "Досвід",
+    "education": "Освіта",
+    "certifications": "Сертифікати",
+    "contact": "Контакти"
+  },
+  "parts": {
+    "hero": {
+      "photo": "Фото",
+      "contacts": "Контакти"
+    },
+    "about": {
+      "full": "Повний текст",
+      "achievements": "Результати",
+      "personal": "Поза роботою"
+    },
+    "skills": {},
+    "experience": {
+      "project": "Проєкт",
+      "responsibilities": "Обов'язки",
+      "techStack": "Стек",
+      "alsoUsed": "Також працював із",
+      "link": "Посилання",
+      "interest": "Що було цікавого"
+    },
+    "education": {
+      "skills": "Що це дало"
+    },
+    "certifications": {},
+    "contact": {
+      "form": "Форма повідомлення"
+    }
+  }
+}

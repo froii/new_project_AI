@@ -1,0 +1,22 @@
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2xs);
+}
+
+.option {
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: calc(var(--radius) - 0.25rem);
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.option[aria-current="true"] {
+  background: var(--color-surface);
+  color: var(--color-text);
+}

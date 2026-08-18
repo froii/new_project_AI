@@ -1,0 +1,29 @@
+{
+  "heading": "Contact",
+  "intro": "Tell me what you are working on and how I can help.",
+  "name": "Your name",
+  "nameError": "Please tell me your name.",
+  "email": "Email",
+  "emailError": "That does not look like an email address.",
+  "message": "Message",
+  "messageError": "A little more detail, please — at least ten characters.",
+  "submit": "Send",
+  "note": "Opens your mail app with the message ready to send.",
+  "mailSubject": "Message from {name}",
+  "direct": {
+    "email": "Email",
+    "phone": "Phone",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "open": "Write to me",
+  "close": "Hide the form",
+  "phone": "Phone",
+  "optional": "(optional)",
+  "messengers": {
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "telegram": "Telegram"
+  },
+  "messengersLabel": "Messengers"
+}

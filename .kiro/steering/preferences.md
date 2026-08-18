@@ -73,9 +73,8 @@ If a diff-based command spans several git repos, run it once **per repo** — fr
 it sees only part of the change.
 
 ## Commands
-Fill in the real toolchain per sub-project once it exists (they may differ — do NOT mix them):
-- `backend/` — package manager + `lint` / `typecheck` / `test` commands: _TBD_
-- `frontend/` — package manager + `lint` / `typecheck` commands: _TBD_
+- root Next.js app — npm. `npm run typecheck` / `npm run build` / `npm test` (vitest, `lib/**`) /
+  `npm run lint` (eslint, flat config).
 - Do NOT auto-run lint or tests — I review my own code, so it is usually redundant. ASK first whether
   I want lint or tests run. Typecheck is fine to run silently after non-trivial changes (cheap,
   catches real breakage). Always in the affected sub-project only.

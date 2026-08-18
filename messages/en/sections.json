@@ -1,0 +1,41 @@
+{
+  "menu": "Sections",
+  "hint": "Jump to a section, or turn parts of it off.",
+  "toggle": "Show {section}",
+  "labels": {
+    "hero": "Intro",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "certifications": "Certifications",
+    "contact": "Contact"
+  },
+  "parts": {
+    "hero": {
+      "photo": "Photo",
+      "contacts": "Contacts"
+    },
+    "about": {
+      "full": "Full text",
+      "achievements": "Results",
+      "personal": "Off the clock"
+    },
+    "skills": {},
+    "experience": {
+      "project": "Project",
+      "responsibilities": "Responsibilities",
+      "techStack": "Tech stack",
+      "alsoUsed": "Also worked with",
+      "link": "Link",
+      "interest": "What was interesting"
+    },
+    "education": {
+      "skills": "What it gave me"
+    },
+    "certifications": {},
+    "contact": {
+      "form": "Message form"
+    }
+  }
+}
