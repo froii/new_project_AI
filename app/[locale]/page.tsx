@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { About } from "@/components/sections/about";
 import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
@@ -23,7 +23,6 @@ const bySection = {
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "common" });
 
   return (

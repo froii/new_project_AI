@@ -1,4 +1,6 @@
+import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { defaultLocale } from "./i18n/config";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -13,12 +15,14 @@ const securityHeaders = [
   },
 ];
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  async redirects() {
+    return [{ source: "/", destination: `/${defaultLocale}`, permanent: false }];
   },
 };
 

@@ -14,7 +14,7 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 | Framework | Next.js, App Router, TypeScript strict |
 | Rendering | Static by default; server work only where a secret or a heavy dep demands it |
 | Styling | CSS Modules + plain CSS (grid, container queries, custom properties) |
-| i18n | `next-intl`, locale segment in the route |
+| i18n | `next-intl`, locale as a **root param** (`next/root-params`) |
 | Theming | `next-themes`, `data-theme` on the root element |
 | PDF | `@react-pdf/renderer`, client-side |
 | AI (later) | Anthropic SDK behind `app/api/chat/route.ts` |
@@ -139,9 +139,10 @@ Tests are the independent check (`preferences.md` §Role separation). Priority o
 **Turbopack is the bundler** — Next ships it; there is no separate build tool. Vite exists in the
 repo only as Vitest's engine for `lib/**` tests and never touches the application build.
 
-Production configuration in `next.config.mjs`: `poweredByHeader: false`, `reactStrictMode`, and a
-`headers()` block sending `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
-`Permissions-Policy` and HSTS on every route.
+Production configuration in `next.config.ts` (TypeScript so it can import `defaultLocale` from
+`i18n/config.ts` rather than restate it): `poweredByHeader: false`, `reactStrictMode`, a `headers()`
+block sending `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`
+and HSTS on every route, and a `redirects()` entry sending the bare root to the default locale.
 
 **No Content-Security-Policy yet, deliberately.** `next-themes` writes its pre-paint script inline;
 a strict CSP needs either a per-request nonce — which forces dynamic rendering and gives up static

@@ -20,7 +20,7 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T013 `messages/uk/` — same files; `messages/uk/index.ts` declared `satisfies typeof en` so a missing key fails `tsc` (FR-004).
 - [x] T014 `[P]` `app/globals.css` — CSS custom properties under `:root` and `:root[data-theme="dark"]`, plus layout primitives (`shell`, `stack`, `cluster`, `auto-grid`, `split`, `section`).
 - [x] T015 `app/layout.tsx` — `<html>`, `globals.css` imported here only. `next/font` still pending T005.
-- [x] T016 `i18n/` config: locale prefix always on including `en` (FR-008), `localeCookie: false`, `localeDetection: false`. **No middleware** — `generateStaticParams` prerenders both locales, `app/page.tsx` redirects the bare root to `/en` (FR-010).
+- [x] T016 `i18n/` config: locale prefix always on including `en` (FR-008), `localeCookie: false`, `localeDetection: false`. **No middleware** — `generateStaticParams` prerenders both locales, a `redirects()` entry in `next.config.ts` sends the bare root to `/en` (FR-010).
 - [x] T017 `next-themes` provider in `app/[locale]/layout.tsx`: `attribute="data-theme"`, `defaultTheme="system"`; confirm the CSS selector matches what its script writes (FR-015).
 - [x] T018 `[P]` `lib/content.ts` — `sortExperience()` (FR-003), `isCurrent()`.
 - [x] T019 `[P]` Unit tests for `lib/**` — 34 tests across `content`, `section-visibility`, `credentials`, `contacts`, including assertions against the real `content/`.
@@ -67,6 +67,7 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T050 `[P]` `generateMetadata` per locale + `alternates.languages` hreflang so the two locales do not compete as duplicates (FR-024).
 - [x] T051 `[P]` `<noscript>` banner in `app/[locale]/layout.tsx`, localized from `messages/*/noscript.json`, coloured from `prefers-color-scheme` — **not** from `data-theme` (FR-025).
 - [x] T052 `[P]` `prefers-reduced-motion`: suppress non-essential animation (FR-022).
+- [x] T052a `[P]` Migrate off the deprecated `setRequestLocale`: `[locale]/` becomes the root layout, `i18n/request.ts` reads `next/root-params`, bare-root redirect moves into `next.config.ts` (ADR-0001).
 - [ ] T053 Keyboard pass: every control reachable and operable, visible focus indicator, expanded/collapsed state announced (FR-019, FR-020, SC-004).
 - [ ] T054 `[P]` Confirm no layout shift from images or fonts (FR-023, SC-006).
 - [ ] T055 Verification subagent per `preferences.md` §Role separation: input is `requirements.md` + `testcases.md` + changed files only.

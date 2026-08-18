@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import { SectionsProvider } from "@/components/providers/sections-provider";
 import { isLocale, locales } from "@/i18n/config";
@@ -58,7 +58,6 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
-  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "noscript" });
 
   return (
