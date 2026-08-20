@@ -3,12 +3,8 @@
   flex-direction: column;
 }
 
-.item {
+.item + .item {
   border-block-start: var(--border-width) solid var(--color-hairline);
-}
-
-.item:first-child {
-  border-block-start: 0;
 }
 
 .trigger {
@@ -129,4 +125,8 @@
   .trigger {
     break-inside: avoid;
   }
+}
+
+.item {
+  break-inside: avoid;
 }

@@ -3,12 +3,17 @@ import { Accordion } from "@/components/ui/accordion";
 import { Field, FieldList } from "@/components/ui/field-list";
 import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
-import { experience } from "@/content";
+import { PartToggle } from "@/components/visibility/part-toggle";
+import { experience, owner } from "@/content";
 import { dottedDate, experienceSpan, isCurrent, sortExperience } from "@/lib/content";
 import styles from "./experience.module.css";
 
+const recent = 4;
+
 export function Experience() {
   const t = useTranslations("experience");
+
+  const linkedin = owner.contacts.find((contact) => contact.id === "linkedin")?.value;
 
   const entries = sortExperience(experience);
   const span = experienceSpan(experience);
@@ -31,7 +36,11 @@ export function Experience() {
 
         <Part id="experience.responsibilities">
           <Field term={t("fields.responsibilities")}>
-            {t(`entries.${entry.id}.responsibilities`)}
+            {t(`entries.${entry.id}.responsibilities`)
+              .split("\n\n")
+              .map((paragraph) => (
+                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+              ))}
           </Field>
         </Part>
 
@@ -71,11 +80,26 @@ export function Experience() {
         <span className={styles.span}>
           {t("summary", { count: entries.length })} · {span.from} - {span.to ?? t("present")}
         </span>
+        <PartToggle
+          id="experience.all"
+          label={t("scope.label")}
+          off={t("scope.recent")}
+          on={t("scope.all")}
+        />
       </div>
 
-      <p className={styles.note}>{t("note")}</p>
+      <p className={styles.note}>
+        {t.rich("note", {
+          linkedin: (chunks) =>
+            linkedin ? <a href={linkedin}>{chunks}</a> : <span>{chunks}</span>,
+        })}
+      </p>
 
-      <Accordion items={items} defaultOpen={[items[0]?.id ?? ""]} />
+      <Accordion items={items.slice(0, recent)} defaultOpen={[items[0]?.id ?? ""]} />
+
+      <Part id="experience.all">
+        <Accordion items={items.slice(recent)} className={styles.rest} />
+      </Part>
     </section>
   );
 }

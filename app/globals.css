@@ -352,10 +352,6 @@ a:hover {
     border-radius: 0;
     box-shadow: none;
   }
-
-  .section {
-    padding-block: var(--space-l);
-  }
 }
 
 /* ---------- sections ---------- */
@@ -366,7 +362,11 @@ a:hover {
 
 /* The intro is a masthead, not a block: it sits closer to the summary that follows. */
 #hero {
-  padding-block-end: var(--space-l);
+  padding-block-end: var(--space-s);
+}
+
+#about {
+  padding-block-start: var(--space-m);
 }
 
 .section {
@@ -374,7 +374,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: var(--space-s);
-  padding-block: var(--space-xl);
+  padding-block: var(--paper-section-lead) var(--paper-section-tail);
   scroll-margin-block-start: calc(var(--header-height) + var(--space-m));
 }
 
@@ -413,7 +413,7 @@ a:hover {
 .section > .body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-l);
+  gap: var(--paper-body-gap);
   min-width: 0;
 }
 
@@ -545,34 +545,74 @@ a:hover {
   --page-pad-x: 12mm;
   --page-pad-y: 14mm;
   --page-content-height: calc(var(--page-height) - 2 * var(--page-pad-y));
+  --page-cut: 7mm;
+
+  /* Paper is the base and screen is the override. Print inherits these
+     untouched; the preview keeps them by failing the :not() below. That is what
+     makes the preview predictive rather than decorative - same type, same
+     spacing, so a rule drawn every content-height lands where the printer cuts. */
+  --paper-font-size: 11pt;
+  --paper-section-lead: 0;
+  --paper-section-tail: 5mm;
+  --paper-body-gap: var(--space-m);
+  --paper-field-gap: var(--space-2xs);
+  --paper-para-gap: var(--space-2xs);
 }
 
-@page {
-  size: A4;
-  margin: 14mm 12mm;
+@media screen {
+  :root:not([data-pages]) {
+    --paper-font-size: 100%;
+    --paper-section-lead: var(--space-xl);
+    --paper-section-tail: var(--space-xl);
+    --paper-body-gap: var(--space-l);
+    --paper-field-gap: var(--space-s);
+    --paper-para-gap: var(--space-s);
+  }
+}
+
+html {
+  font-size: var(--paper-font-size);
+}
+
+/* ---------- where a page may be cut ---------- */
+
+/* The unit of a CV is a record, not a paragraph: a job, a degree, a credential.
+   Splitting one across the fold costs the reader the context; splitting between
+   two costs nothing. So the avoid-rules sit on the records and nowhere else -
+   a section that refuses to break is what leaves half a page empty. */
+.block-head {
+  break-inside: avoid;
+  break-after: avoid;
+}
+
+.section h2 {
+  break-after: avoid;
+}
+
+p {
+  orphans: 2;
+  widows: 2;
 }
 
 /* ---------- page preview: where the cut falls, drawn on the live page ---------- */
 
-/* The paper takes the printed geometry in millimetres, so a rule every
-   content-height lands where the printer will cut. It is an indication, not a
-   promise: `break-inside: avoid` still nudges blocks down in the real file. */
 :root[data-pages] .paper {
   width: var(--page-width);
   max-width: none;
   padding: var(--page-pad-y) var(--page-pad-x);
+  border-radius: 0;
+  box-shadow: var(--shadow-sm);
   background-image: repeating-linear-gradient(
     to bottom,
-    transparent 0 calc(var(--page-content-height) - 1px),
-    var(--color-border) calc(var(--page-content-height) - 1px) var(--page-content-height)
+    transparent 0 var(--page-content-height),
+    var(--color-canvas) var(--page-content-height)
+      calc(var(--page-content-height) + var(--page-cut))
   );
   background-origin: content-box;
   background-clip: content-box;
   background-repeat: repeat-y;
 }
 
-/* The contact band is content too: in preview it takes the same sheet width so
-   the page keeps its shape, but it carries no ruler - it is the tail. */
 :root[data-pages] .sheet {
   overflow-x: auto;
 }
@@ -604,10 +644,6 @@ a:hover {
     --color-invert-muted: #3a3a3a;
     --color-invert-border: #c8c8c8;
     color-scheme: light;
-  }
-
-  html {
-    font-size: 11pt;
   }
 
   body {
@@ -642,26 +678,18 @@ a:hover {
     box-shadow: none;
   }
 
-  .section {
-    padding-block: 0 6mm;
-  }
-
   /* The summary answers the masthead: on paper it follows the contacts directly. */
   #hero {
     padding-block: 0 2mm;
-  }
-
-  .section-slot,
-  .block-head {
-    break-inside: avoid;
-  }
-
-  .block-head {
-    break-after: avoid;
   }
 
   a {
     color: inherit;
     text-decoration: none;
   }
+}
+
+@page {
+  size: A4;
+  margin: 14mm 12mm;
 }

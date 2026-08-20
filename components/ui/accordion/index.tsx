@@ -15,12 +15,14 @@ export type AccordionItem = {
 export function Accordion({
   items,
   defaultOpen = [],
+  className,
 }: {
   items: AccordionItem[];
   defaultOpen?: string[];
+  className?: string;
 }) {
   return (
-    <RadixAccordion.Root type="multiple" defaultValue={defaultOpen} className={styles.root}>
+    <RadixAccordion.Root type="multiple" defaultValue={defaultOpen} className={[styles.root, className].filter(Boolean).join(" ")}>
       {items.map((item) => (
         <RadixAccordion.Item key={item.id} value={item.id} className={styles.item}>
           <RadixAccordion.Header>

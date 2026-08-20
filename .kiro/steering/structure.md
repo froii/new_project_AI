@@ -12,8 +12,9 @@ service: server work (PDF is client-side, AI and email are not) lives in Next.js
 │   ├── [locale]/         # root layout; locale is a root param, statically generated
 │   └── api/contact/      # route handler: contact form → email
 ├── i18n/                 # config.ts, routing.ts, navigation.ts, request.ts
-├── content/              # structure only: ids, dates, links, images, proper nouns
-│                         # contact values come from NEXT_PUBLIC_OWNER_* env vars
+├── content/              # structure only: ids, dates, images, proper nouns
+│   └── links.ts          # every external URL — certificates and projects
+│                         # contacts are constants too: nothing here is a secret
 ├── components/
 │   ├── ui/<name>/        # accordion, button, card, field-list, input, social-links,
 │   │                     # switch, tag-list, textarea — folder per component

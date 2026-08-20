@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
-import { useSections } from "@/components/providers/sections-provider";
 import { owner } from "@/content";
 import { messengerLinks } from "@/lib/contacts";
 import styles from "./contact.module.css";
@@ -17,7 +16,6 @@ type Errors = { name?: boolean; email?: boolean; message?: boolean };
 
 export function Contact() {
   const t = useTranslations("contact");
-  const { visible } = useSections();
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const panelId = useId();
@@ -64,17 +62,15 @@ export function Contact() {
                   </a>
                 )}
 
-                {visible["contact.form"] && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                    onClick={() => setOpen((v) => !v)}
-                  >
-                    {open ? t("close") : t("open")}
-                  </Button>
-                )}
+                <Button
+                  type="button"
+                  variant="outline"
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => setOpen((v) => !v)}
+                >
+                  {open ? t("close") : t("open")}
+                </Button>
               </div>
             </div>
 
@@ -92,91 +88,89 @@ export function Contact() {
             )}
           </div>
 
-          {visible["contact.form"] && (
-            <div id={panelId} className={styles.reveal} data-open={open || undefined} inert={!open}>
-              <div className={styles.revealInner}>
-                <form className={styles.form} onSubmit={submit} noValidate>
+          <div id={panelId} className={styles.reveal} data-open={open || undefined} inert={!open}>
+            <div className={styles.revealInner}>
+              <form className={styles.form} onSubmit={submit} noValidate>
+                <div className={styles.row}>
+                  <label className={styles.label} htmlFor="contact-name">
+                    {t("name")}
+                  </label>
+                  <Input
+                    id="contact-name"
+                    name="name"
+                    autoComplete="name"
+                    aria-invalid={errors.name || undefined}
+                    aria-describedby={errors.name ? "contact-name-error" : undefined}
+                  />
+                  {errors.name && (
+                    <p id="contact-name-error" className={styles.error}>
+                      {t("nameError")}
+                    </p>
+                  )}
+                </div>
+
+                <div className={styles.pair}>
                   <div className={styles.row}>
-                    <label className={styles.label} htmlFor="contact-name">
-                      {t("name")}
+                    <label className={styles.label} htmlFor="contact-email">
+                      {t("email")}
                     </label>
                     <Input
-                      id="contact-name"
-                      name="name"
-                      autoComplete="name"
-                      aria-invalid={errors.name || undefined}
-                      aria-describedby={errors.name ? "contact-name-error" : undefined}
+                      id="contact-email"
+                      name="email"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      aria-invalid={errors.email || undefined}
+                      aria-describedby={errors.email ? "contact-email-error" : undefined}
                     />
-                    {errors.name && (
-                      <p id="contact-name-error" className={styles.error}>
-                        {t("nameError")}
+                    {errors.email && (
+                      <p id="contact-email-error" className={styles.error}>
+                        {t("emailError")}
                       </p>
                     )}
-                  </div>
-
-                  <div className={styles.pair}>
-                    <div className={styles.row}>
-                      <label className={styles.label} htmlFor="contact-email">
-                        {t("email")}
-                      </label>
-                      <Input
-                        id="contact-email"
-                        name="email"
-                        type="email"
-                        inputMode="email"
-                        autoComplete="email"
-                        aria-invalid={errors.email || undefined}
-                        aria-describedby={errors.email ? "contact-email-error" : undefined}
-                      />
-                      {errors.email && (
-                        <p id="contact-email-error" className={styles.error}>
-                          {t("emailError")}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className={styles.row}>
-                      <label className={styles.label} htmlFor="contact-phone">
-                        {t("phone")} <span className={styles.optional}>{t("optional")}</span>
-                      </label>
-                      <Input
-                        id="contact-phone"
-                        name="phone"
-                        type="tel"
-                        inputMode="tel"
-                        autoComplete="tel"
-                      />
-                    </div>
                   </div>
 
                   <div className={styles.row}>
-                    <label className={styles.label} htmlFor="contact-message">
-                      {t("message")}
+                    <label className={styles.label} htmlFor="contact-phone">
+                      {t("phone")} <span className={styles.optional}>{t("optional")}</span>
                     </label>
-                    <Textarea
-                      id="contact-message"
-                      name="message"
-                      rows={5}
-                      aria-invalid={errors.message || undefined}
-                      aria-describedby={errors.message ? "contact-message-error" : undefined}
+                    <Input
+                      id="contact-phone"
+                      name="phone"
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
                     />
-                    {errors.message && (
-                      <p id="contact-message-error" className={styles.error}>
-                        {t("messageError")}
-                      </p>
-                    )}
                   </div>
+                </div>
 
-                  <div className={styles.actions}>
-                    <Button type="submit" disabled={!email}>
-                      {t("submit")}
-                    </Button>
-                    <p className={styles.note}>{t("note")}</p>
-                  </div>
-                </form>
-              </div>
+                <div className={styles.row}>
+                  <label className={styles.label} htmlFor="contact-message">
+                    {t("message")}
+                  </label>
+                  <Textarea
+                    id="contact-message"
+                    name="message"
+                    rows={5}
+                    aria-invalid={errors.message || undefined}
+                    aria-describedby={errors.message ? "contact-message-error" : undefined}
+                  />
+                  {errors.message && (
+                    <p id="contact-message-error" className={styles.error}>
+                      {t("messageError")}
+                    </p>
+                  )}
+                </div>
+
+                <div className={styles.actions}>
+                  <Button type="submit" disabled={!email}>
+                    {t("submit")}
+                  </Button>
+                  <p className={styles.note}>{t("note")}</p>
+                </div>
+              </form>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </section>

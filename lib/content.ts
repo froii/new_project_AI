@@ -14,11 +14,12 @@ export function dottedDate(value: string): string {
 
 /** The whole career as one range. `to: null` means it is still running. */
 export function experienceSpan(entries: ExperienceEntry[]): { from: string; to: string | null } {
-  const starts = entries.map((entry) => entry.start.slice(0, 4)).sort();
-  const ends = entries.map((entry) => entry.end?.slice(0, 4) ?? "").sort();
+  const dev = entries.filter((entry) => !entry.nonDev);
+  const starts = dev.map((entry) => entry.start.slice(0, 4)).sort();
+  const ends = dev.map((entry) => entry.end?.slice(0, 4) ?? "").sort();
 
   return {
     from: starts[0] ?? "",
-    to: entries.some(isCurrent) ? null : (ends.at(-1) ?? ""),
+    to: dev.some(isCurrent) ? null : (ends.at(-1) ?? ""),
   };
 }

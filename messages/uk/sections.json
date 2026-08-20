@@ -9,7 +9,7 @@
   "presets": {
     "eu": {
       "label": "Європа",
-      "note": "фото, повний текст, особисте"
+      "note": "фото, повний текст, особиста нотатка"
     },
     "us": {
       "label": "США / ATS",
@@ -39,13 +39,13 @@
       "contacts": "Контакти"
     },
     "about": {
-      "achievements": "Головне",
-      "personal": "Поза роботою"
+      "achievementsFull": "Повні деталі"
     },
     "skills": {
       "full": "Повний список навичок"
     },
     "experience": {
+      "all": "Ранні позиції",
       "project": "Проєкт",
       "responsibilities": "Обов'язки",
       "techStack": "Стек",
@@ -54,12 +54,10 @@
       "interest": "Цікаве"
     },
     "education": {
+      "all": "Ранні записи",
       "skills": "Що це дало"
     },
-    "certifications": {},
-    "contact": {
-      "form": "Форма повідомлення"
-    }
+    "certifications": {}
   },
   "pages": "Сторінки",
   "print": "Друк / PDF"

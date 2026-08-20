@@ -51,3 +51,13 @@
   line-height: 1.75;
   color: var(--color-text-muted);
 }
+
+.detail {
+  margin-block-start: var(--space-2xs);
+  color: var(--color-text-faint);
+}
+
+.result,
+.personal p {
+  break-inside: avoid;
+}

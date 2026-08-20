@@ -8,6 +8,7 @@ import styles from "./hero.module.css";
 
 export function Hero() {
   const t = useTranslations("hero");
+  const tCommon = useTranslations("common");
   const tContact = useTranslations("contact");
 
   return (
@@ -15,13 +16,13 @@ export function Hero() {
       <div className={styles.layout}>
         <div className={styles.intro}>
           <p className={styles.title}>{t("title")}</p>
-          <h1 className={styles.name}>{owner.name}</h1>
+          <h1 className={styles.name}>{tCommon("name")}</h1>
           <p className={styles.headline}>{t("headline")}</p>
 
           <ul className={styles.facts} role="list">
             <li>{t("location")}</li>
+            <li>{t("availability")}</li>
             <li>{t("engagement")}</li>
-            <li className={styles.available}>{t("availability")}</li>
           </ul>
 
           <Part id="hero.contacts">
@@ -41,7 +42,7 @@ export function Hero() {
         <Part id="hero.photo" className={styles.portrait}>
           <PhotoSwitcher
             photos={owner.photos}
-            alt={t("photoAlt")}
+            alt={t("photoAlt", { name: tCommon("name") })}
             groupLabel={t("photoGroup")}
             optionLabels={owner.photos.map((_, index) => t("photoOption", { n: index + 1 }))}
           />

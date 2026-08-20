@@ -4,7 +4,7 @@ Scaffolded. Pinned exactly (`--save-exact`): Next `16.3.1`, React `19.2.8`, Type
 Node `22.21.1` (`.nvmrc`, `engines: >=22.18`), npm as the package manager.
 
 **TypeScript is held at 6.x on purpose.** 7.0 was installed first and works, but `typescript-eslint`
-refuses to run against it, which takes ESLint — and therefore `next lint` — off the table entirely.
+refuses to run against it, which takes ESLint off the table entirely.
 A faster compiler is not worth losing the linter. Revisit when typescript-eslint ships TS 7 support.
 
 ## Stack
@@ -21,7 +21,10 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 | Email | provider undecided — see §Email |
 
 Vitest for unit tests (`npm test`), configured in `vitest.config.mts` with Vite's native
-`resolve.tsconfigPaths` — no path-alias plugin. **TODO(tech):** no linter installed.
+`resolve.tsconfigPaths` — no path-alias plugin.
+
+ESLint runs **directly**, not through `next lint`: Next 16 dropped the `--dir` flag and the wrapper
+with it, so `npm run lint` is `eslint app components lib content i18n` against the flat config.
 
 ## PDF — the browser prints, by decision
 

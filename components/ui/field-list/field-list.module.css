@@ -1,7 +1,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  gap: var(--paper-field-gap);
 }
 
 .list > * {
@@ -26,8 +26,17 @@
   white-space: pre-line;
 }
 
+.value p + p {
+  margin-block-start: var(--paper-para-gap);
+}
+
+.list > * {
+  break-inside: avoid;
+}
+
 .value a {
   overflow-wrap: anywhere;
+  text-decoration: none;
 }
 
 @container (min-width: 26rem) {

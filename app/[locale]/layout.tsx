@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
 
   return {
     metadataBase: new URL(siteUrl),
-    title: t("title"),
+    title: t("name"),
     description: t("description"),
     alternates: {
       canonical: `/${locale}`,
@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
     },
     openGraph: {
       type: "profile",
-      siteName: t("title"),
-      title: t("title"),
+      siteName: t("name"),
+      title: t("name"),
       description: t("description"),
       url: `${siteUrl}/${locale}`,
       locale,
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
     },
     twitter: {
       card: "summary",
-      title: t("title"),
+      title: t("name"),
       description: t("description"),
     },
     robots: { index: true, follow: true },

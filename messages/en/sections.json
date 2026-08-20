@@ -9,7 +9,7 @@
   "presets": {
     "eu": {
       "label": "Europe",
-      "note": "photo, full text, the personal side"
+      "note": "photo, full text, personal note"
     },
     "us": {
       "label": "US / ATS",
@@ -39,13 +39,13 @@
       "contacts": "Contacts"
     },
     "about": {
-      "achievements": "Highlights",
-      "personal": "Off the clock"
+      "achievementsFull": "Full detail"
     },
     "skills": {
       "full": "Full skill list"
     },
     "experience": {
+      "all": "Earlier roles",
       "project": "Project",
       "responsibilities": "Responsibilities",
       "techStack": "Tech stack",
@@ -54,12 +54,10 @@
       "interest": "Interesting part"
     },
     "education": {
+      "all": "Earlier entries",
       "skills": "What it gave me"
     },
-    "certifications": {},
-    "contact": {
-      "form": "Message form"
-    }
+    "certifications": {}
   },
   "pages": "Pages",
   "print": "Print / PDF"

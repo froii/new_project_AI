@@ -20,22 +20,47 @@
   in one locale but missing in the other.
 - **FR-203**: Structural facts (companies, dates, technology names, URLs) MUST live in `content/`;
   all prose MUST live in `messages/<locale>/<block>.json`.
-- **FR-204**: Contact details MUST come from environment variables, not from committed source.
+- **FR-204**: Contact details and links MUST be plain constants in `content/`, not environment
+  variables. Every one of them is printed on the published page, so `NEXT_PUBLIC_*` bought no
+  secrecy and cost a silent failure: a name typed wrong reads as empty and the link disappears with
+  the build still green. A link the owner has not supplied yet is written as `""` and its control
+  is not rendered.
+- **FR-225**: The owner's name MUST exist once per locale (`common.name`) and be interpolated
+  wherever it appears - it is locale-dependent prose, so env cannot hold it without a variable per
+  locale.
 - **FR-205**: WHERE sources disagree, the more recent record wins and the discrepancy is recorded
   rather than silently resolved.
 
 **Display**
 - **FR-206**: Experience MUST render as an accordion, one entry per position, first open.
+- **FR-228**: Experience and Education MUST show only the recent entries by default, with the
+  earlier ones behind a Recent/All toggle - a reader spends their attention on the last few roles,
+  and the older ones are context, not the pitch.
+- **FR-229**: The page preview MUST render in the printed typography and spacing, not merely the
+  printed geometry: a ruler drawn over screen-sized type predicts a cut that will not happen there.
+- **FR-230**: Page breaks MUST be forbidden inside a record (a job, a degree, a credential, a field
+  row) and permitted everywhere else. A section that refuses to break is what leaves half a page
+  empty; a record split across the fold is what costs the reader the context.
 - **FR-207**: Skills MUST be grouped, each group collapsible, ordered current-first with superseded
   technologies in their own group so they do not read as the present stack.
 - **FR-208**: Education entries MUST carry the skills they produced, toggleable as a part.
 - **FR-209**: Certifications MUST show the credential source and identifier, both derived from the
   verification URL rather than typed by hand, and link to the issuer for verification.
+- **FR-227**: Every external URL MUST live in `content/links.ts`, grouped as certificates and
+  projects, so a dead link is checkable in one pass over one file.
 - **FR-210**: The results block MUST state what the owner owned end to end, not self-reported
   figures: unverifiable percentages read as inflated and are indistinguishable from every other CV.
+- **FR-223**: Each result MUST carry a short claim and an expandable detail naming the mechanism,
+  on the same Core/Full toggle Skills uses - the claim alone is unfalsifiable, the detail alone is
+  unreadable at a glance. That detail level is About's only toggle: the results and the personal
+  note are the block, not options within it.
+- **FR-224**: The experience span MUST be computed from development roles only, so it cannot
+  contradict the years claimed in the intro.
 
 **Contact**
-- **FR-211**: The message form MUST be hidden until asked for, and MUST open in place.
+- **FR-211**: The message form MUST be hidden until asked for, and MUST open in place. Its own button is the whole
+  mechanism. Contact carries no visibility toggle at all - it is screen-only, never reaches the
+  PDF, and always renders.
 - **FR-212**: The owner's email MUST be visible as text next to the reveal control, and MUST be a
   working link without opening the form.
 - **FR-213**: The form MUST collect name, email and message; a phone number MAY be given.
@@ -52,6 +77,9 @@
 **Copy style**
 - **FR-219**: Visible copy MUST use a plain hyphen for asides and ranges, never an em or en dash:
   the long dash reads as machine-written and is the first thing a recruiter notices.
+- **FR-226**: The hyphen MUST be reserved for structural separators (role - company, name - gloss)
+  and true parentheticals. A list takes a colon and an appositive takes a comma: a hyphen doing all
+  three jobs at once flattens the prose.
 
 **Access**
 - **FR-218**: A skip link MUST be the first focusable element, so a keyboard visitor can reach the

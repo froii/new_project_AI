@@ -9,7 +9,7 @@ import { Hero } from "@/components/sections/hero";
 import { Skills } from "@/components/sections/skills";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SectionSlot } from "@/components/visibility/section-slot";
-import { sectionIds } from "@/content/sections";
+import { toggleSectionIds } from "@/content/sections";
 
 const bySection = {
   hero: Hero,
@@ -22,7 +22,7 @@ const bySection = {
 };
 
 /* Contact leaves the paper and becomes the band the page ends on. */
-const paperIds = sectionIds.filter((id) => id !== "contact");
+const paperIds = toggleSectionIds;
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -49,9 +49,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             })}
           </div>
 
-          <SectionSlot id="contact">
+          {/* The slot is layout, not visibility: it is what makes the band span
+              the sheet. Contact has no toggle - it always renders. */}
+          <div className="section-slot">
             <Contact />
-          </SectionSlot>
+          </div>
         </main>
       </div>
     </>

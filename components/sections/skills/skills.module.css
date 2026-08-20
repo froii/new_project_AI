@@ -34,3 +34,7 @@
 .more .items {
   color: var(--color-text-muted);
 }
+
+.row {
+  break-inside: avoid;
+}

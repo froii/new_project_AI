@@ -20,12 +20,12 @@ export function SiteHeader() {
     <header className={`screen-only ${styles.header}`}>
       <div className={`shell ${styles.bar}`}>
         <div className={styles.identity}>
-          <strong className={styles.name}>{owner.name}</strong>
+          <strong className={styles.name}>{t("name")}</strong>
           <SocialLinks links={links} label={t("socialLabel")} size="compact" />
         </div>
 
         <div className={`cluster ${styles.controls}`}>
-          <ShareButton title={owner.name} />
+          <ShareButton title={t("name")} />
           <LocaleSwitcher label={t("language")} />
           <ThemeToggle label={t("theme")} />
         </div>

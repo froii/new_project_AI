@@ -4,7 +4,15 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSections } from "@/components/providers/sections-provider";
 import { Switch } from "@/components/ui/switch";
-import { partsOf, presetIds, sectionIds, sectionParts, type SectionId } from "@/content/sections";
+import {
+  isToggleSection,
+  partsOf,
+  presetIds,
+  sectionIds,
+  sectionParts,
+  toggleSectionIds,
+  type ToggleSectionId,
+} from "@/content/sections";
 import { defaultVisibility, matchPreset, presetVisibility } from "@/lib/section-visibility";
 import { useActiveSection } from "./use-active-section";
 import styles from "./section-menu.module.css";
@@ -15,7 +23,7 @@ export function SectionMenu() {
   const active = useActiveSection(visible);
 
   const [open, setOpen] = useState(false);
-  const [expanded, setExpanded] = useState<SectionId | null>(null);
+  const [expanded, setExpanded] = useState<ToggleSectionId | null>(null);
   const [drag, setDrag] = useState(0);
   const [pages, setPages] = useState(false);
   const dragFrom = useRef(0);
@@ -51,7 +59,7 @@ export function SectionMenu() {
     else delete root.dataset.pages;
   }, [pages]);
 
-  const shown = sectionIds.filter((id) => visible[id]).length;
+  const shown = toggleSectionIds.filter((id) => visible[id]).length;
   const preset = matchPreset(visible);
 
   return (
@@ -66,7 +74,7 @@ export function SectionMenu() {
       >
         <span>{active ? t(`labels.${active}`) : t("menu")}</span>
         <span className={styles.count}>
-          {shown}/{sectionIds.length}
+          {shown}/{toggleSectionIds.length}
         </span>
         <span className={styles.caret} aria-hidden="true" />
       </button>
@@ -107,8 +115,12 @@ export function SectionMenu() {
         <ul className={styles.list} role="list">
           {sectionIds.map((id, index) => {
             const label = t(`labels.${id}`);
+            /* Contact is listed so a visitor can jump to it, but it carries no
+               switch: it is screen-only and never reaches the PDF. */
+            const toggleId = isToggleSection(id) ? id : null;
+            const on = toggleId ? visible[toggleId] : true;
             const hasParts = sectionParts[id].length > 0;
-            const isExpanded = expanded === id && visible[id];
+            const isExpanded = expanded === id && on;
 
             return (
               <li key={id}>
@@ -121,9 +133,9 @@ export function SectionMenu() {
                     href={`#${id}`}
                     className={styles.link}
                     aria-current={active === id ? "location" : undefined}
-                    aria-disabled={!visible[id] || undefined}
+                    aria-disabled={!on || undefined}
                     onClick={(event) => {
-                      if (!visible[id]) {
+                      if (!on) {
                         event.preventDefault();
                         return;
                       }
@@ -133,30 +145,32 @@ export function SectionMenu() {
                     {label}
                   </a>
 
-                  {hasParts && visible[id] && (
+                  {toggleId && hasParts && on && (
                     <button
                       type="button"
                       className={styles.chevron}
                       aria-expanded={isExpanded}
                       aria-label={label}
-                      onClick={() => setExpanded((value) => (value === id ? null : id))}
+                      onClick={() => setExpanded((value) => (value === toggleId ? null : toggleId))}
                     >
                       <span aria-hidden="true" />
                     </button>
                   )}
 
-                  <Switch
-                    id={`toggle-${id}`}
-                    className={styles.switch}
-                    label={t("toggle", { section: label })}
-                    checked={visible[id]}
-                    onChange={() => toggle(id)}
-                  />
+                  {toggleId && (
+                    <Switch
+                      id={`toggle-${toggleId}`}
+                      className={styles.switch}
+                      label={t("toggle", { section: label })}
+                      checked={visible[toggleId]}
+                      onChange={() => toggle(toggleId)}
+                    />
+                  )}
                 </div>
 
-                {isExpanded && (
+                {toggleId && isExpanded && (
                   <ul className={styles.parts} role="list">
-                    {partsOf(id).map((partId) => {
+                    {partsOf(toggleId).map((partId) => {
                       const part = partId.slice(id.length + 1);
                       const partLabel = t(`parts.${id}.${part}`);
 
@@ -213,7 +227,7 @@ export function SectionMenu() {
           </div>
 
           <p className={styles.footer}>
-            <span>{t("count", { shown, total: sectionIds.length })}</span>
+            <span>{t("count", { shown, total: toggleSectionIds.length })}</span>
             <button
               type="button"
               className={styles.reset}

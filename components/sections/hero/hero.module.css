@@ -2,7 +2,7 @@
   display: grid;
   gap: var(--space-xl);
   min-width: 0;
-  padding-block: var(--space-l) 0;
+  padding-block: var(--space-m) 0;
 }
 
 @container (min-width: 38rem) {
@@ -13,8 +13,18 @@
   }
 }
 
+/* With the portrait off there is no second column to leave room for, so the
+   caps that kept the name and the headline clear of it come off too. */
 .layout:has(> [hidden]) {
   grid-template-columns: minmax(0, 1fr);
+}
+
+.layout:has(> [hidden]) .name {
+  max-inline-size: none;
+}
+
+.layout:has(> [hidden]) .headline {
+  max-inline-size: 48ch;
 }
 
 .intro {
@@ -47,17 +57,15 @@
   color: var(--color-text-muted);
 }
 
+/* Accent is the link colour everywhere else on the page, so a static line
+   wearing it reads as clickable. Weight carries the distinction instead. */
 .facts {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
-  margin-block-start: var(--space-l);
-  color: var(--color-text-faint);
+  margin-block-start: var(--space-m);
+  color: var(--color-text-muted);
   font-size: var(--step--1);
-}
-
-.available {
-  color: var(--color-accent);
 }
 
 .contacts {
@@ -65,7 +73,7 @@
   grid-template-columns: auto minmax(0, 1fr);
   align-items: baseline;
   gap: var(--space-2xs) var(--space-m);
-  margin-block-start: var(--space-l);
+  margin-block-start: var(--space-m);
   font-size: var(--step--1);
 }
 
