@@ -1,0 +1,31 @@
+.root {
+  flex: none;
+  display: inline-flex;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-bg);
+}
+
+.option {
+  min-height: 1.75rem;
+  padding-inline: var(--space-s);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  font-size: var(--step--2);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.option:hover {
+  color: var(--color-text);
+}
+
+.option[aria-pressed="true"] {
+  background: var(--color-invert-bg);
+  color: var(--color-invert-text);
+}

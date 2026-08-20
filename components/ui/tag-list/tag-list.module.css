@@ -5,19 +5,34 @@
 }
 
 .tag {
-  padding: 0.2rem var(--space-s);
-  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
   font-size: var(--step--1);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .solid {
-  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  color: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
-  font-weight: 500;
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .quiet {
-  background: var(--color-surface);
-  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  color: var(--color-text-faint);
+}
+
+/* Chips are boxes on screen; on paper the box prints as empty space, so the
+   items become a dotted run instead. */
+@media print {
+  .tag {
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .tag + .tag::before {
+    content: "· ";
+    color: var(--color-text-faint);
+  }
 }

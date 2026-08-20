@@ -1,20 +1,20 @@
 {
   "heading": "About",
-  "body": "Senior Frontend / Full Stack Developer with 11+ years of experience building scalable enterprise systems, low-code platforms and real-time data applications. I focus on architecture, performance and code that stays maintainable at scale — the kind of work where a component written once has to survive years of changing requirements. Most of my career has been spent in small, highly professional teams: shaping architecture, reviewing code and mentoring the people who come after me. I prefer building our own well-understood components over pulling in dependencies I cannot reason about.",
-  "achievementsHeading": "Selected results",
+  "body": "I own architecture and performance on large codebases, and run the code review that keeps them maintainable. Most of what I build is infrastructure other people build on - low-code platforms, back-office systems, document management, e-commerce. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it, with LLM features in the recent products. Most of it contract work, straight with the client rather than through a delivery layer.",
+  "achievementsHeading": "What I've owned",
   "achievements": {
-    "scale": "concurrent users on a frontend platform I architected",
-    "performance": "faster through code splitting and lazy loading",
-    "bundle": "smaller bundle via optimisation and tree shaking",
-    "functions": "custom functions for data manipulation and visualisation",
-    "queries": "faster responses after query optimisation",
-    "mentoring": "developers mentored, with a code review process I established"
+    "language": "Designed the DSL behind a low-code reporting platform - parser, editor and evaluation - so analysts could write their own formulas instead of filing tickets.",
+    "clients": "Worked directly with clients in the EU and the US, with no manager in between - agreeing what should be built, then building it end to end.",
+    "platform": "Owned the frontend architecture of that platform: a widget system where every table, chart and text block is configured at runtime, over customer databases.",
+    "payments": "Built payments and subscriptions end to end - store receipt verification, webhooks, background jobs for renewal and expiry. The part that has to be right the first time.",
+    "ai": "Took LLM features from prototype to production: retrieval, streaming responses and tool calling inside real product flows, not a demo chat.",
+    "performance": "Kept large codebases fast after they had grown past the point where one person could hold them in their head.",
+    "review": "Established the code review process the team kept running, and mentored the developers who joined after."
   },
   "personalHeading": "Off the clock",
   "personal": [
-    "I have travelled a great deal and lived in many countries. Working with German, American, Israeli and Ukrainian teams showed me that the same sentence carries different weight depending on who says it — Erin Meyer describes this well in The Culture Map. Direct feedback that is ordinary in one team reads as rudeness in another. Knowing that removes a lot of friction that has nothing to do with the work itself.",
-    "Settling into a new place or a new team is not difficult for me. Most of my career has been remote, across timezones, with colleagues I have only ever met on a call.",
-    "I play the Dark Souls series. It teaches you to understand rather than to push harder: you get through a difficult place once you know how it works. Bugs are the same — guessing rarely gets you there, careful reading does.",
-    "I read manga, walk a lot, and make tea. The better solutions usually arrive somewhere in the middle of a walk rather than at the keyboard. Tea, incidentally, is the only skill on my LinkedIn that was endorsed without me asking."
+    "I have worked with German, American, Israeli and Ukrainian teams, and most of my career has been remote, across timezones, with colleagues I have only ever met on a call. The same sentence carries different weight depending on who says it - direct feedback that is ordinary in one team reads as rudeness in another. Erin Meyer's The Culture Map is good on this. Knowing it removes a lot of friction that has nothing to do with the work.",
+    "I play the Dark Souls series. It teaches you to understand rather than to push harder: you get through a difficult place once you know how it works. Bugs are the same - guessing rarely gets you there, careful reading does.",
+    "I read manga, walk a lot, and make tea. Tea, incidentally, is the only skill on my LinkedIn that was endorsed without me asking."
   ]
 }

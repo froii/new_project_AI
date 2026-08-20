@@ -2,8 +2,9 @@
 
 ## Summary
 
-A header control that is both an anchor menu and the selection surface: each row is a real anchor
-link plus a `ui/switch`. Sections stay server-rendered at all times; the switch toggles the `hidden`
+A contents panel that is both an anchor menu and the selection surface: each row is a real anchor
+link plus a `ui/switch`. From 80rem it is a sticky sidebar beside the document; below that width it
+collapses to a disclosure under the header, driven by the same trigger. Sections stay server-rendered at all times; the switch toggles the `hidden`
 attribute on a client wrapper. The active section is tracked with `IntersectionObserver` and reported
 as `aria-current="location"`.
 
@@ -42,12 +43,18 @@ page map, and one label per locale — the menu and the observer need no change.
 
 | Module | Role |
 |---|---|
-| `providers/sections-provider` | context: `visible: Record<ToggleId, boolean>`, `toggle(id)` |
+| `providers/sections-provider` | context: `visible: Record<ToggleId, boolean>`, `toggle(id)`, `apply(next)` |
 | `sections/section-slot` | client wrapper hiding a whole section |
 | `sections/part` | client wrapper hiding one part of a section |
+| `visibility/part-toggle` | in-section segmented switch for one part |
 | `sections/expandable-text` | clamps prose to three lines unless its toggle is on |
 | `controls/section-menu` | trigger + panel; section rows, nested part rows |
 | `controls/section-menu/use-active-section` | `IntersectionObserver` → active id |
+
+**A part can be switched from inside its own section.** Skills carries a Core / Full segmented
+control; it writes to `skills.full` through the same `toggle()` as the menu row, so there is one
+state, one URL encoding and one thing the PDF reads. A local `useState` in the section would have
+been fewer lines and a second source of truth — the menu would then disagree with the page.
 
 **Short text is a clamp, not a second string.** `expandable-text` applies `line-clamp: 3`; the full
 text is always in the DOM. Writing an abridged variant per locale would double the translation work
@@ -75,6 +82,27 @@ portraits land.
 **Hiding the photo collapses the intro to one column** via `.layout:has(> [hidden])`, overriding the
 container query. Without it the text would stay in the narrow first column with an empty gap beside
 it.
+
+### Presets
+
+Four named selections live beside the toggles in `content/sections.ts` as override maps over
+`defaultVisibility` — Europe, US/ATS, one-pager, everything. They are structure only, no prose: the
+labels come from `messages/*/sections.json`.
+
+```ts
+export const presets = { eu: { "experience.interest": true, ... } } as const
+  satisfies Record<PresetId, Partial<Record<ToggleId, boolean>>>;
+```
+
+`lib/section-visibility` turns one into a full `Visibility` (`presetVisibility`) and answers which
+preset the current selection equals (`matchPreset`, `null` when it matches none). That is what drives
+`aria-pressed` on the preset buttons — a preset is a shortcut, not a mode: touching any switch after
+applying one simply stops matching, and nothing has to be un-set.
+
+Applying a preset replaces the whole map at once, so the provider needed `apply(next)` next to
+`toggle(id)`; Reset is `apply({ ...defaultVisibility })` rather than a third method. The URL encoding
+is unchanged — it already serialises deltas from the defaults, so a preset round-trips as the deltas
+it happens to produce, with no preset id in the query.
 
 ### Why hide rather than not render
 
@@ -187,10 +215,45 @@ filled dot plus bold weight, never colour alone (FR-105).
 
 ### Panel behaviour
 
-Trigger carries `aria-expanded` and `aria-controls`; the panel is a plain element with `hidden`.
-Escape closes and returns focus to the trigger; a `pointerdown` outside closes without moving focus.
+Trigger carries `aria-expanded` and `aria-controls`; the panel is a plain element with `data-open`,
+not `hidden` — the sidebar layout has to override the collapsed state by media query, and the global
+`[hidden] { display: none !important }` cannot be overridden. Escape closes and returns focus to the
+trigger; a `pointerdown` outside closes without moving focus. Both listeners only bind while the
+panel is collapsed, so the sidebar does not close itself when the visitor clicks the document.
+
+Part rows sit behind a per-section disclosure. Showing all 13 of them at once made the panel taller
+than a laptop viewport; one section is expanded at a time, and the panel scrolls inside a
+`max-height` bounded by the viewport minus the header.
 Anchors for a section that is switched off carry `aria-disabled` and their click is prevented — the
 row stays readable and the state stays visible, rather than the row vanishing under the cursor.
+
+**Below 80rem the same panel is a bottom sheet.** One DOM tree, two layouts: the trigger becomes a
+fixed pill at the bottom of the viewport (thumb reach, and it carries the active section label as a
+"where am I" cue), the panel becomes a `position: fixed` sheet capped at 80dvh, and a scrim closes it
+on tap. `touch-action: none` on the scrim is what stops the page scrolling behind it — cheaper and
+less breakable than locking `document.body`. The sheet reserves room for the pill in its own bottom
+padding so the two never overlap, and the footer gets the same clearance so the end of the page stays
+reachable at full scroll.
+
+**The list comes first and the list is the panel.** Everything that is not a section row was pushed
+below it: presets are small chips and the count sits beside Reset, both in a `tools` strip pinned to
+the bottom edge. The panel carries no visible heading, kicker or hint — the aside is named for
+assistive technology with `aria-label` instead, and the three lines of prose that explained the
+switches were paying rent on the most valuable column of the layout. Preset notes moved into
+`title`; the label alone already says which convention it is.
+
+Rows grow to 44px on a phone and the switches scale with them via their custom properties — no size
+prop. The active row is marked by an accent bar via `.row:has(.link[aria-current])`, so the panel
+answers "where am I" without a second mechanism.
+
+On a desktop the column runs the full height of the page: `.root` stretches with the grid row so its
+background and border reach the footer, and the panel inside is `position: sticky` at
+`calc(100dvh - header)` with the list scrolling inside it. Capping the aside itself — the earlier
+shape — left bare canvas below the fold.
+
+The grip drags: pointer capture on the handle, the sheet follows the finger, past 80px it closes and
+otherwise snaps back. A grip that cannot be dragged promises an affordance the sheet does not have,
+and on a phone that is the first thing a thumb tries.
 
 ## Risks & open points
 

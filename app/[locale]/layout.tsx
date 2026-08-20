@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
+import { Inspector } from "@/components/dev/inspector";
 import { SectionsProvider } from "@/components/providers/sections-provider";
 import { isLocale, locales } from "@/i18n/config";
 import { siteUrl } from "@/lib/site";
@@ -73,6 +74,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
             <SectionsProvider>{children}</SectionsProvider>
+            {process.env.NODE_ENV === "development" && <Inspector />}
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

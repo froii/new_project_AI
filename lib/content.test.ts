@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ExperienceEntry } from "@/content/types";
 import { experience } from "@/content";
-import { isCurrent, sortExperience } from "./content";
+import { dottedDate, experienceSpan, isCurrent, sortExperience } from "./content";
 
 const entry = (id: string, start: string, end?: string): ExperienceEntry => ({
   id,
@@ -47,6 +47,37 @@ describe("sortExperience", () => {
     const sorted = sortExperience([entry("year", "2011"), entry("dated", "2012-01")]);
 
     expect(sorted.map((e) => e.id)).toEqual(["dated", "year"]);
+  });
+});
+
+describe("dottedDate", () => {
+  it("turns a month into the printed form", () => {
+    expect(dottedDate("2024-05")).toBe("2024.05");
+  });
+
+  it("leaves a bare year alone", () => {
+    expect(dottedDate("2011")).toBe("2011");
+  });
+});
+
+describe("experienceSpan", () => {
+  it("runs from the earliest start to the latest end", () => {
+    const span = experienceSpan([
+      entry("a", "2015-04", "2016-10"),
+      entry("b", "2012-01", "2017-06"),
+    ]);
+
+    expect(span).toEqual({ from: "2012", to: "2017" });
+  });
+
+  it("reports no end while a position is still running", () => {
+    const span = experienceSpan([entry("a", "2015-04", "2016-10"), entry("b", "2024-05")]);
+
+    expect(span).toEqual({ from: "2015", to: null });
+  });
+
+  it("survives an empty list", () => {
+    expect(experienceSpan([])).toEqual({ from: "", to: "" });
   });
 });
 

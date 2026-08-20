@@ -29,7 +29,7 @@ export function PhotoSwitcher({ photos, alt, groupLabel, optionLabels }: PhotoSw
       />
 
       {photos.length > 1 && (
-        <fieldset className={styles.picker}>
+        <fieldset className={`screen-only ${styles.picker}`}>
           <legend className="visually-hidden">{groupLabel}</legend>
           {photos.map((photo, index) => (
             <span key={photo.id} className={styles.option}>

@@ -68,6 +68,22 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T051 `[P]` `<noscript>` banner in `app/[locale]/layout.tsx`, localized from `messages/*/noscript.json`, coloured from `prefers-color-scheme` — **not** from `data-theme` (FR-025).
 - [x] T052 `[P]` `prefers-reduced-motion`: suppress non-essential animation (FR-022).
 - [x] T052a `[P]` Migrate off the deprecated `setRequestLocale`: `[locale]/` becomes the root layout, `i18n/request.ts` reads `next/root-params`, bare-root redirect moves into `next.config.ts` (ADR-0001).
+- [x] T052b Adopt the reference layout: `.workspace` grid, `.paper` sheet, contents panel as a sticky sidebar from 80rem, canvas/paper/panel tokens, serif + mono type tokens, CSS-counter section numbers.
+- [x] T052c Full desktop visual pass on the reference design: numbered rail headings, serif display type, flat experience list, education + certifications as paired cards, inverted contact card, quiet mono footer.
+- [x] T052d Mobile pass: contents panel becomes a bottom sheet with a thumb-reachable pill, paper goes edge-to-edge below 48rem, tap targets raised to 44px.
+- [x] T052e Outro band: contact and footer span full width in the inverted palette, reading-progress bar below 80rem, social icons dropped from the header on phones.
+- [x] T052f Strip the module labels: headings visually hidden, section counter removed, education and certifications unpaired, footer folded into the contact band.
+- [x] T052g Skills gains a Core / Full switch in place, backed by a new `skills.full` part in the toggle registry.
+- [x] T052h Block rubrics restored as `.block-head`; skills collapsed from chip clusters to four label/items rows.
+- [x] T052i Rule diet: section separators and per-record hairlines replaced by spacing; section rhythm tightened to `--space-xl`.
+- [x] T052j Print stylesheet + `@page` A4, Print / PDF trigger and an on-screen page-break preview; accordion forced to mount so every role prints.
+- [x] T052k Print visibility unified on a single `.screen-only` utility: portrait thumbnails and the contact band leave the PDF, four per-component `@media print` hide-blocks removed.
+- [x] T052l Print layout pass: hero wrapper freed from `.body` so its grid applies at all (portrait carries its 280px screen column onto paper), hero contacts at `--step-0`, tag chips printed as `·`-separated text, field-list term column narrowed, certificate links and accordion chevrons marked `screen-only`.
+- [x] T052m Screen rhythm pass: intro facts stacked, portrait capped at 280px, `#hero` tail shortened ~30%, accordion trigger given an 8px bleed for its hover plate, record row gaps tightened to `--space-s`.
+- [x] T052n Dev-only Alt+hover inspector (`components/dev/inspector`): element source module, box metrics and the parent that owns the gap.
+- [x] T052o Grid audit: one-column grids (`.section`, contact form and rows) turned into flex columns, hero contact list flattened out of `subgrid` and baseline-aligned; multi-column grids left as they were.
+- [x] T052p About summary always visible: `about.full` toggle and `ExpandableText` removed from the registry, labels, presets and tests; summary rewritten to domains + stack + LLM work with the filler cut.
+- [x] T052q Reading pass: summary fixed at `1.125rem` and pulled up under the contacts in print (`#hero` ends on 2mm); field values honour `pre-line` so the two longest responsibility texts break into paragraphs.
 - [ ] T053 Keyboard pass: every control reachable and operable, visible focus indicator, expanded/collapsed state announced (FR-019, FR-020, SC-004).
 - [ ] T054 `[P]` Confirm no layout shift from images or fonts (FR-023, SC-006).
 - [ ] T055 Verification subagent per `preferences.md` §Role separation: input is `requirements.md` + `testcases.md` + changed files only.
@@ -75,7 +91,7 @@ types, the messages, and the layout that provides locale and theme.
 
 ## Summary
 
-**39 tasks** across 6 phases: 6 setup, 10 foundational, 9 (US1), 4 (US2), 3 (US3), 7 polish.
+**47 tasks** across 6 phases: 6 setup, 10 foundational, 9 (US1), 4 (US2), 3 (US3), 15 polish.
 
 **Critical path**: T001 → T004 → T010 → T011 → T012 → T013 → T016 → T027 → T031 → T040.
 

@@ -10,6 +10,12 @@
 **Content**
 - **FR-201**: System MUST present the owner's real career record: summary, personal note, skills,
   experience, education and certifications.
+- **FR-220**: The intro MUST state the engagement model and availability, not only the location:
+  contract shape and work eligibility are what a remote hire is screened on first.
+- **FR-221**: Experience MUST say that the product code is private and point to the LinkedIn
+  references instead, rather than leaving the missing code links unexplained.
+- **FR-222**: The record MUST show the owner working directly with EU and US clients and owning the
+  logic end to end - the contractor's differentiator, which a stack list cannot carry.
 - **FR-202**: Every block MUST render in both locales with no untranslated string and no key present
   in one locale but missing in the other.
 - **FR-203**: Structural facts (companies, dates, technology names, URLs) MUST live in `content/`;
@@ -25,7 +31,8 @@
 - **FR-208**: Education entries MUST carry the skills they produced, toggleable as a part.
 - **FR-209**: Certifications MUST show the credential source and identifier, both derived from the
   verification URL rather than typed by hand, and link to the issuer for verification.
-- **FR-210**: Selected results MUST be presented as figures with their explanation.
+- **FR-210**: The results block MUST state what the owner owned end to end, not self-reported
+  figures: unverifiable percentages read as inflated and are indistinguishable from every other CV.
 
 **Contact**
 - **FR-211**: The message form MUST be hidden until asked for, and MUST open in place.
@@ -39,8 +46,12 @@
 **Header**
 - **FR-216**: The header MUST carry icon links to email, WhatsApp and LinkedIn beside the owner's
   name, each with an accessible name.
-- **FR-217**: WHERE header space runs short, the name gives way before the links do — the links are
+- **FR-217**: WHERE header space runs short, the name gives way before the links do - the links are
   what visitors act on.
+
+**Copy style**
+- **FR-219**: Visible copy MUST use a plain hyphen for asides and ranges, never an em or en dash:
+  the long dash reads as machine-written and is the first thing a recruiter notices.
 
 **Access**
 - **FR-218**: A skip link MUST be the first focusable element, so a keyboard visitor can reach the

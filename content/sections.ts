@@ -12,8 +12,8 @@ export type SectionId = (typeof sectionIds)[number];
 
 export const sectionParts = {
   hero: ["photo", "contacts"],
-  about: ["full", "achievements", "personal"],
-  skills: [],
+  about: ["achievements", "personal"],
+  skills: ["full"],
   experience: ["project", "responsibilities", "techStack", "alsoUsed", "link", "interest"],
   education: ["skills"],
   certifications: [],
@@ -31,10 +31,10 @@ export const toggleCodes = {
   "hero.photo": "hp",
   "hero.contacts": "hc",
   about: "a",
-  "about.full": "af",
   "about.achievements": "aa",
   "about.personal": "ap",
   skills: "k",
+  "skills.full": "kf",
   experience: "e",
   "experience.project": "ep",
   "experience.responsibilities": "er",
@@ -54,10 +54,10 @@ export const toggleDefaults = {
   "hero.photo": true,
   "hero.contacts": true,
   about: true,
-  "about.full": false,
   "about.achievements": true,
   "about.personal": true,
   skills: true,
+  "skills.full": true,
   experience: true,
   "experience.project": true,
   "experience.responsibilities": true,
@@ -77,3 +77,31 @@ export const toggleIds = Object.keys(toggleCodes) as ToggleId[];
 export function partsOf(section: SectionId): PartId[] {
   return sectionParts[section].map((part) => `${section}.${part}` as PartId);
 }
+
+export const presetIds = ["eu", "us", "short", "full"] as const;
+
+export type PresetId = (typeof presetIds)[number];
+
+export const presets = {
+  eu: { "experience.interest": true },
+  us: {
+    "hero.photo": false,
+    "about.personal": false,
+    "experience.alsoUsed": false,
+    "experience.interest": false,
+  },
+  short: {
+    "hero.photo": false,
+    "about.personal": false,
+    "skills.full": false,
+    "experience.responsibilities": false,
+    "experience.interest": false,
+    "education.skills": false,
+    certifications: false,
+  },
+  full: {
+    "skills.full": true,
+    "experience.alsoUsed": true,
+    "experience.interest": true,
+  },
+} as const satisfies Record<PresetId, Partial<Record<ToggleId, boolean>>>;

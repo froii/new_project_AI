@@ -1,0 +1,27 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.outline {
+  position: fixed;
+  outline: 1px solid #e0245e;
+  background: rgb(224 36 94 / 0.06);
+}
+
+.panel {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  max-width: 30rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background: #1b1b1b;
+  color: #f4f4f4;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  white-space: nowrap;
+}

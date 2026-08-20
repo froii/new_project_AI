@@ -1,7 +1,29 @@
 {
   "menu": "Sections",
-  "hint": "Jump to a section, or turn parts of it off.",
+  "heading": "What to show",
+  "hint": "Anything you switch off leaves the page, the address you share and the PDF.",
   "toggle": "Show {section}",
+  "presetsHeading": "Presets",
+  "reset": "Reset",
+  "count": "{shown} of {total} sections",
+  "presets": {
+    "eu": {
+      "label": "Europe",
+      "note": "photo, full text, the personal side"
+    },
+    "us": {
+      "label": "US / ATS",
+      "note": "no photo, facts only"
+    },
+    "short": {
+      "label": "One-pager",
+      "note": "only the essentials"
+    },
+    "full": {
+      "label": "Everything",
+      "note": "every section and part"
+    }
+  },
   "labels": {
     "hero": "Intro",
     "about": "About",
@@ -17,18 +39,19 @@
       "contacts": "Contacts"
     },
     "about": {
-      "full": "Full text",
-      "achievements": "Results",
+      "achievements": "Highlights",
       "personal": "Off the clock"
     },
-    "skills": {},
+    "skills": {
+      "full": "Full skill list"
+    },
     "experience": {
       "project": "Project",
       "responsibilities": "Responsibilities",
       "techStack": "Tech stack",
-      "alsoUsed": "Also worked with",
+      "alsoUsed": "Also used",
       "link": "Link",
-      "interest": "What was interesting"
+      "interest": "Interesting part"
     },
     "education": {
       "skills": "What it gave me"
@@ -37,5 +60,7 @@
     "contact": {
       "form": "Message form"
     }
-  }
+  },
+  "pages": "Pages",
+  "print": "Print / PDF"
 }

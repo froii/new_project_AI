@@ -48,5 +48,4 @@ export type Certification = {
 
 export type Achievement = {
   id: string;
-  metric?: string;
 };

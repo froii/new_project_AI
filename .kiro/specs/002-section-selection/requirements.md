@@ -10,15 +10,15 @@
 
 ### User Story 1 — A visitor jumps to the part they care about (Priority: P1)
 
-A recruiter opens the site, sees a control in the header naming the section they are currently in,
-opens it, and picks "Experience". The page scrolls there and the panel closes.
+A recruiter opens the site, sees a contents panel naming the section they are currently in, and picks
+"Experience". The page scrolls there; on a narrow screen the panel closes behind it.
 
 - **Why this priority**: Navigation is the control's primary job; selection rides on top of it.
 - **Independent Test**: Open the menu, click a section, confirm the page scrolls to it and the panel
   closes.
 - **Acceptance Scenarios**:
   1. **Given** the panel is open, **When** the visitor activates a section link, **Then** the page
-     scrolls to that section and the panel closes.
+     scrolls to that section, and below 80rem the panel closes.
   2. **Given** the visitor scrolls the page manually, **Then** the control names the section
      currently in view.
   3. **Given** a keyboard user, **When** they press Escape with the panel open, **Then** it closes
@@ -35,7 +35,9 @@ The visitor turns off "Work". That section disappears from the page, and its men
      the page and from assistive technology, not merely made invisible.
   2. **Given** a section is off, **When** the visitor activates its anchor, **Then** nothing scrolls.
   3. **Given** sections are turned off, **Then** the control reports how many of the total remain.
-  4. **Given** any combination of sections is off, **Then** no stray divider or gap is left where a
+  4. **Given** the visitor picks a preset, **Then** the whole selection is replaced in one action and
+     that preset reads as the active one.
+  5. **Given** any combination of sections is off, **Then** no stray divider or gap is left where a
      hidden section was.
 
 ### Edge Cases
@@ -84,6 +86,16 @@ The visitor turns off "Work". That section disappears from the page, and its men
   separate shortened copy of the text.
 - **FR-120**: The address MUST encode only what differs from the default state, so that a link to the
   site as intended carries no parameter at all.
+- **FR-121**: System MUST offer named presets that set the whole selection in one action, covering the
+  common CV conventions (Europe, US/ATS, one-pager, everything), plus a reset to the default state.
+- **FR-122**: The control MUST indicate which preset, if any, the current selection equals; changing
+  any single toggle afterwards SHALL simply stop matching, without discarding the selection.
+- **FR-124**: The visitor MUST be able to produce a PDF of the current selection from the same
+  control that holds the selection, and MUST be able to see on the page where the sheet boundaries
+  fall before doing so.
+- **FR-123**: A section MAY offer its own switch for one of its parts, in place, so the visitor can
+  change what that section shows without opening the menu. Both surfaces MUST drive the same state:
+  whatever is switched in the section is reflected in the menu, in the address and in the PDF.
 
 ## Key Entities
 

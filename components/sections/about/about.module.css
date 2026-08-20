@@ -1,44 +1,53 @@
-.heading {
-  margin-block-end: var(--space-m);
-  font-size: var(--step-0);
-  color: var(--color-text-muted);
+.summary > p {
+  max-inline-size: 62ch;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+.label {
+  margin-block-end: var(--space-s);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  color: var(--color-text-faint);
+}
+
+.results {
+  display: grid;
+  gap: var(--space-s);
+  max-inline-size: 68ch;
+}
+
+.result {
+  position: relative;
+  padding-inline-start: var(--space-m);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.result::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.7em;
+  inset-inline-start: 0;
+  inline-size: var(--space-xs);
+  block-size: 1px;
+  background: var(--color-accent);
 }
 
 .personal {
   display: flex;
   flex-direction: column;
   gap: var(--space-m);
+  max-inline-size: 64ch;
 }
 
-.personal p:last-child {
+.personal p {
+  font-family: var(--font-serif);
+  font-size: var(--step-0);
+  line-height: 1.75;
   color: var(--color-text-muted);
-}
-
-.grid {
-  display: grid;
-  gap: var(--space-m);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-}
-
-.tile {
-  display: grid;
-  gap: var(--space-2xs);
-  padding: var(--space-m);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-}
-
-.metric {
-  font-size: var(--step-2);
-  font-weight: 600;
-  color: var(--color-accent);
-  line-height: 1.1;
-}
-
-.text {
-  color: var(--color-text-muted);
-  font-size: var(--step--1);
 }

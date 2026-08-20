@@ -1,36 +1,107 @@
+.layout {
+  display: grid;
+  gap: var(--space-xl);
+  min-width: 0;
+  padding-block: var(--space-l) 0;
+}
+
+@container (min-width: 38rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    column-gap: var(--space-2xl);
+    align-items: start;
+  }
+}
+
 .layout:has(> [hidden]) {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  min-width: 0;
 }
 
 .title {
   color: var(--color-accent);
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
+.name {
+  max-inline-size: 9ch;
+  margin-block-start: var(--space-m);
+  font-size: var(--step-4);
+}
+
 .headline {
+  max-inline-size: 32ch;
+  margin-block-start: var(--space-m);
+  font-family: var(--font-serif);
   font-size: var(--step-1);
+  line-height: 1.45;
   color: var(--color-text-muted);
-  text-wrap: balance;
 }
 
 .facts {
-  --cluster-gap: var(--space-xs);
-  margin-block-start: var(--space-2xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin-block-start: var(--space-l);
+  color: var(--color-text-faint);
+  font-size: var(--step--1);
 }
 
-.fact {
-  padding: 0.15rem var(--space-s);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: 999px;
-  color: var(--color-text-muted);
-  font-size: var(--step--1);
+.available {
+  color: var(--color-accent);
 }
 
 .contacts {
-  --cluster-gap: var(--space-m);
-  margin-block-start: var(--space-s);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-2xs) var(--space-m);
+  margin-block-start: var(--space-l);
   font-size: var(--step--1);
+}
+
+.contacts > dt {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  line-height: 1.7;
+}
+
+.contacts > dd a {
+  color: var(--color-text);
+  text-decoration: none;
+  border-block-end: var(--border-width) solid var(--color-border);
+  overflow-wrap: anywhere;
+}
+
+.contacts > dd a:hover {
+  color: var(--color-accent);
+  border-color: currentColor;
+}
+
+.portrait {
+  justify-self: start;
+}
+
+/* Paper keeps the screen portrait: the container query fires at print width too,
+   so the 280px column carries over and only the tail padding has to go. */
+@media print {
+  .layout {
+    padding-block: 0;
+  }
+
+  .contacts {
+    font-size: var(--step-0);
+  }
 }

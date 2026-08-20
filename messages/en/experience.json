@@ -1,47 +1,49 @@
 {
   "heading": "Experience",
+  "summary": "{count, plural, one {# role} other {# roles}}",
+  "note": "Product code is private. References from clients, managers and tech leads are on my LinkedIn.",
   "present": "Present",
   "fields": {
     "project": "Project",
-    "responsibilities": "Main responsibilities",
+    "responsibilities": "Responsibilities",
     "techStack": "Tech stack",
-    "alsoUsed": "Also worked with",
+    "alsoUsed": "Also used",
     "link": "Link",
-    "interest": "What was interesting"
+    "interest": "Interesting part"
   },
   "entries": {
     "bechacant": {
-      "role": "Full Stack Developer — BechaCant, remote (US)",
-      "project": "Web and PWA products built with React, Next.js and TypeScript, with backend services and AI-powered features.",
-      "responsibilities": "Built product features end to end: paywalls and in-app purchases, feeds, content pages, settings and wallet screens. Worked on offline-friendly, mobile-first PWAs with push notifications, and on parts of a code editor UI — editing, tabs, file tree, live preview. On the backend: Node.js services in NestJS and Express with REST and GraphQL, payments and subscriptions including store verification, webhooks and background jobs for expiry and sync, plus PostgreSQL work with safe logging and access rules. Integrated RAG APIs for chat, text generation and assistant features, with prompt design, streaming responses, tool calling and agent-style flows. Wrote specs before coding and kept the docs in sync with the code.",
-      "interest": "Fixing the hard bugs — endless request loops, wrong deep-link routing, timezone drift, layouts collapsing under large system fonts. Also set up shared AI coding rules and prompts for the team."
+      "role": "Full Stack Developer - BechaCant, remote (US)",
+      "project": "Web and PWA products built with React, Next.js and TypeScript, with backend services and AI-powered features. Ran in parallel with my last months at eTeam.",
+      "responsibilities": "Built product features end to end: paywalls and in-app purchases, offline-friendly mobile-first PWAs with push notifications, and parts of a code editor UI - editing, tabs, file tree, live preview.\n\nBackend in NestJS and Express with REST and GraphQL: payments and subscriptions with store receipt verification, webhooks and background jobs for renewal and expiry, PostgreSQL with safe logging and access rules.\n\nLLM features in production - RAG retrieval, streaming responses, tool calling and agent-style flows, with the prompt design behind them. Wrote the spec before the code and kept both in sync.",
+      "interest": "Fixing the hard bugs - endless request loops, wrong deep-link routing, timezone drift, layouts collapsing under large system fonts. Also set up shared AI coding rules and prompts for the team."
     },
     "eteam": {
-      "role": "Full Stack Developer — eTeam, contract, remote",
-      "project": "nedyx — a low-code platform for business reporting, built by a small international team.",
-      "responsibilities": "Supported and developed the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualisation control, large tables, charts and a text editor, reading data from external databases for many users. Implemented undo/redo, archive creation, PDF export and the platform's own functional language.",
-      "interest": "A well-thought-out, genuinely dynamic system for business reports — and our own functional language behind it."
+      "role": "Full Stack Developer - eTeam, contract, remote",
+      "project": "nedyx - a low-code platform for business reporting, built by a small international team.",
+      "responsibilities": "Supported and developed the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualisation control, large tables, charts and a text editor, reading data from external databases for many users.\n\nImplemented undo/redo, archive creation, PDF export and the platform's own functional language.",
+      "interest": "A well-thought-out, genuinely dynamic system for business reports - and our own functional language behind it."
     },
     "danit": {
-      "role": "Frontend Instructor — dan.it",
+      "role": "Frontend Instructor - dan.it",
       "project": "An introductory frontend course.",
       "responsibilities": "Taught a group of 25 students from the beginning: HTML5, CSS3 and Git.",
       "interest": "Explaining a thing properly is the fastest way to find the holes in your own understanding."
     },
     "ugenius": {
-      "role": "Frontend Developer — U-Genius, contract, remote (Ukraine / USA)",
-      "project": "Three applications for LinkSquares — contract lifecycle and legal project management.",
+      "role": "Frontend Developer - U-Genius, contract, remote (Ukraine / USA)",
+      "project": "Three applications for LinkSquares - contract lifecycle and legal project management.",
       "responsibilities": "Built the logic for rendering dynamic and asynchronous forms, tables and components, plus PDF editors, working from Figma and a kanban board. Used React with hooks, GraphQL, Apollo Server, Redux, Saga, Ant Design, Ramda and several form libraries, alongside my own utilities.",
       "interest": "A small but very strong team. Deep work on dynamic asynchronous forms and tables, and on Apollo fragments and caching for GraphQL updates."
     },
     "adraba": {
-      "role": "Frontend Developer — Adraba, contract, Kyiv",
-      "project": "A dynamic site generator — mostly back office and admin logic — alongside an online store for recreation events and a TED-style speaker platform in London.",
+      "role": "Frontend Developer - Adraba, contract, Kyiv",
+      "project": "A dynamic site generator - mostly back office and admin logic - alongside an online store for recreation events and a TED-style speaker platform in London.",
       "responsibilities": "Built the client side and a large back office (admin panel), email templates and business logic, with tables and charts for creating dynamic pages, forms, info blocks and galleries.",
-      "interest": "My first experience of a site that builds other sites — a big team with a huge CRM behind it."
+      "interest": "My first experience of a site that builds other sites - a big team with a huge CRM behind it."
     },
     "mackiev": {
-      "role": "Web Software Developer — Software MacKiev, contract, Kyiv",
+      "role": "Web Software Developer - Software MacKiev, contract, Kyiv",
       "project": "The company site and product pages, including Family Tree Maker.",
       "responsibilities": "Maintained the site and built new page blocks for new products and questionnaires.",
       "interest": "First taste of a big team on a big project, working across the full stack and the business logic behind it."
@@ -50,13 +52,13 @@
       "role": "Freelance Frontend Developer",
       "project": "Part-time work through FL.ru and Upwork.",
       "responsibilities": "Everything from individual page components to full sites and mobile-version updates.",
-      "interest": "Different people, different orders — the fastest way to learn what actually matters to a client."
+      "interest": "Different people, different orders - the fastest way to learn what actually matters to a client."
     },
     "nas": {
-      "role": "Junior Research Fellow — National Academy of Sciences of Ukraine, Kyiv",
-      "project": "Radioecological and chemical pollution monitoring of water bodies.",
+      "role": "Junior Research Fellow - National Academy of Sciences of Ukraine, Kyiv",
+      "project": "Radioecological and chemical pollution monitoring of water bodies, alongside graduate school and the first years of web work.",
       "responsibilities": "Monitoring and analysis of pollution data, published research, and graduate school. Worked with ArcMap.",
-      "interest": "Where the habit of validating data before trusting it came from — and where I learned to write things down properly."
+      "interest": "Where the habit of validating data before trusting it came from - and where I learned to write things down properly."
     }
   }
 }

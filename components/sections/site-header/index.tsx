@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "@/components/controls/locale-switcher";
-import { SectionMenu } from "@/components/controls/section-menu";
 import { ShareButton } from "@/components/controls/share-button";
 import { ThemeToggle } from "@/components/controls/theme-toggle";
 import { SocialLinks } from "@/components/ui/social-links";
@@ -18,14 +17,12 @@ export function SiteHeader() {
   }));
 
   return (
-    <header className={styles.header}>
+    <header className={`screen-only ${styles.header}`}>
       <div className={`shell ${styles.bar}`}>
         <div className={styles.identity}>
           <strong className={styles.name}>{owner.name}</strong>
           <SocialLinks links={links} label={t("socialLabel")} size="compact" />
         </div>
-
-        <SectionMenu />
 
         <div className={`cluster ${styles.controls}`}>
           <ShareButton title={owner.name} />

@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { SectionMenu } from "@/components/controls/section-menu";
 import { About } from "@/components/sections/about";
 import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
@@ -6,7 +7,6 @@ import { Education } from "@/components/sections/education";
 import { Experience } from "@/components/sections/experience";
 import { Hero } from "@/components/sections/hero";
 import { Skills } from "@/components/sections/skills";
-import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SectionSlot } from "@/components/visibility/section-slot";
 import { sectionIds } from "@/content/sections";
@@ -21,6 +21,9 @@ const bySection = {
   contact: Contact,
 };
 
+/* Contact leaves the paper and becomes the band the page ends on. */
+const paperIds = sectionIds.filter((id) => id !== "contact");
+
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "common" });
@@ -31,17 +34,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         {t("skipToContent")}
       </a>
       <SiteHeader />
-      <main id="main">
-        {sectionIds.map((id) => {
-          const Section = bySection[id];
-          return (
-            <SectionSlot key={id} id={id}>
-              <Section />
-            </SectionSlot>
-          );
-        })}
-      </main>
-      <SiteFooter />
+      <div className="progress" aria-hidden="true" />
+      <div className="workspace">
+        <SectionMenu />
+        <main id="main" className="sheet">
+          <div className="paper">
+            {paperIds.map((id) => {
+              const Section = bySection[id];
+              return (
+                <SectionSlot key={id} id={id}>
+                  <Section />
+                </SectionSlot>
+              );
+            })}
+          </div>
+
+          <SectionSlot id="contact">
+            <Contact />
+          </SectionSlot>
+        </main>
+      </div>
     </>
   );
 }

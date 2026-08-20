@@ -6,8 +6,9 @@ import styles from "./accordion.module.css";
 
 export type AccordionItem = {
   id: string;
-  title: string;
-  meta?: string;
+  lead?: ReactNode;
+  title: ReactNode;
+  meta?: ReactNode;
   content: ReactNode;
 };
 
@@ -24,14 +25,15 @@ export function Accordion({
         <RadixAccordion.Item key={item.id} value={item.id} className={styles.item}>
           <RadixAccordion.Header>
             <RadixAccordion.Trigger className={styles.trigger}>
+              {item.lead && <span className={styles.lead}>{item.lead}</span>}
               <span className={styles.text}>
                 <span className={styles.title}>{item.title}</span>
                 {item.meta && <span className={styles.meta}>{item.meta}</span>}
               </span>
-              <span className={styles.chevron} aria-hidden="true" />
+              <span className={`screen-only ${styles.chevron}`} aria-hidden="true" />
             </RadixAccordion.Trigger>
           </RadixAccordion.Header>
-          <RadixAccordion.Content className={styles.content}>
+          <RadixAccordion.Content forceMount className={styles.content}>
             <div className={styles.body}>{item.content}</div>
           </RadixAccordion.Content>
         </RadixAccordion.Item>

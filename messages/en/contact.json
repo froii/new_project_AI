@@ -6,9 +6,9 @@
   "email": "Email",
   "emailError": "That does not look like an email address.",
   "message": "Message",
-  "messageError": "A little more detail, please — at least ten characters.",
+  "messageError": "A little more detail, please - at least ten characters.",
   "submit": "Send",
-  "note": "Opens your mail app with the message ready to send.",
+  "note": "Opens your mail app with the message ready.",
   "mailSubject": "Message from {name}",
   "direct": {
     "email": "Email",
@@ -17,7 +17,7 @@
     "github": "GitHub"
   },
   "open": "Write to me",
-  "close": "Hide the form",
+  "close": "Hide",
   "phone": "Phone",
   "optional": "(optional)",
   "messengers": {

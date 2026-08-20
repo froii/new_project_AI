@@ -23,12 +23,13 @@ export const owner: OwnerProfile = {
 };
 
 export const achievements: Achievement[] = [
-  { id: "scale", metric: "1000+" },
-  { id: "performance", metric: "60%" },
-  { id: "bundle", metric: "45%" },
-  { id: "functions", metric: "100+" },
-  { id: "queries", metric: "40%" },
-  { id: "mentoring", metric: "10+" },
+  { id: "language" },
+  { id: "clients" },
+  { id: "platform" },
+  { id: "payments" },
+  { id: "ai" },
+  { id: "performance" },
+  { id: "review" },
 ];
 
 export const skills: SkillGroup[] = [
@@ -43,7 +44,8 @@ export const skills: SkillGroup[] = [
       "GraphQL",
       "Apollo Client",
       "PWA",
-      "Cross-browser compatibility",
+      "Accessibility (WCAG)",
+      "i18n",
     ],
   },
   {
@@ -60,6 +62,7 @@ export const skills: SkillGroup[] = [
       "type-graphql",
       "class-validator",
       "REST",
+      "API design",
       "WebSockets",
       "PostgreSQL",
     ],
@@ -73,6 +76,7 @@ export const skills: SkillGroup[] = [
       "Streaming responses",
       "Tool calling",
       "Agent flows",
+      "OpenRouter",
     ],
   },
   {
@@ -80,19 +84,8 @@ export const skills: SkillGroup[] = [
     items: ["Ant Design", "Material UI", "React Table", "React DnD", "React Charts", "D3.js"],
   },
   {
-    id: "cs",
-    items: [
-      "Algorithms",
-      "Data structures",
-      "Algorithm analysis",
-      "Recursion",
-      "Graphs",
-      "Binary trees",
-    ],
-  },
-  {
     id: "forms",
-    items: ["React Hook Form", "Final Form", "Formik", "Redux Form"],
+    items: ["React Hook Form", "Formik"],
   },
   {
     id: "styling",
@@ -100,7 +93,7 @@ export const skills: SkillGroup[] = [
   },
   {
     id: "testing",
-    items: ["Jest", "React Testing Library", "Enzyme", "Storybook"],
+    items: ["Vitest", "Jest", "React Testing Library", "Storybook"],
   },
   {
     id: "tools",
@@ -114,25 +107,15 @@ export const skills: SkillGroup[] = [
       "Architecture design",
       "Mentoring",
       "Technical writing",
+      "Direct client work",
+      "Requirements & scoping",
       "Figma",
       "Low-code platforms",
     ],
   },
   {
     id: "legacy",
-    items: [
-      "Vue.js",
-      "Vuex",
-      "Nuxt",
-      "Vuetify",
-      "jQuery",
-      "Handlebars",
-      "GreenSock",
-      "Gulp",
-      "PHP",
-      "SVN",
-      "MODX",
-    ],
+    items: ["Vue.js", "Vuex", "Nuxt", "jQuery", "PHP"],
   },
 ];
 
@@ -207,7 +190,7 @@ export const experience: ExperienceEntry[] = [
     end: "2018-07",
     techStack: ["Vue.js", "Nuxt", "Vuex", "Vuetify", "Axios", "REST"],
     alsoUsed: ["Ramda", "SCSS", "Jira"],
-    link: "https://events.financemagnates.com/londonsummit2019",
+    link: "https://events.financemagnates.com",
   },
   {
     id: "mackiev",
@@ -294,11 +277,6 @@ export const certifications: Certification[] = [
     href: "https://www.coursera.org/account/accomplishments/verify/252SOHEUBGKS",
   },
   {
-    id: "d3",
-    issued: "2025-07",
-    href: "https://www.coursera.org/account/accomplishments/verify/E7HVJLUGYMK6",
-  },
-  {
     id: "algoexpert",
     href: "https://certificate.algoexpert.io/AlgoExpert%20Certificate%20AE-79e5eb6004",
   },
@@ -306,5 +284,5 @@ export const certifications: Certification[] = [
     id: "frontendexpert",
     href: "https://certificate.algoexpert.io/FrontendExpert%20Certificate%20FE-c97970c096",
   },
-  { id: "english", href: "https://cert.efset.org/gteMy2" },
+  { id: "english", issued: "2024-02", href: "https://cert.efset.org/gteMy2" },
 ];

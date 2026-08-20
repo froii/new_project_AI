@@ -29,8 +29,8 @@ describe("encodeVisibility", () => {
   });
 
   it("encodes a default-off toggle that was turned on", () => {
-    const visible: Visibility = { ...defaultVisibility, "about.full": true };
-    expect(encodeVisibility(visible)).toBe(toggleCodes["about.full"]);
+    const visible: Visibility = { ...defaultVisibility, "experience.interest": true };
+    expect(encodeVisibility(visible)).toBe(toggleCodes["experience.interest"]);
   });
 });
 
@@ -63,7 +63,6 @@ describe("decodeVisibility", () => {
     const decoded = decodeVisibility("a");
 
     expect(decoded.about).toBe(false);
-    expect(decoded["about.full"]).toBe(toggleDefaults["about.full"]);
     expect(decoded["about.achievements"]).toBe(toggleDefaults["about.achievements"]);
   });
 });

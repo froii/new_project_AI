@@ -23,26 +23,35 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 Vitest for unit tests (`npm test`), configured in `vitest.config.mts` with Vite's native
 `resolve.tsconfigPaths` — no path-alias plugin. **TODO(tech):** no linter installed.
 
-## PDF — client-side, by decision
+## PDF — the browser prints, by decision
 
-The PDF is a CV **assembled from content data**, not a screenshot of the page. `@react-pdf/renderer`
-builds it in the browser: vector text that stays selectable and searchable, and no infrastructure.
+The visitor keeps a PDF, so the site ships a **print stylesheet** and a trigger that calls
+`window.print()`. The browser's own dialog is the preview, and "Save as PDF" is a destination in
+every current engine, phones included (iOS Safari via the share sheet, Chrome and Firefox on Android
+directly). Text stays selectable and searchable because it is text.
 
-Rejected: headless Chromium (Puppeteer/Playwright) printing the live page. It is the only way to get
-a pixel-faithful snapshot, and it costs a Chromium binary in the deploy, slow cold starts, and a
-breakage surface on every browser bump. The product does not need visual fidelity to the page — it
-needs a correct, readable CV. Revisit only if that changes.
+Rejected: `@react-pdf/renderer`. It buys full control of the page geometry and costs a second
+renderer over `content/` — every section written twice, in two layout languages that drift on every
+content change — plus a Cyrillic TTF in the bundle and ~500KB of client JavaScript for a feature used
+once per visitor. Rejected earlier and still rejected: headless Chromium on a server, which needs
+infrastructure the site does not otherwise have.
 
-Consequence: the PDF document is a **second renderer over `content/`**, not a transformation of the
-DOM. Web layout changes must not be expected to move the PDF.
+Consequence: **the file is the page.** What the print stylesheet does not restyle, the printer
+prints as it stands, so layout work on the page is layout work on the PDF. The rules live next to
+what they restyle: each component hides its own chrome in its own `@media print` block, and
+`globals.css` owns `@page`, the light palette override and the page geometry tokens.
 
-**Fonts must be registered explicitly.** The built-in fonts ship no Cyrillic — a Ukrainian PDF
-renders as empty boxes. Register a TTF from `public/fonts/` covering every script the locale list
-needs, and re-check coverage whenever a locale is added.
+**Page geometry has one source.** `--page-width`, `--page-height`, `--page-pad-*` in `globals.css`
+drive both `@page` and the on-screen page preview (`:root[data-pages]`), so the preview cannot claim
+a cut the printer will not make. The preview is an indication, not a promise — `break-inside: avoid`
+still nudges blocks down in the real file, and the browser dialog remains the exact answer.
 
-**The bundle is lazy.** `@react-pdf/renderer` is loaded by dynamic import on the export click, never
-in the initial bundle — otherwise every visitor pays for a feature few use. Generation takes a
-noticeable moment on a phone, so the trigger owns a pending state.
+**The PDF is always light.** `@media print` re-declares the palette in ink-friendly values whatever
+the screen theme was.
+
+**Closed panels must stay in the DOM.** Radix Accordion unmounts collapsed content; with the default
+behaviour a printed CV carries one role out of eight. `forceMount` plus a CSS `[data-state="closed"]`
+hide keeps the markup complete and lets print reveal all of it.
 
 ## Selection — one state, two consumers
 
@@ -72,23 +81,25 @@ a missing or misspelled key is a **typecheck error**, not a blank on screen.
 Every renderer takes the locale as a parameter: page, PDF and later the AI bot. There is no ambient
 "current language" that the PDF has to guess.
 
-## Theming — CSS now, TS when the PDF needs it
+## Theming — CSS, and it stays CSS
 
-**Until the PDF exists:** colors, spacing and type scale are plain CSS custom properties, switched by
-`data-theme` on the root. CSS does this natively; a TS layer would buy nothing.
-
-**When the PDF arrives:** the declarations move into TS and the CSS is generated from it, because
-`@react-pdf/renderer` cannot read CSS variables and the two would otherwise drift — invisibly, until
-someone holds the printout next to the screen.
-
-The variable names are the contract and do not change across that move, so it touches the declaration
-site only, never the components.
+Colors, spacing and the type scale are plain CSS custom properties, switched by `data-theme` on the
+root. CSS does this natively; a TS token layer would buy nothing, and with the PDF produced by the
+print stylesheet there is no second renderer that cannot read them.
 
 `next-themes` exists to solve one specific problem: the theme must be applied **before first paint**,
-or dark-theme visitors get a white flash on every load.
+or dark-theme visitors get a white flash on every load. Print overrides the palette to ink values, so
+a dark screen never becomes a dark page.
 
-**The PDF is always light.** It does not follow the site theme — a dark PDF wastes ink and looks
-broken on paper.
+## Type — three families, all Cyrillic-capable
+
+`--font-sans` (UI), `--font-serif` (display: `h1`, `h2`, hero lede), `--font-mono` (numbers, labels,
+eyebrows). All three are system stacks today.
+
+**A display face is only a candidate if it covers Cyrillic.** The reference design uses Newsreader,
+which ships latin, latin-ext and vietnamese and **no Cyrillic** — on `/uk` every serif heading would
+fall back mid-page. `--font-serif` therefore resolves to `ui-serif, Cambria, "Times New Roman"`,
+which do cover it. This is the trap T005 is about; check the unicode ranges before self-hosting.
 
 ## Responsive — one layout, not two
 

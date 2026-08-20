@@ -4,15 +4,25 @@ import { Field, FieldList } from "@/components/ui/field-list";
 import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
 import { experience } from "@/content";
-import { isCurrent, sortExperience } from "@/lib/content";
+import { dottedDate, experienceSpan, isCurrent, sortExperience } from "@/lib/content";
+import styles from "./experience.module.css";
 
 export function Experience() {
   const t = useTranslations("experience");
 
-  const items = sortExperience(experience).map((entry) => ({
+  const entries = sortExperience(experience);
+  const span = experienceSpan(experience);
+
+  const items = entries.map((entry) => ({
     id: entry.id,
+    lead: (
+      <>
+        <span>{dottedDate(entry.start)}</span>
+        <span>{isCurrent(entry) ? t("present") : dottedDate(entry.end ?? "")}</span>
+      </>
+    ),
     title: t(`entries.${entry.id}.role`),
-    meta: `${entry.organisation} · ${entry.start} — ${isCurrent(entry) ? t("present") : entry.end}`,
+    meta: entry.techStack.slice(0, 4).join(" · "),
     content: (
       <FieldList>
         <Part id="experience.project">
@@ -56,10 +66,16 @@ export function Experience() {
 
   return (
     <section className="section" id="experience">
-      <div className="shell stack">
+      <div className="block-head">
         <h2>{t("heading")}</h2>
-        <Accordion items={items} defaultOpen={[items[0]?.id ?? ""]} />
+        <span className={styles.span}>
+          {t("summary", { count: entries.length })} · {span.from} - {span.to ?? t("present")}
+        </span>
       </div>
+
+      <p className={styles.note}>{t("note")}</p>
+
+      <Accordion items={items} defaultOpen={[items[0]?.id ?? ""]} />
     </section>
   );
 }

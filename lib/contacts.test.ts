@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Contact } from "@/content/types";
-import { contactHref, headerLinks, messengerLinks } from "./contacts";
+import { contactHref, contactText, headerLinks, messengerLinks } from "./contacts";
 
 const email: Contact = { id: "email", kind: "email", value: "a@b.co" };
 const phone: Contact = { id: "phone", kind: "phone", value: "+380 00 000 00 00" };
@@ -17,6 +17,18 @@ describe("contactHref", () => {
 
   it("passes a link through untouched", () => {
     expect(contactHref(linkedin)).toBe("https://linkedin.com/in/x");
+  });
+});
+
+describe("contactText", () => {
+  it("shows an email address as it is", () => {
+    expect(contactText(email)).toBe("a@b.co");
+  });
+
+  it("drops the protocol and a trailing slash from a link", () => {
+    expect(contactText({ id: "gh", kind: "link", value: "https://www.github.com/x/" })).toBe(
+      "github.com/x",
+    );
   });
 });
 
