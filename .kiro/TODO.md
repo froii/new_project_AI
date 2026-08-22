@@ -13,9 +13,6 @@ Delete a row once it is done or once it stops making sense.
 
 Written but never actually exercised — verify before trusting.
 
-- Email spelling unverified: the CVs say `lestyshchenko@gmail.com`, the owner's account is
-  `lestyschenko@gmail.com` (no `h`). `.env.local` currently holds the CV spelling. Confirm before
-  the site goes public — this is the address replies arrive at.
 - LinkedIn handle `oleksa-t-90a050a8` taken from the owner; the CVs carry
   `oleksa-tyshchenko-90a050a8`. Neither was opened — LinkedIn returns 999 to automated requests.
 - `NEXT_PUBLIC_SITE_URL` still points at `localhost`. `robots.txt`, `sitemap.xml` and every Open

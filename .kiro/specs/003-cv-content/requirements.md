@@ -33,6 +33,8 @@
 
 **Display**
 - **FR-206**: Experience MUST render as an accordion, one entry per position, first open.
+- **FR-229**: A record list sliced for a Recent view MUST be sorted before it is sliced - an
+  unsorted slice silently hides the newer entry and shows an older one.
 - **FR-228**: Experience and Education MUST show only the recent entries by default, with the
   earlier ones behind a Recent/All toggle - a reader spends their attention on the last few roles,
   and the older ones are context, not the pitch.
@@ -97,8 +99,8 @@
 
 ## Assumptions
 
-- Sending is by `mailto:` — the form composes the message and hands it to the visitor's mail client.
-  A server-side provider replaces this later (`tech.md` §Email).
+- ~~Sending is by `mailto:`.~~ Superseded: the form posts to `app/api/contact` and the message is
+  sent server-side. See `005-contact-delivery`.
 - `NEXT_PUBLIC_*` keeps contact details out of the repository. It does **not** hide them: they are
   printed on the page.
 - The personal note is written through events rather than adjectives: no self-описи like "calm" or
@@ -115,7 +117,7 @@
 | Software MacKiev | CV "Oct 2016 – Dec 2017" vs LinkedIn "Sep 2016 – Jan 2018" | **LinkedIn** |
 | Freelance end | CV "Sept 2016" vs LinkedIn "Oct 2016" | **Oct 2016** |
 | LinkedIn handle | PDFs `oleksa-tyshchenko-90a050a8` vs owner `oleksa-t-90a050a8` | **owner's** |
-| Email spelling | PDFs `lestyshchenko@` vs account `lestyschenko@` | **PDFs** — unverified, see `TODO.md` |
+| Email spelling | PDFs `lestyshchenko@` vs account `lestyschenko@` | **PDFs** — confirmed by the owner 2026-08-22: `lestyshchenko@` is the working mailbox, `lestyschenko@` is a separate one kept for AI tools and subscriptions |
 | Years of experience | CVs say "9+" (written 2025) | **11+** — first professional work Apr 2015 |
 
 Overlapping periods (BechaCant with eTeam, the Academy with freelance and MacKiev) are real and

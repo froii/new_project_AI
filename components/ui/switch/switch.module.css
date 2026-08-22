@@ -13,7 +13,7 @@
 
 .track {
   --switch-width: 2.75rem;
-  --switch-height: 1.625rem;
+  --switch-height: 26px;
   --switch-knob-size: 1.25rem;
   --switch-pad: calc((var(--switch-height) - var(--switch-knob-size)) / 2);
   --switch-knob-offset: 0rem;

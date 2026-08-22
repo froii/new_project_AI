@@ -5,6 +5,7 @@ next-env.d.ts
 dist/
 build/
 .env*
+!.env.example
 .idea/
 .DS_Store
 

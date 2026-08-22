@@ -25,7 +25,6 @@ export function SectionMenu() {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<ToggleSectionId | null>(null);
   const [drag, setDrag] = useState(0);
-  const [pages, setPages] = useState(false);
   const dragFrom = useRef(0);
   const panelId = useId();
   const rootRef = useRef<HTMLElement>(null);
@@ -52,12 +51,6 @@ export function SectionMenu() {
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [open]);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (pages) root.dataset.pages = "";
-    else delete root.dataset.pages;
-  }, [pages]);
 
   const shown = toggleSectionIds.filter((id) => visible[id]).length;
   const preset = matchPreset(visible);
@@ -150,7 +143,7 @@ export function SectionMenu() {
                       type="button"
                       className={styles.chevron}
                       aria-expanded={isExpanded}
-                      aria-label={label}
+                      aria-label={t("partsLabel", { section: label })}
                       onClick={() => setExpanded((value) => (value === toggleId ? null : toggleId))}
                     >
                       <span aria-hidden="true" />
@@ -197,6 +190,8 @@ export function SectionMenu() {
         </ul>
 
         <div className={styles.tools}>
+          <p className={styles.groupLabel}>{t("presetsHeading")}</p>
+
           <div className={styles.presetRow}>
             {presetIds.map((id) => (
               <button
@@ -212,22 +207,9 @@ export function SectionMenu() {
             ))}
           </div>
 
-          <div className={styles.exportRow}>
-            <button
-              type="button"
-              className={styles.preset}
-              aria-pressed={pages}
-              onClick={() => setPages((value) => !value)}
-            >
-              {t("pages")}
-            </button>
-            <button type="button" className={styles.print} onClick={() => window.print()}>
-              {t("print")}
-            </button>
-          </div>
+          <p className={styles.hint}>{t("hint")}</p>
 
-          <p className={styles.footer}>
-            <span>{t("count", { shown, total: toggleSectionIds.length })}</span>
+          <div className={styles.actions}>
             <button
               type="button"
               className={styles.reset}
@@ -235,7 +217,10 @@ export function SectionMenu() {
             >
               {t("reset")}
             </button>
-          </p>
+            <button type="button" className={styles.print} onClick={() => window.print()}>
+              {t("print")}
+            </button>
+          </div>
         </div>
       </div>
     </aside>

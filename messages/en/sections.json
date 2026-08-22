@@ -1,23 +1,23 @@
 {
   "menu": "Sections",
-  "heading": "What to show",
-  "hint": "Anything you switch off leaves the page, the address you share and the PDF.",
+  "hint": "Switched-off parts also leave the shared link and the PDF.",
   "toggle": "Show {section}",
+  "partsLabel": "Parts of {section}",
   "presetsHeading": "Presets",
   "reset": "Reset",
-  "count": "{shown} of {total} sections",
+  "print": "PDF",
   "presets": {
     "eu": {
       "label": "Europe",
-      "note": "photo, full text, personal note"
+      "note": "photo, full text"
     },
     "us": {
       "label": "US / ATS",
-      "note": "no photo, facts only"
+      "note": "no photo, no side detail"
     },
     "short": {
       "label": "One-pager",
-      "note": "only the essentials"
+      "note": "the short version"
     },
     "full": {
       "label": "Everything",
@@ -58,7 +58,5 @@
       "skills": "What it gave me"
     },
     "certifications": {}
-  },
-  "pages": "Pages",
-  "print": "Print / PDF"
+  }
 }

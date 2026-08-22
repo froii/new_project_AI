@@ -31,7 +31,9 @@ function metrics(el: Element): string {
   const round = (value: string) => Math.round(parseFloat(value) || 0);
   const parts = [`${Math.round(width)}×${Math.round(height)}`];
 
-  const pad = [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].map(round);
+  const pad = [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].map(
+    round,
+  );
   if (pad.some(Boolean)) parts.push(`padding ${pad.join(" ")}`);
 
   const gap = [style.rowGap, style.columnGap].map(round);

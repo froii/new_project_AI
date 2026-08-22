@@ -18,7 +18,7 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 | Theming | `next-themes`, `data-theme` on the root element |
 | PDF | `@react-pdf/renderer`, client-side |
 | AI (later) | Anthropic SDK behind `app/api/chat/route.ts` |
-| Email | provider undecided — see §Email |
+| Email | `nodemailer` over Gmail SMTP, behind `app/api/contact/route.ts` |
 
 Vitest for unit tests (`npm test`), configured in `vitest.config.mts` with Vite's native
 `resolve.tsconfigPaths` — no path-alias plugin.
@@ -122,18 +122,33 @@ A contact form: a visitor writes, the message is mailed to the owner. No subscri
 broadcasts — that reading was considered and dropped, and with it the storage, double opt-in and
 unsubscribe machinery.
 
-**Today the form composes a `mailto:` link** — it opens the visitor's own mail client with the
-message ready. No provider, no secrets, works offline of any backend. Swapping to a real send
-replaces one function; the markup and the `ui/` primitives do not change.
+**The form posts to `app/api/contact`, which sends through Gmail SMTP** with `nodemailer` — one
+dependency, no transitive ones. The account is authenticated with a Google **App Password**, not
+OAuth: a refresh-token flow is a Cloud project, a consent screen and a token to keep alive, for a
+mailbox that will see tens of messages a month. Gmail will not accept any `From` but the
+authenticated account, so the visitor's address goes to `Reply-To`.
 
-Contact values live in `NEXT_PUBLIC_OWNER_*` (see `.env.example`). **This is not secrecy** — the
-address is printed on the page and lands in the client bundle either way. It keeps personal contact
-details out of the repository, nothing more.
+**The mail header is constant.** One From display name, one subject, every time - so a single Gmail
+filter labels every message the site sends. Everything that varies is in the body, which is also
+the only place it cannot break a header.
 
-- One route handler, one sending provider. **TODO(tech):** provider not chosen.
-- Credentials in env vars, server-side only, never in the bundle.
-- The form is a trust boundary: validate input and rate-limit before sending. An unprotected form is
-  an open relay for whoever finds it — this is not on the chopping block for minimalism.
+Contact values are constants in `content/` — the address is printed on the page and could not be a
+secret if it tried. The Gmail credentials are the opposite: `GMAIL_USER` and `GMAIL_APP_PASSWORD`,
+server-side only, never with a `NEXT_PUBLIC_` prefix.
+
+- The form is a trust boundary: validate, cap every length, and rate-limit before sending. An
+  unprotected form is an open relay for whoever finds it — this is not on the chopping block for
+  minimalism.
+- Anything that reaches a mail header (`From`, `Reply-To`, `Subject`) is stripped of newlines
+  first, or the sender writes their own headers.
+- Rate limiting is an in-memory map, 5 per address per hour. It is per instance and resets on
+  deploy. At this volume a store would be infrastructure bought to solve nothing.
+- The validation rule lives in `lib/contact-message.ts` and runs on both sides. The browser copy is
+  a courtesy; the route handler is the boundary.
+- Unconfigured, the route answers `503` and the form falls back to showing the address. Missing
+  credentials must look like an outage, not like a sent message.
+- The App Password is stripped of whitespace before use. Google prints it in four groups of four and
+  that is how it is pasted; the spaces are typography, and an App Password never contains one.
 
 ## Testing
 
@@ -167,6 +182,6 @@ worth before a domain exists. **TODO(tech):** revisit at deploy time.
 itself. Both read `NEXT_PUBLIC_SITE_URL`; until it is set they emit `localhost`, which is wrong in
 production and must be set before the first deploy.
 
-**TODO(tech):** hosting not chosen. Constraint to respect: route handlers for AI and email mean the
-target must run server code — a pure static export would foreclose both, and would also drop the
-security headers above, since those need a server.
+**TODO(tech):** hosting not chosen. The constraint is now binding, not future: `app/api/contact` is
+a live route handler, so the target must run server code. A pure static export would drop the
+contact form, the security headers above, and the AI route when it arrives.

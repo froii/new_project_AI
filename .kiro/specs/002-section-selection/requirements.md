@@ -126,3 +126,9 @@ The visitor turns off "Work". That section disappears from the page, and its men
 - The footer and header are not sections and cannot be turned off.
 - The PDF export is not part of this feature; FR-110 only requires the state be readable when it
   arrives.
+
+- **FR-230**: The panel MUST state, in one line beside the presets, that switching a part off
+  also removes it from the shared link and the PDF - the reach of the control is the one thing a
+  visitor cannot infer from the switches themselves.
+- **FR-231**: A preset note MUST describe what the preset actually does. A note that outlives the
+  toggle it described is worse than no note.

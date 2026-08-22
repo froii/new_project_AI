@@ -1,6 +1,8 @@
 {
   "name": "Oleksa Tyshchenko",
   "description": "Senior full stack developer. 10+ years on low-code platforms, back-office systems and AI-powered products.",
+  "cvTitle": "Full CV - {name}",
+  "home": "Back to the home page",
   "skipToContent": "Skip to content",
   "language": "Language",
   "theme": "Toggle theme",

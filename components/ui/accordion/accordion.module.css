@@ -22,7 +22,7 @@
 
 @container (min-width: 34rem) {
   .trigger {
-    grid-template-columns: 6.625rem minmax(0, 1fr) 1.25rem;
+    grid-template-columns: 106px minmax(0, 1fr) 1.25rem;
   }
 }
 

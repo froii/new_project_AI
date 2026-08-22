@@ -24,10 +24,23 @@
   min-width: 0;
 }
 
-@media (max-width: 47.99rem) {
-  .identity ul {
-    display: none;
-  }
+.home {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-width: 0;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.home:hover {
+  color: var(--color-accent);
+}
+
+.home svg {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
 }
 
 .name {

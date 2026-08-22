@@ -78,7 +78,8 @@ export function Experience() {
       <div className="block-head">
         <h2>{t("heading")}</h2>
         <span className={styles.span}>
-          {t("summary", { count: entries.length })} · {span.from} - {span.to ?? t("present")}
+          {t("summary", { count: entries.filter((entry) => !entry.nonDev).length })} · {span.from} -{" "}
+          {span.to ?? t("present")}
         </span>
         <PartToggle
           id="experience.all"

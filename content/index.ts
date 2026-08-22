@@ -237,6 +237,13 @@ export const education: EducationEntry[] = [
     ],
   },
   {
+    id: "nas",
+    institution: "National Academy of Sciences of Ukraine",
+    start: "2012",
+    end: "2016",
+    skills: ["Research design", "Data quality & validation", "Technical writing", "ArcMap / GIS"],
+  },
+  {
     id: "kai",
     institution: "National University «Kyiv Aviation Institute»",
     start: "2011",
@@ -262,13 +269,6 @@ export const education: EducationEntry[] = [
       "Large datasets",
       "Self-directed learning",
     ],
-  },
-  {
-    id: "nas",
-    institution: "National Academy of Sciences of Ukraine",
-    start: "2012",
-    end: "2016",
-    skills: ["Research design", "Data quality & validation", "Technical writing", "ArcMap / GIS"],
   },
 ];
 

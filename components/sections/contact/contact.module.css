@@ -183,3 +183,27 @@
   color: var(--color-text-faint);
   font-size: var(--step--1);
 }
+
+/* Off-screen, not display:none - bots skip hidden fields. */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.done {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin-block-start: var(--space-xl);
+  padding-block-start: var(--space-xl);
+  border-block-start: var(--border-width) solid var(--color-invert-border);
+}
+
+.doneHeading {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  color: var(--color-invert-text);
+}

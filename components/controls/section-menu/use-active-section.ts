@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { isToggleSection, sectionIds, type SectionId } from "@/content/sections";
 import type { Visibility } from "@/lib/section-visibility";
 
-const isShown = (visible: Visibility, id: SectionId) =>
-  isToggleSection(id) ? visible[id] : true;
+const isShown = (visible: Visibility, id: SectionId) => (isToggleSection(id) ? visible[id] : true);
 
 export function useActiveSection(visible: Visibility): SectionId | null {
   const [seen, setSeen] = useState<SectionId | null>(null);

@@ -195,8 +195,8 @@
 }
 
 .chevron > span {
-  width: 0.35rem;
-  height: 0.35rem;
+  width: 6px;
+  height: 6px;
   border-inline-end: 1.5px solid currentColor;
   border-block-end: 1.5px solid currentColor;
   rotate: -45deg;
@@ -248,19 +248,41 @@
 
 .tools {
   flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
   padding-block-start: var(--space-s);
   border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* The same micro-rubric the page uses over its own blocks, so the panel reads
+   as part of the site rather than as a control surface bolted onto it. */
+.groupLabel {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
 }
 
 .presetRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: var(--space-2xs);
+}
+
+/* The one sentence that explains the whole panel: what you switch off does not
+   only leave the screen. It sits with the presets, which is what people press. */
+.hint {
+  color: var(--color-text-faint);
+  font-size: var(--step--2);
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .preset {
   flex: none;
-  min-height: 1.875rem;
+  min-height: 30px;
   padding-inline: var(--space-s);
   border: var(--border-width) solid var(--color-border);
   border-radius: 999px;
@@ -286,17 +308,17 @@
   color: var(--color-invert-text);
 }
 
-.exportRow {
+.actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-xs);
-  margin-block-start: 0.25rem;
+  gap: var(--space-s);
+  padding-block-start: var(--space-2xs);
 }
 
 .print {
   flex: none;
-  min-height: 1.875rem;
+  min-height: 30px;
   padding-inline: var(--space-m);
   border-radius: 999px;
   background: var(--color-invert-bg);
@@ -309,18 +331,6 @@
 .print:hover {
   background: var(--color-accent);
   color: var(--color-bg);
-}
-
-.footer {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-s);
-  margin-block-start: var(--space-s);
-  color: var(--color-text-faint);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  font-variant-numeric: tabular-nums;
 }
 
 .reset {
@@ -381,7 +391,7 @@
   }
 
   .partRow {
-    min-height: 1.875rem;
+    min-height: 30px;
   }
 
   .smallSwitch {

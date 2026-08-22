@@ -22,7 +22,11 @@ export function Accordion({
   className?: string;
 }) {
   return (
-    <RadixAccordion.Root type="multiple" defaultValue={defaultOpen} className={[styles.root, className].filter(Boolean).join(" ")}>
+    <RadixAccordion.Root
+      type="multiple"
+      defaultValue={defaultOpen}
+      className={[styles.root, className].filter(Boolean).join(" ")}
+    >
       {items.map((item) => (
         <RadixAccordion.Item key={item.id} value={item.id} className={styles.item}>
           <RadixAccordion.Header>

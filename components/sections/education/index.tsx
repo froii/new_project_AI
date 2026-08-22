@@ -2,20 +2,21 @@ import { useTranslations } from "next-intl";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
 import { education } from "@/content";
+import { dottedDate } from "@/lib/content";
 import styles from "./education.module.css";
 
 const recent = 2;
 
 export function Education() {
   const t = useTranslations("education");
+  const tExperience = useTranslations("experience");
 
   const entry = (item: (typeof education)[number]) => (
     <li key={item.id} className={styles.entry}>
       <div className={styles.head}>
         <p className={styles.degree}>{t(`entries.${item.id}.degree`)}</p>
         <p className={styles.period}>
-          {item.start}
-          {item.end ? `-${item.end}` : ""}
+          {dottedDate(item.start)} - {item.end ? dottedDate(item.end) : tExperience("present")}
         </p>
       </div>
 

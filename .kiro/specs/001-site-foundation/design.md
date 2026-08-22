@@ -103,7 +103,8 @@ app/
   layout.tsx              # <html>, globals.css, fonts
   [locale]/
     layout.tsx            # NextIntlClientProvider, ThemeProvider, header, footer, <noscript>
-    page.tsx              # composes sections in order
+    page.tsx              # landing page (see 004-landing-page)
+    cv/page.tsx           # the full CV: composes sections in order
 content/
   index.ts                # profile, experience, projects — structure only
   types.ts                # Locale, entity types
@@ -113,6 +114,7 @@ lib/
 components/
   ui/                     # accordion, dropdown-menu, button, visually-hidden
   sections/               # hero, about, experience, projects, footer-contacts
+  landing/                # intro, highlights, footer — the landing page only
   controls/               # locale-switcher, theme-switcher
 messages/
   en/  uk/                # one file per block; en/index.ts is the reference shape
@@ -323,7 +325,7 @@ render with the wrong palette (FR-025).
 
 ### Extension point (deliberately not built)
 
-`page.tsx` composes sections from an ordered list. When the deferred selection feature arrives, it
+`cv/page.tsx` composes sections from an ordered list. When the deferred selection feature arrives, it
 filters that list, and the PDF renderer reads the same filtered list — satisfying `tech.md`
 §Selection without a second selection model. This feature adds no filter, no state, and no props for
 it; the extension point is the list already existing.

@@ -200,7 +200,7 @@ a:hover {
   --color-hairline: #f0eeea;
   --color-text: #14171c;
   --color-text-muted: #545c6b;
-  --color-text-faint: #98a0ad;
+  --color-text-faint: #656e7d;
   --color-accent: #2b56c4;
   --color-danger: #b42318;
   --color-focus: #2b56c4;
@@ -224,7 +224,7 @@ a:hover {
   --color-hairline: #1e232b;
   --color-text: #e9ebef;
   --color-text-muted: #a3abb9;
-  --color-text-faint: #6f7887;
+  --color-text-faint: #858e9d;
   --color-accent: #8fb0ff;
   --color-danger: #ff9b91;
   --color-focus: #8fb0ff;
@@ -249,7 +249,7 @@ a:hover {
     --color-hairline: #1e232b;
     --color-text: #e9ebef;
     --color-text-muted: #a3abb9;
-    --color-text-faint: #6f7887;
+    --color-text-faint: #858e9d;
     --color-accent: #8fb0ff;
     --color-danger: #ff9b91;
     --color-focus: #8fb0ff;
@@ -537,20 +537,11 @@ a:hover {
   }
 }
 
-/* ---------- paper geometry: one source for print and for the page preview ---------- */
+/* ---------- paper: the type and spacing the printed file is set in ---------- */
 
+/* Paper is the base and screen is the override, so print inherits these
+   untouched and no rule has to be written twice. */
 :root {
-  --page-width: 210mm;
-  --page-height: 297mm;
-  --page-pad-x: 12mm;
-  --page-pad-y: 14mm;
-  --page-content-height: calc(var(--page-height) - 2 * var(--page-pad-y));
-  --page-cut: 7mm;
-
-  /* Paper is the base and screen is the override. Print inherits these
-     untouched; the preview keeps them by failing the :not() below. That is what
-     makes the preview predictive rather than decorative - same type, same
-     spacing, so a rule drawn every content-height lands where the printer cuts. */
   --paper-font-size: 11pt;
   --paper-section-lead: 0;
   --paper-section-tail: 5mm;
@@ -560,7 +551,7 @@ a:hover {
 }
 
 @media screen {
-  :root:not([data-pages]) {
+  :root {
     --paper-font-size: 100%;
     --paper-section-lead: var(--space-xl);
     --paper-section-tail: var(--space-xl);
@@ -592,34 +583,6 @@ html {
 p {
   orphans: 2;
   widows: 2;
-}
-
-/* ---------- page preview: where the cut falls, drawn on the live page ---------- */
-
-:root[data-pages] .paper {
-  width: var(--page-width);
-  max-width: none;
-  padding: var(--page-pad-y) var(--page-pad-x);
-  border-radius: 0;
-  box-shadow: var(--shadow-sm);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0 var(--page-content-height),
-    var(--color-canvas) var(--page-content-height)
-      calc(var(--page-content-height) + var(--page-cut))
-  );
-  background-origin: content-box;
-  background-clip: content-box;
-  background-repeat: repeat-y;
-}
-
-:root[data-pages] .sheet {
-  overflow-x: auto;
-}
-
-:root[data-pages] .sheet > .section-slot .section {
-  width: var(--page-width);
-  margin-inline: auto;
 }
 
 /* ---------- print: the file the visitor actually keeps ---------- */
