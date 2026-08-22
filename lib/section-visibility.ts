@@ -1,4 +1,12 @@
-import { toggleCodes, toggleDefaults, toggleIds, type ToggleId } from "@/content/sections";
+import {
+  presetIds,
+  presets,
+  toggleCodes,
+  toggleDefaults,
+  toggleIds,
+  type PresetId,
+  type ToggleId,
+} from "@/content/sections";
 
 export type Visibility = Record<ToggleId, boolean>;
 
@@ -23,4 +31,17 @@ export function decodeVisibility(value: string | null): Visibility {
     if (changed.has(toggleCodes[id])) result[id] = !toggleDefaults[id];
   }
   return result;
+}
+
+export function presetVisibility(id: PresetId): Visibility {
+  return { ...defaultVisibility, ...presets[id] };
+}
+
+export function matchPreset(visible: Visibility): PresetId | null {
+  return (
+    presetIds.find((id) => {
+      const candidate = presetVisibility(id);
+      return toggleIds.every((toggle) => candidate[toggle] === visible[toggle]);
+    }) ?? null
+  );
 }

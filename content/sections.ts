@@ -12,30 +12,38 @@ export type SectionId = (typeof sectionIds)[number];
 
 export const sectionParts = {
   hero: ["photo", "contacts"],
-  about: ["full", "achievements", "personal"],
-  skills: [],
-  experience: ["project", "responsibilities", "techStack", "alsoUsed", "link", "interest"],
-  education: ["skills"],
+  about: ["achievementsFull"],
+  skills: ["full"],
+  experience: ["all", "project", "responsibilities", "techStack", "alsoUsed", "link", "interest"],
+  education: ["all", "skills"],
   certifications: [],
-  contact: ["form"],
+  contact: [],
 } as const satisfies Record<SectionId, readonly string[]>;
 
 export type PartId = {
   [S in SectionId]: `${S}.${(typeof sectionParts)[S][number]}`;
 }[SectionId];
 
-export type ToggleId = SectionId | PartId;
+/* Contact is screen-only: it never reaches the PDF and it is the band the page
+   ends on, so there is nothing for a visitor to switch off. It renders always. */
+export type ToggleSectionId = Exclude<SectionId, "contact">;
+
+export const toggleSectionIds = sectionIds.filter(
+  (id): id is ToggleSectionId => id !== "contact",
+);
+
+export type ToggleId = ToggleSectionId | PartId;
 
 export const toggleCodes = {
   hero: "h",
   "hero.photo": "hp",
   "hero.contacts": "hc",
   about: "a",
-  "about.full": "af",
-  "about.achievements": "aa",
-  "about.personal": "ap",
+  "about.achievementsFull": "af",
   skills: "k",
+  "skills.full": "kf",
   experience: "e",
+  "experience.all": "ea",
   "experience.project": "ep",
   "experience.responsibilities": "er",
   "experience.techStack": "et",
@@ -43,10 +51,9 @@ export const toggleCodes = {
   "experience.link": "el",
   "experience.interest": "ei",
   education: "d",
+  "education.all": "da",
   "education.skills": "ds",
   certifications: "r",
-  contact: "c",
-  "contact.form": "cf",
 } as const satisfies Record<ToggleId, string>;
 
 export const toggleDefaults = {
@@ -54,11 +61,11 @@ export const toggleDefaults = {
   "hero.photo": true,
   "hero.contacts": true,
   about: true,
-  "about.full": false,
-  "about.achievements": true,
-  "about.personal": true,
+  "about.achievementsFull": true,
   skills: true,
+  "skills.full": true,
   experience: true,
+  "experience.all": true,
   "experience.project": true,
   "experience.responsibilities": true,
   "experience.techStack": true,
@@ -66,14 +73,49 @@ export const toggleDefaults = {
   "experience.link": true,
   "experience.interest": false,
   education: true,
+  "education.all": true,
   "education.skills": true,
   certifications: true,
-  contact: true,
-  "contact.form": true,
 } as const satisfies Record<ToggleId, boolean>;
 
 export const toggleIds = Object.keys(toggleCodes) as ToggleId[];
 
-export function partsOf(section: SectionId): PartId[] {
+export function isToggleSection(id: SectionId): id is ToggleSectionId {
+  return id !== "contact";
+}
+
+export function partsOf(section: ToggleSectionId): PartId[] {
   return sectionParts[section].map((part) => `${section}.${part}` as PartId);
 }
+
+export const presetIds = ["eu", "us", "short", "full"] as const;
+
+export type PresetId = (typeof presetIds)[number];
+
+export const presets = {
+  eu: { "experience.interest": true },
+  us: {
+    "hero.photo": false,
+    "experience.alsoUsed": false,
+    "experience.interest": false,
+  },
+  short: {
+    "hero.photo": false,
+    "about.achievementsFull": false,
+    "skills.full": false,
+    "experience.all": false,
+    "experience.responsibilities": false,
+    "experience.interest": false,
+    "education.all": false,
+    "education.skills": false,
+    certifications: false,
+  },
+  full: {
+    "about.achievementsFull": true,
+    "skills.full": true,
+    "experience.all": true,
+    "education.all": true,
+    "experience.alsoUsed": true,
+    "experience.interest": true,
+  },
+} as const satisfies Record<PresetId, Partial<Record<ToggleId, boolean>>>;

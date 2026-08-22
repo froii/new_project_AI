@@ -6,10 +6,14 @@
   "email": "Email",
   "emailError": "That does not look like an email address.",
   "message": "Message",
-  "messageError": "A little more detail, please — at least ten characters.",
+  "messageError": "A little more detail, please: at least ten characters.",
   "submit": "Send",
-  "note": "Opens your mail app with the message ready to send.",
-  "mailSubject": "Message from {name}",
+  "note": "I get it by email and reply as soon as I can.",
+  "sending": "Sending...",
+  "sent": "Thank you, the message is on its way.",
+  "sentNote": "I usually reply within a day.",
+  "failed": "The message did not go through. Write to me directly:",
+  "trapLabel": "Company",
   "direct": {
     "email": "Email",
     "phone": "Phone",
@@ -17,7 +21,7 @@
     "github": "GitHub"
   },
   "open": "Write to me",
-  "close": "Hide the form",
+  "close": "Hide",
   "phone": "Phone",
   "optional": "(optional)",
   "messengers": {

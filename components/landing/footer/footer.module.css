@@ -1,0 +1,43 @@
+/* Inverted band: the shared controls read these tokens. */
+.footer {
+  --color-bg: var(--color-invert-bg);
+  --color-surface: color-mix(in srgb, var(--color-invert-text) 7%, var(--color-invert-bg));
+  --color-border: var(--color-invert-border);
+  --color-hairline: var(--color-invert-border);
+  --color-text: var(--color-invert-text);
+  --color-text-muted: var(--color-invert-muted);
+  --color-text-faint: color-mix(in srgb, var(--color-invert-muted) 65%, var(--color-invert-bg));
+  --color-accent: var(--color-invert-accent);
+  --color-focus: var(--color-invert-accent);
+
+  padding-block-end: var(--space-l);
+  background: var(--color-invert-bg);
+  color: var(--color-invert-text);
+}
+
+/* The card brings its own block padding. */
+.footer > :global(.section) {
+  padding-block: 0;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding-block-start: var(--space-l);
+  border-block-start: var(--border-width) solid var(--color-invert-border);
+}
+
+.copy {
+  color: var(--color-text-faint);
+  font-size: var(--step--1);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-s);
+}

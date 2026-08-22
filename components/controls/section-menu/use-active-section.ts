@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { sectionIds, type SectionId } from "@/content/sections";
+import { isToggleSection, sectionIds, type SectionId } from "@/content/sections";
 import type { Visibility } from "@/lib/section-visibility";
+
+const isShown = (visible: Visibility, id: SectionId) => (isToggleSection(id) ? visible[id] : true);
 
 export function useActiveSection(visible: Visibility): SectionId | null {
   const [seen, setSeen] = useState<SectionId | null>(null);
 
   useEffect(() => {
     const elements = sectionIds
-      .filter((id) => visible[id])
+      .filter((id) => isShown(visible, id))
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
 
@@ -30,5 +32,5 @@ export function useActiveSection(visible: Visibility): SectionId | null {
     return () => observer.disconnect();
   }, [visible]);
 
-  return seen && visible[seen] ? seen : null;
+  return seen && isShown(visible, seen) ? seen : null;
 }

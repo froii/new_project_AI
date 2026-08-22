@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
+import { Inspector } from "@/components/dev/inspector";
 import { SectionsProvider } from "@/components/providers/sections-provider";
 import { isLocale, locales } from "@/i18n/config";
 import { siteUrl } from "@/lib/site";
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
 
   return {
     metadataBase: new URL(siteUrl),
-    title: t("title"),
+    title: t("name"),
     description: t("description"),
     alternates: {
       canonical: `/${locale}`,
@@ -35,8 +36,8 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
     },
     openGraph: {
       type: "profile",
-      siteName: t("title"),
-      title: t("title"),
+      siteName: t("name"),
+      title: t("name"),
       description: t("description"),
       url: `${siteUrl}/${locale}`,
       locale,
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
     },
     twitter: {
       card: "summary",
-      title: t("title"),
+      title: t("name"),
       description: t("description"),
     },
     robots: { index: true, follow: true },
@@ -73,6 +74,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
             <SectionsProvider>{children}</SectionsProvider>
+            {process.env.NODE_ENV === "development" && <Inspector />}
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

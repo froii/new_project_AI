@@ -1,173 +1,249 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type TransitionEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
-import { useSections } from "@/components/providers/sections-provider";
 import { owner } from "@/content";
+import { contactLimits, invalidContactFields, type ContactField } from "@/lib/contact-message";
+import { CONTACT_OPEN } from "@/lib/contact-open";
 import { messengerLinks } from "@/lib/contacts";
 import styles from "./contact.module.css";
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+type Status = "idle" | "sending" | "sent" | "failed";
 
-type Errors = { name?: boolean; email?: boolean; message?: boolean };
+/* The form is the last block on both pages. No `behavior`: it inherits
+   `scroll-behavior` from html, which reduced motion turns off. */
+function scrollToForm() {
+  window.scrollTo({ top: document.documentElement.scrollHeight });
+}
 
 export function Contact() {
   const t = useTranslations("contact");
-  const { visible } = useSections();
   const [open, setOpen] = useState(false);
-  const [errors, setErrors] = useState<Errors>({});
+  const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors] = useState<ContactField[]>([]);
   const panelId = useId();
+  const firstField = useRef<HTMLInputElement>(null);
+  const done = useRef<HTMLDivElement>(null);
 
   const email = owner.contacts.find((contact) => contact.kind === "email")?.value;
   const phone = owner.contacts.find((contact) => contact.kind === "phone")?.value;
+  const broken = (field: ContactField) => errors.includes(field);
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (open) firstField.current?.focus({ preventScroll: true });
+  }, [open]);
+
+  useEffect(() => {
+    const request = () => {
+      setOpen(true);
+      /* Already open: nothing transitions, so settle() never fires. */
+      requestAnimationFrame(() => {
+        firstField.current?.focus({ preventScroll: true });
+        scrollToForm();
+      });
+    };
+
+    window.addEventListener(CONTACT_OPEN, request);
+    return () => window.removeEventListener(CONTACT_OPEN, request);
+  }, []);
+
+  useEffect(() => {
+    if (status === "sent") done.current?.focus();
+  }, [status]);
+
+  /* The panel has no height until the transition ends. */
+  const settle = (event: TransitionEvent<HTMLDivElement>) => {
+    if (!open || event.target !== event.currentTarget) return;
+    scrollToForm();
+  };
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "").trim();
-    const from = String(data.get("email") ?? "").trim();
-    const tel = String(data.get("phone") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
 
-    const next: Errors = {
-      name: name.length === 0,
-      email: !emailPattern.test(from),
-      message: message.length < 10,
+    const draft = {
+      name: String(data.get("name") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
+      message: String(data.get("message") ?? "").trim(),
     };
-    setErrors(next);
-    if (next.name || next.email || next.message || !email) return;
 
-    const signature = tel ? `— ${name} <${from}>, ${tel}` : `— ${name} <${from}>`;
-    const body = `${message}\n\n${signature}`;
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(
-      t("mailSubject", { name }),
-    )}&body=${encodeURIComponent(body)}`;
+    const invalid = invalidContactFields(draft);
+    setErrors(invalid);
+    if (invalid.length > 0) return;
+
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...draft, company: String(data.get("company") ?? "") }),
+      });
+      setStatus(response.ok ? "sent" : "failed");
+    } catch {
+      setStatus("failed");
+    }
   };
 
   return (
-    <section className="section" id="contact">
-      <div className="shell stack">
-        <h2>{t("heading")}</h2>
-        <p className="muted">{t("intro")}</p>
+    <section className="section screen-only" id="contact">
+      <div className="body">
+        <div className={styles.card}>
+          <div className={styles.top}>
+            <div className={styles.intro}>
+              <h2 className={styles.kicker}>{t("heading")}</h2>
+              <p className={styles.headline}>{t("intro")}</p>
 
-        <div className={styles.bar}>
-          {visible["contact.form"] && (
-            <Button
-              type="button"
-              aria-expanded={open}
-              aria-controls={panelId}
-              onClick={() => setOpen((v) => !v)}
-            >
-              {open ? t("close") : t("open")}
-            </Button>
-          )}
+              <div className={styles.bar}>
+                {email && (
+                  <a className={styles.email} href={`mailto:${email}`}>
+                    {email}
+                  </a>
+                )}
 
-          {email && (
-            <a className={styles.email} href={`mailto:${email}`}>
-              {email}
-            </a>
-          )}
+                <Button
+                  type="button"
+                  variant="outline"
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => setOpen((value) => !value)}
+                >
+                  {open ? t("close") : t("open")}
+                </Button>
+              </div>
+            </div>
 
-          {phone && (
-            <SocialLinks
-              label={t("messengersLabel")}
-              links={messengerLinks(phone).map((link) => ({
-                ...link,
-                label: t(`messengers.${link.id}`),
-              }))}
-            />
-          )}
-        </div>
+            {phone && (
+              <div className={styles.aside}>
+                <p className={styles.asideLabel}>{t("messengersLabel")}</p>
+                <SocialLinks
+                  label={t("messengersLabel")}
+                  links={messengerLinks(phone).map((link) => ({
+                    ...link,
+                    label: t(`messengers.${link.id}`),
+                  }))}
+                />
+              </div>
+            )}
+          </div>
 
-        {visible["contact.form"] && (
-          <div id={panelId} className={styles.reveal} data-open={open || undefined} inert={!open}>
+          <div
+            id={panelId}
+            className={styles.reveal}
+            data-open={open || undefined}
+            inert={!open}
+            onTransitionEnd={settle}
+          >
             <div className={styles.revealInner}>
-              <form className={styles.form} onSubmit={submit} noValidate>
-                <div className={styles.row}>
-                  <label className={styles.label} htmlFor="contact-name">
-                    {t("name")}
-                  </label>
-                  <Input
-                    id="contact-name"
-                    name="name"
-                    autoComplete="name"
-                    aria-invalid={errors.name || undefined}
-                    aria-describedby={errors.name ? "contact-name-error" : undefined}
-                  />
-                  {errors.name && (
-                    <p id="contact-name-error" className={styles.error}>
-                      {t("nameError")}
-                    </p>
-                  )}
+              {status === "sent" ? (
+                <div className={styles.done} ref={done} tabIndex={-1} role="status">
+                  <p className={styles.doneHeading}>{t("sent")}</p>
+                  <p className={styles.note}>{t("sentNote")}</p>
                 </div>
+              ) : (
+                <form className={styles.form} onSubmit={submit} noValidate>
+                  <div className={styles.trap} aria-hidden="true">
+                    <label htmlFor="contact-company">{t("trapLabel")}</label>
+                    <input id="contact-company" name="company" tabIndex={-1} autoComplete="off" />
+                  </div>
 
-                <div className={styles.pair}>
                   <div className={styles.row}>
-                    <label className={styles.label} htmlFor="contact-email">
-                      {t("email")}
+                    <label className={styles.label} htmlFor="contact-name">
+                      {t("name")}
                     </label>
                     <Input
-                      id="contact-email"
-                      name="email"
-                      type="email"
-                      inputMode="email"
-                      autoComplete="email"
-                      aria-invalid={errors.email || undefined}
-                      aria-describedby={errors.email ? "contact-email-error" : undefined}
+                      id="contact-name"
+                      name="name"
+                      ref={firstField}
+                      maxLength={contactLimits.name}
+                      autoComplete="name"
+                      aria-invalid={broken("name") || undefined}
+                      aria-describedby={broken("name") ? "contact-name-error" : undefined}
                     />
-                    {errors.email && (
-                      <p id="contact-email-error" className={styles.error}>
-                        {t("emailError")}
+                    {broken("name") && (
+                      <p id="contact-name-error" className={styles.error}>
+                        {t("nameError")}
                       </p>
                     )}
                   </div>
 
-                  <div className={styles.row}>
-                    <label className={styles.label} htmlFor="contact-phone">
-                      {t("phone")} <span className={styles.optional}>{t("optional")}</span>
-                    </label>
-                    <Input
-                      id="contact-phone"
-                      name="phone"
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                    />
-                  </div>
-                </div>
+                  <div className={styles.pair}>
+                    <div className={styles.row}>
+                      <label className={styles.label} htmlFor="contact-email">
+                        {t("email")}
+                      </label>
+                      <Input
+                        id="contact-email"
+                        name="email"
+                        type="email"
+                        inputMode="email"
+                        maxLength={contactLimits.email}
+                        autoComplete="email"
+                        aria-invalid={broken("email") || undefined}
+                        aria-describedby={broken("email") ? "contact-email-error" : undefined}
+                      />
+                      {broken("email") && (
+                        <p id="contact-email-error" className={styles.error}>
+                          {t("emailError")}
+                        </p>
+                      )}
+                    </div>
 
-                <div className={styles.row}>
-                  <label className={styles.label} htmlFor="contact-message">
-                    {t("message")}
-                  </label>
-                  <Textarea
-                    id="contact-message"
-                    name="message"
-                    rows={5}
-                    aria-invalid={errors.message || undefined}
-                    aria-describedby={errors.message ? "contact-message-error" : undefined}
-                  />
-                  {errors.message && (
-                    <p id="contact-message-error" className={styles.error}>
-                      {t("messageError")}
+                    <div className={styles.row}>
+                      <label className={styles.label} htmlFor="contact-phone">
+                        {t("phone")} <span className={styles.optional}>{t("optional")}</span>
+                      </label>
+                      <Input
+                        id="contact-phone"
+                        name="phone"
+                        type="tel"
+                        inputMode="tel"
+                        maxLength={contactLimits.phone}
+                        autoComplete="tel"
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.row}>
+                    <label className={styles.label} htmlFor="contact-message">
+                      {t("message")}
+                    </label>
+                    <Textarea
+                      id="contact-message"
+                      name="message"
+                      rows={5}
+                      maxLength={contactLimits.message}
+                      aria-invalid={broken("message") || undefined}
+                      aria-describedby={broken("message") ? "contact-message-error" : undefined}
+                    />
+                    {broken("message") && (
+                      <p id="contact-message-error" className={styles.error}>
+                        {t("messageError")}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className={styles.actions}>
+                    <Button type="submit" disabled={status === "sending"}>
+                      {status === "sending" ? t("sending") : t("submit")}
+                    </Button>
+                    <p className={styles.note}>{t("note")}</p>
+                  </div>
+
+                  {status === "failed" && (
+                    <p className={styles.error} role="alert">
+                      {t("failed")} {email && <a href={`mailto:${email}`}>{email}</a>}
                     </p>
                   )}
-                </div>
-
-                <div className={styles.actions}>
-                  <Button type="submit" disabled={!email}>
-                    {t("submit")}
-                  </Button>
-                  <p className={styles.note}>{t("note")}</p>
-                </div>
-              </form>
+                </form>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

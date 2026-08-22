@@ -4,18 +4,30 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSections } from "@/components/providers/sections-provider";
 import { Switch } from "@/components/ui/switch";
-import { partsOf, sectionIds, sectionParts } from "@/content/sections";
+import {
+  isToggleSection,
+  partsOf,
+  presetIds,
+  sectionIds,
+  sectionParts,
+  toggleSectionIds,
+  type ToggleSectionId,
+} from "@/content/sections";
+import { defaultVisibility, matchPreset, presetVisibility } from "@/lib/section-visibility";
 import { useActiveSection } from "./use-active-section";
 import styles from "./section-menu.module.css";
 
 export function SectionMenu() {
   const t = useTranslations("sections");
-  const { visible, toggle } = useSections();
+  const { visible, toggle, apply } = useSections();
   const active = useActiveSection(visible);
 
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<ToggleSectionId | null>(null);
+  const [drag, setDrag] = useState(0);
+  const dragFrom = useRef(0);
   const panelId = useId();
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -40,10 +52,11 @@ export function SectionMenu() {
     };
   }, [open]);
 
-  const shownCount = sectionIds.filter((id) => visible[id]).length;
+  const shown = toggleSectionIds.filter((id) => visible[id]).length;
+  const preset = matchPreset(visible);
 
   return (
-    <div className={styles.root} ref={rootRef}>
+    <aside className={`screen-only ${styles.root}`} ref={rootRef} aria-label={t("menu")}>
       <button
         type="button"
         ref={triggerRef}
@@ -54,67 +67,162 @@ export function SectionMenu() {
       >
         <span>{active ? t(`labels.${active}`) : t("menu")}</span>
         <span className={styles.count}>
-          {shownCount}/{sectionIds.length}
+          {shown}/{toggleSectionIds.length}
         </span>
         <span className={styles.caret} aria-hidden="true" />
       </button>
 
-      <div id={panelId} className={styles.panel} hidden={!open}>
-        <p className={styles.hint}>{t("hint")}</p>
-        <ul className={styles.list} role="list">
-          {sectionIds.map((id) => (
-            <li key={id}>
-              <div className={styles.row}>
-                <a
-                  href={`#${id}`}
-                  className={styles.link}
-                  aria-current={active === id ? "location" : undefined}
-                  aria-disabled={!visible[id] || undefined}
-                  onClick={(event) => {
-                    if (!visible[id]) {
-                      event.preventDefault();
-                      return;
-                    }
-                    setOpen(false);
-                  }}
-                >
-                  <span className={styles.dot} aria-hidden="true" />
-                  <span className={styles.label}>{t(`labels.${id}`)}</span>
-                </a>
-                <Switch
-                  id={`toggle-${id}`}
-                  label={t("toggle", { section: t(`labels.${id}`) })}
-                  checked={visible[id]}
-                  onChange={() => toggle(id)}
-                />
-              </div>
+      {open && (
+        <div className={styles.backdrop} aria-hidden="true" onClick={() => setOpen(false)} />
+      )}
 
-              {visible[id] && sectionParts[id].length > 0 && (
-                <ul className={styles.parts} role="list">
-                  {partsOf(id).map((partId) => {
-                    const part = partId.slice(id.length + 1);
-                    const partLabel = t(`parts.${id}.${part}`);
-                    return (
-                      <li key={partId} className={styles.partRow}>
-                        <label className={styles.partLabel} htmlFor={`toggle-${partId}`}>
-                          {partLabel}
-                        </label>
-                        <Switch
-                          id={`toggle-${partId}`}
-                          className={styles.smallSwitch}
-                          label={t("toggle", { section: partLabel })}
-                          checked={visible[partId]}
-                          onChange={() => toggle(partId)}
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </li>
-          ))}
+      <div
+        id={panelId}
+        className={styles.panel}
+        data-open={open}
+        style={{
+          translate: drag ? `0 ${drag}px` : undefined,
+          transition: drag ? "none" : undefined,
+        }}
+      >
+        <div
+          className={styles.grip}
+          aria-hidden="true"
+          onPointerDown={(event) => {
+            dragFrom.current = event.clientY;
+            event.currentTarget.setPointerCapture(event.pointerId);
+          }}
+          onPointerMove={(event) => {
+            if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+            setDrag(Math.max(0, event.clientY - dragFrom.current));
+          }}
+          onPointerUp={() => {
+            if (drag > 80) setOpen(false);
+            setDrag(0);
+          }}
+          onPointerCancel={() => setDrag(0)}
+        >
+          <span />
+        </div>
+
+        <ul className={styles.list} role="list">
+          {sectionIds.map((id, index) => {
+            const label = t(`labels.${id}`);
+            /* Contact is listed so a visitor can jump to it, but it carries no
+               switch: it is screen-only and never reaches the PDF. */
+            const toggleId = isToggleSection(id) ? id : null;
+            const on = toggleId ? visible[toggleId] : true;
+            const hasParts = sectionParts[id].length > 0;
+            const isExpanded = expanded === id && on;
+
+            return (
+              <li key={id}>
+                <div className={styles.row}>
+                  <span className={styles.num} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <a
+                    href={`#${id}`}
+                    className={styles.link}
+                    aria-current={active === id ? "location" : undefined}
+                    aria-disabled={!on || undefined}
+                    onClick={(event) => {
+                      if (!on) {
+                        event.preventDefault();
+                        return;
+                      }
+                      setOpen(false);
+                    }}
+                  >
+                    {label}
+                  </a>
+
+                  {toggleId && hasParts && on && (
+                    <button
+                      type="button"
+                      className={styles.chevron}
+                      aria-expanded={isExpanded}
+                      aria-label={t("partsLabel", { section: label })}
+                      onClick={() => setExpanded((value) => (value === toggleId ? null : toggleId))}
+                    >
+                      <span aria-hidden="true" />
+                    </button>
+                  )}
+
+                  {toggleId && (
+                    <Switch
+                      id={`toggle-${toggleId}`}
+                      className={styles.switch}
+                      label={t("toggle", { section: label })}
+                      checked={visible[toggleId]}
+                      onChange={() => toggle(toggleId)}
+                    />
+                  )}
+                </div>
+
+                {toggleId && isExpanded && (
+                  <ul className={styles.parts} role="list">
+                    {partsOf(toggleId).map((partId) => {
+                      const part = partId.slice(id.length + 1);
+                      const partLabel = t(`parts.${id}.${part}`);
+
+                      return (
+                        <li key={partId} className={styles.partRow}>
+                          <label className={styles.partLabel} htmlFor={`toggle-${partId}`}>
+                            {partLabel}
+                          </label>
+                          <Switch
+                            id={`toggle-${partId}`}
+                            className={styles.smallSwitch}
+                            label={t("toggle", { section: partLabel })}
+                            checked={visible[partId]}
+                            onChange={() => toggle(partId)}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
         </ul>
+
+        <div className={styles.tools}>
+          <p className={styles.groupLabel}>{t("presetsHeading")}</p>
+
+          <div className={styles.presetRow}>
+            {presetIds.map((id) => (
+              <button
+                key={id}
+                type="button"
+                className={styles.preset}
+                aria-pressed={preset === id}
+                title={t(`presets.${id}.note`)}
+                onClick={() => apply(presetVisibility(id))}
+              >
+                {t(`presets.${id}.label`)}
+              </button>
+            ))}
+          </div>
+
+          <p className={styles.hint}>{t("hint")}</p>
+
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.reset}
+              onClick={() => apply({ ...defaultVisibility })}
+            >
+              {t("reset")}
+            </button>
+            <button type="button" className={styles.print} onClick={() => window.print()}>
+              {t("print")}
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </aside>
   );
 }

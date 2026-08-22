@@ -1,7 +1,29 @@
 {
   "menu": "Розділи",
-  "hint": "Перейти до розділу або прибрати його частини.",
+  "hint": "Вимкнене зникає і з посилання, яким ділишся, і з PDF.",
   "toggle": "Показувати «{section}»",
+  "partsLabel": "Частини «{section}»",
+  "presetsHeading": "Набори",
+  "reset": "Скинути",
+  "print": "PDF",
+  "presets": {
+    "eu": {
+      "label": "Європа",
+      "note": "фото, повний текст"
+    },
+    "us": {
+      "label": "США / ATS",
+      "note": "без фото, без побічних деталей"
+    },
+    "short": {
+      "label": "Одна сторінка",
+      "note": "коротка версія"
+    },
+    "full": {
+      "label": "Усе",
+      "note": "кожен розділ і кожна частина"
+    }
+  },
   "labels": {
     "hero": "Вступ",
     "about": "Про мене",
@@ -17,25 +39,24 @@
       "contacts": "Контакти"
     },
     "about": {
-      "full": "Повний текст",
-      "achievements": "Результати",
-      "personal": "Поза роботою"
+      "achievementsFull": "Повні деталі"
     },
-    "skills": {},
+    "skills": {
+      "full": "Повний список навичок"
+    },
     "experience": {
+      "all": "Ранні позиції",
       "project": "Проєкт",
       "responsibilities": "Обов'язки",
       "techStack": "Стек",
-      "alsoUsed": "Також працював із",
+      "alsoUsed": "Також використовував",
       "link": "Посилання",
-      "interest": "Що було цікавого"
+      "interest": "Цікаве"
     },
     "education": {
+      "all": "Ранні записи",
       "skills": "Що це дало"
     },
-    "certifications": {},
-    "contact": {
-      "form": "Форма повідомлення"
-    }
+    "certifications": {}
   }
 }

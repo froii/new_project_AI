@@ -6,29 +6,30 @@ import type {
   OwnerProfile,
   SkillGroup,
 } from "./types";
+import { certificateLinks, projectLinks } from "./links";
 
 export const owner: OwnerProfile = {
-  name: "Oleksa Tyshchenko",
   photos: [
     { id: "one", src: "/photos/portrait-1.svg", width: 400, height: 400 },
     { id: "two", src: "/photos/portrait-2.svg", width: 400, height: 400 },
     { id: "three", src: "/photos/portrait-3.svg", width: 400, height: 400 },
   ],
   contacts: [
-    { id: "email", kind: "email", value: process.env.NEXT_PUBLIC_OWNER_EMAIL ?? "" },
-    { id: "phone", kind: "phone", value: process.env.NEXT_PUBLIC_OWNER_PHONE ?? "" },
-    { id: "linkedin", kind: "link", value: process.env.NEXT_PUBLIC_OWNER_LINKEDIN ?? "" },
-    { id: "github", kind: "link", value: process.env.NEXT_PUBLIC_OWNER_GITHUB ?? "" },
-  ].filter((contact) => contact.value.length > 0) as OwnerProfile["contacts"],
+    { id: "email", kind: "email", value: "lestyshchenko@gmail.com" },
+    { id: "phone", kind: "phone", value: "+380734074118" },
+    { id: "linkedin", kind: "link", value: "https://www.linkedin.com/in/oleksa-t-90a050a8" },
+    { id: "github", kind: "link", value: "https://github.com/froii" },
+  ],
 };
 
 export const achievements: Achievement[] = [
-  { id: "scale", metric: "1000+" },
-  { id: "performance", metric: "60%" },
-  { id: "bundle", metric: "45%" },
-  { id: "functions", metric: "100+" },
-  { id: "queries", metric: "40%" },
-  { id: "mentoring", metric: "10+" },
+  { id: "language" },
+  { id: "clients" },
+  { id: "platform" },
+  { id: "payments" },
+  { id: "ai" },
+  { id: "performance" },
+  { id: "review" },
 ];
 
 export const skills: SkillGroup[] = [
@@ -43,7 +44,8 @@ export const skills: SkillGroup[] = [
       "GraphQL",
       "Apollo Client",
       "PWA",
-      "Cross-browser compatibility",
+      "Accessibility (WCAG)",
+      "i18n",
     ],
   },
   {
@@ -60,6 +62,7 @@ export const skills: SkillGroup[] = [
       "type-graphql",
       "class-validator",
       "REST",
+      "API design",
       "WebSockets",
       "PostgreSQL",
     ],
@@ -73,6 +76,7 @@ export const skills: SkillGroup[] = [
       "Streaming responses",
       "Tool calling",
       "Agent flows",
+      "OpenRouter",
     ],
   },
   {
@@ -80,19 +84,8 @@ export const skills: SkillGroup[] = [
     items: ["Ant Design", "Material UI", "React Table", "React DnD", "React Charts", "D3.js"],
   },
   {
-    id: "cs",
-    items: [
-      "Algorithms",
-      "Data structures",
-      "Algorithm analysis",
-      "Recursion",
-      "Graphs",
-      "Binary trees",
-    ],
-  },
-  {
     id: "forms",
-    items: ["React Hook Form", "Final Form", "Formik", "Redux Form"],
+    items: ["React Hook Form", "Formik"],
   },
   {
     id: "styling",
@@ -100,7 +93,7 @@ export const skills: SkillGroup[] = [
   },
   {
     id: "testing",
-    items: ["Jest", "React Testing Library", "Enzyme", "Storybook"],
+    items: ["Vitest", "Jest", "React Testing Library", "Storybook"],
   },
   {
     id: "tools",
@@ -114,25 +107,15 @@ export const skills: SkillGroup[] = [
       "Architecture design",
       "Mentoring",
       "Technical writing",
+      "Direct client work",
+      "Requirements & scoping",
       "Figma",
       "Low-code platforms",
     ],
   },
   {
     id: "legacy",
-    items: [
-      "Vue.js",
-      "Vuex",
-      "Nuxt",
-      "Vuetify",
-      "jQuery",
-      "Handlebars",
-      "GreenSock",
-      "Gulp",
-      "PHP",
-      "SVN",
-      "MODX",
-    ],
+    items: ["Vue.js", "Vuex", "Nuxt", "jQuery", "PHP"],
   },
 ];
 
@@ -140,6 +123,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "bechacant",
     organisation: "BechaCant",
+    link: projectLinks.bechacant,
     start: "2024-05",
     end: "2026-07",
     techStack: [
@@ -172,7 +156,7 @@ export const experience: ExperienceEntry[] = [
       "styled-components",
     ],
     alsoUsed: ["CodeMirror 6", "Lezer", "Chevrotain.js", "AWS"],
-    link: "https://nedyx.com",
+    link: projectLinks.eteam,
   },
   {
     id: "danit",
@@ -198,7 +182,7 @@ export const experience: ExperienceEntry[] = [
       "Ramda",
     ],
     alsoUsed: ["React Router", "useQueryParams", "Storybook", "Jest", "Enzyme", "Docker"],
-    link: "https://linksquares.com",
+    link: projectLinks.ugenius,
   },
   {
     id: "adraba",
@@ -207,7 +191,7 @@ export const experience: ExperienceEntry[] = [
     end: "2018-07",
     techStack: ["Vue.js", "Nuxt", "Vuex", "Vuetify", "Axios", "REST"],
     alsoUsed: ["Ramda", "SCSS", "Jira"],
-    link: "https://events.financemagnates.com/londonsummit2019",
+    link: projectLinks.adraba,
   },
   {
     id: "mackiev",
@@ -216,7 +200,7 @@ export const experience: ExperienceEntry[] = [
     end: "2018-01",
     techStack: ["HTML", "CSS", "JavaScript", "jQuery", "PHP"],
     alsoUsed: ["Handlebars", "GreenSock"],
-    link: "https://www.mackiev.com/",
+    link: projectLinks.mackiev,
   },
   {
     id: "freelance",
@@ -228,12 +212,13 @@ export const experience: ExperienceEntry[] = [
   },
   {
     id: "nas",
+    nonDev: true,
     organisation: "National Academy of Sciences of Ukraine",
     start: "2012-01",
     end: "2017-06",
     techStack: ["ArcMap", "Data analysis"],
     alsoUsed: [],
-    link: "https://scholar.google.com.ua/citations?user=m5WnOMEAAAAJ&hl=en",
+    link: projectLinks.nas,
   },
 ];
 
@@ -250,6 +235,13 @@ export const education: EducationEntry[] = [
       "Statistics",
       "Research methods",
     ],
+  },
+  {
+    id: "nas",
+    institution: "National Academy of Sciences of Ukraine",
+    start: "2012",
+    end: "2016",
+    skills: ["Research design", "Data quality & validation", "Technical writing", "ArcMap / GIS"],
   },
   {
     id: "kai",
@@ -278,33 +270,21 @@ export const education: EducationEntry[] = [
       "Self-directed learning",
     ],
   },
-  {
-    id: "nas",
-    institution: "National Academy of Sciences of Ukraine",
-    start: "2012",
-    end: "2016",
-    skills: ["Research design", "Data quality & validation", "Technical writing", "ArcMap / GIS"],
-  },
 ];
 
 export const certifications: Certification[] = [
   {
-    id: "aws",
-    issued: "2025-08",
-    href: "https://www.coursera.org/account/accomplishments/verify/252SOHEUBGKS",
-  },
-  {
-    id: "d3",
-    issued: "2025-07",
-    href: "https://www.coursera.org/account/accomplishments/verify/E7HVJLUGYMK6",
+    id: "frontendexpert",
+    href: certificateLinks.frontendexpert,
   },
   {
     id: "algoexpert",
-    href: "https://certificate.algoexpert.io/AlgoExpert%20Certificate%20AE-79e5eb6004",
+    href: certificateLinks.algoexpert,
   },
+  { id: "english", issued: "2024-02", href: certificateLinks.english },
   {
-    id: "frontendexpert",
-    href: "https://certificate.algoexpert.io/FrontendExpert%20Certificate%20FE-c97970c096",
+    id: "aws",
+    issued: "2025-08",
+    href: certificateLinks.aws,
   },
-  { id: "english", href: "https://cert.efset.org/gteMy2" },
 ];

@@ -6,6 +6,11 @@ export function contactHref(contact: Contact): string {
   return contact.value;
 }
 
+export function contactText(contact: Contact): string {
+  if (contact.kind !== "link") return contact.value;
+  return contact.value.replace(/^https?:[/][/](www[.])?/, "").replace(/[/]$/, "");
+}
+
 function digits(phone: string): string {
   return phone.replace(/\D/g, "");
 }

@@ -1,22 +1,27 @@
 {
   "heading": "Education",
+  "scope": {
+    "label": "Entries shown",
+    "recent": "Recent",
+    "all": "All"
+  },
   "skillsLabel": "What it gave me",
   "entries": {
     "neoversity": {
       "degree": "MSc in Computer Science, AI & Machine Learning",
-      "note": "Ongoing"
+      "note": "Ongoing, alongside full-time work: machine learning and neural networks together with the statistics and algorithms underneath them."
     },
     "kai": {
       "degree": "Master's degree, Project Management",
-      "note": "Ran student conferences"
+      "note": "Organised student conferences, the first time I had to plan work for people other than myself."
     },
     "shevchenko": {
       "degree": "Bachelor's degree, Hydrometeorology",
-      "note": "Played chess for the university"
+      "note": "Four years of physics, statistics and modelling systems that never repeat exactly. Played chess for the university team."
     },
     "nas": {
       "degree": "Postgraduate studies, Environmental Safety",
-      "note": ""
+      "note": "Ran in parallel with research work at the Academy: pollution monitoring, data validation and published papers."
     }
   }
 }

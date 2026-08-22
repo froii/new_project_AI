@@ -18,7 +18,7 @@
 .button::before {
   content: "";
   position: absolute;
-  inset: -0.35rem;
+  inset: -6px;
 }
 
 .button:hover {

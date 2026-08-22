@@ -1,20 +1,46 @@
 {
   "heading": "About",
-  "body": "Senior Frontend / Full Stack Developer with 11+ years of experience building scalable enterprise systems, low-code platforms and real-time data applications. I focus on architecture, performance and code that stays maintainable at scale — the kind of work where a component written once has to survive years of changing requirements. Most of my career has been spent in small, highly professional teams: shaping architecture, reviewing code and mentoring the people who come after me. I prefer building our own well-understood components over pulling in dependencies I cannot reason about.",
-  "achievementsHeading": "Selected results",
+  "body": "I own architecture and performance on large codebases, and run the code review that keeps them maintainable. Most of what I build is infrastructure other people build on: low-code platforms, back-office systems, document management, e-commerce. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it, with LLM features in the recent products.",
+  "achievementsHeading": "What I've owned",
+  "achievementsScope": {
+    "label": "Detail level",
+    "short": "Short",
+    "full": "Full"
+  },
   "achievements": {
-    "scale": "concurrent users on a frontend platform I architected",
-    "performance": "faster through code splitting and lazy loading",
-    "bundle": "smaller bundle via optimisation and tree shaking",
-    "functions": "custom functions for data manipulation and visualisation",
-    "queries": "faster responses after query optimisation",
-    "mentoring": "developers mentored, with a code review process I established"
+    "language": {
+      "short": "Designed the DSL behind a low-code reporting platform, so analysts could write their own formulas instead of filing tickets.",
+      "detail": "Grammar, editor and evaluation: a parser built with Chevrotain and Lezer, wired into a CodeMirror 6 editor with completion and inline errors."
+    },
+    "clients": {
+      "short": "Worked directly with clients in the EU and the US, with no manager in between.",
+      "detail": "Mostly contract work, straight with the client rather than through a delivery layer: agreeing what should be built before building it, then carrying the result to production."
+    },
+    "platform": {
+      "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
+      "detail": "Every table, chart and text block is defined by the user, over data read from their own databases, with undo/redo, archive creation and PDF export on top."
+    },
+    "payments": {
+      "short": "Built payments and subscriptions from the store receipt through to the renewal job.",
+      "detail": "Receipt verification, webhooks, background jobs for renewal and expiry, and PostgreSQL access rules with logging that never writes a token. The part that has to be right the first time."
+    },
+    "ai": {
+      "short": "Took LLM features from prototype to production, inside real product flows rather than a demo chat.",
+      "detail": "Retrieval over the product's own documents, streaming responses, tool calling and agent-style flows, routed through OpenRouter rather than tied to a single vendor."
+    },
+    "performance": {
+      "short": "Kept large tables and charts responsive on codebases that had outgrown any one person's head.",
+      "detail": "Virtualised the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with Apollo fragments and cache policies."
+    },
+    "review": {
+      "short": "Set up the code review process, and mentored the developers who joined after.",
+      "detail": "Wrote the specs the code was built from, and the shared AI coding rules and prompts the team worked to."
+    }
   },
   "personalHeading": "Off the clock",
   "personal": [
-    "I have travelled a great deal and lived in many countries. Working with German, American, Israeli and Ukrainian teams showed me that the same sentence carries different weight depending on who says it — Erin Meyer describes this well in The Culture Map. Direct feedback that is ordinary in one team reads as rudeness in another. Knowing that removes a lot of friction that has nothing to do with the work itself.",
-    "Settling into a new place or a new team is not difficult for me. Most of my career has been remote, across timezones, with colleagues I have only ever met on a call.",
-    "I play the Dark Souls series. It teaches you to understand rather than to push harder: you get through a difficult place once you know how it works. Bugs are the same — guessing rarely gets you there, careful reading does.",
-    "I read manga, walk a lot, and make tea. The better solutions usually arrive somewhere in the middle of a walk rather than at the keyboard. Tea, incidentally, is the only skill on my LinkedIn that was endorsed without me asking."
+    "I have worked with German, American, Israeli and Ukrainian teams, and most of my career has been remote, across timezones, with colleagues I have only ever met on a call. The same sentence carries different weight depending on who says it: direct feedback that is ordinary in one team reads as rudeness in another. Erin Meyer's «The Culture Map» is good on this. Knowing it removes a lot of friction that has nothing to do with the work.",
+    "I play the Dark Souls series. It teaches you to understand rather than to push harder: you get through a difficult place once you know how it works. Bugs are the same, guessing rarely gets you there and careful reading does.",
+    "I read manga, walk a lot, and make tea. Tea, incidentally, is the only skill on my LinkedIn that was endorsed without me asking."
   ]
 }

@@ -5,10 +5,6 @@
       "name": "AWS Cloud Technical Essentials",
       "issuer": "Amazon Web Services"
     },
-    "d3": {
-      "name": "Introduction to D3.js",
-      "issuer": "Coursera"
-    },
     "algoexpert": {
       "name": "Сертифікат AlgoExpert",
       "issuer": "AlgoExpert"
@@ -18,10 +14,10 @@
       "issuer": "AlgoExpert"
     },
     "english": {
-      "name": "Англійська, рівень B2–C1",
-      "issuer": ""
+      "name": "Англійська, C1 Advanced",
+      "issuer": "EF SET"
     }
   },
-  "view": "Переглянути сертифікат",
+  "view": "Переглянути",
   "credentialId": "Ідентифікатор сертифіката"
 }

@@ -1,7 +1,29 @@
 {
   "menu": "Sections",
-  "hint": "Jump to a section, or turn parts of it off.",
+  "hint": "Switched-off parts also leave the shared link and the PDF.",
   "toggle": "Show {section}",
+  "partsLabel": "Parts of {section}",
+  "presetsHeading": "Presets",
+  "reset": "Reset",
+  "print": "PDF",
+  "presets": {
+    "eu": {
+      "label": "Europe",
+      "note": "photo, full text"
+    },
+    "us": {
+      "label": "US / ATS",
+      "note": "no photo, no side detail"
+    },
+    "short": {
+      "label": "One-pager",
+      "note": "the short version"
+    },
+    "full": {
+      "label": "Everything",
+      "note": "every section and part"
+    }
+  },
   "labels": {
     "hero": "Intro",
     "about": "About",
@@ -17,25 +39,24 @@
       "contacts": "Contacts"
     },
     "about": {
-      "full": "Full text",
-      "achievements": "Results",
-      "personal": "Off the clock"
+      "achievementsFull": "Full detail"
     },
-    "skills": {},
+    "skills": {
+      "full": "Full skill list"
+    },
     "experience": {
+      "all": "Earlier roles",
       "project": "Project",
       "responsibilities": "Responsibilities",
       "techStack": "Tech stack",
-      "alsoUsed": "Also worked with",
+      "alsoUsed": "Also used",
       "link": "Link",
-      "interest": "What was interesting"
+      "interest": "Interesting part"
     },
     "education": {
+      "all": "Earlier entries",
       "skills": "What it gave me"
     },
-    "certifications": {},
-    "contact": {
-      "form": "Message form"
-    }
+    "certifications": {}
   }
 }

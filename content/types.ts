@@ -12,7 +12,6 @@ export type Photo = {
 };
 
 export type OwnerProfile = {
-  name: string;
   photos: Photo[];
   contacts: Contact[];
 };
@@ -30,6 +29,7 @@ export type ExperienceEntry = {
   techStack: string[];
   alsoUsed: string[];
   link?: string;
+  nonDev?: boolean;
 };
 
 export type EducationEntry = {
@@ -48,5 +48,4 @@ export type Certification = {
 
 export type Achievement = {
   id: string;
-  metric?: string;
 };

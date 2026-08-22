@@ -1,25 +1,43 @@
 import { useTranslations } from "next-intl";
-import { Accordion } from "@/components/ui/accordion";
-import { TagList } from "@/components/ui/tag-list";
+import { Part } from "@/components/visibility/part";
+import { PartToggle } from "@/components/visibility/part-toggle";
 import { skills } from "@/content";
+import styles from "./skills.module.css";
+
+const featured = 4;
 
 export function Skills() {
   const t = useTranslations("skills");
 
-  const items = skills.map((group) => ({
-    id: group.id,
-    title: t(`groups.${group.id}`),
-    meta: group.items.slice(0, 3).join(" · "),
-    content: <TagList items={group.items} label={t(`groups.${group.id}`)} />,
-  }));
+  const rows = (groups: typeof skills) =>
+    groups.map((group) => (
+      <li key={group.id} className={styles.row}>
+        <span className={styles.name}>{t(`groups.${group.id}`)}</span>
+        <span className={styles.items}>{group.items.join(" · ")}</span>
+      </li>
+    ));
 
   return (
     <section className="section" id="skills">
-      <div className="shell stack">
+      <div className="block-head">
         <h2>{t("heading")}</h2>
-        <p className="muted">{t("intro")}</p>
-        <Accordion items={items} defaultOpen={[skills[0]?.id ?? ""]} />
+        <PartToggle
+          id="skills.full"
+          label={t("scope.label")}
+          off={t("scope.core")}
+          on={t("scope.full")}
+        />
       </div>
+
+      <ul className={styles.list} role="list">
+        {rows(skills.slice(0, featured))}
+      </ul>
+
+      <Part id="skills.full">
+        <ul className={`${styles.list} ${styles.more}`} role="list">
+          {rows(skills.slice(featured))}
+        </ul>
+      </Part>
     </section>
   );
 }

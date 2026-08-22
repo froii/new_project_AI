@@ -103,7 +103,8 @@ app/
   layout.tsx              # <html>, globals.css, fonts
   [locale]/
     layout.tsx            # NextIntlClientProvider, ThemeProvider, header, footer, <noscript>
-    page.tsx              # composes sections in order
+    page.tsx              # landing page (see 004-landing-page)
+    cv/page.tsx           # the full CV: composes sections in order
 content/
   index.ts                # profile, experience, projects — structure only
   types.ts                # Locale, entity types
@@ -113,6 +114,7 @@ lib/
 components/
   ui/                     # accordion, dropdown-menu, button, visually-hidden
   sections/               # hero, about, experience, projects, footer-contacts
+  landing/                # intro, highlights, footer — the landing page only
   controls/               # locale-switcher, theme-switcher
 messages/
   en/  uk/                # one file per block; en/index.ts is the reference shape
@@ -125,6 +127,116 @@ markup.
 `controls/` is separated from `ui/` deliberately: the switchers are the only components that hold
 routing and theme concerns, and keeping them out of `ui/` stops that dependency from leaking into
 every primitive.
+
+### Page shell: canvas, paper, panel
+
+The page is a document on a desk, not a full-bleed web page. `body` paints `--color-canvas`; the
+sections live inside `.paper` — a sheet capped at `--paper-max` (49.625rem, roughly A4) with its own
+background, border and shadow, centred by a `.sheet` flex wrapper. `.workspace` is the grid that holds
+the contents panel and the sheet; from 80rem it becomes `var(--panel-width) minmax(0, 1fr)` with
+`align-items: stretch` so the panel reads as a flush sidebar against the canvas, below that a single
+column.
+
+Tokens carrying the shell, each with a dark value in both places the dark palette is declared
+(`[data-theme="dark"]` and the `prefers-color-scheme` block): `--color-canvas`, `--color-paper`,
+`--color-panel`, `--color-surface`, `--color-hairline`, `--color-text-faint`, and the
+`--color-invert-{bg,text,muted,border,accent}` family. `--color-bg` stays what it was, so cards keep
+sitting a shade above the sheet.
+
+`.paper` neutralises the `.shell` max-width inside it — sections were written against a 72rem shell
+and would otherwise be constrained twice.
+
+**Blocks are marked by a rubric, not by a module name.** Every `h2` is a small mono label sitting
+directly on the content it names — no number, no rail. Hero, About and Contact hide theirs: prose and
+a call to action say what they are, and a label over them is noise. The record lists (skills,
+experience, education, certifications) keep theirs, because a bare list of certificates is ambiguous
+while scrolling. The headings stay in the markup either way, so the outline and the section menu
+point at something real, and the numbering lives only in the menu — the CSS `section` counter is
+gone.
+
+`.block-head` is the shared shape: label on the left, whatever the block needs on the right (the
+Core / Full switch for skills, "8 roles · 2012 — 2026" for experience), a hairline under both.
+
+**One rule per block, and none inside it.** The hairline under each rubric is the only line the
+content carries; the separator between sections, the rule under every skill row, under every degree
+and under every certificate are gone, replaced by space. Thirty rules across two screens read as a
+table — the eye stops at each one. Space groups just as well and costs nothing to look at. Lines
+survive only where they do work: between accordion rows, which are click targets, and around the
+chrome (header, paper, panel).
+
+**The contact card inverts by redefining tokens, not by props.** `.card` re-declares `--color-bg`,
+`--color-surface`, `--color-border`, `--color-text`, `--color-text-muted`, `--color-accent` and
+`--color-focus` from the `--color-invert-*` family, so `ui/button`, `ui/input`, `ui/textarea` and
+`ui/social-links` invert inside it with no new API and stay correct in both themes.
+
+The intro reads as a masthead: the facts stack one per line instead of running as a slash-separated
+row, the portrait column is pinned at 280px — `auto` sized it to the widest child of the switcher
+(402px) and starved the name and contacts of width — and `#hero` ends on `--space-l` instead of
+`--space-xl`, closing about 30% of the gap to the summary. In the record
+lists the accordion trigger carries `0.5rem` inline padding against a matching negative margin, so
+the hover plate bleeds past the text without moving it off the grid; the row rhythm inside a record
+tightened one step (`--space-s`) after the fields read as a table of gaps.
+
+Because the sheet is narrower than the old shell, the hero split moved from a 44rem container query
+to 40rem; at 44rem it would never fire inside the paper and the portrait would drop below the name.
+
+**The page ends on a band, not on a card.** Contact is the one section rendered outside `.paper`,
+as a direct child of `.sheet`, so it spans the full width of its column and paints
+`--color-invert-bg`: the last screen is one solid block with no canvas showing through. It is also
+the footer — there is no separate footer element, and nothing follows it. Content inside the band is
+capped at `--paper-max` and centred, so the measure never stretches.
+
+**Below 48rem the paper stops being a sheet.** Border, radius and shadow come off and the padding
+drops to one gutter: on a phone the frame costs the prose a word per line and gives nothing back.
+Everything else keeps working — only the chrome goes.
+
+**Reading progress is CSS, not a scroll listener.** A 2px bar under the header is driven by
+`animation-timeline: scroll(root block)` behind an `@supports` guard, and only below 80rem — on a
+wide screen the sidebar already says where you are. Browsers without scroll-driven animations get
+nothing, which is the correct fallback for a decoration.
+
+
+**Print subtracts; it is not a second layout.** `@media print` in `globals.css` recolours to a light
+palette, unwraps the sheet, and hides one class: `.screen-only`. Anything that acts rather than
+informs carries that class where it is written — the section menu, the site header, the part
+toggles, the portrait thumbnails (so exactly one photo prints) and the contact band as a whole.
+Component stylesheets keep an `@media print` block only where paper needs a different *layout*, not
+a hidden element; accordion rows printing open is the one remaining case. Contact drops whole: its
+email already prints in the hero contacts, and the CTA copy, the form and the messenger icons — SVGs
+whose number lives only in `aria-label` — say nothing on paper.
+
+The hero owns its own grid: its wrapper carries `.layout` alone, without the shared `body` class.
+`.section > .body` (two classes) outranks `.layout` (one) and was forcing `display: flex`, so the
+portrait sat under the name on screen and on paper alike — neither the container query nor the print
+rule could reach it. The hero grid is then left as the screen sized it: the container query does
+fire at print width, so the 280px portrait column carries over and the printed portrait matches the
+app. The hero contact block steps up to `--step-0`, because an email read off paper has to survive
+a photocopier. Tag chips drop their padding and background — an invisible box prints as a gap
+between words — and run as `·`-separated text; the field-list term column narrows to `7.5rem`.
+The name itself sits at `--step-4` / `9ch`, breaking after the first name at any size.
+
+**The summary is never clamped.** The About paragraph prints and renders in full: the `about.full`
+toggle and the `ExpandableText` component behind it are gone, because a summary that a visitor has
+to expand is a summary nobody reads. The text carries the load instead - domains, stack, LLM work
+and what the role actually owns, in three sentences. It sets its own `1.125rem` rather than taking
+`--step-1`, and on paper `#hero` ends on `2mm` so the summary answers the contact block directly.
+
+**Long prose carries its own paragraph breaks.** A field value is `white-space: pre-line`, so a blank
+line inside a `messages/**` string becomes a paragraph. Two `Main responsibilities` entries were walls
+of nine lines; they now break at the seams that were already there - frontend, backend, LLM work.
+
+**Grid only where there are columns.** A one-column grid is a flex column with extra vocabulary, so
+`.section`, the contact form and its rows are flex; the hero contact list dropped its per-row
+`subgrid` wrapper and lets `dt` and `dd` fall into the two columns directly, aligned on `baseline`
+so the mono label and its value sit on one line. Grid stays where a second column exists or appears
+by container query — the hero split, `about .results`, `skills .row`, the field list, the accordion
+trigger — plus the two `place-items: center` icon buttons and the `grid-template-rows: 0fr` reveal.
+
+**Spacing is findable, not guessable.** `components/dev/inspector` mounts only under
+`process.env.NODE_ENV === "development"`: holding Alt while moving the pointer outlines the element
+under it and prints its source — `certifications.module.css · .entry` — plus its box and, on the next
+line, the parent that actually owns the gap. Vertical rhythm lives on the container, so naming the
+parent is the point; without it the panel would answer the wrong question.
 
 ### Contracts / interfaces
 
@@ -213,7 +325,7 @@ render with the wrong palette (FR-025).
 
 ### Extension point (deliberately not built)
 
-`page.tsx` composes sections from an ordered list. When the deferred selection feature arrives, it
+`cv/page.tsx` composes sections from an ordered list. When the deferred selection feature arrives, it
 filters that list, and the PDF renderer reads the same filtered list — satisfying `tech.md`
 §Selection without a second selection model. This feature adds no filter, no state, and no props for
 it; the extension point is the list already existing.

@@ -1,18 +1,21 @@
 {
   "heading": "Skills",
-  "intro": "Grouped by what I reach for, not by how long the list can get.",
+  "scope": {
+    "label": "Skill list",
+    "core": "Core",
+    "full": "Full"
+  },
   "groups": {
     "frontend": "Frontend",
-    "state": "State management",
+    "state": "State",
     "backend": "Backend",
     "ai": "AI & LLM",
-    "ui": "UI & components",
-    "forms": "Forms & validation",
-    "cs": "Computer science",
+    "ui": "UI",
+    "forms": "Forms",
     "styling": "Styling",
     "testing": "Testing",
-    "tools": "Tooling & infrastructure",
+    "tools": "Tooling",
     "practice": "Ways of working",
-    "legacy": "Previously used"
+    "legacy": "Previously"
   }
 }

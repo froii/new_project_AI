@@ -12,26 +12,29 @@ service: server work (PDF is client-side, AI and email are not) lives in Next.js
 │   ├── [locale]/         # root layout; locale is a root param, statically generated
 │   └── api/contact/      # route handler: contact form → email
 ├── i18n/                 # config.ts, routing.ts, navigation.ts, request.ts
-├── content/              # structure only: ids, dates, links, images, proper nouns
-│                         # contact values come from NEXT_PUBLIC_OWNER_* env vars
+├── content/              # structure only: ids, dates, images, proper nouns
+│   └── links.ts          # every external URL — certificates and projects
+│                         # contacts are constants too: nothing here is a secret
 ├── components/
 │   ├── ui/<name>/        # accordion, button, card, field-list, input, social-links,
 │   │                     # switch, tag-list, textarea — folder per component
 │   ├── controls/<name>/  # locale-switcher, photo-switcher, section-menu, share-button,
 │   │                     # theme-toggle — folder per component
 │   ├── sections/<name>/  # page blocks — folder per component
+│   ├── landing/<name>/   # intro, highlights, footer — blocks the landing alone uses
 │   ├── visibility/<name>/# part, section-slot, expandable-text — the hiding mechanics
 │   ├── providers/        # client boundaries for third-party providers
 │   └── pdf/              # the PDF document — a separate renderer
 ├── lib/
-│   └── validation/       # zod schemas, shared by the form and the API
+│   └── contact-message.ts # the form's rules, shared by the form and the route handler
 ├── messages/<locale>/    # all translatable text, one JSON file per block
 ├── public/fonts/
 ├── .claude/              # agent settings + /spec:* commands + project skills
 └── .kiro/                # steering context + specs
 ```
 
-No middleware: both locales are prerendered, so the site is fully static.
+No middleware: both locales are prerendered. Every page is static; `app/api/contact` is the one
+dynamic route, which is why the host has to run server code.
 
 Two levels of components, not five. `ui/` holds primitives, `sections/` composes them into page
 blocks. Full atomic design was considered and dropped: at this size most of its folders would hold a
@@ -53,6 +56,7 @@ The rule that keeps the product's core value true — one fact, one place:
 | `lib/` | `content/` | import components or reach the network |
 | `components/ui/` | `lib/` | know what a project or a job title is |
 | `components/sections/` | `ui/`, `lib/`, `content/` | hold content or UI strings as literals |
+| `components/landing/` | `sections/`, `ui/`, `controls/`, `lib/`, `content/` | restate a fact the CV already renders |
 | `components/pdf/` | `lib/`, `content/` | **import from `components/ui/`** |
 | `app/api/` | `lib/`, `content/` | expose a secret to the client bundle |
 

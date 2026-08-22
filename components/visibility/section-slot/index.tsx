@@ -2,9 +2,9 @@
 
 import type { ReactNode } from "react";
 import { useSections } from "@/components/providers/sections-provider";
-import type { SectionId } from "@/content/sections";
+import type { ToggleSectionId } from "@/content/sections";
 
-export function SectionSlot({ id, children }: { id: SectionId; children: ReactNode }) {
+export function SectionSlot({ id, children }: { id: ToggleSectionId; children: ReactNode }) {
   const { visible } = useSections();
 
   return (

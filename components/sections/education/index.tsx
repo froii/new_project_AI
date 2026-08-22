@@ -1,39 +1,58 @@
 import { useTranslations } from "next-intl";
-import { Card } from "@/components/ui/card";
-import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
+import { PartToggle } from "@/components/visibility/part-toggle";
 import { education } from "@/content";
+import { dottedDate } from "@/lib/content";
 import styles from "./education.module.css";
+
+const recent = 2;
 
 export function Education() {
   const t = useTranslations("education");
+  const tExperience = useTranslations("experience");
+
+  const entry = (item: (typeof education)[number]) => (
+    <li key={item.id} className={styles.entry}>
+      <div className={styles.head}>
+        <p className={styles.degree}>{t(`entries.${item.id}.degree`)}</p>
+        <p className={styles.period}>
+          {dottedDate(item.start)} - {item.end ? dottedDate(item.end) : tExperience("present")}
+        </p>
+      </div>
+
+      <p className={styles.institution}>{item.institution}</p>
+
+      {t(`entries.${item.id}.note`) && (
+        <p className={styles.note}>{t(`entries.${item.id}.note`)}</p>
+      )}
+
+      <Part id="education.skills">
+        <p className={styles.skills}>{item.skills.join(" · ")}</p>
+      </Part>
+    </li>
+  );
 
   return (
     <section className="section" id="education">
-      <div className="shell stack">
+      <div className="block-head">
         <h2>{t("heading")}</h2>
-        <ul className={styles.list} role="list">
-          {education.map((entry) => (
-            <li key={entry.id}>
-              <Card className={styles.card} accent>
-                <p className={styles.period}>
-                  {entry.start}
-                  {entry.end ? ` — ${entry.end}` : ""}
-                </p>
-                <p className={styles.degree}>{t(`entries.${entry.id}.degree`)}</p>
-                <p className={styles.institution}>{entry.institution}</p>
-                {t(`entries.${entry.id}.note`) && (
-                  <p className={styles.note}>{t(`entries.${entry.id}.note`)}</p>
-                )}
-                <Part id="education.skills" className={styles.skills}>
-                  <p className={styles.skillsLabel}>{t("skillsLabel")}</p>
-                  <TagList items={entry.skills} label={t("skillsLabel")} variant="quiet" />
-                </Part>
-              </Card>
-            </li>
-          ))}
-        </ul>
+        <PartToggle
+          id="education.all"
+          label={t("scope.label")}
+          off={t("scope.recent")}
+          on={t("scope.all")}
+        />
       </div>
+
+      <ul className={styles.list} role="list">
+        {education.slice(0, recent).map(entry)}
+      </ul>
+
+      <Part id="education.all">
+        <ul className={styles.list} role="list">
+          {education.slice(recent).map(entry)}
+        </ul>
+      </Part>
     </section>
   );
 }

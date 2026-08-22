@@ -1,29 +1,59 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-m);
+  gap: var(--paper-field-gap);
 }
 
 .list > * {
   display: grid;
   gap: var(--space-2xs);
+  min-width: 0;
 }
 
 .term {
-  color: var(--color-text-muted);
-  font-size: var(--step--1);
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  line-height: 1.7;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.value a {
-  overflow-wrap: anywhere;
+.value {
+  font-size: var(--step--1);
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  white-space: pre-line;
 }
 
-@container (min-width: 40rem) {
+.value p + p {
+  margin-block-start: var(--paper-para-gap);
+}
+
+.list > * {
+  break-inside: avoid;
+}
+
+.value a {
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+@container (min-width: 26rem) {
   .list > * {
-    grid-template-columns: 11rem minmax(0, 1fr);
+    grid-template-columns: 8.5rem minmax(0, 1fr);
     column-gap: var(--space-l);
     align-items: baseline;
+  }
+}
+
+@media print {
+  .list {
+    gap: var(--space-s);
+  }
+
+  .list > * {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    column-gap: var(--space-m);
   }
 }

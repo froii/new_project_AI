@@ -1,6 +1,6 @@
-import type { InputHTMLAttributes } from "react";
+import type { ComponentPropsWithRef } from "react";
 import styles from "./input.module.css";
 
-export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+export function Input({ className, ...props }: ComponentPropsWithRef<"input">) {
   return <input {...props} className={[styles.input, className].filter(Boolean).join(" ")} />;
 }

@@ -21,6 +21,7 @@ import {
 type SectionsValue = {
   visible: Visibility;
   toggle: (id: ToggleId) => void;
+  apply: (next: Visibility) => void;
 };
 
 const SectionsContext = createContext<SectionsValue | null>(null);
@@ -60,7 +61,9 @@ export function SectionsProvider({ children }: { children: ReactNode }) {
     window.history.replaceState(null, "", url);
   }, [chosen]);
 
-  const value = useMemo(() => ({ visible, toggle }), [visible, toggle]);
+  const apply = useCallback((next: Visibility) => setChosen(next), []);
+
+  const value = useMemo(() => ({ visible, toggle, apply }), [visible, toggle, apply]);
 
   return <SectionsContext.Provider value={value}>{children}</SectionsContext.Provider>;
 }
