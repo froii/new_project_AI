@@ -7,13 +7,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.note {
-  margin-block: var(--space-s) var(--space-m);
-  max-inline-size: 62ch;
-  font-size: var(--step--1);
-  color: var(--color-text-muted);
-}
-
 .rest > :first-child {
   border-block-start: var(--border-width) solid var(--color-hairline);
 }

@@ -30,10 +30,6 @@
   margin-block-start: var(--paper-para-gap);
 }
 
-.list > * {
-  break-inside: avoid;
-}
-
 .value a {
   overflow-wrap: anywhere;
   text-decoration: none;
@@ -48,12 +44,15 @@
 }
 
 @media print {
-  .list {
-    gap: var(--space-s);
+  .list > * {
+    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
+    column-gap: var(--space-s);
   }
 
-  .list > * {
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-    column-gap: var(--space-m);
+  /* The rail is cut to hold the longest term; body's break-word would still
+     split it mid-syllable rather than let it use the room. */
+  .term {
+    overflow-wrap: normal;
+    letter-spacing: 0.02em;
   }
 }

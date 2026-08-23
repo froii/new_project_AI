@@ -30,16 +30,18 @@ the full CV.
 
 ### User Story 2 — The visitor can act without leaving the landing (Priority: P1)
 
-The landing ends on the same contact band the CV does - the form first, the address beside it,
-messengers alongside - plus the profile links and the language and theme controls in the row below.
+The landing ends on the same contact band the CV does - the form first, the address beside it, and
+one *Contacts* group alongside holding the messengers and the profiles; the row below keeps the
+language and theme controls only.
 
 - **Why this priority**: FR-016/FR-017 of 001 are contact requirements on the site, not on the CV
   route. Moving the CV behind a button would strand them if the landing carried no contacts.
 - **Independent Test**: Load `/uk`, confirm every public contact point of 001's Owner Profile is
   present and its link resolves; switch language and theme from the footer.
 - **Acceptance Scenarios**:
-  1. **Given** the landing footer, **When** it renders, **Then** the form, the address, the three
-     messengers built from the phone, and the profile links are all present and resolve.
+  1. **Given** the landing footer, **When** it renders, **Then** the form, the address and one
+     *Contacts* group holding the three messengers built from the phone plus the profile links are
+     all present and resolve.
   2. **Given** the landing footer, **When** the visitor switches language, **Then** they stay on the
      landing in the other language.
 
@@ -65,8 +67,11 @@ messengers alongside - plus the profile links and the language and theme control
   address - that lives in the contact band.
 - **FR-005**: The CV page MUST offer a way back to the landing from its header, at every viewport
   width, with an accessible name even where the label is not drawn.
-- **FR-006**: The landing MUST show every public contact point of the owner profile: the address and
-  the messengers in the contact band, the profiles in the bottom row (001 FR-016, FR-017).
+- **FR-006**: The landing MUST show every public contact point of the owner profile in **one** group
+  in the contact band - the address, the messengers built from the phone, and the profile links
+  together, labelled *Contacts* (001 FR-016, FR-017). The split that put messengers in the band and
+  profiles in the bottom row printed the same two icons twice on one screen and asked the visitor to
+  care about a distinction that only mattered to the code.
 - **FR-007**: The landing and the CV MUST each declare their own canonical address and per-language
   alternates, so the two do not compete as duplicates (001 FR-024).
 - **FR-008**: Both routes MUST appear in the sitemap, in both languages.

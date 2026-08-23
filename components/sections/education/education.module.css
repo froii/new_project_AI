@@ -48,3 +48,45 @@
 .entry {
   break-inside: avoid;
 }
+
+/* A degree is the same kind of record as a role, so on paper it is set the same
+   way: period in the shared rail, everything else on the one content edge.
+   Left as the screen has it, the date floats off to the right margin and the
+   degree is the only heading on the sheet standing outside the rail. */
+@media print {
+  .list {
+    gap: var(--space-l);
+  }
+
+  /* What the degree actually was is content, not a footnote; at print scale
+     `--step--2` reads as one. */
+  .note {
+    font-size: var(--step--1);
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
+    column-gap: var(--space-s);
+  }
+
+  /* Every row but the period sits in the content column - matched on the child
+     rather than the class, because a switchable part arrives wrapped in a div
+     of its own and would otherwise auto-place into the rail. */
+  .entry > * {
+    grid-column: 2;
+  }
+
+  .head {
+    display: contents;
+  }
+
+  .period {
+    grid-area: 1 / 1;
+  }
+
+  .degree {
+    grid-area: 1 / 2;
+    font-family: var(--font-serif);
+  }
+}

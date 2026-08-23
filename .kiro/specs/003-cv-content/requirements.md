@@ -12,8 +12,10 @@
   experience, education and certifications.
 - **FR-220**: The intro MUST state the engagement model and availability, not only the location:
   contract shape and work eligibility are what a remote hire is screened on first.
-- **FR-221**: Experience MUST say that the product code is private and point to the LinkedIn
-  references instead, rather than leaving the missing code links unexplained.
+- ~~**FR-221**~~: *Withdrawn 2026-08-23.* Experience carried a line saying the product code is
+  private and pointing at LinkedIn references. On paper it was a paragraph of apology above the
+  record itself, and the LinkedIn address is already in the intro contacts. A CV that lists no
+  repositories does not need to explain the absence.
 - **FR-222**: The record MUST show the owner working directly with EU and US clients and owning the
   logic end to end - the contractor's differentiator, which a stack list cannot carry.
 - **FR-202**: Every block MUST render in both locales with no untranslated string and no key present

@@ -12,7 +12,7 @@ export type SectionId = (typeof sectionIds)[number];
 
 export const sectionParts = {
   hero: ["photo", "contacts"],
-  about: ["achievementsFull"],
+  about: ["achievementsFull", "personal"],
   skills: ["full"],
   experience: ["all", "project", "responsibilities", "techStack", "alsoUsed", "link", "interest"],
   education: ["all", "skills"],
@@ -40,6 +40,7 @@ export const toggleCodes = {
   "hero.contacts": "hc",
   about: "a",
   "about.achievementsFull": "af",
+  "about.personal": "ap",
   skills: "k",
   "skills.full": "kf",
   experience: "e",
@@ -62,6 +63,7 @@ export const toggleDefaults = {
   "hero.contacts": true,
   about: true,
   "about.achievementsFull": true,
+  "about.personal": true,
   skills: true,
   "skills.full": true,
   experience: true,
@@ -102,6 +104,7 @@ export const presets = {
   short: {
     "hero.photo": false,
     "about.achievementsFull": false,
+    "about.personal": false,
     "skills.full": false,
     "experience.all": false,
     "experience.responsibilities": false,

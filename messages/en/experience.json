@@ -6,7 +6,6 @@
     "all": "All"
   },
   "summary": "{count, plural, one {# role} other {# roles}}",
-  "note": "Product code is private. References from clients, managers and tech leads are on <linkedin>my LinkedIn</linkedin>.",
   "present": "Present",
   "fields": {
     "project": "Project",

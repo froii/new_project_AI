@@ -33,6 +33,22 @@ export function Contact() {
   const phone = owner.contacts.find((contact) => contact.kind === "phone")?.value;
   const broken = (field: ContactField) => errors.includes(field);
 
+  /* One row of ways to reach me: the messengers the phone number opens, then
+     the profiles. Splitting them into two labelled groups asked the visitor to
+     care about a distinction that only matters to the code. */
+  const reach = [
+    ...(phone
+      ? messengerLinks(phone).map((link) => ({ ...link, label: t(`messengers.${link.id}`) }))
+      : []),
+    ...owner.contacts
+      .filter((contact) => contact.kind === "link")
+      .map((contact) => ({
+        id: contact.id,
+        href: contact.value,
+        label: t(`direct.${contact.id}`),
+      })),
+  ];
+
   useEffect(() => {
     if (open) firstField.current?.focus({ preventScroll: true });
   }, [open]);
@@ -117,16 +133,10 @@ export function Contact() {
               </div>
             </div>
 
-            {phone && (
+            {reach.length > 0 && (
               <div className={styles.aside}>
-                <p className={styles.asideLabel}>{t("messengersLabel")}</p>
-                <SocialLinks
-                  label={t("messengersLabel")}
-                  links={messengerLinks(phone).map((link) => ({
-                    ...link,
-                    label: t(`messengers.${link.id}`),
-                  }))}
-                />
+                <p className={styles.asideLabel}>{t("contactsLabel")}</p>
+                <SocialLinks label={t("contactsLabel")} links={reach} />
               </div>
             )}
           </div>

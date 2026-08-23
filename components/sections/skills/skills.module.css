@@ -38,3 +38,12 @@
 .row {
   break-inside: avoid;
 }
+
+/* Group names share the rail every other label column on paper stands on. */
+@media print {
+  .row {
+    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
+    column-gap: var(--space-s);
+    padding-block: 0;
+  }
+}

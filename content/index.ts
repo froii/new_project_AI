@@ -10,9 +10,11 @@ import { certificateLinks, projectLinks } from "./links";
 
 export const owner: OwnerProfile = {
   photos: [
-    { id: "one", src: "/photos/portrait-1.svg", width: 400, height: 400 },
-    { id: "two", src: "/photos/portrait-2.svg", width: 400, height: 400 },
-    { id: "three", src: "/photos/portrait-3.svg", width: 400, height: 400 },
+    { id: "suit", src: "/photos/suit.webp", width: 800, height: 800 },
+    { id: "japan", src: "/photos/japan.webp", width: 800, height: 800 },
+    { id: "madeira", src: "/photos/madeira.webp", width: 800, height: 800 },
+    { id: "retro-service", src: "/photos/retro-service.webp", width: 800, height: 800 },
+    { id: "cyberpunk", src: "/photos/cyberpunk.webp", width: 800, height: 800 },
   ],
   contacts: [
     { id: "email", kind: "email", value: "lestyshchenko@gmail.com" },
@@ -160,6 +162,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     id: "danit",
+    nonDev: true,
     organisation: "dan.it",
     start: "2020-09",
     end: "2020-11",

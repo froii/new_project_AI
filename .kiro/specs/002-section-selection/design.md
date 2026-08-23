@@ -75,9 +75,41 @@ reads it today. If the PDF later needs to export the chosen portrait, it moves i
 
 Photos are referenced by path with explicit `width`/`height` rather than static imports, so the owner
 can drop files into `public/photos/` without touching a component. The declared dimensions are what
-prevent layout shift (FR-023 in 001). Plain `<img>` for now because the placeholders are SVG, which
-`next/image` refuses without `dangerouslyAllowSVG` — switch to `next/image` when real raster
-portraits land.
+prevent layout shift (FR-023 in 001).
+
+Portraits are normalised to 800x800 WebP: the widest the block ever renders is the 336px intro column,
+so 800 covers a 2x display and the 48px thumbnails reuse the same file rather than costing a second
+request.
+
+Each crop box is fixed per source rather than computed. Automatic strategies were tried and dropped:
+`attention` follows contrast, not faces, and cut the top of the head off the headshot. The boxes centre
+the face horizontally and keep roughly a tenth of the frame as headroom, sized so the head fills a
+comparable share across portraits — otherwise the switcher jumps in scale between thumbnails. `cyberpunk` has a circular mask baked into the JPEG: an inscribed box loses the jacket, so the frame
+runs wider and the corners are carried by a blurred, scaled copy of the source composited under a
+circular alpha cut of it. White corners would read as a broken image on the dark theme; blurred neon
+does not. `japan` is a full-length shot, so it is cropped in tighter than its source framing and its
+face still sits left of centre — pulling in further would upscale past the point the skin holds.
+
+Tone is corrected per photo, not globally: `madeira` was shot in morning haze and needs contrast and
+saturation to stop looking washed out.
+
+Background cannot be replaced or blurred without person segmentation, which nothing here provides, so
+a CV-appropriate background is reached by cropping tight enough that little background is left. That
+caps `retro-service`: its clean wall spans only x 538..1277 in the source, narrower than the ~900px a
+passport-style crop of that head needs, so the frame keeps some cabling.
+
+The portrait column is what sizes the thumbnail row, so the two are coupled: five thumbnails at `3rem`
+plus four `--space-xs` gaps reach 280.3px once that gap clamp tops out (past a ~1320px viewport), which
+wrapped the fifth thumbnail onto a second row at 280px. The column is `18rem` to clear it. Adding a
+sixth photo needs the column widened again, or the gap pinned.
+
+Sources live outside the repo, in `C:/work/photo/me`. Keeping them there rather than in `public/`
+matters: a source dropped beside its output ships to production as dead static weight, several MB per
+file. It also means every crop runs from the original in one pass — cropping an already-published
+WebP compresses it twice and shows on skin.
+
+Still plain `<img>`; the SVG placeholders that blocked `next/image` are gone, so the switch is now
+unblocked but not taken.
 
 **Hiding the photo collapses the intro to one column** via `.layout:has(> [hidden])`, overriding the
 container query. Without it the text would stay in the narrow first column with an empty gap beside

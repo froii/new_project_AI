@@ -188,6 +188,12 @@ a:hover {
   --radius: 0.75rem;
   --radius-sm: 0.375rem;
   --border-width: 1px;
+
+  /* The landing wash. Light needs more of the accent than dark does to read
+     as a gradient at all: the same mix that glows on #0f1115 is invisible on
+     white. */
+  --wash-near: 26%;
+  --wash-far: 15%;
   --shadow-sm: 0 1px 3px rgb(16 20 28 / 0.06);
   --shadow-md: 0 1px 2px rgb(16 20 28 / 0.05), 0 12px 28px -12px rgb(16 20 28 / 0.18);
 
@@ -229,6 +235,9 @@ a:hover {
   --color-danger: #ff9b91;
   --color-focus: #8fb0ff;
 
+  --wash-near: 14%;
+  --wash-far: 8%;
+
   --color-invert-bg: #1c212a;
   --color-invert-text: #f2f4f7;
   --color-invert-muted: #a3abb9;
@@ -253,6 +262,9 @@ a:hover {
     --color-accent: #8fb0ff;
     --color-danger: #ff9b91;
     --color-focus: #8fb0ff;
+
+    --wash-near: 14%;
+    --wash-far: 8%;
 
     --color-invert-bg: #1c212a;
     --color-invert-text: #f2f4f7;
@@ -543,11 +555,15 @@ a:hover {
    untouched and no rule has to be written twice. */
 :root {
   --paper-font-size: 11pt;
-  --paper-section-lead: 0;
-  --paper-section-tail: 5mm;
-  --paper-body-gap: var(--space-m);
+  --paper-section-lead: 2.5mm;
+  --paper-section-tail: 6mm;
+  --paper-body-gap: var(--space-l);
   --paper-field-gap: var(--space-2xs);
   --paper-para-gap: var(--space-2xs);
+
+  /* One left rail for every label column on paper - accordion dates, field
+     terms, skill group names - so the values start on a single edge. */
+  --paper-rail: 28mm;
 }
 
 @media screen {
@@ -580,7 +596,9 @@ html {
   break-after: avoid;
 }
 
-p {
+p,
+li,
+dd {
   orphans: 2;
   widows: 2;
 }
@@ -588,6 +606,28 @@ p {
 /* ---------- print: the file the visitor actually keeps ---------- */
 
 @media print {
+  /* The screen scale is fluid because the viewport is; the sheet is 210mm and
+     always will be. Left on the clamps every step and space resolves near its
+     vw maximum, and the sheet carries a third of the text it could. */
+  :root {
+    --step--2: 8pt;
+    --step--1: 9.5pt;
+    --step-0: 11pt;
+    --step-1: 12.5pt;
+    --step-2: 14pt;
+    --step-3: 16pt;
+    --step-4: 20pt;
+    --step-5: 24pt;
+
+    --space-2xs: 1.5pt;
+    --space-xs: 3.5pt;
+    --space-s: 6pt;
+    --space-m: 9pt;
+    --space-l: 13pt;
+    --space-xl: 17pt;
+    --space-2xl: 22pt;
+  }
+
   /* A printed CV is always light, whatever the screen was set to. */
   :root,
   :root[data-theme="dark"] {
@@ -650,9 +690,40 @@ p {
     color: inherit;
     text-decoration: none;
   }
+
+  /* A `ch` cap is a screen measure: it exists because a browser window is wider
+     than a column of text. The sheet already is the column, so every cap inside
+     it prints as blank paper on the right - and a `ch` is the element's own
+     font, so the same cap bites hardest exactly where the type is smallest. The
+     page margin sets the measure on paper; nothing inside it does. */
+  #main * {
+    max-inline-size: none;
+    max-width: none;
+  }
+
+  #main :is(p, li, dt, dd, span, a) {
+    line-height: 1.45;
+  }
+
+  #main :is(h1, h2, h3, h4) {
+    line-height: 1.15;
+  }
+
+  /* The rule under a rubric separates the block above from the block below, so
+     it needs room on both sides. Sitting a hair over the first line of content
+     it reads as an underline on that line instead of a divider. */
+  .block-head {
+    padding-block-end: var(--space-s);
+    margin-block-end: var(--space-s);
+  }
 }
 
+/* 8mm is not a taste, it is a threshold. Chrome draws its own header and footer
+   - the date, the page title, the localhost URL - inside the page margin, and
+   the visitor controls that from the print dialog, not from here. Below 8.5mm
+   there is no room for it and the browser drops it; at 8.5mm it comes back. So
+   the sheet gets the largest vertical margin that still keeps the file clean. */
 @page {
   size: A4;
-  margin: 14mm 12mm;
+  margin: 8mm 14mm;
 }

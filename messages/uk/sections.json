@@ -39,7 +39,8 @@
       "contacts": "Контакти"
     },
     "about": {
-      "achievementsFull": "Повні деталі"
+      "achievementsFull": "Повні деталі",
+      "personal": "Поза роботою"
     },
     "skills": {
       "full": "Повний список навичок"

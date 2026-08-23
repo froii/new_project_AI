@@ -16,7 +16,7 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 | Styling | CSS Modules + plain CSS (grid, container queries, custom properties) |
 | i18n | `next-intl`, locale as a **root param** (`next/root-params`) |
 | Theming | `next-themes`, `data-theme` on the root element |
-| PDF | `@react-pdf/renderer`, client-side |
+| PDF | the print stylesheet plus `window.print()` — see §PDF |
 | AI (later) | Anthropic SDK behind `app/api/chat/route.ts` |
 | Email | `nodemailer` over Gmail SMTP, behind `app/api/contact/route.ts` |
 
@@ -44,13 +44,39 @@ prints as it stands, so layout work on the page is layout work on the PDF. The r
 what they restyle: each component hides its own chrome in its own `@media print` block, and
 `globals.css` owns `@page`, the light palette override and the page geometry tokens.
 
-**Page geometry has one source.** `--page-width`, `--page-height`, `--page-pad-*` in `globals.css`
-drive both `@page` and the on-screen page preview (`:root[data-pages]`), so the preview cannot claim
-a cut the printer will not make. The preview is an indication, not a promise — `break-inside: avoid`
-still nudges blocks down in the real file, and the browser dialog remains the exact answer.
+**Paper gets its own scale, not the screen's.** The `--step-*` / `--space-*` scale is `clamp()` with
+a `vw` term because a viewport is any width. A sheet is 210mm and always will be, and inside `@media
+print` every one of those clamps resolves near its `vw` maximum — screen type and screen gaps on
+paper, at roughly double the height the same text needs. `@media print` therefore re-declares the
+whole scale in fixed `pt`, and `--paper-rail` gives every label column (accordion dates, field
+terms, skill group names) one left edge. `globals.css` owns `@page`, the light palette override and
+that print scale; components override only what needs a different *layout* on paper.
+
+**A `ch` cap is a screen measure.** It exists because a window is wider than a column of text; the
+sheet already is the column, so on paper every cap prints as blank right margin. Worse, a `ch` is the
+element's *own* font, so one cap for the whole page bites hardest exactly where the type is smallest.
+Print releases all of them (`#main *`) and re-imposes none: the measure on paper is the `@page`
+margin, and nothing inside the column.
+
+**Avoid-rules go on the smallest unit that must not split.** `break-inside: avoid` on a whole role —
+header plus every field — is what leaves a third of a page empty. The header is the part that must
+not be orphaned, so the rule sits on it with `break-after: avoid`, and the fields below are free to
+flow across the fold.
 
 **The PDF is always light.** `@media print` re-declares the palette in ink-friendly values whatever
 the screen theme was.
+
+**The browser's own header and footer are bought with page margin.** Chrome draws the date, the tab
+title and the URL inside the `@page` margin, and the visitor controls that from the print dialog, not
+from the stylesheet — there is no CSS property that turns it off. There is a threshold instead:
+below 8.5mm of vertical margin Chrome has nowhere to put it and omits it. `@page { margin: 8mm ... }`
+is therefore a deliberate ceiling, not a taste, and raising it puts `localhost:3000/en/cv` back at
+the bottom of someone's CV. Verified by printing the same page with the header flag on and off: the
+files come out byte-identical.
+
+**Nothing decorative may be a background.** The browser's print dialog drops backgrounds unless the
+visitor ticks "background graphics", and that box is off by default — a rule drawn as a 1px
+`background` simply is not in the file. Borders, glyphs and text always print; use those.
 
 **Closed panels must stay in the DOM.** Radix Accordion unmounts collapsed content; with the default
 behaviour a printed CV carries one role out of eight. `forceMount` plus a CSS `[data-state="closed"]`

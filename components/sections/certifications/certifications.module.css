@@ -67,3 +67,18 @@
 .entry {
   break-inside: avoid;
 }
+
+/* A certificate has no date to stand in the rail, but it is still a record, and
+   a record that starts at the left edge while every other one starts at the
+   rail reads as a different kind of thing. Empty rail, same edge. */
+@media print {
+  .list {
+    gap: var(--space-s);
+    padding-inline-start: calc(var(--paper-rail) + var(--space-s));
+  }
+
+  .entry {
+    margin-inline: 0;
+    padding: 0;
+  }
+}

@@ -39,7 +39,8 @@
       "contacts": "Contacts"
     },
     "about": {
-      "achievementsFull": "Full detail"
+      "achievementsFull": "Full detail",
+      "personal": "Off the clock"
     },
     "skills": {
       "full": "Full skill list"

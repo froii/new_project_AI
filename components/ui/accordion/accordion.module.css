@@ -121,12 +121,29 @@
     overflow: visible;
   }
 
-  .item,
+  /* A whole role - header plus every field - is too large a unit to keep off a
+     fold; one that refuses to break leaves a third of a page empty. The header
+     is the part that must not be orphaned, so the rule sits there instead.
+     Its inline padding is the hover box, and on paper it only indents the
+     header away from the fields underneath it. */
   .trigger {
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-block: var(--space-l) var(--space-2xs);
+    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
     break-inside: avoid;
+    break-after: avoid;
   }
-}
 
-.item {
-  break-inside: avoid;
+  /* The meta line previews what a collapsed panel holds. On paper nothing is
+     collapsed - it reprints the first four items of the tech stack directly
+     above the tech stack field, and says nothing the panel does not. */
+  .meta {
+    display: none;
+  }
+
+  .body {
+    padding-block: 0 var(--space-s);
+  }
 }

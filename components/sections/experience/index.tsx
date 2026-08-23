@@ -4,7 +4,7 @@ import { Field, FieldList } from "@/components/ui/field-list";
 import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
-import { experience, owner } from "@/content";
+import { experience } from "@/content";
 import { dottedDate, experienceSpan, isCurrent, sortExperience } from "@/lib/content";
 import styles from "./experience.module.css";
 
@@ -13,12 +13,15 @@ const recent = 4;
 export function Experience() {
   const t = useTranslations("experience");
 
-  const linkedin = owner.contacts.find((contact) => contact.id === "linkedin")?.value;
-
   const entries = sortExperience(experience);
   const span = experienceSpan(experience);
 
-  const items = entries.map((entry) => ({
+  /* Teaching is not the pitch: a non-dev role earns its place only once the
+     visitor has asked for the whole history. */
+  const shortlist = entries.filter((entry) => !entry.nonDev).slice(0, recent);
+  const rest = entries.filter((entry) => !shortlist.includes(entry));
+
+  const toItem = (entry: (typeof entries)[number]) => ({
     id: entry.id,
     lead: (
       <>
@@ -71,7 +74,7 @@ export function Experience() {
         </Part>
       </FieldList>
     ),
-  }));
+  });
 
   return (
     <section className="section" id="experience">
@@ -89,17 +92,10 @@ export function Experience() {
         />
       </div>
 
-      <p className={styles.note}>
-        {t.rich("note", {
-          linkedin: (chunks) =>
-            linkedin ? <a href={linkedin}>{chunks}</a> : <span>{chunks}</span>,
-        })}
-      </p>
-
-      <Accordion items={items.slice(0, recent)} defaultOpen={[items[0]?.id ?? ""]} />
+      <Accordion items={shortlist.map(toItem)} defaultOpen={[shortlist[0]?.id ?? ""]} />
 
       <Part id="experience.all">
-        <Accordion items={items.slice(recent)} className={styles.rest} />
+        <Accordion items={rest.map(toItem)} className={styles.rest} />
       </Part>
     </section>
   );

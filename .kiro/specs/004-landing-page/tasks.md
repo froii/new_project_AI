@@ -12,6 +12,7 @@
   link to `/cv`, email as the secondary action (FR-002, FR-004).
 - [x] T004 `components/landing/highlights/` — three featured achievements + core stack, both read
   from `content/` (FR-002, FR-009).
+- [x] T005a Contact band carries one *Contacts* group (messengers + profiles); the footer row below keeps locale and theme only, its duplicate profile icons removed. Social icons enlarged; the landing wash driven by `--wash-near` / `--wash-far` so light gets a gradient that is actually visible.
 - [x] T005 `components/landing/footer/` — every public contact, messengers, locale and theme
   controls, in the inverted palette (FR-003, FR-006).
 - [x] T006 `app/[locale]/page.tsx` — compose the three blocks; no header, no menu, no progress bar

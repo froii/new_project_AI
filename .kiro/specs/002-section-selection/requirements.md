@@ -132,3 +132,21 @@ The visitor turns off "Work". That section disappears from the page, and its men
   visitor cannot infer from the switches themselves.
 - **FR-231**: A preset note MUST describe what the preset actually does. A note that outlives the
   toggle it described is worse than no note.
+
+- **FR-233**: A non-developer role (`nonDev`) MUST NOT appear in the default experience list. It
+  belongs to the whole history, behind `experience.all`, and it is not counted in the role total.
+  Teaching a short course is a real entry and a poor opening argument.
+- **FR-232**: The *Off the clock* prose MUST be its own switchable part (`about.personal`, code `ap`,
+  on by default), and the **one-pager** preset MUST switch it off. It is the longest block in About
+  and the first thing a reader drops when the CV has to be short.
+
+## Open — the one-pager is a two-pager
+
+FR-121 names a **one-pager** preset. It is not one, and after the owner asked for larger print type
+(001, T052t) it is not close: `short` prints 1695px of flow against a 1047px A4 text block — 1.62
+pages, second page ~38% white. At the previous 9.5pt it was 1.17 pages; legibility was chosen over
+the page count deliberately.
+
+The overshoot is content, not typography. Closing it means dropping fields from the preset or cutting
+`recent` below four roles — both change what the preset *says*, not how it is set, so they stay the
+owner's call. The honest alternative is to rename the preset.

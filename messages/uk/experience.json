@@ -6,7 +6,6 @@
     "all": "Усі"
   },
   "summary": "{count, plural, one {# позиція} few {# позиції} many {# позицій} other {# позиції}}",
-  "note": "Код продуктів приватний. Відгуки замовників, менеджерів і тімлідів - у <linkedin>моєму LinkedIn</linkedin>.",
   "present": "Дотепер",
   "fields": {
     "project": "Проєкт",
