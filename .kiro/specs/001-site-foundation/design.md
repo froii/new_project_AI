@@ -156,6 +156,9 @@ gone.
 
 `.block-head` is the shared shape: label on the left, whatever the block needs on the right (the
 Core / Full switch for skills, "8 roles · 2012 — 2026" for experience), a hairline under both.
+The air under that hairline comes from the flex gap of whatever holds the head, so a block nested
+below `.section` restates the gap itself and drops its label's own `margin-block-end` - About did
+neither, and read as double space over the rule and none under it.
 
 **One rule per block, and none inside it.** The hairline under each rubric is the only line the
 content carries; the separator between sections, the rule under every skill row, under every degree
@@ -170,12 +173,18 @@ chrome (header, paper, panel).
 `ui/social-links` invert inside it with no new API and stay correct in both themes.
 
 The intro reads as a masthead: the facts stack one per line instead of running as a slash-separated
-row, the portrait column is pinned at 280px — `auto` sized it to the widest child of the switcher
+row, the portrait column is pinned at `18rem` — `auto` sized it to the widest child of the switcher
 (402px) and starved the name and contacts of width — and `#hero` ends on `--space-l` instead of
 `--space-xl`, closing about 30% of the gap to the summary. In the record
 lists the accordion trigger carries `0.5rem` inline padding against a matching negative margin, so
 the hover plate bleeds past the text without moving it off the grid; the row rhythm inside a record
 tightened one step (`--space-s`) after the fields read as a table of gaps.
+
+Below the 34rem container query the accordion trigger has two columns but three children, so the
+date column swallowed the row and the role plus its tech-stack preview were squeezed into the 1.25rem
+chevron track. The date span now spans the full first row (`grid-column: 1 / -1`, laid out as one
+`start - end` range instead of two stacked dates) and the title takes the whole width beneath it;
+the wide container query and print both reset it back to its own column.
 
 Because the sheet is narrower than the old shell, the hero split moved from a 44rem container query
 to 40rem; at 44rem it would never fire inside the paper and the portrait would drop below the name.
@@ -205,15 +214,93 @@ a hidden element; accordion rows printing open is the one remaining case. Contac
 email already prints in the hero contacts, and the CTA copy, the form and the messenger icons — SVGs
 whose number lives only in `aria-label` — say nothing on paper.
 
+**Paper has its own scale.** Print re-declares `--step-*` and `--space-*` in fixed `pt` (11pt body,
+1.6 leading, against the screen's 1.4) and releases every `ch` cap inside `#main`.
+Left on the screen's `clamp(… + vw, …)` values, every step and space resolved near its maximum and
+the sheet carried a third of the text it could: the `short` preset ran to three A4 pages, each
+ending on a third of a page of white.
+
+**One cap for all prose was still wrong.** `ch` is the element's *own* font, so a single `96ch` rule
+bit hardest exactly where the type was smallest: an 8pt achievement line stopped at 71% of the column
+and wrapped a sentence that had room to finish. There is no cap on paper now. The measure is the page
+margin (`@page margin: 10mm 14mm`, a 182mm column) and nothing inside it.
+
+Measured across every preset in EN and UK: no page lost to a bad break in any configuration. Page
+counts at the current scale are 2 for `short`, 4 for `default`, 5 for `full` — bigger than the 9.5pt
+pass that preceded it (2 / 3 / 3), which is the trade the owner asked for.
+
+**The field is the atom of a page break.** A whole role is too large to keep off a fold, but a
+single field is not: split one and its term stays on the sheet above while the value opens the next,
+labelled by nothing. So `break-inside: avoid` sits on `.list > *`, and `.value p` gets `orphans` /
+`widows: 3`. The separator between two roles comes off on paper for the same reason - once the break
+lands on it, it prints as a rule across the top of the next sheet, attached to nothing. Air over each
+trigger already separates the records, and the section rubrics stay the only rules on the sheet.
+
+**The text layer is read before the page is.** An ATS parses the PDF, not the layout. `h1` drops its
+negative tracking on paper because the extractor loses the space inside it and the name comes out as
+one token. Print already strips link colour and underline, so the hero contacts drop their
+`border-block-end` too - a rule under an email that is not a link reads as a stray line.
+
+`--rail` (106px) is the screen twin: the accordion trigger and the field list share one column, so a
+value sets directly under the role title it belongs to and a term under the dates. The field list
+carries the trigger's `1rem` inline offset on screen and drops it on paper, where the trigger has none.
+
+`--paper-rail` (24mm, cut to the longest field term, `RESPONSIBILITIES`) gives the accordion date
+column, the field-list terms and the skill group names one left edge, so every value on the sheet
+starts on the same line. The accordion trigger drops its hover padding on paper, which was the only
+thing indenting a role header away from its own fields. It also takes the field list's `--space-s`
+column gap: on the trigger's own `--space-l` the role title set a couple of millimetres right of the
+values underneath it, off the one content edge the rail exists to create. Education joins the same rail — period in
+the rail, degree and everything under it in the content column, its period stacked over two lines
+the way a role stacks its own dates, because `2025.09 - Present` is longer than the rail — and the
+rule matches `.entry > *`
+rather than the classes, because a switchable part arrives wrapped in a `div` of its own and would
+otherwise auto-place into the rail as a narrow stack. Certifications have no date to put there and
+take the empty rail as indent instead: a record starting at the left edge while every other record
+starts at the rail reads as a different kind of thing.
+
+**Density is not the same as no air.** The first pass cut both, and the sheet read as one block.
+Compaction stays in the type — `pt` scale, `1.32` leading, no `ch` caps — and the air goes back only
+at the seams a reader uses to find things: `--paper-section-lead` / `-tail` (1.5mm / 4mm) between
+sections, `--paper-body-gap` at `--space-l` between the blocks inside one, and `--space-l` above each
+role header and between degrees.
+
+**The masthead sets its own hierarchy on paper.** Every step is fluid on screen, so the print scale
+flattened the block that depends on hierarchy most: the name lost most of its lead over the headline,
+and the contacts — bumped a step "so an email survives a photocopier" — came out larger than the
+availability lines and level with the summary. Reference data outranked the argument. Print now sets
+the masthead explicitly, in the screen's order: name 26pt, headline 13.5pt, summary 12.4pt, then
+facts and contacts together at 9.5pt with mono labels at 8pt. Spacing groups them three ways —
+eyebrow with name with headline, then availability, then contacts — instead of four evenly spaced
+lines of different weights.
+
+**A divider needs room on both sides.** The rule under a section rubric had `--space-xs` above it and
+only the section gap below, so it read as an underline on the first line of content rather than as a
+boundary. On paper it now carries `--space-s` on both sides.
+
+**Three things that only paper sees.**
+- *The trigger meta duplicated the tech stack.* It previews what a collapsed panel holds; on paper
+  nothing is collapsed, so it reprinted the first four items of the stack directly above the stack
+  field. `display: none` in print, for the reason the line exists at all.
+- *Tag runs printed as `TypeScript· React`.* Flex laid the chips out as boxes with a `gap` the `::before`
+  separator could not see. On paper the list is inline text and the separator carries its own spaces,
+  so the run also wraps like a sentence instead of like a row of boxes.
+- *The achievement markers did not print.* The marker was a 1px `background`, and the browser's print
+  dialog drops backgrounds unless the visitor ticks "background graphics". It is a `border-block-start`
+  now — identical on screen, and never suppressed. Anything decorative that must survive the PDF has
+  to be a border, a glyph or text, never a background.
+
 The hero owns its own grid: its wrapper carries `.layout` alone, without the shared `body` class.
 `.section > .body` (two classes) outranks `.layout` (one) and was forcing `display: flex`, so the
 portrait sat under the name on screen and on paper alike — neither the container query nor the print
-rule could reach it. The hero grid is then left as the screen sized it: the container query does
-fire at print width, so the 280px portrait column carries over and the printed portrait matches the
-app. The hero contact block steps up to `--step-0`, because an email read off paper has to survive
-a photocopier. Tag chips drop their padding and background — an invisible box prints as a gap
-between words — and run as `·`-separated text; the field-list term column narrows to `7.5rem`.
-The name itself sits at `--step-4` / `9ch`, breaking after the first name at any size.
+rule could reach it. On paper the portrait column is `32mm`, not the screen's `18rem`: at print width
+that column is a quarter of the sheet and the masthead is the one block that must not cost a page of
+its own. The hero contact block steps up to `--step-0`, because an email read off paper has to
+survive a photocopier. Tag chips drop their padding and background — an invisible box prints as a
+gap between words — and run as `·`-separated text. The name sits at `--step-4` and breaks after the
+first name on screen; on paper its `9ch` cap is released with the rest and it sets on one line.
+The eyebrow role line stays on one line at every width: `white-space: nowrap` plus a `cqi`-based
+`font-size` clamp, so the intro column shrinks the type instead of wrapping the title in two.
 
 **The summary is never clamped.** The About paragraph prints and renders in full: the `about.full`
 toggle and the `ExpandableText` component behind it are gone, because a summary that a visitor has

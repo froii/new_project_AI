@@ -7,7 +7,7 @@
 
 @container (min-width: 38rem) {
   .layout {
-    grid-template-columns: minmax(0, 1fr) 280px;
+    grid-template-columns: minmax(0, 1fr) 18rem;
     column-gap: var(--space-2xl);
     align-items: start;
   }
@@ -37,15 +37,20 @@
 .title {
   color: var(--color-accent);
   font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.14em;
+  font-size: clamp(0.55rem, 1.7cqi, var(--step--2));
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
+/* `overflow-wrap: normal` overrides the document default: a `ch` is measured in
+   the element own font, so any cap set for one serif chops a long surname in the
+   next one. The cap is here to stack the two words, never to split either. */
 .name {
-  max-inline-size: 9ch;
+  max-inline-size: 12ch;
   margin-block-start: var(--space-m);
   font-size: var(--step-4);
+  overflow-wrap: normal;
 }
 
 .headline {
@@ -102,14 +107,45 @@
   justify-self: start;
 }
 
-/* Paper keeps the screen portrait: the container query fires at print width too,
-   so the 280px column carries over and only the tail padding has to go. */
+/* Paper keeps the portrait, but not at the screen's 18rem: that column is a
+   quarter of the sheet and the masthead is the one block that must not cost a
+   page of its own.
+
+   The masthead is also where the print scale flattened worst. Every step here
+   is fluid on screen, so on paper the name lost most of its lead over the
+   headline while the contacts - bumped a step "so an email survives a
+   photocopier" - ended up larger than the availability lines and level with the
+   pitch. Reference data was outranking the argument. The order is set here
+   explicitly, and it is the screen's order: name, headline, summary, then the
+   two blocks of facts. */
 @media print {
   .layout {
     padding-block: 0;
+    gap: var(--space-s) var(--space-l);
+    grid-template-columns: minmax(0, 1fr) 32mm;
+  }
+
+  .name {
+    margin-block-start: var(--space-xs);
+    font-size: 26pt;
+  }
+
+  .headline {
+    margin-block-start: var(--space-s);
+    font-size: 13.5pt;
+  }
+
+  /* Three groups, not four evenly spaced lines: the eyebrow, name and headline
+     are one unit; availability is the second; the contacts are the third. */
+  .facts {
+    margin-block-start: var(--space-l);
   }
 
   .contacts {
-    font-size: var(--step-0);
+    column-gap: var(--space-s);
+  }
+
+  .contacts > dd a {
+    border-block-end: 0;
   }
 }

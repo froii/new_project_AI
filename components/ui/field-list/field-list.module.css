@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--paper-field-gap);
+  padding-inline-start: 1rem;
 }
 
 .list > * {
@@ -30,10 +31,6 @@
   margin-block-start: var(--paper-para-gap);
 }
 
-.list > * {
-  break-inside: avoid;
-}
-
 .value a {
   overflow-wrap: anywhere;
   text-decoration: none;
@@ -41,7 +38,7 @@
 
 @container (min-width: 26rem) {
   .list > * {
-    grid-template-columns: 8.5rem minmax(0, 1fr);
+    grid-template-columns: var(--rail) minmax(0, 1fr);
     column-gap: var(--space-l);
     align-items: baseline;
   }
@@ -49,11 +46,27 @@
 
 @media print {
   .list {
-    gap: var(--space-s);
+    padding-inline-start: 0;
   }
 
   .list > * {
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-    column-gap: var(--space-m);
+    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
+    column-gap: var(--space-s);
+  }
+
+  /* The rail is cut to hold the longest term; body's break-word would still
+     split it mid-syllable rather than let it use the room. */
+  .term {
+    overflow-wrap: normal;
+    letter-spacing: 0.02em;
+  }
+
+  .list > * {
+    break-inside: avoid;
+  }
+
+  .value p {
+    orphans: 3;
+    widows: 3;
   }
 }

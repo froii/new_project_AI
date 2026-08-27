@@ -12,8 +12,10 @@
   experience, education and certifications.
 - **FR-220**: The intro MUST state the engagement model and availability, not only the location:
   contract shape and work eligibility are what a remote hire is screened on first.
-- **FR-221**: Experience MUST say that the product code is private and point to the LinkedIn
-  references instead, rather than leaving the missing code links unexplained.
+- ~~**FR-221**~~: *Withdrawn 2026-08-23.* Experience carried a line saying the product code is
+  private and pointing at LinkedIn references. On paper it was a paragraph of apology above the
+  record itself, and the LinkedIn address is already in the intro contacts. A CV that lists no
+  repositories does not need to explain the absence.
 - **FR-222**: The record MUST show the owner working directly with EU and US clients and owning the
   logic end to end - the contractor's differentiator, which a stack list cannot carry.
 - **FR-202**: Every block MUST render in both locales with no untranslated string and no key present
@@ -33,6 +35,13 @@
 
 **Display**
 - **FR-206**: Experience MUST render as an accordion, one entry per position, first open.
+- **FR-232**: Every experience entry MUST carry a **result** - one line naming what the role
+  produced, distinct from the responsibilities that describe what it involved. It renders directly
+  under the project, is set in the text weight the surrounding fields are not, and is its own
+  switchable part (`experience.result`, code `eo`, on by default). A reader who skims one line per
+  role must read an outcome, not a job description.
+- **FR-233**: A result MUST NOT state a figure the record cannot support. An unverifiable metric on
+  a CV is a liability at the first interview; the honest form is the scope that was owned.
 - **FR-229**: A record list sliced for a Recent view MUST be sorted before it is sliced - an
   unsorted slice silently hides the newer entry and shows an older one.
 - **FR-228**: Experience and Education MUST show only the recent entries by default, with the
@@ -43,11 +52,54 @@
 - **FR-230**: Page breaks MUST be forbidden inside a record (a job, a degree, a credential, a field
   row) and permitted everywhere else. A section that refuses to break is what leaves half a page
   empty; a record split across the fold is what costs the reader the context.
-- **FR-207**: Skills MUST be grouped, each group collapsible, ordered current-first with superseded
-  technologies in their own group so they do not read as the present stack.
+- **FR-207**: Skills MUST be grouped and ordered current-first, split into a **core** set shown by
+  default and the rest behind the Core/Full switch. Revised 2026-08-27: superseded technologies no
+  longer get their own group, they are dropped - a list of what the owner no longer uses is not an
+  argument, and the groups that only named a library (UI kits, form and styling libraries, test
+  runners) went with it. Testing tools moved into Tooling. The split is per entry as well as per
+  group: every group carries a core list plus an optional `more` list that appears only under Full,
+  so the default view stays a senior-level shortlist instead of a catalogue.
+- **FR-234**: The **last** group, outside the core set, MUST name the libraries that are actually
+  unusual in the record, read from the real projects rather than guessed: the CodeMirror/Lezer/
+  Chevrotain stack behind the low-code editor and its language, both rich-text editors, the chart
+  and virtualisation layer, and the animation and functional helpers behind the older work. A stack
+  list every candidate can write is not what a reader is scanning for. It is last because it is evidence for the
+  groups above it, not a headline of its own.
+- **FR-237**: A skill entry MUST NOT carry a version number or a parenthesised sub-list. "CodeMirror
+  6" and "JavaScript (ES6+)" date the document and say nothing a reader needs; the library name is
+  the fact. A parenthesised depth marker is the one exception, and only where the depth is the point:
+  `AWS (basics)` says what a bare `AWS` would overclaim.
+- **FR-238**: A tool MUST NOT be listed unless it was actually worked with. Corrected 2026-08-27:
+  `AWS (Lambda, S3, EC2)` claimed two services neither project uses - only `@aws-sdk/client-s3` and
+  `client-sts` appear - and omitted Jenkins, which was. EKS, Helm and Kubernetes were considered and
+  rejected: the owner has not worked with them. Revised 2026-08-27: reads `AWS (basics)` - naming one
+  service implied more focus on it than the work carried, and the depth is part of the claim.
+- **FR-235**: ~~Backend MUST name the warehouse connectors and the enterprise SSO.~~ Withdrawn
+  2026-08-27 by the owner: Snowflake, BigQuery, SAP HANA and SAML / Azure AD / LDAP are out of the
+  list entirely, along with Accessibility (WCAG), i18n, Tool calling, Streaming responses, SWR,
+  class-validator, Vitest, Mapbox GL, Mux and Orama. The record of that work stays in the experience
+  entries, where it sits next to the project it belongs to.
+- **FR-239**: Vue and PHP MUST NOT appear anywhere in the CV, skills and experience stacks alike. The
+  owner is not applying for that work, and a stack he will not take is a lead he has to decline. The
+  Adraba and MacKiev entries name what the work shared with the rest of the record - JavaScript,
+  SCSS, jQuery - so the roles stay checkable without advertising the framework.
+- **FR-240**: The skill list MUST be read back against the owner's LinkedIn endorsements before it is
+  called done, so a technology he was endorsed for is either in the list or deliberately out. Added
+  2026-08-27 from that pass: D3.js, Figma, Scrum. Endorsed but rejected the same day as tooling the
+  owner has left behind: jQuery, Handlebars, SQLite, Gulp, SVN - an endorsement is not a reason to
+  carry a tool he is not hired for. Kept out:
+  soft and umbrella entries (Web Development, Problem Solving, Communication, Project Management,
+  Cross-browser Compatibility, Database knowledge, Development Platforms, AJAX, Microsoft Office) -
+  they are claims no reader can check, and the ones worth keeping are already carried by the
+  certifications and education blocks.
+- **FR-236**: A skill group whose contents appear on every second CV MUST NOT exist. Withdrawn
+  2026-08-27: the *Ways of working* group (Agile / Scrum, code review, Figma) said nothing the
+  experience entries do not already show, and the groups that only named a UI kit, a form library or
+  a test runner went with it.
 - **FR-208**: Education entries MUST carry the skills they produced, toggleable as a part.
 - **FR-209**: Certifications MUST show the credential source and identifier, both derived from the
-  verification URL rather than typed by hand, and link to the issuer for verification.
+  verification URL rather than typed by hand, and link to the issuer for verification. They MUST NOT
+  show an issue date: only two of them carry one, so it read as missing data on the rest.
 - **FR-227**: Every external URL MUST live in `content/links.ts`, grouped as certificates and
   projects, so a dead link is checkable in one pass over one file.
 - **FR-210**: The results block MUST state what the owner owned end to end, not self-reported

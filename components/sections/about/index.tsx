@@ -16,7 +16,7 @@ export function About() {
           <p>{t("body")}</p>
         </div>
 
-        <div>
+        <div className={styles.group}>
           <div className="block-head">
             <p className={styles.label}>{t("achievementsHeading")}</p>
             <PartToggle
@@ -38,14 +38,16 @@ export function About() {
           </ul>
         </div>
 
-        <div>
-          <p className={styles.label}>{t("personalHeading")}</p>
+        <Part id="about.personal" className={styles.group}>
+          <div className="block-head">
+            <p className={styles.label}>{t("personalHeading")}</p>
+          </div>
           <div className={styles.personal}>
             {t.raw("personal").map((paragraph: string) => (
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
           </div>
-        </div>
+        </Part>
       </div>
     </section>
   );

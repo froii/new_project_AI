@@ -86,13 +86,39 @@ The visitor turns off "Work". That section disappears from the page, and its men
   separate shortened copy of the text.
 - **FR-120**: The address MUST encode only what differs from the default state, so that a link to the
   site as intended carries no parameter at all.
-- **FR-121**: System MUST offer named presets that set the whole selection in one action, covering the
-  common CV conventions (Europe, US/ATS, one-pager, everything), plus a reset to the default state.
-- **FR-122**: The control MUST indicate which preset, if any, the current selection equals; changing
+- **FR-121**: System MUST offer named **versions** that set the whole selection in one action,
+  covering the conventions a job search actually needs: everything, Europe, US/ATS, tech deep,
+  screening, one-pager - plus a reset to the default state.
+- **FR-122**: The control MUST indicate which version, if any, the current selection equals; changing
   any single toggle afterwards SHALL simply stop matching, without discarding the selection.
+- **FR-125**: The default state MUST equal one of the named versions. A visitor who has touched
+  nothing must be told what they are looking at, not shown an unnamed selection.
+- **FR-126**: Each version MUST show how much of the CV it contains, counted from the toggles it
+  sets rather than written by hand, so a version cannot claim a section the data stopped producing.
+  Parts inside a switched-off section do not count: nothing renders them. Revised 2026-08-27: the
+  count and the note live in a **tooltip**, not on the face of the control. Cards carrying all three
+  lines pushed the section rows off the rail and read worse than the pill row they replaced; the
+  version list is a row of pills again and the detail appears on hover or focus.
+- **FR-128**: That tooltip MUST NOT be the `title` attribute. The browser draws it in its own font
+  after its own delay and never shows it on keyboard focus. It MUST appear on focus as well as
+  hover, and Escape MUST dismiss it (WCAG 1.4.13).
+- **FR-127**: Withdrawn 2026-08-27. The panel does **not** name the unmatched state. Nothing is
+  highlighted by default, and the highlight goes out the moment a switch is touched: the visitor
+  moved off a template, and that is the whole message. Naming it added a status line that said less
+  than the absence of a highlight already does.
+- **FR-129**: The rubric over the row is **Templates** / **Готові варіанти** - ready-made options.
+  Settled after "Version", "Templates", "Preset" and "Show me" were each tried and rejected: the
+  heading has to name what the buttons *are* (something finished you can take), not the mechanism
+  behind them and not an instruction the buttons complete. Do not rename it again without a reason
+  recorded here.
 - **FR-124**: The visitor MUST be able to produce a PDF of the current selection from the same
   control that holds the selection, and MUST be able to see on the page where the sheet boundaries
   fall before doing so.
+- **FR-130**: Below the sidebar breakpoint the trigger MUST leave the screen while the visitor
+  scrolls down and return on the first scroll up: a control permanently drawn over the reading
+  column is the one place a phone cannot afford to spend. It stays centred - the corner was tried
+  and rejected on looks (2026-08-27). It MUST leave by moving, never by the display property, so
+  focus is not dropped, and where motion is reduced it MUST stay put rather than blink out.
 - **FR-123**: A section MAY offer its own switch for one of its parts, in place, so the visitor can
   change what that section shows without opening the menu. Both surfaces MUST drive the same state:
   whatever is switched in the section is reflected in the menu, in the address and in the PDF.
@@ -103,9 +129,9 @@ The visitor turns off "Work". That section disappears from the page, and its men
   translated label, an ordered list of parts, and a shown/hidden state.
 - **Part**: a named piece of a section that can be turned off on its own. Has no anchor.
 - **Toggle**: a section or a part — anything with an on/off state, a short URL code, and a default.
-- **Experience Entry**: one position. Company, role, period, project, responsibilities, tech stack,
-  other technologies used, link, and what was interesting about it. Each of the last six is a part
-  and can be turned off across all entries at once.
+- **Experience Entry**: one position. Company, role, period, project, **result**, responsibilities,
+  tech stack, other technologies used, link, and what was interesting about it. Each of the last
+  seven is a part and can be turned off across all entries at once.
 
 ## Success Criteria
 
@@ -127,8 +153,26 @@ The visitor turns off "Work". That section disappears from the page, and its men
 - The PDF export is not part of this feature; FR-110 only requires the state be readable when it
   arrives.
 
-- **FR-230**: The panel MUST state, in one line beside the presets, that switching a part off
+- **FR-230**: The panel MUST state, in one line beside the PDF button, that switching a part off
   also removes it from the shared link and the PDF - the reach of the control is the one thing a
   visitor cannot infer from the switches themselves.
-- **FR-231**: A preset note MUST describe what the preset actually does. A note that outlives the
+- **FR-231**: A version note MUST describe what the version actually does. A note that outlives the
   toggle it described is worse than no note.
+
+- **FR-233**: A non-developer role (`nonDev`) MUST NOT appear in the default experience list. It
+  belongs to the whole history, behind `experience.all`, and it is not counted in the role total.
+  Teaching a short course is a real entry and a poor opening argument.
+- **FR-232**: The *Off the clock* prose MUST be its own switchable part (`about.personal`, code `ap`,
+  on by default), and the **one-pager** version MUST switch it off. It is the longest block in About
+  and the first thing a reader drops when the CV has to be short.
+
+## Open — the one-pager is a two-pager
+
+FR-121 names a **one-pager** version. It is not one, and after the owner asked for larger print type
+(001, T052t) it is not close: `short` prints 1695px of flow against a 1047px A4 text block — 1.62
+pages, second page ~38% white. At the previous 9.5pt it was 1.17 pages; legibility was chosen over
+the page count deliberately.
+
+The overshoot is content, not typography. Closing it means dropping fields from the preset or cutting
+`recent` below four roles — both change what the version *says*, not how it is set, so they stay
+the owner's call. The honest alternative is to rename it.

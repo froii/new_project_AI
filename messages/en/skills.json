@@ -10,12 +10,7 @@
     "state": "State",
     "backend": "Backend",
     "ai": "AI & LLM",
-    "ui": "UI",
-    "forms": "Forms",
-    "styling": "Styling",
-    "testing": "Testing",
     "tools": "Tooling",
-    "practice": "Ways of working",
-    "legacy": "Previously"
+    "notable": "NPM"
   }
 }

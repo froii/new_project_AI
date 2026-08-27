@@ -14,13 +14,13 @@
   background:
     radial-gradient(
       55rem 38rem at 80% 12%,
-      color-mix(in srgb, var(--color-accent) 14%, transparent),
-      transparent 70%
+      color-mix(in srgb, var(--color-accent) var(--wash-near), transparent),
+      transparent 72%
     ),
     radial-gradient(
       45rem 32rem at 5% 95%,
-      color-mix(in srgb, var(--color-accent) 8%, transparent),
-      transparent 70%
+      color-mix(in srgb, var(--color-accent) var(--wash-far), transparent),
+      transparent 72%
     );
   pointer-events: none;
 }
@@ -52,10 +52,13 @@
   text-transform: uppercase;
 }
 
+/* See the note in hero.module.css: the cap stacks the two words, it must never
+   split either of them, whatever the serif measures a `ch` as. */
 .name {
   max-inline-size: 12ch;
   margin-block-start: var(--space-m);
   font-size: var(--step-5);
+  overflow-wrap: normal;
 }
 
 .headline {

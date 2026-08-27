@@ -12,6 +12,7 @@
   "sending": "Надсилаю...",
   "sent": "Дякую, повідомлення надіслано.",
   "sentNote": "Зазвичай відповідаю протягом доби.",
+  "sendAnother": "Написати ще",
   "failed": "Не вдалося надіслати. Напишіть мені напряму:",
   "trapLabel": "Компанія",
   "direct": {
@@ -22,6 +23,7 @@
   },
   "open": "Написати мені",
   "close": "Сховати",
+  "savePdf": "Зберегти у PDF",
   "phone": "Телефон",
   "optional": "(необовʼязково)",
   "messengers": {
@@ -29,5 +31,5 @@
     "viber": "Viber",
     "telegram": "Telegram"
   },
-  "messengersLabel": "Месенджери"
+  "contactsLabel": "Контакти"
 }

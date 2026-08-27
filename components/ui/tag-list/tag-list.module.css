@@ -23,16 +23,23 @@
 }
 
 /* Chips are boxes on screen; on paper the box prints as empty space, so the
-   items become a dotted run instead. */
+   items become a dotted run instead. Flex laid the run out as boxes with a gap
+   the separator could not see, and printed `TypeScript· React`: as inline text
+   the separator carries its own spaces and the run wraps like a sentence. */
 @media print {
+  .list {
+    display: block;
+  }
+
   .tag {
+    display: inline;
     padding: 0;
     border: 0;
     background: none;
   }
 
-  .tag + .tag::before {
-    content: "· ";
+  .tag:not(:last-child)::after {
+    content: " · ";
     color: var(--color-text-faint);
   }
 }

@@ -6,10 +6,11 @@
 
 .trigger {
   position: fixed;
-  inset-inline-start: 50%;
+  inset-inline: 0;
   inset-block-end: max(var(--space-m), env(safe-area-inset-bottom));
   z-index: 41;
-  translate: -50% 0;
+  width: fit-content;
+  margin-inline: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -24,6 +25,31 @@
   font-weight: 500;
   line-height: 1;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--color-invert-bg) 30%, transparent);
+  transition:
+    translate 200ms ease,
+    opacity 200ms ease;
+}
+
+.trigger[data-away] {
+  translate: 0 calc(100% + max(var(--space-m), env(safe-area-inset-bottom)));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.trigger[data-away]:focus-visible {
+  translate: 0 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .trigger[data-away] {
+    translate: 0 0;
+    opacity: 1;
+    pointer-events: auto;
+    transition: none;
+  }
 }
 
 .trigger > span:first-child {
@@ -110,9 +136,42 @@
   background: var(--color-border);
 }
 
+/* ---------- versions: a row of pills, nothing else ---------- */
+
+.versionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.version {
+  flex: none;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-s);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.version[aria-pressed="true"] {
+  border-color: var(--color-invert-bg);
+  background: var(--color-invert-bg);
+  color: var(--color-invert-text);
+}
+
 /* ---------- section rows: the reason the panel exists ---------- */
 
-.list {
+.scroll {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -120,6 +179,11 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding-block: var(--space-2xs);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
@@ -244,7 +308,7 @@
   --switch-knob-size: 0.875rem;
 }
 
-/* ---------- presets and the count: quiet, and out of the way ---------- */
+/* ---------- the footer: what switching off costs, and the way out ---------- */
 
 .tools {
   flex: none;
@@ -263,49 +327,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-text-faint);
-}
-
-.presetRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xs);
-}
-
-/* The one sentence that explains the whole panel: what you switch off does not
-   only leave the screen. It sits with the presets, which is what people press. */
-.hint {
-  color: var(--color-text-faint);
-  font-size: var(--step--2);
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.preset {
-  flex: none;
-  min-height: 30px;
-  padding-inline: var(--space-s);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--step--1);
-  line-height: 1;
-  white-space: nowrap;
-  transition:
-    background-color 150ms ease,
-    border-color 150ms ease,
-    color 150ms ease;
-}
-
-.preset:hover {
-  border-color: var(--color-text-faint);
-  color: var(--color-text);
-}
-
-.preset[aria-pressed="true"] {
-  border-color: var(--color-invert-bg);
-  background: var(--color-invert-bg);
-  color: var(--color-invert-text);
 }
 
 .actions {

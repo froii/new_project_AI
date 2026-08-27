@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import Image from "next/image";
 import type { Photo } from "@/content/types";
 import styles from "./photo-switcher.module.css";
 
@@ -20,11 +21,13 @@ export function PhotoSwitcher({ photos, alt, groupLabel, optionLabels }: PhotoSw
 
   return (
     <div className={styles.root}>
-      <img
+      <Image
         className={styles.photo}
         src={active.src}
         width={active.width}
         height={active.height}
+        sizes="(max-width: 47.99rem) 100vw, 18rem"
+        priority
         alt={alt}
       />
 
@@ -43,7 +46,15 @@ export function PhotoSwitcher({ photos, alt, groupLabel, optionLabels }: PhotoSw
                 onChange={() => setActiveId(photo.id)}
               />
               <label className={styles.thumb} htmlFor={`${name}-${photo.id}`}>
-                <img src={photo.src} width={photo.width} height={photo.height} alt="" />
+                {/* 3rem in the CSS: the row was five full portraits before the
+                    size hint told the optimiser what it actually renders at. */}
+                <Image
+                  src={photo.src}
+                  width={photo.width}
+                  height={photo.height}
+                  sizes="48px"
+                  alt=""
+                />
                 <span className="visually-hidden">{optionLabels[index]}</span>
               </label>
             </span>

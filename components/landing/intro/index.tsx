@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
 import { Link } from "@/i18n/navigation";
@@ -49,10 +50,12 @@ export function Intro() {
 
         {photo && (
           <div className={styles.portrait}>
-            <img
+            <Image
               src={photo.src}
               width={photo.width}
               height={photo.height}
+              sizes="(max-width: 45.99rem) 62vw, 21rem"
+              priority
               alt={tHero("photoAlt", { name: tCommon("name") })}
             />
           </div>

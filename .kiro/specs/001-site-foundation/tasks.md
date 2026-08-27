@@ -6,7 +6,7 @@
 - [x] T002 Record pinned Next / React / Node / package-manager versions in `.kiro/steering/tech.md`; fill `.kiro/steering/preferences.md` §Commands with the real `typecheck` / `lint` / `test` commands.
 - [x] T003 `[P]` Add and pin `next-intl`, `next-themes`, `@radix-ui/react-accordion`, `prettier`.
 - [x] T004 `[P]` `tsconfig.json`: `strict: true`, `resolveJsonModule`, path alias `@/*`.
-- [ ] T005 (open) Pick the site font, self-host via `next/font`, **verify Cyrillic coverage**; record the choice in `tech.md`.
+- [x] T005 Site fonts self-hosted via `next/font` in `app/fonts.ts`: Inter (sans), Literata (serif), JetBrains Mono (mono), each `latin` + `cyrillic`. Recorded in `tech.md` §Fonts. Done under 006 T009/T010.
 - [x] T006 `[P]` Vitest, `npm test`, `vitest.config.mts` with native `resolve.tsconfigPaths`. ESLint added too; TypeScript held at 6.x because `typescript-eslint` rejects 7.x.
 
 ## Phase 2 — Foundational (blocks all stories)
@@ -19,7 +19,7 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T012 `[P]` `messages/en/` — `common`, `hero`, `about`, `experience`, `projects`, `footer`, `noscript` JSON files; `messages/en/index.ts` as the reference shape.
 - [x] T013 `messages/uk/` — same files; `messages/uk/index.ts` declared `satisfies typeof en` so a missing key fails `tsc` (FR-004).
 - [x] T014 `[P]` `app/globals.css` — CSS custom properties under `:root` and `:root[data-theme="dark"]`, plus layout primitives (`shell`, `stack`, `cluster`, `auto-grid`, `split`, `section`).
-- [x] T015 `app/layout.tsx` — `<html>`, `globals.css` imported here only. `next/font` still pending T005.
+- [x] T015 `app/layout.tsx` — `<html>`, `globals.css` imported here only. `next/font` variables land on `<html>` here (T005).
 - [x] T016 `i18n/` config: locale prefix always on including `en` (FR-008), `localeCookie: false`, `localeDetection: false`. **No middleware** — `generateStaticParams` prerenders both locales, a `redirects()` entry in `next.config.ts` sends the bare root to `/en` (FR-010).
 - [x] T017 `next-themes` provider in `app/[locale]/layout.tsx`: `attribute="data-theme"`, `defaultTheme="system"`; confirm the CSS selector matches what its script writes (FR-015).
 - [x] T018 `[P]` `lib/content.ts` — `sortExperience()` (FR-003), `isCurrent()`.
@@ -84,6 +84,10 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T052o Grid audit: one-column grids (`.section`, contact form and rows) turned into flex columns, hero contact list flattened out of `subgrid` and baseline-aligned; multi-column grids left as they were.
 - [x] T052p About summary always visible: `about.full` toggle and `ExpandableText` removed from the registry, labels, presets and tests; summary rewritten to domains + stack + LLM work with the filler cut.
 - [x] T052q Reading pass: summary fixed at `1.125rem` and pulled up under the contacts in print (`#hero` ends on 2mm); field values honour `pre-line` so the two longest responsibility texts break into paragraphs.
+- [x] T052r Print density pass: `@media print` re-declares `--step-*` / `--space-*` in fixed `pt` (the screen clamps resolved near their `vw` maximum on paper), releases every `ch` cap inside `#main` and re-imposes one on prose, tightens leading, adds `--paper-rail` as the shared label column, moves `break-inside: avoid` off whole accordion items onto the trigger, and shrinks the printed portrait to 32mm. Flow height roughly halved across every preset in EN and UK, no page lost to a bad break.
+- [x] T052s Print quality pass: air restored at the block seams (section lead/tail, body gap, role and degree spacing) without giving back the density; accordion meta hidden on paper (it duplicated the tech stack field); tag runs set as inline text so the `·` separator carries its spaces; achievement marker moved from `background` to `border` so it survives a print with background graphics off; education put on `--paper-rail` with the period in the rail; certifications indented to the same content edge. `about.personal` added as a part and switched off by the `short` preset (002, FR-232).
+- [x] T052t Legibility pass on the owner's read of the printed file: print type up to 11pt / 1.45 leading with the spacing scale raised to match, the `96ch` prose cap dropped (a `ch` is the element's own font, so it cut small text hardest), `--paper-rail` widened to 28mm for the larger term size, `break-inside: avoid` taken off whole field rows (an eight-line responsibilities value took its page with it), and the rubric rule given air on both sides.
+- [x] T052u Browser header and footer kept out of the PDF by holding `@page` vertical margin at 8mm (the threshold below which Chrome has no room to draw them); masthead hierarchy set explicitly for print so the name leads and the contacts stop outranking the summary.
 - [ ] T053 Keyboard pass: every control reachable and operable, visible focus indicator, expanded/collapsed state announced (FR-019, FR-020, SC-004).
 - [ ] T054 `[P]` Confirm no layout shift from images or fonts (FR-023, SC-006).
 - [ ] T055 Verification subagent per `preferences.md` §Role separation: input is `requirements.md` + `testcases.md` + changed files only.

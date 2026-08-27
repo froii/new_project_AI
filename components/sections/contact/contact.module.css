@@ -10,7 +10,8 @@
   --color-danger: #ff9b91;
   --color-focus: var(--color-invert-accent);
 
-  padding: var(--space-2xl) var(--gutter);
+  padding: var(--space-2xl) var(--gutter)
+    calc((var(--space-2xl) + var(--thumb-clearance, 0rem)) / 1.5);
   background: var(--color-invert-bg);
   color: var(--color-invert-text);
 }
@@ -49,10 +50,10 @@
 }
 
 .headline {
-  max-inline-size: 23ch;
+  max-inline-size: 26ch;
   margin-block-start: var(--space-m);
   font-family: var(--font-serif);
-  font-size: var(--step-2);
+  font-size: calc(var(--step-2) - 2px);
   font-weight: 300;
   line-height: 1.22;
   color: var(--color-invert-text);
@@ -66,31 +67,33 @@
   margin-block-start: var(--space-l);
 }
 
+/* The auxiliary route, under the profile links: text, not a button - the solid
+   weight belongs to the write action. The min-height stays, it is a tap target. */
 .email {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  padding-inline: var(--space-l);
-  border-radius: var(--radius);
-  background: var(--color-invert-text);
-  color: var(--color-invert-bg);
-  font-size: var(--step-0);
+  margin-block-start: var(--space-xs);
+  color: var(--color-invert-text);
+  font-size: var(--step--1);
   font-weight: 500;
   line-height: 1;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--color-invert-border);
   overflow-wrap: anywhere;
-  transition: background-color 200ms ease;
+  transition: color 200ms ease;
 }
 
 .email:hover {
-  background: var(--color-invert-accent);
-  color: var(--color-invert-bg);
+  color: var(--color-invert-accent);
+  text-decoration-color: currentColor;
 }
 
 .aside {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: calc(var(--space-xs) * 1.5);
 }
 
 @container (min-width: 34rem) {
@@ -121,7 +124,10 @@
   overflow: hidden;
 }
 
-@container (max-width: 33.99rem) {
+/* Below the width that holds both actions on one line they stack full-width,
+   the way they do on a phone - a wrapped, partly filled second row read as a
+   mistake. */
+@container (max-width: 49.99rem) {
   .bar > * {
     flex: 1 1 100%;
     justify-content: center;
@@ -206,4 +212,34 @@
   font-family: var(--font-serif);
   font-size: var(--step-1);
   color: var(--color-invert-text);
+}
+
+.again {
+  align-self: start;
+  margin-block-start: var(--space-xs);
+  color: var(--color-invert-accent);
+  font-size: var(--step--1);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.again:hover {
+  color: var(--color-invert-text);
+}
+
+/* The band spans the viewport, so on a wide screen it can hold more than the
+   paper column it inherits its width from. */
+@container (min-width: 65rem) {
+  .top,
+  .revealInner {
+    max-width: 62rem;
+  }
+
+  .card {
+    padding-block: calc(var(--space-2xl) * 1.5);
+  }
+
+  .headline {
+    font-size: calc(var(--step-3) - 2px);
+  }
 }

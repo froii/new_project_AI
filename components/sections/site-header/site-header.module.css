@@ -53,9 +53,12 @@
   white-space: nowrap;
 }
 
+/* `flex: none`, not `1 1 0`: with a shrinkable basis the controls were the side
+   that gave way - at 390px the cluster was allotted 173px for 178px of buttons,
+   so the theme toggle wrapped to a second row and spilled below the header. The
+   identity already fills the row, so nothing here has to push them right. */
 .controls {
-  flex: 1 1 0;
-  justify-content: flex-end;
+  flex: none;
   --cluster-gap: var(--space-xs);
 }
 

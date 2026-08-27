@@ -33,12 +33,33 @@ export function Contact() {
   const phone = owner.contacts.find((contact) => contact.kind === "phone")?.value;
   const broken = (field: ContactField) => errors.includes(field);
 
+  /* One row of ways to reach me: the messengers the phone number opens, then
+     the profiles. Splitting them into two labelled groups asked the visitor to
+     care about a distinction that only matters to the code. */
+  const reach = [
+    ...(phone
+      ? messengerLinks(phone).map((link) => ({ ...link, label: t(`messengers.${link.id}`) }))
+      : []),
+    ...owner.contacts
+      .filter((contact) => contact.kind === "link")
+      .map((contact) => ({
+        id: contact.id,
+        href: contact.value,
+        label: t(`direct.${contact.id}`),
+      })),
+  ];
+
   useEffect(() => {
     if (open) firstField.current?.focus({ preventScroll: true });
   }, [open]);
 
   useEffect(() => {
     const request = () => {
+      /* Reopening after a send has to give back the form. Without this the
+         panel came back showing the old confirmation and no fields, and only a
+         reload got out of it. */
+      setStatus("idle");
+      setErrors([]);
       setOpen(true);
       /* Already open: nothing transitions, so settle() never fires. */
       requestAnimationFrame(() => {
@@ -99,34 +120,30 @@ export function Contact() {
               <p className={styles.headline}>{t("intro")}</p>
 
               <div className={styles.bar}>
-                {email && (
-                  <a className={styles.email} href={`mailto:${email}`}>
-                    {email}
-                  </a>
-                )}
-
                 <Button
                   type="button"
-                  variant="outline"
                   aria-expanded={open}
                   aria-controls={panelId}
                   onClick={() => setOpen((value) => !value)}
                 >
                   {open ? t("close") : t("open")}
                 </Button>
+
+                <Button type="button" variant="outline" onClick={() => window.print()}>
+                  {t("savePdf")}
+                </Button>
               </div>
             </div>
 
-            {phone && (
+            {(reach.length > 0 || email) && (
               <div className={styles.aside}>
-                <p className={styles.asideLabel}>{t("messengersLabel")}</p>
-                <SocialLinks
-                  label={t("messengersLabel")}
-                  links={messengerLinks(phone).map((link) => ({
-                    ...link,
-                    label: t(`messengers.${link.id}`),
-                  }))}
-                />
+                <p className={styles.asideLabel}>{t("contactsLabel")}</p>
+                {reach.length > 0 && <SocialLinks label={t("contactsLabel")} links={reach} />}
+                {email && (
+                  <a className={styles.email} href={`mailto:${email}`}>
+                    {email}
+                  </a>
+                )}
               </div>
             )}
           </div>
@@ -143,6 +160,16 @@ export function Contact() {
                 <div className={styles.done} ref={done} tabIndex={-1} role="status">
                   <p className={styles.doneHeading}>{t("sent")}</p>
                   <p className={styles.note}>{t("sentNote")}</p>
+                  <button
+                    type="button"
+                    className={styles.again}
+                    onClick={() => {
+                      setStatus("idle");
+                      setErrors([]);
+                    }}
+                  >
+                    {t("sendAnother")}
+                  </button>
                 </div>
               ) : (
                 <form className={styles.form} onSubmit={submit} noValidate>

@@ -6,62 +6,70 @@
     "all": "All"
   },
   "summary": "{count, plural, one {# role} other {# roles}}",
-  "note": "Product code is private. References from clients, managers and tech leads are on <linkedin>my LinkedIn</linkedin>.",
   "present": "Present",
   "fields": {
     "project": "Project",
-    "responsibilities": "Responsibilities",
-    "techStack": "Tech stack",
-    "alsoUsed": "Also used",
+    "result": "Result",
+    "responsibilities": "Scope",
+    "techStack": "Stack",
+    "alsoUsed": "Adjacent",
     "link": "Link",
-    "interest": "Interesting part"
+    "interest": "Highlight"
   },
   "entries": {
     "bechacant": {
       "role": "Full Stack Developer - BechaCant, remote (US)",
       "project": "Web and PWA products built with React, Next.js and TypeScript, with backend services and AI-powered features. Ran in parallel with my last months at eTeam.",
+      "result": "Owned paywalls, subscriptions and store receipt verification end to end, and put the first LLM features - RAG, streaming, tool calling - into production.",
       "responsibilities": "Built product features end to end: paywalls and in-app purchases, offline-friendly mobile-first PWAs with push notifications, and parts of a code editor UI (editing, tabs, file tree, live preview).\n\nBackend in NestJS and Express with REST and GraphQL: payments and subscriptions with store receipt verification, webhooks and background jobs for renewal and expiry, PostgreSQL with safe logging and access rules.\n\nLLM features in production: RAG retrieval, streaming responses, tool calling and agent-style flows, with the prompt design behind them. Wrote the spec before the code and kept both in sync.",
       "interest": "Fixing the hard bugs: endless request loops, wrong deep-link routing, timezone drift, layouts collapsing under large system fonts. Also set up shared AI coding rules and prompts for the team."
     },
     "eteam": {
       "role": "Full Stack Developer - eTeam, contract, remote",
       "project": "nedyx - a low-code platform for business reporting, built by a small international team.",
+      "result": "Shipped the widget system, undo/redo, archive and PDF export the platform reports on, plus its own functional language.",
       "responsibilities": "Supported and developed the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualisation control, large tables, charts and a text editor, reading data from external databases for many users.\n\nImplemented undo/redo, archive creation, PDF export and the platform's own functional language.",
       "interest": "A well-thought-out, genuinely dynamic system for business reports, with our own functional language behind it."
     },
     "danit": {
       "role": "Frontend Instructor - dan.it",
       "project": "An introductory frontend course.",
+      "result": "Took a group of 25 beginners from nothing to working HTML, CSS and Git.",
       "responsibilities": "Taught a group of 25 students from the beginning: HTML5, CSS3 and Git.",
       "interest": "Explaining a thing properly is the fastest way to find the holes in your own understanding."
     },
     "ugenius": {
       "role": "Frontend Developer - U-Genius, contract, remote (Ukraine / USA)",
       "project": "Three applications for LinkSquares: contract lifecycle and legal project management.",
+      "result": "Delivered three LinkSquares applications; the dynamic form and table layer became the base the later features were built on.",
       "responsibilities": "Built the logic for rendering dynamic and asynchronous forms, tables and components, plus PDF editors, working from Figma and a kanban board. Used React with hooks, GraphQL, Apollo Server, Redux, Saga, Ant Design, Ramda and several form libraries, alongside my own utilities.",
       "interest": "A small but very strong team. Deep work on dynamic asynchronous forms and tables, and on Apollo fragments and caching for GraphQL updates."
     },
     "adraba": {
       "role": "Frontend Developer - Adraba, contract, Kyiv",
       "project": "A dynamic site generator, mostly back office and admin logic. Alongside it, an online store for recreation events and a TED-style speaker platform in London.",
+      "result": "Delivered the client side and the back office of a generator that builds and runs other sites.",
       "responsibilities": "Built the client side and a large back office (admin panel), email templates and business logic, with tables and charts for creating dynamic pages, forms, info blocks and galleries.",
       "interest": "My first experience of a site that builds other sites, a big team with a huge CRM behind it."
     },
     "mackiev": {
       "role": "Web Software Developer - Software MacKiev, contract, Kyiv",
       "project": "The company site and product pages, including Family Tree Maker.",
+      "result": "Kept the company site and its product pages shipping, Family Tree Maker included.",
       "responsibilities": "Maintained the site and built new page blocks for new products and questionnaires.",
       "interest": "First taste of a big team on a big project, working across the full stack and the business logic behind it."
     },
     "freelance": {
       "role": "Freelance Frontend Developer",
       "project": "Part-time work through FL.ru and Upwork.",
+      "result": "Delivered complete sites and mobile versions for clients I found and managed myself.",
       "responsibilities": "Everything from individual page components to full sites and mobile-version updates.",
       "interest": "Different people, different orders, the fastest way to learn what actually matters to a client."
     },
     "nas": {
       "role": "Junior Research Fellow - National Academy of Sciences of Ukraine, Kyiv",
       "project": "Radioecological and chemical pollution monitoring of water bodies, alongside graduate school and the first years of web work.",
+      "result": "Published research on water pollution monitoring alongside graduate school.",
       "responsibilities": "Monitoring and analysis of pollution data, published research, and graduate school. Worked with ArcMap.",
       "interest": "Where the habit of validating data before trusting it came from, and where I learned to write things down properly."
     }

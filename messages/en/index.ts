@@ -3,6 +3,7 @@ import certifications from "./certifications.json";
 import common from "./common.json";
 import contact from "./contact.json";
 import education from "./education.json";
+import error from "./error.json";
 import experience from "./experience.json";
 import hero from "./hero.json";
 import landing from "./landing.json";
@@ -16,6 +17,7 @@ const en = {
   common,
   contact,
   education,
+  error,
   experience,
   hero,
   landing,

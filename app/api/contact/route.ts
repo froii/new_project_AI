@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import { owner } from "@/content";
 import { contactLimits, headerSafe, invalidContactFields } from "@/lib/contact-message";
+import { rateLimiter } from "@/lib/rate-limit";
 
 /* nodemailer needs a raw socket; edge has none. */
 export const runtime = "nodejs";
@@ -9,21 +10,7 @@ export const runtime = "nodejs";
 const FROM_NAME = "Website";
 const SUBJECT = "New message from the website";
 
-const WINDOW_MS = 60 * 60 * 1000;
-const MAX_PER_WINDOW = 5;
-
-const seen = new Map<string, number[]>();
-
-function rateLimited(key: string): boolean {
-  const now = Date.now();
-  const recent = (seen.get(key) ?? []).filter((at) => now - at < WINDOW_MS);
-
-  /* Bounded map instead of a store: one instance, a few messages a month. */
-  if (seen.size > 500) seen.clear();
-  seen.set(key, [...recent, now]);
-
-  return recent.length >= MAX_PER_WINDOW;
-}
+const limit = rateLimiter(5, 60 * 60 * 1000);
 
 function text(body: Record<string, unknown>, key: string): string {
   const value = body[key];
@@ -39,7 +26,7 @@ export async function POST(request: Request) {
   if (!user || !pass || !to) return Response.json({ ok: false }, { status: 503 });
 
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  if (rateLimited(forwarded || "unknown")) return Response.json({ ok: false }, { status: 429 });
+  if (limit.hit(forwarded || "unknown")) return Response.json({ ok: false }, { status: 429 });
 
   let body: unknown;
   try {

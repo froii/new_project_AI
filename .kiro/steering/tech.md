@@ -16,9 +16,11 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 | Styling | CSS Modules + plain CSS (grid, container queries, custom properties) |
 | i18n | `next-intl`, locale as a **root param** (`next/root-params`) |
 | Theming | `next-themes`, `data-theme` on the root element |
-| PDF | `@react-pdf/renderer`, client-side |
+| PDF | the print stylesheet plus `window.print()` — see §PDF |
 | AI (later) | Anthropic SDK behind `app/api/chat/route.ts` |
 | Email | `nodemailer` over Gmail SMTP, behind `app/api/contact/route.ts` |
+| Type | `next/font` self-hosting Inter / Literata / JetBrains Mono — see §Type |
+| Images | `next/image`; `sharp` does the optimising, so the host must run Node |
 
 Vitest for unit tests (`npm test`), configured in `vitest.config.mts` with Vite's native
 `resolve.tsconfigPaths` — no path-alias plugin.
@@ -44,13 +46,39 @@ prints as it stands, so layout work on the page is layout work on the PDF. The r
 what they restyle: each component hides its own chrome in its own `@media print` block, and
 `globals.css` owns `@page`, the light palette override and the page geometry tokens.
 
-**Page geometry has one source.** `--page-width`, `--page-height`, `--page-pad-*` in `globals.css`
-drive both `@page` and the on-screen page preview (`:root[data-pages]`), so the preview cannot claim
-a cut the printer will not make. The preview is an indication, not a promise — `break-inside: avoid`
-still nudges blocks down in the real file, and the browser dialog remains the exact answer.
+**Paper gets its own scale, not the screen's.** The `--step-*` / `--space-*` scale is `clamp()` with
+a `vw` term because a viewport is any width. A sheet is 210mm and always will be, and inside `@media
+print` every one of those clamps resolves near its `vw` maximum — screen type and screen gaps on
+paper, at roughly double the height the same text needs. `@media print` therefore re-declares the
+whole scale in fixed `pt`, and `--paper-rail` gives every label column (accordion dates, field
+terms, skill group names) one left edge. `globals.css` owns `@page`, the light palette override and
+that print scale; components override only what needs a different *layout* on paper.
+
+**A `ch` cap is a screen measure.** It exists because a window is wider than a column of text; the
+sheet already is the column, so on paper every cap prints as blank right margin. Worse, a `ch` is the
+element's *own* font, so one cap for the whole page bites hardest exactly where the type is smallest.
+Print releases all of them (`#main *`) and re-imposes none: the measure on paper is the `@page`
+margin, and nothing inside the column.
+
+**Avoid-rules go on the smallest unit that must not split.** `break-inside: avoid` on a whole role —
+header plus every field — is what leaves a third of a page empty. The header is the part that must
+not be orphaned, so the rule sits on it with `break-after: avoid`, and the fields below are free to
+flow across the fold.
 
 **The PDF is always light.** `@media print` re-declares the palette in ink-friendly values whatever
 the screen theme was.
+
+**The browser's own header and footer are bought with page margin.** Chrome draws the date, the tab
+title and the URL inside the `@page` margin, and the visitor controls that from the print dialog, not
+from the stylesheet — there is no CSS property that turns it off. There is a threshold instead:
+below 8.5mm of vertical margin Chrome has nowhere to put it and omits it. `@page { margin: 8mm ... }`
+is therefore a deliberate ceiling, not a taste, and raising it puts `localhost:3000/en/cv` back at
+the bottom of someone's CV. Verified by printing the same page with the header flag on and off: the
+files come out byte-identical.
+
+**Nothing decorative may be a background.** The browser's print dialog drops backgrounds unless the
+visitor ticks "background graphics", and that box is off by default — a rule drawn as a 1px
+`background` simply is not in the file. Borders, glyphs and text always print; use those.
 
 **Closed panels must stay in the DOM.** Radix Accordion unmounts collapsed content; with the default
 behaviour a printed CV carries one role out of eight. `forceMount` plus a CSS `[data-state="closed"]`
@@ -71,6 +99,12 @@ Built in `002-section-selection`: `content/sections.ts` is the ordered id list,
 
 Two selection models over one content model would drift, and the drift shows up as a PDF that
 disagrees with the screen the visitor was just looking at.
+
+**Versions are named points in that same state.** `presets` in `content/sections.ts` is a partial
+override of the defaults, and the panel is a view over it: what each version contains is *counted*
+from the toggles it sets (`visibilityCount`), never written by hand, so a version cannot advertise a
+section the data stopped producing. `eu` is deliberately empty - the default state is a named
+version, otherwise the panel opens on "Custom" before anybody touched a switch.
 
 ## i18n — localized leaves, not parallel files
 
@@ -97,12 +131,23 @@ a dark screen never becomes a dark page.
 ## Type — three families, all Cyrillic-capable
 
 `--font-sans` (UI), `--font-serif` (display: `h1`, `h2`, hero lede), `--font-mono` (numbers, labels,
-eyebrows). All three are system stacks today.
+eyebrows). All three are self-hosted through `next/font` in `app/fonts.ts`, each declaring
+`latin` + `cyrillic`: **Inter**, **Literata**, **JetBrains Mono**. The variables are declared there
+and nowhere else — `globals.css` no longer defines them, so a missing family shows up as an obviously
+wrong page rather than a silent fallback.
 
 **A display face is only a candidate if it covers Cyrillic.** The reference design uses Newsreader,
 which ships latin, latin-ext and vietnamese and **no Cyrillic** — on `/uk` every serif heading would
-fall back mid-page. `--font-serif` therefore resolves to `ui-serif, Cambria, "Times New Roman"`,
-which do cover it. This is the trap T005 is about; check the unicode ranges before self-hosting.
+fall back mid-page. Literata was picked over it for exactly that, and because the masthead sets `h1`
+at weight 300, which Literata has and most screen serifs do not.
+
+**Self-hosting is a print decision before it is a performance one.** The file is the page (§PDF), so
+a face the recruiter's machine happens to lack is a CV that prints differently for every reader.
+
+**Only the sans is preloaded.** Three families times two subsets was ~200KB of render-blocking
+preload for one heading and a row of date labels; `preload: false` on serif and mono cut it to 66KB.
+`display: "swap"` with `next/font`'s size-adjusted fallback (on by default) makes the swap cost no
+layout shift.
 
 ## Responsive — one layout, not two
 
@@ -173,15 +218,28 @@ Production configuration in `next.config.ts` (TypeScript so it can import `defau
 block sending `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`
 and HSTS on every route, and a `redirects()` entry sending the bare root to the default locale.
 
-**No Content-Security-Policy yet, deliberately.** `next-themes` writes its pre-paint script inline;
-a strict CSP needs either a per-request nonce — which forces dynamic rendering and gives up static
-generation — or a hash that changes whenever the theme config does. Both cost more than they are
-worth before a domain exists. **TODO(tech):** revisit at deploy time.
+**A Content-Security-Policy without a nonce.** Shipped in the same `headers()` block. Scripts and
+styles stay `'unsafe-inline'`, because a nonce is per request and a per-request header would force
+dynamic rendering on every route. The directives that bite here are `connect-src`, `frame-ancestors`,
+`form-action`, `base-uri` and `object-src`. Void the moment the site renders visitor-supplied HTML —
+see `specs/006-production-readiness/decisions/0002`.
+
+Metadata routes generate the rest of the identity: `app/icon.svg` / `icon.png` / `apple-icon.png` and
+`app/manifest.ts`. The social cards are the exception — committed PNGs, not a runtime renderer
+(`decisions/0001`).
 
 `app/robots.ts` and `app/sitemap.ts` generate their files from `locales`, so a third language adds
 itself. Both read `NEXT_PUBLIC_SITE_URL`; until it is set they emit `localhost`, which is wrong in
 production and must be set before the first deploy.
 
 **TODO(tech):** hosting not chosen. The constraint is now binding, not future: `app/api/contact` is
-a live route handler, so the target must run server code. A pure static export would drop the
-contact form, the security headers above, and the AI route when it arrives.
+a live route handler and `next/image` needs `sharp`, so the target must run server code. A pure
+static export would drop the contact form, the image optimiser, the security headers above, and the
+AI route when it arrives.
+
+The choice also settles one open question: `app/api/contact` counts submissions **in memory**. On a
+single Node process that is exactly right; on serverless the counter resets with every cold start.
+Tracked as 006 T015 — nothing was built for either case, because building both is the waste.
+
+CI runs typecheck, lint, tests and a build on every pull request (`.github/workflows/ci.yml`). The
+build is the only step that catches a broken metadata route or a font that stopped resolving.

@@ -16,7 +16,8 @@ export function Education() {
       <div className={styles.head}>
         <p className={styles.degree}>{t(`entries.${item.id}.degree`)}</p>
         <p className={styles.period}>
-          {dottedDate(item.start)} - {item.end ? dottedDate(item.end) : tExperience("present")}
+          <span>{dottedDate(item.start)}</span>
+          <span>{item.end ? dottedDate(item.end) : tExperience("present")}</span>
         </p>
       </div>
 

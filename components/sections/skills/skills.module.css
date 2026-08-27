@@ -9,7 +9,7 @@
   gap: var(--space-2xs) var(--space-l);
   padding-block: var(--space-2xs);
   font-size: var(--step--1);
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 @container (min-width: 34rem) {
@@ -31,10 +31,28 @@
 }
 
 /* Everything past the core stack is context, not the pitch. */
-.more .items {
+.more .items,
+.tail {
   color: var(--color-text-muted);
+}
+
+.tail {
+  display: inline;
+}
+
+.tail[hidden] {
+  display: none;
 }
 
 .row {
   break-inside: avoid;
+}
+
+/* Group names share the rail every other label column on paper stands on. */
+@media print {
+  .row {
+    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
+    column-gap: var(--space-s);
+    padding-block: 0;
+  }
 }

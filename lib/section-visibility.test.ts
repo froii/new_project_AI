@@ -29,8 +29,8 @@ describe("encodeVisibility", () => {
   });
 
   it("encodes a default-off toggle that was turned on", () => {
-    const visible: Visibility = { ...defaultVisibility, "experience.interest": true };
-    expect(encodeVisibility(visible)).toBe(toggleCodes["experience.interest"]);
+    const visible: Visibility = { ...defaultVisibility, "experience.alsoUsed": true };
+    expect(encodeVisibility(visible)).toBe(toggleCodes["experience.alsoUsed"]);
   });
 });
 

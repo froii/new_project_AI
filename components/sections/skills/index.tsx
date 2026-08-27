@@ -4,7 +4,7 @@ import { PartToggle } from "@/components/visibility/part-toggle";
 import { skills } from "@/content";
 import styles from "./skills.module.css";
 
-const featured = 4;
+const featured = 5;
 
 export function Skills() {
   const t = useTranslations("skills");
@@ -13,7 +13,12 @@ export function Skills() {
     groups.map((group) => (
       <li key={group.id} className={styles.row}>
         <span className={styles.name}>{t(`groups.${group.id}`)}</span>
-        <span className={styles.items}>{group.items.join(" · ")}</span>
+        <div className={styles.items}>
+          {group.items.join(" · ")}
+          {group.more && (
+            <Part id="skills.full" className={styles.tail}>{` · ${group.more.join(" · ")}`}</Part>
+          )}
+        </div>
       </li>
     ));
 
