@@ -10,9 +10,8 @@
   --color-danger: #ff9b91;
   --color-focus: var(--color-invert-accent);
 
-  /* --thumb-clearance is set by the CV sheet, where the section-menu pill is
-     fixed over the thumb and would otherwise cover the end of the band. */
-  padding: var(--space-2xl) var(--gutter) calc(var(--space-2xl) + var(--thumb-clearance, 0rem));
+  padding: var(--space-2xl) var(--gutter)
+    calc((var(--space-2xl) + var(--thumb-clearance, 0rem)) / 1.5);
   background: var(--color-invert-bg);
   color: var(--color-invert-text);
 }

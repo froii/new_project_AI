@@ -6,10 +6,11 @@
 
 .trigger {
   position: fixed;
-  inset-inline-start: 50%;
+  inset-inline: 0;
   inset-block-end: max(var(--space-m), env(safe-area-inset-bottom));
   z-index: 41;
-  translate: -50% 0;
+  width: fit-content;
+  margin-inline: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -24,6 +25,31 @@
   font-weight: 500;
   line-height: 1;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--color-invert-bg) 30%, transparent);
+  transition:
+    translate 200ms ease,
+    opacity 200ms ease;
+}
+
+.trigger[data-away] {
+  translate: 0 calc(100% + max(var(--space-m), env(safe-area-inset-bottom)));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.trigger[data-away]:focus-visible {
+  translate: 0 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .trigger[data-away] {
+    translate: 0 0;
+    opacity: 1;
+    pointer-events: auto;
+    transition: none;
+  }
 }
 
 .trigger > span:first-child {

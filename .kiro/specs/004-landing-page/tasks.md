@@ -76,4 +76,5 @@
 - [x] T019 `app/globals.css` + `contact.module.css` — the CV sheet declares `--thumb-clearance`
   below the sidebar breakpoint and the contact card spends it as bottom padding, so the fixed
   section-menu pill stops covering the end of the band; the address gets its own top margin inside
-  the Contacts group (002 FR-124, FR-006).
+  the Contacts group. The card spends the sum at 1.5x less than its own top padding - the full
+  amount read as a hole after the address (002 FR-124, FR-006).

@@ -20,6 +20,7 @@ import {
   visibilityCount,
 } from "@/lib/section-visibility";
 import { useActiveSection } from "./use-active-section";
+import { useScrollAway } from "./use-scroll-away";
 import styles from "./section-menu.module.css";
 
 export function SectionMenu() {
@@ -57,6 +58,7 @@ export function SectionMenu() {
     };
   }, [open]);
 
+  const away = useScrollAway(open);
   const count = visibilityCount(visible);
   const preset = matchPreset(visible);
 
@@ -66,6 +68,7 @@ export function SectionMenu() {
         type="button"
         ref={triggerRef}
         className={styles.trigger}
+        data-away={away || undefined}
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}

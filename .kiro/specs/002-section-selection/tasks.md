@@ -47,3 +47,15 @@ version list. Earlier work is recorded in `requirements.md` and `design.md`.
   reads "Європа" on first load and no Custom card is present
 - [x] Visual pass in a browser - headless Chrome over CDP at 1440px and 390px: the six version cards
   read as one scale, the active one is unmistakable, and the section rows still fit under them
+
+## Phase 8 — the trigger stops covering the text
+
+- [x] T801 `use-scroll-away.ts` — an 8px-deadband scroll direction hook; held open or above half a
+  viewport it reports nothing (FR-130).
+- [x] T802 `section-menu.module.css` — the trigger translates out of view on scroll down and comes
+  back on scroll up, on focus, and under reduced motion; it keeps its centred position, now held by
+  auto margins so the transform is free (FR-130).
+
+### Verification (Phase 8)
+
+- [x] `npm run typecheck`

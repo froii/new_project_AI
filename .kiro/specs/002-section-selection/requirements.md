@@ -114,6 +114,11 @@ The visitor turns off "Work". That section disappears from the page, and its men
 - **FR-124**: The visitor MUST be able to produce a PDF of the current selection from the same
   control that holds the selection, and MUST be able to see on the page where the sheet boundaries
   fall before doing so.
+- **FR-130**: Below the sidebar breakpoint the trigger MUST leave the screen while the visitor
+  scrolls down and return on the first scroll up: a control permanently drawn over the reading
+  column is the one place a phone cannot afford to spend. It stays centred - the corner was tried
+  and rejected on looks (2026-08-27). It MUST leave by moving, never by the display property, so
+  focus is not dropped, and where motion is reduced it MUST stay put rather than blink out.
 - **FR-123**: A section MAY offer its own switch for one of its parts, in place, so the visitor can
   change what that section shows without opening the menu. Both surfaces MUST drive the same state:
   whatever is switched in the section is reflected in the menu, in the address and in the PDF.
