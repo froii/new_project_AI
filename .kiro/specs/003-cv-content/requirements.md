@@ -98,7 +98,8 @@
   a test runner went with it.
 - **FR-208**: Education entries MUST carry the skills they produced, toggleable as a part.
 - **FR-209**: Certifications MUST show the credential source and identifier, both derived from the
-  verification URL rather than typed by hand, and link to the issuer for verification.
+  verification URL rather than typed by hand, and link to the issuer for verification. They MUST NOT
+  show an issue date: only two of them carry one, so it read as missing data on the rest.
 - **FR-227**: Every external URL MUST live in `content/links.ts`, grouped as certificates and
   projects, so a dead link is checkable in one pass over one file.
 - **FR-210**: The results block MUST state what the owner owned end to end, not self-reported

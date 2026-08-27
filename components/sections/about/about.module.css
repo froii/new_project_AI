@@ -14,9 +14,6 @@
   color: var(--color-text-faint);
 }
 
-/* Every other section hangs its rubric straight off `.section`, so the flex gap
-   sets the air under the rule. This one is nested a level deeper and has to
-   restate it - otherwise the list starts flush against the line. */
 .group {
   display: flex;
   flex-direction: column;

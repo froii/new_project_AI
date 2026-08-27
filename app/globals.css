@@ -176,6 +176,7 @@ a:hover {
 
   --header-height: 4rem;
   --panel-width: 17.375rem;
+  --rail: 106px;
   --paper-max: 49.625rem;
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --measure: 64ch;
@@ -712,6 +713,10 @@ dd {
 
   #main :is(h1, h2, h3, h4) {
     line-height: 1.15;
+  }
+
+  h1 {
+    letter-spacing: normal;
   }
 
   /* The rule under a rubric separates the block above from the block below, so

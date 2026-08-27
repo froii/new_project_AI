@@ -2,7 +2,7 @@
   "menu": "Sections",
   "toggle": "Show {section}",
   "partsLabel": "Parts of {section}",
-  "versionsHeading": "Templates",
+  "versionsHeading": "Presets",
   "print": "PDF",
   "presets": {
     "full": {
@@ -18,7 +18,7 @@
       "note": "no photo, nothing personal"
     },
     "tech": {
-      "label": "Tech deep",
+      "label": "Deep dive",
       "note": "full stack detail, every role"
     },
     "screening": {
@@ -55,15 +55,15 @@
       "all": "Earlier roles",
       "project": "Project",
       "result": "Result",
-      "responsibilities": "Responsibilities",
-      "techStack": "Tech stack",
-      "alsoUsed": "Also used",
+      "responsibilities": "Scope",
+      "techStack": "Stack",
+      "alsoUsed": "Adjacent",
       "link": "Link",
-      "interest": "Interesting part"
+      "interest": "Highlight"
     },
     "education": {
       "all": "Earlier entries",
-      "skills": "What it gave me"
+      "skills": "Takeaways"
     },
     "certifications": {}
   },

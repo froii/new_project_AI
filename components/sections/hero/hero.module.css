@@ -144,4 +144,8 @@
   .contacts {
     column-gap: var(--space-s);
   }
+
+  .contacts > dd a {
+    border-block-end: 0;
+  }
 }

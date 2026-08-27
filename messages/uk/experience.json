@@ -10,9 +10,9 @@
   "fields": {
     "project": "Проєкт",
     "result": "Результат",
-    "responsibilities": "Обов'язки",
+    "responsibilities": "Обсяг",
     "techStack": "Стек",
-    "alsoUsed": "Також використовував",
+    "alsoUsed": "Суміжне",
     "link": "Посилання",
     "interest": "Цікаве"
   },

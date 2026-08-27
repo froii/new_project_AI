@@ -48,7 +48,7 @@
 
 @container (min-width: 34rem) {
   .trigger {
-    grid-template-columns: 106px minmax(0, 1fr) 1.25rem;
+    grid-template-columns: var(--rail) minmax(0, 1fr) 1.25rem;
   }
 
   .lead {
@@ -149,6 +149,7 @@
     padding-inline: 0;
     padding-block: var(--space-l) var(--space-2xs);
     grid-template-columns: var(--paper-rail) minmax(0, 1fr);
+    column-gap: var(--space-s);
     break-inside: avoid;
     break-after: avoid;
   }
@@ -172,5 +173,9 @@
 
   .body {
     padding-block: 0 var(--space-s);
+  }
+
+  .item + .item {
+    border-block-start: 0;
   }
 }

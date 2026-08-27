@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
 import { certifications } from "@/content";
-import { dottedDate } from "@/lib/content";
 import { readCredential } from "@/lib/credentials";
 import styles from "./certifications.module.css";
 
@@ -18,7 +17,6 @@ export function Certifications() {
           const credential = item.href ? readCredential(item.href) : null;
           const meta = [
             t(`entries.${item.id}.issuer`),
-            item.issued && dottedDate(item.issued),
             credential?.host,
           ].filter(Boolean);
 

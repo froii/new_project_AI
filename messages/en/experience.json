@@ -10,11 +10,11 @@
   "fields": {
     "project": "Project",
     "result": "Result",
-    "responsibilities": "Responsibilities",
-    "techStack": "Tech stack",
-    "alsoUsed": "Also used",
+    "responsibilities": "Scope",
+    "techStack": "Stack",
+    "alsoUsed": "Adjacent",
     "link": "Link",
-    "interest": "Interesting part"
+    "interest": "Highlight"
   },
   "entries": {
     "bechacant": {

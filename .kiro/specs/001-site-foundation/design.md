@@ -229,11 +229,31 @@ Measured across every preset in EN and UK: no page lost to a bad break in any co
 counts at the current scale are 2 for `short`, 4 for `default`, 5 for `full` — bigger than the 9.5pt
 pass that preceded it (2 / 3 / 3), which is the trade the owner asked for.
 
+**The field is the atom of a page break.** A whole role is too large to keep off a fold, but a
+single field is not: split one and its term stays on the sheet above while the value opens the next,
+labelled by nothing. So `break-inside: avoid` sits on `.list > *`, and `.value p` gets `orphans` /
+`widows: 3`. The separator between two roles comes off on paper for the same reason - once the break
+lands on it, it prints as a rule across the top of the next sheet, attached to nothing. Air over each
+trigger already separates the records, and the section rubrics stay the only rules on the sheet.
+
+**The text layer is read before the page is.** An ATS parses the PDF, not the layout. `h1` drops its
+negative tracking on paper because the extractor loses the space inside it and the name comes out as
+one token. Print already strips link colour and underline, so the hero contacts drop their
+`border-block-end` too - a rule under an email that is not a link reads as a stray line.
+
+`--rail` (106px) is the screen twin: the accordion trigger and the field list share one column, so a
+value sets directly under the role title it belongs to and a term under the dates. The field list
+carries the trigger's `1rem` inline offset on screen and drops it on paper, where the trigger has none.
+
 `--paper-rail` (24mm, cut to the longest field term, `RESPONSIBILITIES`) gives the accordion date
 column, the field-list terms and the skill group names one left edge, so every value on the sheet
 starts on the same line. The accordion trigger drops its hover padding on paper, which was the only
-thing indenting a role header away from its own fields. Education joins the same rail — period in
-the rail, degree and everything under it in the content column — and the rule matches `.entry > *`
+thing indenting a role header away from its own fields. It also takes the field list's `--space-s`
+column gap: on the trigger's own `--space-l` the role title set a couple of millimetres right of the
+values underneath it, off the one content edge the rail exists to create. Education joins the same rail — period in
+the rail, degree and everything under it in the content column, its period stacked over two lines
+the way a role stacks its own dates, because `2025.09 - Present` is longer than the rail — and the
+rule matches `.entry > *`
 rather than the classes, because a switchable part arrives wrapped in a `div` of its own and would
 otherwise auto-place into the rail as a narrow stack. Certifications have no date to put there and
 take the empty rail as indent instead: a record starting at the left edge while every other record

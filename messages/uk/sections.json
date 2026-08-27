@@ -2,7 +2,7 @@
   "menu": "Розділи",
   "toggle": "Показувати «{section}»",
   "partsLabel": "Частини «{section}»",
-  "versionsHeading": "Готові варіанти",
+  "versionsHeading": "Пресети",
   "print": "PDF",
   "presets": {
     "full": {
@@ -55,15 +55,15 @@
       "all": "Ранні позиції",
       "project": "Проєкт",
       "result": "Результат",
-      "responsibilities": "Обов'язки",
+      "responsibilities": "Обсяг",
       "techStack": "Стек",
-      "alsoUsed": "Також використовував",
+      "alsoUsed": "Суміжне",
       "link": "Посилання",
       "interest": "Цікаве"
     },
     "education": {
       "all": "Ранні записи",
-      "skills": "Що це дало"
+      "skills": "Здобуте"
     },
     "certifications": {}
   },
