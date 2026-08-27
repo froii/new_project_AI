@@ -14,7 +14,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans), sans-serif;
   font-size: var(--step-0);
-  line-height: 1.6;
+  line-height: 1.4;
   overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
 }
@@ -157,11 +157,6 @@ a:hover {
 }
 
 :root {
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: ui-serif, Cambria, "Times New Roman", Times, serif;
-  --font-mono: ui-monospace, Consolas, "Liberation Mono", Courier, monospace;
-
   --step--2: clamp(0.69rem, 0.67rem + 0.1vw, 0.75rem);
   --step--1: clamp(0.83rem, 0.8rem + 0.16vw, 0.94rem);
   --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1.06rem);
@@ -338,6 +333,15 @@ a:hover {
   padding-inline: 0;
 }
 
+/* Below the sidebar breakpoint the section-menu pill sits fixed over the thumb.
+   The band the page ends on pays for it in its own padding, so the clearance
+   stays inside the dark card instead of showing as a strip of canvas. */
+@media (max-width: 79.99rem) {
+  .sheet {
+    --thumb-clearance: calc(2.75rem + max(var(--space-m), env(safe-area-inset-bottom)));
+  }
+}
+
 /* A slot placed directly in the sheet instead of on the paper spans the whole
    viewport: the page ends on a band, not on a card floating in the canvas. */
 .sheet > .section-slot {
@@ -385,7 +389,7 @@ a:hover {
   container-type: inline-size;
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  gap: var(--space-xs);
   padding-block: var(--paper-section-lead) var(--paper-section-tail);
   scroll-margin-block-start: calc(var(--header-height) + var(--space-m));
 }
@@ -418,7 +422,7 @@ a:hover {
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-s);
-  padding-block-end: var(--space-xs);
+  padding-block-end: var(--space-2xs);
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
@@ -481,7 +485,7 @@ a:hover {
 .lede {
   font-family: var(--font-serif);
   font-size: var(--step-1);
-  line-height: 1.6;
+  line-height: 1.4;
   color: var(--color-text);
 }
 
@@ -590,6 +594,7 @@ html {
 .block-head {
   break-inside: avoid;
   break-after: avoid;
+  align-items: flex-end;
 }
 
 .section h2 {
@@ -702,7 +707,7 @@ dd {
   }
 
   #main :is(p, li, dt, dd, span, a) {
-    line-height: 1.45;
+    line-height: 1.6;
   }
 
   #main :is(h1, h2, h3, h4) {

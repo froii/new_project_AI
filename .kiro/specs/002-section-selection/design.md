@@ -77,26 +77,29 @@ Photos are referenced by path with explicit `width`/`height` rather than static 
 can drop files into `public/photos/` without touching a component. The declared dimensions are what
 prevent layout shift (FR-023 in 001).
 
-Portraits are normalised to 800x800 WebP: the widest the block ever renders is the 336px intro column,
-so 800 covers a 2x display and the 48px thumbnails reuse the same file rather than costing a second
-request.
+Portraits are normalised to 600x800 WebP at `aspect-ratio: 3 / 4`. A square frame cut the standing
+shots off at the waist; 3:4 is close to what a phone camera produces held upright, so the sources fit
+with little thrown away. The widest the block renders is the 336px intro column, so 600 covers a 2x
+display and the 48px thumbnails reuse the same file rather than costing a second request.
 
 Each crop box is fixed per source rather than computed. Automatic strategies were tried and dropped:
 `attention` follows contrast, not faces, and cut the top of the head off the headshot. The boxes centre
 the face horizontally and keep roughly a tenth of the frame as headroom, sized so the head fills a
-comparable share across portraits — otherwise the switcher jumps in scale between thumbnails. `cyberpunk` has a circular mask baked into the JPEG: an inscribed box loses the jacket, so the frame
-runs wider and the corners are carried by a blurred, scaled copy of the source composited under a
-circular alpha cut of it. White corners would read as a broken image on the dark theme; blurred neon
-does not. `japan` is a full-length shot, so it is cropped in tighter than its source framing and its
-face still sits left of centre — pulling in further would upscale past the point the skin holds.
+comparable share across portraits — otherwise the switcher jumps in scale between thumbnails. `cyberpunk` has a circular mask baked into the JPEG. At 1:1 an inscribed square lost the jacket, which
+forced a blurred fill behind the corners; at 3:4 the inscribed rectangle is tall enough to keep the
+jacket, so the frame is a plain inscribed crop and the fill is gone. `japan` is a full-length shot, so
+it is cropped tighter than its source framing and its face still sits left of centre — pulling in
+further would upscale past the point the skin holds.
 
 Tone is corrected per photo, not globally: `madeira` was shot in morning haze and needs contrast and
 saturation to stop looking washed out.
 
 Background cannot be replaced or blurred without person segmentation, which nothing here provides, so
-a CV-appropriate background is reached by cropping tight enough that little background is left. That
-caps `retro-service`: its clean wall spans only x 538..1277 in the source, narrower than the ~900px a
-passport-style crop of that head needs, so the frame keeps some cabling.
+a CV-appropriate background is reached by cropping tight enough that little background is left.
+
+Source resolution sets the floor on how tight a crop can go. `marina` comes from a 498x690 original,
+so even its widest sensible frame upscales ×1.74 and its head lands at 39% — matching `madeira` rather
+than the tighter portraits. Pulling it to passport crispness would upscale past ×2 and soften the skin.
 
 The portrait column is what sizes the thumbnail row, so the two are coupled: five thumbnails at `3rem`
 plus four `--space-xs` gaps reach 280.3px once that gap clamp tops out (past a ~1320px viewport), which

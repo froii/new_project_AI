@@ -14,6 +14,19 @@
   color: var(--color-text-faint);
 }
 
+/* Every other section hangs its rubric straight off `.section`, so the flex gap
+   sets the air under the rule. This one is nested a level deeper and has to
+   restate it - otherwise the list starts flush against the line. */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.group .label {
+  margin-block-end: 0;
+}
+
 .results {
   display: grid;
   gap: var(--space-s);
@@ -24,7 +37,7 @@
   position: relative;
   padding-inline-start: var(--space-m);
   font-size: var(--step--1);
-  line-height: 1.6;
+  line-height: 1.4;
   color: var(--color-text-muted);
 }
 

@@ -1,27 +1,33 @@
 {
   "menu": "Sections",
-  "hint": "Switched-off parts also leave the shared link and the PDF.",
   "toggle": "Show {section}",
   "partsLabel": "Parts of {section}",
-  "presetsHeading": "Presets",
-  "reset": "Reset",
+  "versionsHeading": "Templates",
   "print": "PDF",
   "presets": {
+    "full": {
+      "label": "Everything",
+      "note": "every section and every part"
+    },
     "eu": {
       "label": "Europe",
-      "note": "photo, full text"
+      "note": "photo, full text, interests"
     },
     "us": {
       "label": "US / ATS",
-      "note": "no photo, no side detail"
+      "note": "no photo, nothing personal"
+    },
+    "tech": {
+      "label": "Tech deep",
+      "note": "full stack detail, every role"
+    },
+    "screening": {
+      "label": "First look",
+      "note": "the first 30 seconds: core skills, recent roles"
     },
     "short": {
       "label": "One-pager",
-      "note": "the short version"
-    },
-    "full": {
-      "label": "Everything",
-      "note": "every section and part"
+      "note": "roles and outcomes, nothing else"
     }
   },
   "labels": {
@@ -40,7 +46,7 @@
     },
     "about": {
       "achievementsFull": "Full detail",
-      "personal": "Off the clock"
+      "personal": "Beyond the Code"
     },
     "skills": {
       "full": "Full skill list"
@@ -48,6 +54,7 @@
     "experience": {
       "all": "Earlier roles",
       "project": "Project",
+      "result": "Result",
       "responsibilities": "Responsibilities",
       "techStack": "Tech stack",
       "alsoUsed": "Also used",
@@ -59,5 +66,6 @@
       "skills": "What it gave me"
     },
     "certifications": {}
-  }
+  },
+  "reset": "Reset"
 }

@@ -52,10 +52,13 @@
   text-transform: uppercase;
 }
 
+/* See the note in hero.module.css: the cap stacks the two words, it must never
+   split either of them, whatever the serif measures a `ch` as. */
 .name {
   max-inline-size: 12ch;
   margin-block-start: var(--space-m);
   font-size: var(--step-5);
+  overflow-wrap: normal;
 }
 
 .headline {

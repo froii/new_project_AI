@@ -12,6 +12,7 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SectionSlot } from "@/components/visibility/section-slot";
 import { toggleSectionIds } from "@/content/sections";
 import { locales } from "@/i18n/config";
+import { ogImage } from "@/lib/og-image";
 
 const bySection = {
   hero: Hero,
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }: CvParams): Promise<Metadata> 
   const t = await getTranslations({ locale, namespace: "common" });
 
   const title = t("cvTitle", { name: t("name") });
+  const images = ogImage(locale, title);
 
   return {
     title,
@@ -40,8 +42,17 @@ export async function generateMetadata({ params }: CvParams): Promise<Metadata> 
       canonical: `/${locale}/cv`,
       languages: Object.fromEntries(locales.map((value) => [value, `/${value}/cv`])),
     },
-    openGraph: { title, url: `/${locale}/cv` },
-    twitter: { title },
+    /* Description and site name repeated, not inherited: nested metadata
+       replaces the parent object rather than merging into it, so leaving them
+       out shipped the CV card with an empty description. */
+    openGraph: {
+      title,
+      description: t("description"),
+      siteName: t("name"),
+      url: `/${locale}/cv`,
+      images,
+    },
+    twitter: { card: "summary_large_image", title, description: t("description"), images },
   };
 }
 

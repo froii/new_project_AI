@@ -156,6 +156,9 @@ gone.
 
 `.block-head` is the shared shape: label on the left, whatever the block needs on the right (the
 Core / Full switch for skills, "8 roles · 2012 — 2026" for experience), a hairline under both.
+The air under that hairline comes from the flex gap of whatever holds the head, so a block nested
+below `.section` restates the gap itself and drops its label's own `margin-block-end` - About did
+neither, and read as double space over the rule and none under it.
 
 **One rule per block, and none inside it.** The hairline under each rubric is the only line the
 content carries; the separator between sections, the rule under every skill row, under every degree
@@ -176,6 +179,12 @@ row, the portrait column is pinned at `18rem` — `auto` sized it to the widest 
 lists the accordion trigger carries `0.5rem` inline padding against a matching negative margin, so
 the hover plate bleeds past the text without moving it off the grid; the row rhythm inside a record
 tightened one step (`--space-s`) after the fields read as a table of gaps.
+
+Below the 34rem container query the accordion trigger has two columns but three children, so the
+date column swallowed the row and the role plus its tech-stack preview were squeezed into the 1.25rem
+chevron track. The date span now spans the full first row (`grid-column: 1 / -1`, laid out as one
+`start - end` range instead of two stacked dates) and the title takes the whole width beneath it;
+the wide container query and print both reset it back to its own column.
 
 Because the sheet is narrower than the old shell, the hero split moved from a 44rem container query
 to 40rem; at 44rem it would never fire inside the paper and the portrait would drop below the name.
@@ -206,7 +215,7 @@ email already prints in the hero contacts, and the CTA copy, the form and the me
 whose number lives only in `aria-label` — say nothing on paper.
 
 **Paper has its own scale.** Print re-declares `--step-*` and `--space-*` in fixed `pt` (11pt body,
-1.45 leading) and releases every `ch` cap inside `#main`.
+1.6 leading, against the screen's 1.4) and releases every `ch` cap inside `#main`.
 Left on the screen's `clamp(… + vw, …)` values, every step and space resolved near its maximum and
 the sheet carried a third of the text it could: the `short` preset ran to three A4 pages, each
 ending on a third of a page of white.
@@ -270,6 +279,8 @@ its own. The hero contact block steps up to `--step-0`, because an email read of
 survive a photocopier. Tag chips drop their padding and background — an invisible box prints as a
 gap between words — and run as `·`-separated text. The name sits at `--step-4` and breaks after the
 first name on screen; on paper its `9ch` cap is released with the rest and it sets on one line.
+The eyebrow role line stays on one line at every width: `white-space: nowrap` plus a `cqi`-based
+`font-size` clamp, so the intro column shrinks the type instead of wrapping the title in two.
 
 **The summary is never clamped.** The About paragraph prints and renders in full: the `about.full`
 toggle and the `ExpandableText` component behind it are gone, because a summary that a visitor has

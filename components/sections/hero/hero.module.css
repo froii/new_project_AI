@@ -37,15 +37,20 @@
 .title {
   color: var(--color-accent);
   font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.14em;
+  font-size: clamp(0.55rem, 1.7cqi, var(--step--2));
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
+/* `overflow-wrap: normal` overrides the document default: a `ch` is measured in
+   the element own font, so any cap set for one serif chops a long surname in the
+   next one. The cap is here to stack the two words, never to split either. */
 .name {
-  max-inline-size: 9ch;
+  max-inline-size: 12ch;
   margin-block-start: var(--space-m);
   font-size: var(--step-4);
+  overflow-wrap: normal;
 }
 
 .headline {

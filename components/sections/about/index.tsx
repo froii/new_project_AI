@@ -16,7 +16,7 @@ export function About() {
           <p>{t("body")}</p>
         </div>
 
-        <div>
+        <div className={styles.group}>
           <div className="block-head">
             <p className={styles.label}>{t("achievementsHeading")}</p>
             <PartToggle

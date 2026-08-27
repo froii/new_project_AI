@@ -19,6 +19,7 @@ export type OwnerProfile = {
 export type SkillGroup = {
   id: string;
   items: string[];
+  more?: string[];
 };
 
 export type ExperienceEntry = {

@@ -10,7 +10,7 @@
   "achievements": {
     "language": {
       "short": "Designed the DSL behind a low-code reporting platform, so analysts could write their own formulas instead of filing tickets.",
-      "detail": "Grammar, editor and evaluation: a parser built with Chevrotain and Lezer, wired into a CodeMirror 6 editor with completion and inline errors."
+      "detail": "Grammar, editor and evaluation: a parser built with Chevrotain and Lezer, wired into a CodeMirror editor with completion and inline errors."
     },
     "clients": {
       "short": "Worked directly with clients in the EU and the US, with no manager in between.",
@@ -37,10 +37,10 @@
       "detail": "Wrote the specs the code was built from, and the shared AI coding rules and prompts the team worked to."
     }
   },
-  "personalHeading": "Off the clock",
+  "personalHeading": "Beyond the Code",
   "personal": [
-    "I have worked with German, American, Israeli and Ukrainian teams, and most of my career has been remote, across timezones, with colleagues I have only ever met on a call. The same sentence carries different weight depending on who says it: direct feedback that is ordinary in one team reads as rudeness in another. Erin Meyer's «The Culture Map» is good on this. Knowing it removes a lot of friction that has nothing to do with the work.",
-    "I play the Dark Souls series. It teaches you to understand rather than to push harder: you get through a difficult place once you know how it works. Bugs are the same, guessing rarely gets you there and careful reading does.",
-    "I read manga, walk a lot, and make tea. Tea, incidentally, is the only skill on my LinkedIn that was endorsed without me asking."
+    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing it removes a lot of friction that has nothing to do with the work.",
+    "I like difficult problems and play too much Dark Souls. My approach to both is the same: understand how something works before trying harder. Guessing rarely gets you through, careful reading does.",
+    "Outside work: manga, long walks and tea. Tea is the only skill on my LinkedIn that was endorsed without me asking."
   ]
 }

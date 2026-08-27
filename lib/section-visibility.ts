@@ -1,9 +1,11 @@
 import {
+  partsOf,
   presetIds,
   presets,
   toggleCodes,
   toggleDefaults,
   toggleIds,
+  toggleSectionIds,
   type PresetId,
   type ToggleId,
 } from "@/content/sections";
@@ -35,6 +37,18 @@ export function decodeVisibility(value: string | null): Visibility {
 
 export function presetVisibility(id: PresetId): Visibility {
   return { ...defaultVisibility, ...presets[id] };
+}
+
+/* What a version actually contains, counted off the toggles themselves, so the
+   panel cannot describe a version the data no longer produces. Details inside a
+   switched-off section do not count: nothing renders them. */
+export function visibilityCount(visible: Visibility): { sections: number; details: number } {
+  const sections = toggleSectionIds.filter((id) => visible[id]);
+
+  return {
+    sections: sections.length,
+    details: sections.flatMap(partsOf).filter((id) => visible[id]).length,
+  };
 }
 
 export function matchPreset(visible: Visibility): PresetId | null {

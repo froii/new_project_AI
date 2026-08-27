@@ -87,6 +87,14 @@ language and theme controls only.
 - **FR-011**: Below the two-column breakpoint the intro MUST keep the portrait at a size close to the
   wide one, and stacked actions MUST share a width. A breakpoint may reflow the layout; it may not
   read as a different, smaller design.
+- **FR-013**: The contact band MUST offer a PDF action beside the write action, in the same button
+  shape and a weight of its own (the write action solid, the PDF one outlined), so the landing (which carries no section panel, FR-003) still has a
+  route to the printed CV. It triggers the browser print flow, the same one 002 FR-124 reaches from
+  the panel. The band carries exactly two actions; where they no longer fit on one line they MUST
+  stack full-width, as they do on a phone - never wrap into a partly filled second row. The address
+  sits in the Contacts group, on its own row under the profile links (FR-006).
+- **FR-014**: On a wide viewport the contact band MUST use more of its width than the paper column
+  it sits under - the band spans the screen, so holding it to the CV's reading measure wastes it.
 
 ### Key Entities
 

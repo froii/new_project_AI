@@ -51,4 +51,29 @@
 - [x] `npm run typecheck`
 - [x] `npm run build` — 4 prerendered pages, locale-correct CTA hrefs, canonical per route (SC-003)
 - [x] Rendered markup of `/uk` and `/uk/cv` checked for the form, the CTA and the back link
-- [ ] Visual pass in a browser — not run, no browser tooling in this session
+- [x] Visual pass in a browser — headless Chrome over CDP at 1440px and 390px
+
+## Phase 7 — Follow-up (owner review of the contact band)
+
+- [x] T014 `components/sections/contact/` — a PDF button beside the write action, accent-outlined
+  against the toggle's neutral outline, calling `window.print()`; new `savePdf` string in both
+  locales (FR-013).
+- [x] T015 `contact.module.css` — from a 64rem container the band's content grows to 62rem, with a
+  taller card and a larger headline (FR-014).
+
+### Verification (Phase 7)
+
+- [x] `npm run typecheck`
+- [x] T016 `contact.module.css` — the address and the two actions stack full-width below a 65rem
+  container instead of wrapping into a ragged second row (FR-013).
+- [x] T017 `contact.module.css` + `contact/index.tsx` — the address reads as a text link, the solid
+  weight moves to the write action, PDF keeps the neutral outline; the bar is lighter, so it holds
+  one line down to a 60rem container. Supersedes T013 - the owner asked for the restyle this time
+  (FR-010, FR-013).
+- [x] T018 `contact/index.tsx` + `contact.module.css` — the address moves out of the action bar into
+  the Contacts group, a row under the links; the group's rhythm grows 1.5x; the bar of two buttons
+  holds a line down to a 50rem container (FR-006, FR-013).
+- [x] T019 `app/globals.css` + `contact.module.css` — the CV sheet declares `--thumb-clearance`
+  below the sidebar breakpoint and the contact card spends it as bottom padding, so the fixed
+  section-menu pill stops covering the end of the band; the address gets its own top margin inside
+  the Contacts group (002 FR-124, FR-006).

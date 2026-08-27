@@ -9,7 +9,7 @@
   gap: var(--space-2xs) var(--space-l);
   padding-block: var(--space-2xs);
   font-size: var(--step--1);
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 @container (min-width: 34rem) {
@@ -31,8 +31,17 @@
 }
 
 /* Everything past the core stack is context, not the pitch. */
-.more .items {
+.more .items,
+.tail {
   color: var(--color-text-muted);
+}
+
+.tail {
+  display: inline;
+}
+
+.tail[hidden] {
+  display: none;
 }
 
 .row {

@@ -5,7 +5,7 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-bg);
-  line-height: 1.6;
+  line-height: 1.4;
   resize: vertical;
   field-sizing: content;
   transition:

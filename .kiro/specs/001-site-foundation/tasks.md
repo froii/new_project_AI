@@ -6,7 +6,7 @@
 - [x] T002 Record pinned Next / React / Node / package-manager versions in `.kiro/steering/tech.md`; fill `.kiro/steering/preferences.md` §Commands with the real `typecheck` / `lint` / `test` commands.
 - [x] T003 `[P]` Add and pin `next-intl`, `next-themes`, `@radix-ui/react-accordion`, `prettier`.
 - [x] T004 `[P]` `tsconfig.json`: `strict: true`, `resolveJsonModule`, path alias `@/*`.
-- [ ] T005 (open) Pick the site font, self-host via `next/font`, **verify Cyrillic coverage**; record the choice in `tech.md`.
+- [x] T005 Site fonts self-hosted via `next/font` in `app/fonts.ts`: Inter (sans), Literata (serif), JetBrains Mono (mono), each `latin` + `cyrillic`. Recorded in `tech.md` §Fonts. Done under 006 T009/T010.
 - [x] T006 `[P]` Vitest, `npm test`, `vitest.config.mts` with native `resolve.tsconfigPaths`. ESLint added too; TypeScript held at 6.x because `typescript-eslint` rejects 7.x.
 
 ## Phase 2 — Foundational (blocks all stories)
@@ -19,7 +19,7 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T012 `[P]` `messages/en/` — `common`, `hero`, `about`, `experience`, `projects`, `footer`, `noscript` JSON files; `messages/en/index.ts` as the reference shape.
 - [x] T013 `messages/uk/` — same files; `messages/uk/index.ts` declared `satisfies typeof en` so a missing key fails `tsc` (FR-004).
 - [x] T014 `[P]` `app/globals.css` — CSS custom properties under `:root` and `:root[data-theme="dark"]`, plus layout primitives (`shell`, `stack`, `cluster`, `auto-grid`, `split`, `section`).
-- [x] T015 `app/layout.tsx` — `<html>`, `globals.css` imported here only. `next/font` still pending T005.
+- [x] T015 `app/layout.tsx` — `<html>`, `globals.css` imported here only. `next/font` variables land on `<html>` here (T005).
 - [x] T016 `i18n/` config: locale prefix always on including `en` (FR-008), `localeCookie: false`, `localeDetection: false`. **No middleware** — `generateStaticParams` prerenders both locales, a `redirects()` entry in `next.config.ts` sends the bare root to `/en` (FR-010).
 - [x] T017 `next-themes` provider in `app/[locale]/layout.tsx`: `attribute="data-theme"`, `defaultTheme="system"`; confirm the CSS selector matches what its script writes (FR-015).
 - [x] T018 `[P]` `lib/content.ts` — `sortExperience()` (FR-003), `isCurrent()`.

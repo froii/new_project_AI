@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { certifications } from "@/content";
+import { dottedDate } from "@/lib/content";
 import { readCredential } from "@/lib/credentials";
 import styles from "./certifications.module.css";
 
@@ -15,9 +16,11 @@ export function Certifications() {
       <ul className={styles.list} role="list">
         {certifications.map((item) => {
           const credential = item.href ? readCredential(item.href) : null;
-          const meta = [t(`entries.${item.id}.issuer`), item.issued, credential?.host].filter(
-            Boolean,
-          );
+          const meta = [
+            t(`entries.${item.id}.issuer`),
+            item.issued && dottedDate(item.issued),
+            credential?.host,
+          ].filter(Boolean);
 
           return (
             <li key={item.id} className={styles.entry}>

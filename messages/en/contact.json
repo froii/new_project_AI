@@ -12,6 +12,7 @@
   "sending": "Sending...",
   "sent": "Thank you, the message is on its way.",
   "sentNote": "I usually reply within a day.",
+  "sendAnother": "Send another message",
   "failed": "The message did not go through. Write to me directly:",
   "trapLabel": "Company",
   "direct": {
@@ -22,6 +23,7 @@
   },
   "open": "Write to me",
   "close": "Hide",
+  "savePdf": "Save as PDF",
   "phone": "Phone",
   "optional": "(optional)",
   "messengers": {

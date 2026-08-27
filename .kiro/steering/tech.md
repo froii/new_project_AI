@@ -19,6 +19,8 @@ A faster compiler is not worth losing the linter. Revisit when typescript-eslint
 | PDF | the print stylesheet plus `window.print()` — see §PDF |
 | AI (later) | Anthropic SDK behind `app/api/chat/route.ts` |
 | Email | `nodemailer` over Gmail SMTP, behind `app/api/contact/route.ts` |
+| Type | `next/font` self-hosting Inter / Literata / JetBrains Mono — see §Type |
+| Images | `next/image`; `sharp` does the optimising, so the host must run Node |
 
 Vitest for unit tests (`npm test`), configured in `vitest.config.mts` with Vite's native
 `resolve.tsconfigPaths` — no path-alias plugin.
@@ -98,6 +100,12 @@ Built in `002-section-selection`: `content/sections.ts` is the ordered id list,
 Two selection models over one content model would drift, and the drift shows up as a PDF that
 disagrees with the screen the visitor was just looking at.
 
+**Versions are named points in that same state.** `presets` in `content/sections.ts` is a partial
+override of the defaults, and the panel is a view over it: what each version contains is *counted*
+from the toggles it sets (`visibilityCount`), never written by hand, so a version cannot advertise a
+section the data stopped producing. `eu` is deliberately empty - the default state is a named
+version, otherwise the panel opens on "Custom" before anybody touched a switch.
+
 ## i18n — localized leaves, not parallel files
 
 Translations live in `messages/<locale>/<block>.json` — one folder per language, one file per block,
@@ -123,12 +131,23 @@ a dark screen never becomes a dark page.
 ## Type — three families, all Cyrillic-capable
 
 `--font-sans` (UI), `--font-serif` (display: `h1`, `h2`, hero lede), `--font-mono` (numbers, labels,
-eyebrows). All three are system stacks today.
+eyebrows). All three are self-hosted through `next/font` in `app/fonts.ts`, each declaring
+`latin` + `cyrillic`: **Inter**, **Literata**, **JetBrains Mono**. The variables are declared there
+and nowhere else — `globals.css` no longer defines them, so a missing family shows up as an obviously
+wrong page rather than a silent fallback.
 
 **A display face is only a candidate if it covers Cyrillic.** The reference design uses Newsreader,
 which ships latin, latin-ext and vietnamese and **no Cyrillic** — on `/uk` every serif heading would
-fall back mid-page. `--font-serif` therefore resolves to `ui-serif, Cambria, "Times New Roman"`,
-which do cover it. This is the trap T005 is about; check the unicode ranges before self-hosting.
+fall back mid-page. Literata was picked over it for exactly that, and because the masthead sets `h1`
+at weight 300, which Literata has and most screen serifs do not.
+
+**Self-hosting is a print decision before it is a performance one.** The file is the page (§PDF), so
+a face the recruiter's machine happens to lack is a CV that prints differently for every reader.
+
+**Only the sans is preloaded.** Three families times two subsets was ~200KB of render-blocking
+preload for one heading and a row of date labels; `preload: false` on serif and mono cut it to 66KB.
+`display: "swap"` with `next/font`'s size-adjusted fallback (on by default) makes the swap cost no
+layout shift.
 
 ## Responsive — one layout, not two
 
@@ -199,15 +218,28 @@ Production configuration in `next.config.ts` (TypeScript so it can import `defau
 block sending `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`
 and HSTS on every route, and a `redirects()` entry sending the bare root to the default locale.
 
-**No Content-Security-Policy yet, deliberately.** `next-themes` writes its pre-paint script inline;
-a strict CSP needs either a per-request nonce — which forces dynamic rendering and gives up static
-generation — or a hash that changes whenever the theme config does. Both cost more than they are
-worth before a domain exists. **TODO(tech):** revisit at deploy time.
+**A Content-Security-Policy without a nonce.** Shipped in the same `headers()` block. Scripts and
+styles stay `'unsafe-inline'`, because a nonce is per request and a per-request header would force
+dynamic rendering on every route. The directives that bite here are `connect-src`, `frame-ancestors`,
+`form-action`, `base-uri` and `object-src`. Void the moment the site renders visitor-supplied HTML —
+see `specs/006-production-readiness/decisions/0002`.
+
+Metadata routes generate the rest of the identity: `app/icon.svg` / `icon.png` / `apple-icon.png` and
+`app/manifest.ts`. The social cards are the exception — committed PNGs, not a runtime renderer
+(`decisions/0001`).
 
 `app/robots.ts` and `app/sitemap.ts` generate their files from `locales`, so a third language adds
 itself. Both read `NEXT_PUBLIC_SITE_URL`; until it is set they emit `localhost`, which is wrong in
 production and must be set before the first deploy.
 
 **TODO(tech):** hosting not chosen. The constraint is now binding, not future: `app/api/contact` is
-a live route handler, so the target must run server code. A pure static export would drop the
-contact form, the security headers above, and the AI route when it arrives.
+a live route handler and `next/image` needs `sharp`, so the target must run server code. A pure
+static export would drop the contact form, the image optimiser, the security headers above, and the
+AI route when it arrives.
+
+The choice also settles one open question: `app/api/contact` counts submissions **in memory**. On a
+single Node process that is exactly right; on serverless the counter resets with every cold start.
+Tracked as 006 T015 — nothing was built for either case, because building both is the waste.
+
+CI runs typecheck, lint, tests and a build on every pull request (`.github/workflows/ci.yml`). The
+build is the only step that catches a broken metadata route or a font that stopped resolving.

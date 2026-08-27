@@ -1,0 +1,16 @@
+{
+  "notFound": {
+    "code": "404",
+    "heading": "This page does not exist",
+    "body": "The link is wrong or the page has moved. The CV is one click away.",
+    "cv": "Open the CV",
+    "home": "Home page"
+  },
+  "failed": {
+    "code": "500",
+    "heading": "Something broke here",
+    "body": "The page could not be rendered. Try again, or go back to the CV.",
+    "retry": "Try again",
+    "cv": "Open the CV"
+  }
+}

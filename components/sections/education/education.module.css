@@ -42,7 +42,7 @@
   margin-block-start: var(--space-xs);
   color: var(--color-text-faint);
   font-size: var(--step--2);
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 .entry {

@@ -12,9 +12,9 @@ export function LandingFooter() {
       <Contact />
 
       <div className={`shell ${styles.bottom}`}>
-        <p className={styles.copy}>
-          © {new Date().getFullYear()} {t("name")}
-        </p>
+        {/* No year: every page here is prerendered, so `getFullYear()` froze at
+            build time and would have read 2026 all through 2027. */}
+        <p className={styles.copy}>© {t("name")}</p>
 
         {/* The contact card above already carries the profiles; a second copy
             of the same two icons a screen below says nothing new. */}

@@ -6,7 +6,7 @@
 
 .photo {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);

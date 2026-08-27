@@ -37,6 +37,12 @@ export function Experience() {
           <Field term={t("fields.project")}>{t(`entries.${entry.id}.project`)}</Field>
         </Part>
 
+        <Part id="experience.result">
+          <Field term={t("fields.result")}>
+            <strong className={styles.result}>{t(`entries.${entry.id}.result`)}</strong>
+          </Field>
+        </Part>
+
         <Part id="experience.responsibilities">
           <Field term={t("fields.responsibilities")}>
             {t(`entries.${entry.id}.responsibilities`)

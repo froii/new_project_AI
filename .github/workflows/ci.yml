@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Checks only read the tree. Without this the job inherits the repository
+# default, which on many repos is write for everything.
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+
+      # The build is the only step that catches a broken metadata route or a
+      # font that stopped resolving, so it runs even when the checks above pass.
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.com
