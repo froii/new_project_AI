@@ -18,7 +18,7 @@
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
-      "detail": "Every table, chart and text block is defined by the user, over data read from their own databases, with undo/redo, archive creation and PDF export on top."
+      "detail": "Every table, chart and text block is defined by the user, over data read from their own databases, with archive creation and PDF export on top. Custom-built drag-and-resize and undo/redo for performance, react-dnd for page ordering and smaller block moves."
     },
     "payments": {
       "short": "Built payments and subscriptions from the store receipt through to the renewal job.",

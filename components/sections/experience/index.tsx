@@ -79,10 +79,6 @@ export function Experience() {
             </Field>
           </Part>
         )}
-
-        <Part id="experience.interest">
-          <Field term={t("fields.interest")}>{t(`entries.${entry.id}.interest`)}</Field>
-        </Part>
       </FieldList>
     ),
   });

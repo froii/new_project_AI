@@ -10,10 +10,6 @@
       "label": "Everything",
       "note": "every section and every part"
     },
-    "eu": {
-      "label": "Europe",
-      "note": "photo, full text, interests"
-    },
     "us": {
       "label": "US / ATS",
       "note": "no photo, nothing personal"
@@ -59,8 +55,7 @@
       "responsibilities": "Scope",
       "techStack": "Stack",
       "alsoUsed": "Adjacent",
-      "link": "Link",
-      "interest": "Highlight"
+      "link": "Link"
     },
     "education": {
       "all": "Earlier entries",
