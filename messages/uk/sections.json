@@ -1,8 +1,8 @@
 {
   "menu": "Розділи",
   "intro": "Вимкніть те, що читачеві не потрібне - сторінка і PDF змінюються разом.",
-  "toggle": "Показувати \"{section}\"",
-  "partsLabel": "Частини \"{section}\"",
+  "toggle": "Показувати {section}",
+  "partsLabel": "Частини {section}",
   "versionsHeading": "Пресети",
   "print": "Створити PDF",
   "presets": {
