@@ -23,3 +23,16 @@ export function experienceSpan(entries: ExperienceEntry[]): { from: string; to: 
     to: dev.some(isCurrent) ? null : (ends.at(-1) ?? ""),
   };
 }
+
+const recentRoles = 4;
+
+export function shortlistExperience(entries: ExperienceEntry[]): ExperienceEntry[] {
+  return sortExperience(entries)
+    .filter((entry) => !entry.nonDev)
+    .slice(0, recentRoles);
+}
+
+export function defaultOpenRoles(entries: ExperienceEntry[]): string[] {
+  const first = shortlistExperience(entries)[0];
+  return first ? [first.id] : [];
+}

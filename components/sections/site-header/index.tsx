@@ -23,12 +23,12 @@ export function SiteHeader() {
         <div className={styles.identity}>
           {/* Below 48rem only the chevron shows, so aria carries the label. */}
           <Link className={styles.home} href="/" aria-label={t("home")}>
-            <svg viewBox="0 0 20 20" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
-                d="M12.5 4.17 6.67 10l5.83 5.83"
+                d="M13.5 7.5 9 12l4.5 4.5"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.67"
+                strokeWidth="2.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />

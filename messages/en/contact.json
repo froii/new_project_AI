@@ -8,12 +8,12 @@
   "message": "Message",
   "messageError": "A little more detail, please: at least ten characters.",
   "submit": "Send",
-  "note": "I get it by email and reply as soon as I can.",
+  "note": "I usually reply within one business day.",
   "sending": "Sending...",
-  "sent": "Thank you, the message is on its way.",
-  "sentNote": "I usually reply within a day.",
+  "sent": "Thank you for your message.",
+  "sentNote": "If it is urgent, my phone and messengers are in the contacts above.",
   "sendAnother": "Send another message",
-  "failed": "The message did not go through. Write to me directly:",
+  "failed": "The message did not go through. Please email me directly:",
   "trapLabel": "Company",
   "direct": {
     "email": "Email",
@@ -21,9 +21,10 @@
     "linkedin": "LinkedIn",
     "github": "GitHub"
   },
-  "open": "Write to me",
+  "open": "Contact me",
   "close": "Hide",
   "savePdf": "Save as PDF",
+  "downloadPdf": "Download PDF",
   "phone": "Phone",
   "optional": "(optional)",
   "messengers": {

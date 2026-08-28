@@ -7,10 +7,10 @@
   },
   "groups": {
     "frontend": "Фронтенд",
-    "state": "Стан",
+    "state": "Керування станом",
     "backend": "Бекенд",
     "ai": "ШІ та LLM",
     "tools": "Інструменти",
-    "notable": "NPM"
+    "notable": "Бібліотеки"
   }
 }

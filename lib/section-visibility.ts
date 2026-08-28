@@ -8,6 +8,7 @@ import {
   toggleSectionIds,
   type PresetId,
   type ToggleId,
+  type ToggleSectionId,
 } from "@/content/sections";
 
 export type Visibility = Record<ToggleId, boolean>;
@@ -58,4 +59,28 @@ export function matchPreset(visible: Visibility): PresetId | null {
       return toggleIds.every((toggle) => candidate[toggle] === visible[toggle]);
     }) ?? null
   );
+}
+
+export const OPEN_PARAM = "o";
+
+const NONE = "-";
+
+export function encodeOpen(open: string[], fallback: string[]): string | null {
+  const same = open.length === fallback.length && open.every((id) => fallback.includes(id));
+  if (same) return null;
+  return open.length === 0 ? NONE : open.join(SEPARATOR);
+}
+
+export function decodeOpen(value: string | null): string[] | null {
+  if (value === null || value === "") return null;
+  if (value === NONE) return [];
+  return value.split(SEPARATOR);
+}
+
+export function partsCount(
+  visible: Visibility,
+  section: ToggleSectionId,
+): { on: number; total: number } {
+  const parts = partsOf(section);
+  return { on: parts.filter((id) => visible[id]).length, total: parts.length };
 }

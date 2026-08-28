@@ -192,6 +192,7 @@ a:hover {
   --wash-far: 15%;
   --shadow-sm: 0 1px 3px rgb(16 20 28 / 0.06);
   --shadow-md: 0 1px 2px rgb(16 20 28 / 0.05), 0 12px 28px -12px rgb(16 20 28 / 0.18);
+  --shadow-lg: 0 2px 4px rgb(16 20 28 / 0.06), 0 24px 48px -16px rgb(16 20 28 / 0.3);
 
   --color-bg: #ffffff;
   --color-canvas: #f2f0eb;
@@ -217,6 +218,7 @@ a:hover {
 :root[data-theme="dark"] {
   --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.45);
   --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 28px -12px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.5), 0 24px 48px -16px rgb(0 0 0 / 0.85);
   --color-bg: #0f1115;
   --color-canvas: #090b0e;
   --color-paper: #14171d;
@@ -245,6 +247,7 @@ a:hover {
   :root:not([data-theme]) {
     --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.45);
     --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 28px -12px rgb(0 0 0 / 0.7);
+    --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.5), 0 24px 48px -16px rgb(0 0 0 / 0.85);
     --color-bg: #0f1115;
     --color-canvas: #090b0e;
     --color-paper: #14171d;
@@ -304,7 +307,7 @@ a:hover {
   align-items: start;
 }
 
-@media (min-width: 80rem) {
+@media (min-width: 72rem) {
   .workspace {
     grid-template-columns: var(--panel-width) minmax(0, 1fr);
     align-items: stretch;

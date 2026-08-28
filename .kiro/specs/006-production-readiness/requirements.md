@@ -52,6 +52,11 @@ with the CV one click away, and the response is a real 404.
 **Identity and sharing**
 - **FR-601**: The site MUST ship an icon set through the framework's own metadata files, not a
   hand-written `<head>` snippet: an SVG icon, a PNG fallback, an Apple touch icon, and a manifest.
+- **FR-618**: Manifest icons MUST be 192 and 512 square plus a `maskable` copy, and MUST live apart
+  from the framework's icon files under a name that says what reads them. They are not favicons:
+  Chrome checks those two sizes for installability, an unpadded mark loses its edges to a circular
+  mask, and a bare `icon-180.png` in `public/` reads as the favicon while being a duplicate of
+  `app/apple-icon.png` that nothing but the manifest loads.
 - **FR-602**: `theme-color` MUST be declared per colour scheme. One fixed value paints the wrong
   browser frame for half the visitors before the theme script runs.
 - **FR-603**: Each locale MUST have its own social card, generated from `content/` and committed as a
@@ -71,7 +76,10 @@ with the CV one click away, and the response is a real 404.
   404. It matches `[locale]`, so the locale layout runs and throws - from the root layout, which sits
   above its own not-found boundary. The boundary therefore has to live above the locale and own its
   own document, and can only answer in the default locale: the URL named no valid one.
-- **FR-608**: A render error MUST offer a retry and a way back to the CV, in the visitor's language.
+- **FR-608**: A render error MUST offer a retry and a direct mail link to the owner's email, in the
+  visitor's language. The CV link is no use here: the error boundary sits over the CV itself.
+- **FR-621**: Both 404 pages MUST offer the home page and a direct mail link to the owner's email.
+  A CV link is redundant: the home page leads there, and a dead end should point at one way out.
 
 **Typography and weight**
 - **FR-609**: Fonts MUST be self-hosted and MUST cover Cyrillic. The PDF is the page, so a font the

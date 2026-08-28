@@ -84,12 +84,21 @@ language and theme controls only.
   SHALL scroll to its end - including when the form was already open, where nothing animates and
   nothing else would move the page. The form is the last block on the page, so the end of the page is
   the whole form.
+- **FR-014**: The work highlights MUST hold six cards and show three at a time, advancing one card
+  left every 15 seconds and wrapping past the last. The rotation MUST pause while the block is
+  hovered or holds focus, MUST NOT auto-advance under `prefers-reduced-motion: reduce`, and an arrow
+  either side MUST step it in both directions.
+- **FR-025**: The intro portrait MUST carry a cast shadow strong enough to lift it off the wash in
+  both themes - it is the only image on the page and has to read as its own object, not as a framed
+  patch of background.
 - **FR-011**: Below the two-column breakpoint the intro MUST keep the portrait at a size close to the
   wide one, and stacked actions MUST share a width. A breakpoint may reflow the layout; it may not
   read as a different, smaller design.
 - **FR-013**: The contact band MUST offer a PDF action beside the write action, in the same button
   shape and a weight of its own (the write action solid, the PDF one outlined), so the landing (which carries no section panel, FR-003) still has a
-  route to the printed CV. It triggers the browser print flow, the same one 002 FR-124 reaches from
+  route to the CV as a file. On the landing it MUST download the prepared PDF (`content/links.ts`,
+  `cvPdf`), not open the print flow: printing the landing prints the landing - the portrait and the
+  intro - and never the CV. Only the CV page prints itself, the same flow 002 FR-124 reaches from
   the panel. The band carries exactly two actions; where they no longer fit on one line they MUST
   stack full-width, as they do on a phone - never wrap into a partly filled second row. The address
   sits in the Contacts group, on its own row under the profile links (FR-006).
@@ -115,5 +124,7 @@ No new entities. The landing reads the Owner Profile, Achievements and Skill Gro
   written for the landing beyond what `globals.css` already gives every page.
 - The portrait on the landing is fixed, not switchable: choosing a portrait is a CV-tailoring tool
   and has nothing to do with a first impression.
-- The three featured pieces of work and the stack shown are an editorial pick made in the landing
-  component, not a new field on the content model.
+- The six featured pieces of work and the stack shown are an editorial pick made in the landing
+  component, not a new field on the content model. The stack is the first three of each of the
+  frontend, backend and AI groups, so the order those groups are written in is what the landing
+  shows.

@@ -1,24 +1,21 @@
 {
   "menu": "Розділи",
-  "toggle": "Показувати «{section}»",
-  "partsLabel": "Частини «{section}»",
+  "intro": "Вимкніть те, що читачеві не потрібне - сторінка і PDF змінюються разом.",
+  "toggle": "Показувати {section}",
+  "partsLabel": "Частини {section}",
   "versionsHeading": "Пресети",
-  "print": "PDF",
+  "print": "Створити PDF",
   "presets": {
     "full": {
       "label": "Усе",
       "note": "кожен розділ і кожна частина"
-    },
-    "eu": {
-      "label": "Європа",
-      "note": "фото, повний текст, інтереси"
     },
     "us": {
       "label": "США / ATS",
       "note": "без фото, без особистого"
     },
     "tech": {
-      "label": "Технічна",
+      "label": "У деталях",
       "note": "повний стек, усі позиції"
     },
     "screening": {
@@ -58,8 +55,7 @@
       "responsibilities": "Обсяг",
       "techStack": "Стек",
       "alsoUsed": "Суміжне",
-      "link": "Посилання",
-      "interest": "Цікаве"
+      "link": "Посилання"
     },
     "education": {
       "all": "Ранні записи",

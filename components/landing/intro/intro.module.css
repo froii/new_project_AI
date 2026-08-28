@@ -185,7 +185,7 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: calc(var(--radius) * 2);
   background: var(--color-surface);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 45.99rem) {

@@ -15,3 +15,7 @@ export const projectLinks = {
   mackiev: "https://www.mackiev.com/",
   nas: "https://scholar.google.com.ua/citations?user=m5WnOMEAAAAJ&hl=en",
 } as const;
+
+/* Printing the landing page yields the landing page, not the CV, so the button
+   there hands over the prepared file instead. */
+export const cvPdf = "/pdf/Oleksa%20Tyshchenko%20short.pdf";

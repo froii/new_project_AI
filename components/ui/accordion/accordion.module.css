@@ -130,11 +130,10 @@
   padding-block: 0 var(--space-m);
 }
 
-/* Everything the visitor left switched on is printed open. */
+/* The sheet prints what the screen shows: a role left open prints its fields,
+   a closed one prints its header and the stack preview under it. */
 @media print {
-  .content,
-  .content[data-state="closed"] {
-    display: block;
+  .content {
     overflow: visible;
   }
 
@@ -164,10 +163,7 @@
     content: none;
   }
 
-  /* The meta line previews what a collapsed panel holds. On paper nothing is
-     collapsed - it reprints the first four items of the tech stack directly
-     above the tech stack field, and says nothing the panel does not. */
-  .meta {
+  .trigger[data-state="open"] .meta {
     display: none;
   }
 

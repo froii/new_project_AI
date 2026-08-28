@@ -176,9 +176,18 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding-block: var(--space-2xs);
+}
+
+.intro {
+  flex: none;
+  padding-block-end: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+  line-height: 1.45;
 }
 
 .list {
@@ -187,7 +196,6 @@
 }
 
 .row {
-  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-2xs);
@@ -199,16 +207,6 @@
 
 .row:hover {
   background: var(--color-surface);
-}
-
-.row:has(.link[aria-current])::before {
-  content: "";
-  position: absolute;
-  inset-block: 0.4rem;
-  inset-inline-start: -0.5rem;
-  width: 2px;
-  border-radius: 999px;
-  background: var(--color-accent);
 }
 
 .num {
@@ -231,6 +229,12 @@
   text-decoration: none;
 }
 
+.link > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .link[aria-current="location"] {
   color: var(--color-accent);
   font-weight: 500;
@@ -242,70 +246,110 @@
   cursor: not-allowed;
 }
 
-.chevron {
-  flex: none;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.25rem;
-  color: var(--color-text-faint);
-}
-
-.chevron:hover {
-  background: var(--color-border);
-  color: var(--color-text);
-}
-
-.chevron > span {
-  width: 6px;
-  height: 6px;
-  border-inline-end: 1.5px solid currentColor;
-  border-block-end: 1.5px solid currentColor;
-  rotate: -45deg;
-  translate: -0.06rem 0;
-  transition: rotate 180ms ease;
-}
-
-.chevron[aria-expanded="true"] > span {
-  rotate: 45deg;
-  translate: 0 -0.06rem;
-}
-
 .switch {
   --switch-width: 2.5rem;
   --switch-height: 1.5rem;
   --switch-knob-size: 1.125rem;
 }
 
-/* ---------- part rows ---------- */
+/* ---------- part chips ---------- */
+
+.partsToggle {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 28px;
+  margin-inline-end: 0.25rem;
+  padding-inline: 0.3rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-faint);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.partsToggle:hover {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+.partsToggle[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  color: var(--color-accent);
+}
+
+.partsToggle svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.partsCount {
+  flex: none;
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-variant-numeric: tabular-nums;
+}
 
 .parts {
-  display: flex;
-  flex-direction: column;
-  margin-block-end: var(--space-2xs);
-  padding-inline: calc(1.375rem + var(--space-2xs)) var(--space-2xs);
+  padding-block-end: var(--space-xs);
+  padding-inline-start: calc(1.375rem + var(--space-2xs));
 }
 
-.partRow {
+.chips {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+/* A switch says "turn this mode on"; picking a subset out of a set is what a
+   chip is for. The tick keeps its space when off, so the row does not reflow
+   on every press. */
+.chip {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-s);
-  min-height: 2.5rem;
-}
-
-.partLabel {
-  color: var(--color-text-muted);
+  gap: var(--space-2xs);
+  min-height: 28px;
+  padding-inline: var(--space-xs);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-faint);
   font-size: var(--step--1);
-  cursor: pointer;
+  line-height: 1;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
 }
 
-.smallSwitch {
-  --switch-width: 2.125rem;
-  --switch-height: 1.25rem;
-  --switch-knob-size: 0.875rem;
+.chip[aria-pressed="true"] {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tick {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  opacity: 0;
+}
+
+.chip[aria-pressed="true"] .tick {
+  opacity: 1;
+  color: var(--color-accent);
 }
 
 /* ---------- the footer: what switching off costs, and the way out ---------- */
@@ -334,19 +378,21 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-s);
-  padding-block-start: var(--space-2xs);
+  padding-block-start: calc(var(--space-2xs) + 10px);
 }
 
 .print {
-  flex: none;
-  min-height: 30px;
-  padding-inline: var(--space-m);
-  border-radius: 999px;
-  background: var(--color-invert-bg);
-  color: var(--color-invert-text);
-  font-size: var(--step--1);
+  min-height: 34px;
+  padding-inline: var(--space-s);
+  border-radius: var(--radius-sm);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
   font-weight: 500;
-  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: bottom;
 }
 
 .print:hover {
@@ -369,7 +415,7 @@
 
 /* ---------- sidebar layout ---------- */
 
-@media (min-width: 80rem) {
+@media (min-width: 72rem) {
   .root {
     height: 100%;
     border-inline-end: var(--border-width) solid var(--color-border);
@@ -400,9 +446,8 @@
     min-height: 2.25rem;
   }
 
-  .chevron {
-    width: 1.5rem;
-    height: 1.5rem;
+  .partsToggle {
+    min-height: 24px;
   }
 
   .switch {
@@ -411,13 +456,8 @@
     --switch-knob-size: 0.75rem;
   }
 
-  .partRow {
-    min-height: 30px;
-  }
-
-  .smallSwitch {
-    --switch-width: 1.75rem;
-    --switch-height: 1rem;
-    --switch-knob-size: 0.688rem;
+  .chip {
+    min-height: 26px;
+    font-size: var(--step--2);
   }
 }

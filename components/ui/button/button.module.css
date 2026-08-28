@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
+  text-decoration: none;
   min-height: 2.75rem;
   padding-inline: var(--space-l);
   border-radius: var(--radius);

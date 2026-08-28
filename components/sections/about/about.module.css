@@ -1,8 +1,9 @@
 .summary > p {
-  max-inline-size: 62ch;
+  max-inline-size: 65ch;
   font-family: var(--font-serif);
   font-size: 1.125rem;
   line-height: 1.65;
+  text-indent: 1em;
 }
 
 .label {
@@ -54,7 +55,7 @@
 .personal {
   display: flex;
   flex-direction: column;
-  gap: var(--space-m);
+  gap: var(--space-xs);
   max-inline-size: 64ch;
 }
 
