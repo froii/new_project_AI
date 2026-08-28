@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "@/components/controls/locale-switcher";
 import { ThemeToggle } from "@/components/controls/theme-toggle";
 import { Contact } from "@/components/sections/contact";
+import { cvPdf } from "@/content/links";
 import styles from "./footer.module.css";
 
 export function LandingFooter() {
@@ -9,7 +10,7 @@ export function LandingFooter() {
 
   return (
     <footer className={styles.footer}>
-      <Contact />
+      <Contact pdf={cvPdf} />
 
       <div className={`shell ${styles.bottom}`}>
         {/* No year: every page here is prerendered, so `getFullYear()` froze at

@@ -59,20 +59,20 @@ export const skills: SkillGroup[] = [
     id: "backend",
     items: [
       "Node.js",
-      "NestJS",
       "Express",
+      "PostgreSQL",
+      "NestJS",
       "TypeORM",
       "REST",
       "API design",
       "WebSockets",
-      "PostgreSQL",
       "Redis",
     ],
     more: ["Apollo Server", "type-graphql", "Axios", "Nodemailer"],
   },
   {
     id: "ai",
-    items: ["LLM APIs", "RAG", "Prompt design", "Agent flows"],
+    items: ["LLM APIs", "RAG", "Prompt Engineering", "Agent flows"],
     more: ["OpenRouter"],
   },
   {

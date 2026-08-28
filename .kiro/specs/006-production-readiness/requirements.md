@@ -52,6 +52,11 @@ with the CV one click away, and the response is a real 404.
 **Identity and sharing**
 - **FR-601**: The site MUST ship an icon set through the framework's own metadata files, not a
   hand-written `<head>` snippet: an SVG icon, a PNG fallback, an Apple touch icon, and a manifest.
+- **FR-618**: Manifest icons MUST be 192 and 512 square plus a `maskable` copy, and MUST live apart
+  from the framework's icon files under a name that says what reads them. They are not favicons:
+  Chrome checks those two sizes for installability, an unpadded mark loses its edges to a circular
+  mask, and a bare `icon-180.png` in `public/` reads as the favicon while being a duplicate of
+  `app/apple-icon.png` that nothing but the manifest loads.
 - **FR-602**: `theme-color` MUST be declared per colour scheme. One fixed value paints the wrong
   browser frame for half the visitors before the theme script runs.
 - **FR-603**: Each locale MUST have its own social card, generated from `content/` and committed as a

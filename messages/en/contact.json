@@ -10,7 +10,7 @@
   "submit": "Send",
   "note": "I usually reply within one business day.",
   "sending": "Sending...",
-  "sent": "Thank you for your message. I will review it and get back to you as soon as possible.",
+  "sent": "Thank you, your message is in.",
   "sentNote": "If it is urgent, my phone and messengers are in the contacts above.",
   "sendAnother": "Send another message",
   "failed": "The message did not go through. Please email me directly:",
@@ -24,6 +24,7 @@
   "open": "Contact me",
   "close": "Hide",
   "savePdf": "Save as PDF",
+  "downloadPdf": "Download PDF",
   "phone": "Phone",
   "optional": "(optional)",
   "messengers": {

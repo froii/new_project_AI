@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent, type TransitionEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import buttonStyles from "@/components/ui/button/button.module.css";
 import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,7 +21,7 @@ function scrollToForm() {
   window.scrollTo({ top: document.documentElement.scrollHeight });
 }
 
-export function Contact() {
+export function Contact({ pdf }: { pdf?: string }) {
   const t = useTranslations("contact");
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -129,9 +130,19 @@ export function Contact() {
                   {open ? t("close") : t("open")}
                 </Button>
 
-                <Button type="button" variant="outline" onClick={() => window.print()}>
-                  {t("savePdf")}
-                </Button>
+                {pdf ? (
+                  <a
+                    className={`${buttonStyles.button} ${buttonStyles.outline}`}
+                    href={pdf}
+                    download
+                  >
+                    {t("downloadPdf")}
+                  </a>
+                ) : (
+                  <Button type="button" variant="outline" onClick={() => window.print()}>
+                    {t("savePdf")}
+                  </Button>
+                )}
               </div>
             </div>
 

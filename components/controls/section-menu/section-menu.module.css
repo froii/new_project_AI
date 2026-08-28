@@ -382,18 +382,17 @@
 }
 
 .print {
-  flex: none;
-  min-height: 32px;
-  padding-inline: var(--space-m);
+  min-height: 34px;
+  padding-inline: var(--space-s);
   border-radius: var(--radius-sm);
   background: var(--color-text);
   color: var(--color-bg);
   font-family: var(--font-mono);
   font-size: var(--step--2);
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  line-height: 1;
+  vertical-align: bottom;
 }
 
 .print:hover {
