@@ -1,9 +1,10 @@
 {
   "menu": "Sections",
+  "intro": "Switch off anything a reader does not need - the page and the PDF follow.",
   "toggle": "Show {section}",
   "partsLabel": "Parts of {section}",
   "versionsHeading": "Presets",
-  "print": "PDF",
+  "print": "Create PDF",
   "presets": {
     "full": {
       "label": "Everything",

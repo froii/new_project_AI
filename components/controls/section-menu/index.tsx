@@ -11,14 +11,17 @@ import {
   sectionIds,
   sectionParts,
   toggleSectionIds,
+  type ToggleId,
   type ToggleSectionId,
 } from "@/content/sections";
 import {
   defaultVisibility,
   matchPreset,
+  partsCount,
   presetVisibility,
   visibilityCount,
 } from "@/lib/section-visibility";
+import { PartChips } from "./part-chips";
 import { useActiveSection } from "./use-active-section";
 import { useScrollAway } from "./use-scroll-away";
 import styles from "./section-menu.module.css";
@@ -57,6 +60,10 @@ export function SectionMenu() {
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [open]);
+
+  useEffect(() => {
+    if (active && isToggleSection(active)) setExpanded(active);
+  }, [active]);
 
   const away = useScrollAway(open);
   const count = visibilityCount(visible);
@@ -113,6 +120,8 @@ export function SectionMenu() {
           <span />
         </div>
 
+        <p className={styles.intro}>{t("intro")}</p>
+
         <div className={styles.scroll}>
           <ul className={styles.list} role="list">
             {sectionIds.map((id, index) => {
@@ -122,7 +131,8 @@ export function SectionMenu() {
               const toggleId = isToggleSection(id) ? id : null;
               const on = toggleId ? visible[toggleId] : true;
               const hasParts = sectionParts[id].length > 0;
-              const isExpanded = expanded === id && on;
+              const isExpanded = expanded === id && hasParts;
+              const parts = toggleId && hasParts ? partsCount(visible, toggleId) : null;
 
               return (
                 <li key={id}>
@@ -144,20 +154,30 @@ export function SectionMenu() {
                         setOpen(false);
                       }}
                     >
-                      {label}
+                      <span>{label}</span>
                     </a>
 
-                    {toggleId && hasParts && on && (
+                    {toggleId && parts && (
                       <button
                         type="button"
-                        className={styles.chevron}
+                        className={styles.partsToggle}
                         aria-expanded={isExpanded}
                         aria-label={t("partsLabel", { section: label })}
-                        onClick={() =>
-                          setExpanded((value) => (value === toggleId ? null : toggleId))
-                        }
+                        onClick={() => setExpanded((value) => (value === toggleId ? null : toggleId))}
                       >
-                        <span aria-hidden="true" />
+                        <span className={styles.partsCount} aria-live="polite">
+                          {parts.on}/{parts.total}
+                        </span>
+                        <svg viewBox="0 0 20 20" aria-hidden="true" fill="none">
+                          <path
+                            d="M3 6.5h14M3 13.5h14"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                            strokeLinecap="round"
+                          />
+                          <circle cx="7.5" cy="6.5" r="2.2" fill="var(--color-panel)" stroke="currentColor" strokeWidth="1.4" />
+                          <circle cx="13" cy="13.5" r="2.2" fill="var(--color-panel)" stroke="currentColor" strokeWidth="1.4" />
+                        </svg>
                       </button>
                     )}
 
@@ -173,27 +193,18 @@ export function SectionMenu() {
                   </div>
 
                   {toggleId && isExpanded && (
-                    <ul className={styles.parts} role="list">
-                      {partsOf(toggleId).map((partId) => {
-                        const part = partId.slice(id.length + 1);
-                        const partLabel = t(`parts.${id}.${part}`);
-
-                        return (
-                          <li key={partId} className={styles.partRow}>
-                            <label className={styles.partLabel} htmlFor={`toggle-${partId}`}>
-                              {partLabel}
-                            </label>
-                            <Switch
-                              id={`toggle-${partId}`}
-                              className={styles.smallSwitch}
-                              label={t("toggle", { section: partLabel })}
-                              checked={visible[partId]}
-                              onChange={() => toggle(partId)}
-                            />
-                          </li>
-                        );
-                      })}
-                    </ul>
+                    <div className={styles.parts}>
+                      <PartChips
+                        label={t("partsLabel", { section: label })}
+                        disabled={!on}
+                        items={partsOf(toggleId).map((partId) => ({
+                          id: partId,
+                          label: t(`parts.${id}.${partId.slice(id.length + 1)}`),
+                          on: visible[partId],
+                        }))}
+                        onToggle={(partId) => toggle(partId as ToggleId)}
+                      />
+                    </div>
                   )}
                 </li>
               );

@@ -34,7 +34,12 @@
   rather than silently resolved.
 
 **Display**
-- **FR-206**: Experience MUST render as an accordion, one entry per position, first open.
+- **FR-206**: Experience MUST render as an accordion, one entry per position, the newest open by
+  default. Which entries are open MUST survive a reload and a shared link, and MUST be reachable in
+  one action for all of them at once (Expand / Collapse).
+- **FR-241**: The PDF MUST print an entry the way the screen shows it: an open role prints its
+  fields, a closed one prints its header and the stack preview only. The sheet a visitor exports is
+  the document they were looking at, so the length of the CV is theirs to choose.
 - **FR-232**: Every experience entry MUST carry a **result** - one line naming what the role
   produced, distinct from the responsibilities that describe what it involved. It renders directly
   under the project, is set in the text weight the surrounding fields are not, and is its own
@@ -134,6 +139,22 @@
 - **FR-226**: The hyphen MUST be reserved for structural separators (role - company, name - gloss)
   and true parentheticals. A list takes a colon and an appositive takes a comma: a hyphen doing all
   three jobs at once flattens the prose.
+- **FR-242**: Copy MUST state a fact about the work, never a general maxim about learning, effort
+  or understanding. A sentence a stranger could have written about their own career carries no
+  information and reads as machine-written.
+- **FR-243**: Every Highlight MUST name a concrete thing - a system, a class of bug, a constraint -
+  and MUST NOT restate what the same entry's Project or Result already says, in either its facts or
+  its adjectives. A Highlight that paraphrases the fields above it costs a row and returns nothing.
+- **FR-244**: A sentence MUST NOT assert something that is true by default of anyone in the role.
+  "I read every message myself" from a one-person business, "we agree the scope before building" -
+  the reader learns nothing, and the line reads as filler written to fill a slot.
+- **FR-245**: Within one entry, Project, Result, Scope and Highlight MUST each carry something the
+  others do not. Restating a field in different words costs a row and returns nothing; if a field
+  has nothing of its own to say, it is dropped, not padded.
+- **FR-246**: Visible copy MUST use ASCII punctuation only - the straight apostrophe and the straight
+  double quote, never guillemets or curly pairs, in either language. Two reasons: the typographic
+  glyphs are what a generated document looks like, and a visitor searching the page matches only the
+  one glyph they typed.
 
 **Access**
 - **FR-218**: A skip link MUST be the first focusable element, so a keyboard visitor can reach the

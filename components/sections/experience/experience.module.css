@@ -23,3 +23,19 @@
     font-weight: 500;
   }
 }
+
+.openAll {
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-color: var(--color-border);
+}
+
+.openAll:hover {
+  color: var(--color-accent);
+  text-decoration-color: currentColor;
+}

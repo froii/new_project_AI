@@ -7,6 +7,10 @@
   },
   "summary": "{count, plural, one {# role} other {# roles}}",
   "present": "Present",
+  "open": {
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
   "fields": {
     "project": "Project",
     "result": "Result",
@@ -27,51 +31,51 @@
     "eteam": {
       "role": "Full Stack Developer - eTeam, contract, remote",
       "project": "nedyx - a low-code platform for business reporting, built by a small international team.",
-      "result": "Shipped the widget system, undo/redo, archive and PDF export the platform reports on, plus its own functional language.",
+      "result": "Shipped the widget system, undo/redo, archives and PDF export that the platform's reporting runs on, plus its own functional language.",
       "responsibilities": "Supported and developed the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualisation control, large tables, charts and a text editor, reading data from external databases for many users.\n\nImplemented undo/redo, archive creation, PDF export and the platform's own functional language.",
-      "interest": "A well-thought-out, genuinely dynamic system for business reports, with our own functional language behind it."
+      "interest": "No report shape was known at build time - the layout, the data source and the formulas were all defined by the user at runtime."
     },
     "danit": {
       "role": "Frontend Instructor - dan.it",
       "project": "An introductory frontend course.",
       "result": "Took a group of 25 beginners from nothing to working HTML, CSS and Git.",
-      "responsibilities": "Taught a group of 25 students from the beginning: HTML5, CSS3 and Git.",
-      "interest": "Explaining a thing properly is the fastest way to find the holes in your own understanding."
+      "responsibilities": "Lectures, practicals and homework review across the full course.",
+      "interest": "Teaching the basics forced me to know them cold."
     },
     "ugenius": {
       "role": "Frontend Developer - U-Genius, contract, remote (Ukraine / USA)",
       "project": "Three applications for LinkSquares: contract lifecycle and legal project management.",
       "result": "Delivered three LinkSquares applications; the dynamic form and table layer became the base the later features were built on.",
       "responsibilities": "Built the logic for rendering dynamic and asynchronous forms, tables and components, plus PDF editors, working from Figma and a kanban board. Used React with hooks, GraphQL, Apollo Server, Redux, Saga, Ant Design, Ramda and several form libraries, alongside my own utilities.",
-      "interest": "A small but very strong team. Deep work on dynamic asynchronous forms and tables, and on Apollo fragments and caching for GraphQL updates."
+      "interest": "Apollo fragments and cache policies were what kept a table from refetching itself on every update."
     },
     "adraba": {
       "role": "Frontend Developer - Adraba, contract, Kyiv",
       "project": "A dynamic site generator, mostly back office and admin logic. Alongside it, an online store for recreation events and a TED-style speaker platform in London.",
       "result": "Delivered the client side and the back office of a generator that builds and runs other sites.",
       "responsibilities": "Built the client side and a large back office (admin panel), email templates and business logic, with tables and charts for creating dynamic pages, forms, info blocks and galleries.",
-      "interest": "My first experience of a site that builds other sites, a big team with a huge CRM behind it."
+      "interest": "First product that built other sites: every block had to work on pages nobody had designed yet."
     },
     "mackiev": {
       "role": "Web Software Developer - Software MacKiev, contract, Kyiv",
       "project": "The company site and product pages, including Family Tree Maker.",
-      "result": "Kept the company site and its product pages shipping, Family Tree Maker included.",
+      "result": "Kept the site current through product launches, adding the pages and questionnaires each one needed.",
       "responsibilities": "Maintained the site and built new page blocks for new products and questionnaires.",
-      "interest": "First taste of a big team on a big project, working across the full stack and the business logic behind it."
+      "interest": "First large team, and the first codebase where the business logic mattered more than the markup."
     },
     "freelance": {
       "role": "Freelance Frontend Developer",
       "project": "Part-time work through FL.ru and Upwork.",
       "result": "Delivered complete sites and mobile versions for clients I found and managed myself.",
       "responsibilities": "Everything from individual page components to full sites and mobile-version updates.",
-      "interest": "Different people, different orders, the fastest way to learn what actually matters to a client."
+      "interest": "Every client wanted something different - that is where I learned what actually matters to them."
     },
     "nas": {
       "role": "Junior Research Fellow - National Academy of Sciences of Ukraine, Kyiv",
       "project": "Radioecological and chemical pollution monitoring of water bodies, alongside graduate school and the first years of web work.",
-      "result": "Published research on water pollution monitoring alongside graduate school.",
-      "responsibilities": "Monitoring and analysis of pollution data, published research, and graduate school. Worked with ArcMap.",
-      "interest": "Where the habit of validating data before trusting it came from, and where I learned to write things down properly."
+      "result": "Published research on water pollution monitoring.",
+      "responsibilities": "Monitoring and analysis of pollution data, with ArcMap for the spatial work.",
+      "interest": "Where the habit of validating data before trusting it came from, and where I learned to document work systematically."
     }
   }
 }

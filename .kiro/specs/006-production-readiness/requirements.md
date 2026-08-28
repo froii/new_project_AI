@@ -71,7 +71,10 @@ with the CV one click away, and the response is a real 404.
   404. It matches `[locale]`, so the locale layout runs and throws - from the root layout, which sits
   above its own not-found boundary. The boundary therefore has to live above the locale and own its
   own document, and can only answer in the default locale: the URL named no valid one.
-- **FR-608**: A render error MUST offer a retry and a way back to the CV, in the visitor's language.
+- **FR-608**: A render error MUST offer a retry and a direct mail link to the owner's email, in the
+  visitor's language. The CV link is no use here: the error boundary sits over the CV itself.
+- **FR-621**: Both 404 pages MUST offer the home page and a direct mail link to the owner's email.
+  A CV link is redundant: the home page leads there, and a dead end should point at one way out.
 
 **Typography and weight**
 - **FR-609**: Fonts MUST be self-hosted and MUST cover Cyrillic. The PDF is the page, so a font the

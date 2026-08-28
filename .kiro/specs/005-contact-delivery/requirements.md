@@ -78,6 +78,11 @@ The endpoint is public. It has to survive being found.
 - **FR-009**: The visitor MUST be told which of the three outcomes happened - sending, sent, failed -
   and a failure MUST offer the owner's address as an alternative.
 - **FR-010**: The form MUST NOT report success when the message was not sent.
+- **FR-011**: The three copy slots around sending MUST divide the work and MUST NOT repeat each
+  other: the line beside the send button says where the message lands and that a person reads it,
+  the success message thanks the visitor and commits to a reply, and the note under it gives the
+  timeframe. The register is formal throughout - a recruiter reads this as the first sample of how
+  the owner answers mail.
 
 ### Key Entities
 

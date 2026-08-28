@@ -84,6 +84,9 @@ language and theme controls only.
   SHALL scroll to its end - including when the form was already open, where nothing animates and
   nothing else would move the page. The form is the last block on the page, so the end of the page is
   the whole form.
+- **FR-025**: The intro portrait MUST carry a cast shadow strong enough to lift it off the wash in
+  both themes - it is the only image on the page and has to read as its own object, not as a framed
+  patch of background.
 - **FR-011**: Below the two-column breakpoint the intro MUST keep the portrait at a size close to the
   wide one, and stacked actions MUST share a width. A breakpoint may reflow the layout; it may not
   read as a different, smaller design.

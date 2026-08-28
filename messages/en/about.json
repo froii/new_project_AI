@@ -1,6 +1,6 @@
 {
   "heading": "About",
-  "body": "I own architecture and performance on large codebases, and run the code review that keeps them maintainable. Most of what I build is infrastructure other people build on: low-code platforms, back-office systems, document management, e-commerce. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it, with LLM features in the recent products.",
+  "body": "I own architecture and performance on large codebases, and run the code review that keeps them maintainable. Most of what I ship is infrastructure other teams build on: low-code platforms, back-office systems, document management, e-commerce. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it, with LLM features in the recent products.",
   "achievementsHeading": "What I've owned",
   "achievementsScope": {
     "label": "Detail level",
@@ -14,7 +14,7 @@
     },
     "clients": {
       "short": "Worked directly with clients in the EU and the US, with no manager in between.",
-      "detail": "Mostly contract work, straight with the client rather than through a delivery layer: agreeing what should be built before building it, then carrying the result to production."
+      "detail": "Contract work, so the scope was mine to negotiate as well as to build: what gets made, in what order, and what is left out."
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
@@ -22,15 +22,15 @@
     },
     "payments": {
       "short": "Built payments and subscriptions from the store receipt through to the renewal job.",
-      "detail": "Receipt verification, webhooks, background jobs for renewal and expiry, and PostgreSQL access rules with logging that never writes a token. The part that has to be right the first time."
+      "detail": "Receipt verification, webhooks, background jobs for renewal and expiry, and PostgreSQL access rules with logging that never writes a token."
     },
     "ai": {
-      "short": "Took LLM features from prototype to production, inside real product flows rather than a demo chat.",
+      "short": "Took LLM features from prototype to production, inside real product flows, not a demo chatbot.",
       "detail": "Retrieval over the product's own documents, streaming responses, tool calling and agent-style flows, routed through OpenRouter rather than tied to a single vendor."
     },
     "performance": {
-      "short": "Kept large tables and charts responsive on codebases that had outgrown any one person's head.",
-      "detail": "Virtualised the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with Apollo fragments and cache policies."
+      "short": "Kept large tables and charts responsive on codebases too large for one engineer to hold in full context.",
+      "detail": "Virtualised the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with fragment-level caching."
     },
     "review": {
       "short": "Set up the code review process, and mentored the developers who joined after.",
@@ -39,8 +39,8 @@
   },
   "personalHeading": "Beyond the Code",
   "personal": [
-    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing it removes a lot of friction that has nothing to do with the work.",
-    "I like difficult problems and play too much Dark Souls. My approach to both is the same: understand how something works before trying harder. Guessing rarely gets you through, careful reading does.",
+    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing that early stops you reading a blunt sentence as a personal problem.",
+    "I like difficult problems and play too much Dark Souls. My approach to both is the same: understand how something works before trying harder.",
     "Outside work: manga, long walks and tea. Tea is the only skill on my LinkedIn that was endorsed without me asking."
   ]
 }

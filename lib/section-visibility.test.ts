@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { toggleCodes, toggleDefaults, toggleIds } from "@/content/sections";
 import {
+  decodeOpen,
   decodeVisibility,
   defaultVisibility,
+  encodeOpen,
   encodeVisibility,
   type Visibility,
 } from "./section-visibility";
@@ -85,5 +87,23 @@ describe("round trip", () => {
     };
 
     expect(decodeVisibility(encodeVisibility(visible))).toEqual(visible);
+  });
+});
+
+describe("open roles", () => {
+  const fallback = ["bechacant"];
+
+  it("drops the parameter while the default is untouched", () => {
+    expect(encodeOpen(["bechacant"], fallback)).toBeNull();
+  });
+
+  it("keeps an empty selection apart from an absent one", () => {
+    expect(decodeOpen(encodeOpen([], fallback))).toEqual([]);
+    expect(decodeOpen(null)).toBeNull();
+  });
+
+  it("round-trips a selection", () => {
+    const open = ["eteam", "ugenius"];
+    expect(decodeOpen(encodeOpen(open, fallback))).toEqual(open);
   });
 });

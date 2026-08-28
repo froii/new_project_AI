@@ -1,14 +1,19 @@
 import { useTranslations } from "next-intl";
-import { Accordion } from "@/components/ui/accordion";
+import { Roles } from "./roles";
+import { OpenAll } from "./open-all";
 import { Field, FieldList } from "@/components/ui/field-list";
 import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
 import { experience } from "@/content";
-import { dottedDate, experienceSpan, isCurrent, sortExperience } from "@/lib/content";
+import {
+  dottedDate,
+  experienceSpan,
+  isCurrent,
+  shortlistExperience,
+  sortExperience,
+} from "@/lib/content";
 import styles from "./experience.module.css";
-
-const recent = 4;
 
 export function Experience() {
   const t = useTranslations("experience");
@@ -18,7 +23,7 @@ export function Experience() {
 
   /* Teaching is not the pitch: a non-dev role earns its place only once the
      visitor has asked for the whole history. */
-  const shortlist = entries.filter((entry) => !entry.nonDev).slice(0, recent);
+  const shortlist = shortlistExperience(experience);
   const rest = entries.filter((entry) => !shortlist.includes(entry));
 
   const toItem = (entry: (typeof entries)[number]) => ({
@@ -90,6 +95,12 @@ export function Experience() {
           {t("summary", { count: entries.filter((entry) => !entry.nonDev).length })} · {span.from} -{" "}
           {span.to ?? t("present")}
         </span>
+        <OpenAll
+          ids={shortlist.map((entry) => entry.id)}
+          extra={rest.map((entry) => entry.id)}
+          expand={t("open.expand")}
+          collapse={t("open.collapse")}
+        />
         <PartToggle
           id="experience.all"
           label={t("scope.label")}
@@ -98,10 +109,10 @@ export function Experience() {
         />
       </div>
 
-      <Accordion items={shortlist.map(toItem)} defaultOpen={[shortlist[0]?.id ?? ""]} />
+      <Roles items={shortlist.map(toItem)} />
 
       <Part id="experience.all">
-        <Accordion items={rest.map(toItem)} className={styles.rest} />
+        <Roles items={rest.map(toItem)} className={styles.rest} />
       </Part>
     </section>
   );

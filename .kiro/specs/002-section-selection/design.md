@@ -205,6 +205,14 @@ Encoded as the set of toggles **differing from their default**, not the set that
 `?x=af.et`. Defaults ⇒ no parameter at all (FR-120), so an ordinary shared link is clean even though
 some parts (full text, "also worked with", "what was interesting") start off.
 
+Which roles are expanded rides the same mechanism under `?o=`, as plain entry ids: the set is small,
+its members are stable, and an unreadable code table for eight of them buys nothing. Matching the
+default (the newest role alone) drops the parameter; `-` is the one code, and it says *nothing
+open* - without it an empty selection and an absent parameter encode the same string and the default
+comes back on the next load. The provider owns the fallback so both accordions in the section (recent
+and earlier) share one list: each writes back its own ids merged over the ids it does not own,
+otherwise opening an earlier role would close the recent one.
+
 Codes are declared explicitly rather than derived from the name, so a collision is a compile error:
 
 ```ts
@@ -256,9 +264,31 @@ not `hidden` — the sidebar layout has to override the collapsed state by media
 trigger; a `pointerdown` outside closes without moving focus. Both listeners only bind while the
 panel is collapsed, so the sidebar does not close itself when the visitor clicks the document.
 
+**Parts are chips, not switches.** A switch reads as "turn this mode on, it applies now"; choosing
+which of eight fields to include is picking a subset, and every library that solves this - Material's
+filter chip, Radix `ToggleGroup`, the checkbox lists in Ant, Carbon and Primer - uses a pressed state
+with a tick, not a switch. Eight switches also cost eight tab stops per section: the chip group is
+one stop with arrow keys inside. The tick keeps its box when off so pressing one does not reflow the
+row, and the off state is a dashed border - a signal that survives a monochrome screen and does not
+add a third colour code to a page that already spends one on links. At 26-28px tall a chip clears
+WCAG 2.2 SC 2.5.8 outright, where the 18px switch it replaces passed only on the spacing exception.
+A section that is switched off keeps its chips, disabled: hiding them threw away what the visitor
+had configured and gave no hint it would come back.
+
+The count and the disclosure are **one control**, not two: `6/8` is the reason to open the group, so
+it is the thing to press. A separate chevron beside it was a second target doing the same job in a
+row that already carries an anchor and a switch. It wears a sliders glyph rather than an arrow -
+what opens is a set of settings, not a nested list - and the group needs no rubric over it: eight
+labelled chips under a section name explain themselves, and a per-section Reset was a control for a
+case the global Reset already covers.
+
 Part rows sit behind a per-section disclosure. Showing all 13 of them at once made the panel taller
 than a laptop viewport; one section is expanded at a time, and the panel scrolls inside a
-`max-height` bounded by the viewport minus the header.
+`max-height` bounded by the viewport minus the header. The expanded one follows the section the
+reader is in: scrolling into Experience opens its parts, so the switches on offer are the ones for
+what is on screen. A section with no parts never expands, or the disclosure would open an empty list.
+A line of prose above the list says what the panel is for - a column of unexplained switches is a
+puzzle, and the one sentence costs less than the visitor working it out.
 Anchors for a section that is switched off carry `aria-disabled` and their click is prevented — the
 row stays readable and the state stays visible, rather than the row vanishing under the cursor.
 

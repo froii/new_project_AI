@@ -14,17 +14,20 @@ export type AccordionItem = {
 
 export function Accordion({
   items,
-  defaultOpen = [],
+  open,
+  onOpenChange,
   className,
 }: {
   items: AccordionItem[];
-  defaultOpen?: string[];
+  open: string[];
+  onOpenChange: (next: string[]) => void;
   className?: string;
 }) {
   return (
     <RadixAccordion.Root
       type="multiple"
-      defaultValue={defaultOpen}
+      value={open}
+      onValueChange={onOpenChange}
       className={[styles.root, className].filter(Boolean).join(" ")}
     >
       {items.map((item) => (
