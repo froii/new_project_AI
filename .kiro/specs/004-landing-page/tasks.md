@@ -64,6 +64,19 @@
 ### Verification (Phase 7)
 
 - [x] `npm run typecheck`
+
+## Phase 8 — Follow-up (layout stability)
+
+- [x] T020 `highlights.module.css` — `.cardTitle`/`.cardBody` get a fixed line count
+  (`-webkit-line-clamp` + matching `min-height`), so a card's height no longer depends on which
+  locale/item is showing; the carousel stopped changing height as it rotated (FR-014).
+- [x] T021 `components/ui/button/button.module.css` — `.button` trades most of its `padding-inline`
+  for a `min-width`, so the PDF/write-action buttons hold their size across locales instead of
+  resizing with the translated label's character count (FR-013).
+
+### Verification (Phase 8)
+
+- [x] `npm run typecheck`
 - [x] T016 `contact.module.css` — the address and the two actions stack full-width below a 65rem
   container instead of wrapping into a ragged second row (FR-013).
 - [x] T017 `contact.module.css` + `contact/index.tsx` — the address reads as a text link, the solid

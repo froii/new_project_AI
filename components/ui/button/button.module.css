@@ -5,7 +5,8 @@
   gap: var(--space-xs);
   text-decoration: none;
   min-height: 2.75rem;
-  padding-inline: var(--space-l);
+  min-width: 12.5rem;
+  padding-inline: var(--space-m);
   border-radius: var(--radius);
   font-size: var(--step-0);
   font-weight: 500;
