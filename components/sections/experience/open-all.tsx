@@ -22,6 +22,9 @@ export function OpenAll({
     <button
       type="button"
       className={`screen-only ${styles.openAll}`}
+      aria-expanded={allOpen}
+      aria-label={allOpen ? collapse : expand}
+      title={allOpen ? collapse : expand}
       onClick={() =>
         setOpen(
           allOpen
@@ -30,7 +33,7 @@ export function OpenAll({
         )
       }
     >
-      {allOpen ? collapse : expand}
+      <span className={styles.openAllIcon} aria-hidden="true" />
     </button>
   );
 }

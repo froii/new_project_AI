@@ -436,7 +436,7 @@
     display: flex;
     height: calc(100dvh - var(--header-height));
     max-height: none;
-    padding: var(--space-m) var(--space-m) var(--space-m) var(--space-l);
+    padding: var(--space-m);
     border-block-start: 0;
     border-radius: 0;
     box-shadow: none;

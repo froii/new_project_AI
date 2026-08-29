@@ -151,7 +151,12 @@ export function Contact({ pdf }: { pdf?: string }) {
                 <p className={styles.asideLabel}>{t("contactsLabel")}</p>
                 {reach.length > 0 && <SocialLinks label={t("contactsLabel")} links={reach} />}
                 {email && (
-                  <a className={styles.email} href={`mailto:${email}`}>
+                  <a
+                    className={styles.email}
+                    href={`mailto:${email}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {email}
                   </a>
                 )}
@@ -274,7 +279,12 @@ export function Contact({ pdf }: { pdf?: string }) {
 
                   {status === "failed" && (
                     <p className={styles.error} role="alert">
-                      {t("failed")} {email && <a href={`mailto:${email}`}>{email}</a>}
+                      {t("failed")}{" "}
+                      {email && (
+                        <a href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
+                          {email}
+                        </a>
+                      )}
                     </p>
                   )}
                 </form>

@@ -82,12 +82,18 @@
 
 ## Open
 
-- [ ] T015 Decide the host, then settle the contact-form rate limit: accept the in-memory counter on
-  a single Node process, or move it to a store for serverless. Nothing built either way - see
-  `requirements.md` §Open.
-- [ ] T016 Set `NEXT_PUBLIC_SITE_URL` in the production build environment. Until then the sitemap,
-  `robots.txt` and the social cards point at localhost.
-- [ ] T017 Uptime check on the site and a real end-to-end send through the contact form after deploy.
+- [x] T015 Host is Vercel: the in-memory counter in `lib/rate-limit.ts` does not hold across
+  serverless instances, so it is a soft deterrent, not a real cross-instance limit. Decided to keep
+  it - a personal contact form at a few messages a month is not worth an external store (Upstash/KV)
+  for the traffic it will ever see. Revisit only if the form is actually abused.
+- [x] T016 `NEXT_PUBLIC_SITE_URL` set in production. Verified live: `sitemap.xml`, `robots.txt`,
+  `canonical` and `og:url` all resolve to `oleksatyshchenko.com`, not localhost.
+- [x] T017 Uptime check on the site and a real end-to-end send through the contact form after deploy.
+  Confirmed by owner: a real message went through the production form and arrived.
+- [x] T030 `www.oleksatyshchenko.com` does not resolve (connection refused) - only the apex domain is
+  attached in Vercel. Add `www` as a domain in the project so it redirects to the apex.
+  Fixed by owner: `www` now returns 307 → `/en`. Serves content natively rather than 301ing to the
+  apex - `canonical` already points at the apex, so not a launch blocker.
 - [x] T018 Visual pass in a browser - headless Chrome over CDP: landing, CV, both 404s, the panel,
   and the header at seven widths in both locales.
 

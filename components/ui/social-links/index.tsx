@@ -53,6 +53,8 @@ export function SocialLinks({
           <a
             className={[styles.link, styles[link.id]].filter(Boolean).join(" ")}
             href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={link.label}
             title={link.label}
           >

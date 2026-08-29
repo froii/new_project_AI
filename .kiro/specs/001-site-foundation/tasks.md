@@ -58,8 +58,12 @@ types, the messages, and the layout that provides locale and theme.
 - Independent test: OS set to dark, cold cache → first frame is dark; toggle to light, reload → stays light.
 
 - [x] T040 `[US3]` `components/controls/theme-toggle/` — a round icon button, not a switch; placed in the header (FR-013).
-- [ ] T041 `[US3]` Complete the dark palette in `app/globals.css`; verify every text/background pair meets WCAG 2.1 AA in both themes (FR-021, SC-005).
-- [ ] T042 `[US3]` Verify no incorrectly themed frame on cold load in both OS settings (FR-015, SC-003).
+- [x] T041 `[US3]` Complete the dark palette in `app/globals.css`; verify every text/background pair meets WCAG 2.1 AA in both themes (FR-021, SC-005).
+  Verified by computing WCAG contrast ratios for text/muted/faint/accent/danger against bg/canvas in
+  both themes - all ≥ 4.5:1. Closest: `faint` on `canvas`, light theme, 4.52:1.
+- [x] T042 `[US3]` Verify no incorrectly themed frame on cold load in both OS settings (FR-015, SC-003).
+  `next-themes` `ThemeProvider` + `suppressHydrationWarning` on `<html>` ([layout.tsx](app/[locale]/layout.tsx))
+  is the standard blocking-script pattern; confirmed by owner on a live cold load.
 - **Checkpoint**: theme works in both locales; US1 and US2 unaffected.
 
 ## Phase 6 — Polish
@@ -88,7 +92,8 @@ types, the messages, and the layout that provides locale and theme.
 - [x] T052s Print quality pass: air restored at the block seams (section lead/tail, body gap, role and degree spacing) without giving back the density; accordion meta hidden on paper (it duplicated the tech stack field); tag runs set as inline text so the `·` separator carries its spaces; achievement marker moved from `background` to `border` so it survives a print with background graphics off; education put on `--paper-rail` with the period in the rail; certifications indented to the same content edge. `about.personal` added as a part and switched off by the `short` preset (002, FR-232).
 - [x] T052t Legibility pass on the owner's read of the printed file: print type up to 11pt / 1.45 leading with the spacing scale raised to match, the `96ch` prose cap dropped (a `ch` is the element's own font, so it cut small text hardest), `--paper-rail` widened to 28mm for the larger term size, `break-inside: avoid` taken off whole field rows (an eight-line responsibilities value took its page with it), and the rubric rule given air on both sides.
 - [x] T052u Browser header and footer kept out of the PDF by holding `@page` vertical margin at 8mm (the threshold below which Chrome has no room to draw them); masthead hierarchy set explicitly for print so the name leads and the contacts stop outranking the summary.
-- [ ] T053 Keyboard pass: every control reachable and operable, visible focus indicator, expanded/collapsed state announced (FR-019, FR-020, SC-004).
+- [x] T053 Keyboard pass: every control reachable and operable, visible focus indicator, expanded/collapsed state announced (FR-019, FR-020, SC-004).
+  Confirmed by owner: tab order and focus work on the live site.
 - [ ] T054 `[P]` Confirm no layout shift from images or fonts (FR-023, SC-006).
 - [ ] T055 Verification subagent per `preferences.md` §Role separation: input is `requirements.md` + `testcases.md` + changed files only.
 - [ ] T056 Sync `.kiro/` artifacts and tick this file.

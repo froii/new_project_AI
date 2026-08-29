@@ -73,7 +73,9 @@
    rail reads as a different kind of thing. Empty rail, same edge. */
 @media print {
   .list {
-    gap: var(--space-s);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s) var(--space-l);
     padding-inline-start: calc(var(--paper-rail) + var(--space-s));
   }
 

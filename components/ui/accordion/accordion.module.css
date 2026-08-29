@@ -146,10 +146,13 @@
     width: 100%;
     margin-inline: 0;
     padding-inline: 0;
-    padding-block: var(--space-l) var(--space-2xs);
+    padding-block: calc(var(--space-l) - 0.2rem) var(--space-2xs);
     grid-template-columns: var(--paper-rail) minmax(0, 1fr);
     column-gap: var(--space-s);
     break-inside: avoid;
+  }
+
+  .trigger[data-state="open"] {
     break-after: avoid;
   }
 

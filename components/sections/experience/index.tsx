@@ -86,17 +86,25 @@ export function Experience() {
   return (
     <section className="section" id="experience">
       <div className="block-head">
-        <h2>{t("heading")}</h2>
+        <div className={styles.title}>
+          <h2>{t("heading")}</h2>
+          <OpenAll
+            ids={shortlist.map((entry) => entry.id)}
+            extra={rest.map((entry) => entry.id)}
+            expand={t("open.expand")}
+            collapse={t("open.collapse")}
+          />
+        </div>
+
         <span className={styles.span}>
-          {t("summary", { count: entries.filter((entry) => !entry.nonDev).length })} · {span.from} -{" "}
-          {span.to ?? t("present")}
+          <span>{t("summary", { count: entries.filter((entry) => !entry.nonDev).length })}</span>
+          <span className={styles.dot} aria-hidden="true">
+            ·
+          </span>
+          <span>
+            {span.from} - {span.to ?? t("present")}
+          </span>
         </span>
-        <OpenAll
-          ids={shortlist.map((entry) => entry.id)}
-          extra={rest.map((entry) => entry.id)}
-          expand={t("open.expand")}
-          collapse={t("open.collapse")}
-        />
         <PartToggle
           id="experience.all"
           label={t("scope.label")}

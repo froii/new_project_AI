@@ -27,3 +27,14 @@
   `200` honeypot, `429` on the sixth request in the window
 - [x] End-to-end send with the owner's credentials — `200 {"ok":true}` twice: before and after the
   header change, the second with a phone number
+
+## Phase 3 — Follow-up (direct-contact links)
+
+- [x] T010 `components/ui/social-links/` + `contact/index.tsx` — `target="_blank"
+  rel="noopener noreferrer"` on every direct-contact anchor (mailto, messenger deep links, LinkedIn,
+  GitHub), so a link the current device cannot open (no Viber, no configured mail client) leaves the
+  page itself intact instead of navigating it away to nothing.
+
+### Verification (Phase 3)
+
+- [x] `npm run typecheck`
