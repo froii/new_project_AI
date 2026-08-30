@@ -207,7 +207,7 @@ some parts (full text, "also worked with", "what was interesting") start off.
 
 Which roles are expanded rides the same mechanism under `?o=`, as plain entry ids: the set is small,
 its members are stable, and an unreadable code table for eight of them buys nothing. Matching the
-default (the newest role alone) drops the parameter; `-` is the one code, and it says *nothing
+default (the two newest roles) drops the parameter; `-` is the one code, and it says *nothing
 open* - without it an empty selection and an absent parameter encode the same string and the default
 comes back on the next load. The provider owns the fallback so both accordions in the section (recent
 and earlier) share one list: each writes back its own ids merged over the ids it does not own,
