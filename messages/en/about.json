@@ -1,6 +1,6 @@
 {
   "heading": "About",
-  "body": "I own architecture and performance on large codebases, and run the code review that keeps them maintainable. Most of what I ship is infrastructure other teams build on: low-code platforms, back-office systems, document management, e-commerce. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it, with LLM features in the recent products.",
+  "body": "I started on the frontend, took on the backend, and now ship LLM features in production. Ten years in, the stack has changed more than once; what carries over is understanding how the whole system fits together. Most of what I ship is infrastructure other teams build on: low-code platforms, back-office systems, document management, e-commerce. I own architecture and performance on large codebases, and run the code review that keeps them maintainable. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it.",
   "achievementsHeading": "What I've owned",
   "achievementsScope": {
     "label": "Detail level",
@@ -13,8 +13,8 @@
       "detail": "Grammar, editor and evaluation: a parser built with Chevrotain and Lezer, wired into a CodeMirror editor with completion and inline errors."
     },
     "clients": {
-      "short": "Worked directly with clients in the EU and the US, with no manager in between.",
-      "detail": "Contract work, not a staff role."
+      "short": "Worked directly with clients in the EU and the US, no manager in between: from deciding what to build, through the trade-offs, to what shipped.",
+      "detail": "Small teams, so the same person owned the frontend, the backend and the release."
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",

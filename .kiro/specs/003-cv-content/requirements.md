@@ -18,6 +18,12 @@
   repositories does not need to explain the absence.
 - **FR-222**: The record MUST show the owner working directly with EU and US clients and owning the
   logic end to end - the contractor's differentiator, which a stack list cannot carry.
+- **FR-226**: About MUST open on the career arc as three widening layers (frontend, then backend,
+  then AI), naming no technology. Listing the tools instead reads as ten years of swapping
+  libraries; the layers read as widening ownership, which is what the target roles screen for. The
+  intro title stays frontend-first and says Engineer, not Developer: the owner is not seeking
+  backend-only work, and the machine-read fields (`hero.title`, `skills`, `common.description`) keep
+  broad, common terms while the human-read prose carries the specifics.
 - **FR-202**: Every block MUST render in both locales with no untranslated string and no key present
   in one locale but missing in the other.
 - **FR-203**: Structural facts (companies, dates, technology names, URLs) MUST live in `content/`;
