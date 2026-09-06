@@ -116,6 +116,7 @@ export function Experience() {
       <Roles items={shortlist.map(toItem)} />
 
       <Part id="experience.all">
+        <p className={styles.restHeading}>{t("restHeading")}</p>
         <Roles items={rest.map(toItem)} className={styles.rest} />
       </Part>
     </section>

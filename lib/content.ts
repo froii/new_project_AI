@@ -32,7 +32,10 @@ export function shortlistExperience(entries: ExperienceEntry[]): ExperienceEntry
     .slice(0, recentRoles);
 }
 
+const openRoles = 2;
+
 export function defaultOpenRoles(entries: ExperienceEntry[]): string[] {
-  const first = shortlistExperience(entries)[0];
-  return first ? [first.id] : [];
+  return shortlistExperience(entries)
+    .slice(0, openRoles)
+    .map((entry) => entry.id);
 }
