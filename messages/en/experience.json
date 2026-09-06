@@ -7,6 +7,7 @@
   },
   "summary": "{count, plural, one {# role} other {# roles}}",
   "present": "Present",
+  "restHeading": "Earlier and non-development roles",
   "open": {
     "expand": "Expand",
     "collapse": "Collapse"
@@ -22,7 +23,7 @@
   "entries": {
     "bechacant": {
       "role": "Full Stack Developer - BechaCant, remote (US)",
-      "project": "Web and PWA products built with React, Next.js and TypeScript, with backend services and AI-powered features. Ran in parallel with my last months at eTeam.",
+      "project": "Web and PWA products built with React, Next.js and TypeScript, with backend services and AI‑powered features. Ran in parallel with my last months at eTeam.",
       "result": "Owned monetisation end to end, and put the product's first LLM features into production.",
       "responsibilities": "Built product features end to end: paywalls and in-app purchases, offline-friendly mobile-first PWAs with push notifications, and parts of a code editor UI (editing, tabs, file tree, live preview).\n\nBackend in NestJS and Express with REST and GraphQL: payments and subscriptions with store receipt verification, webhooks and background jobs for renewal and expiry, PostgreSQL with safe logging and access rules.\n\nLLM features in production: RAG retrieval, streaming responses, tool calling and agent-style flows, with the prompt design behind them. Wrote the spec before the code and kept both in sync."
     },

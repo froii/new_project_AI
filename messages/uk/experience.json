@@ -7,6 +7,7 @@
   },
   "summary": "{count, plural, one {# позиція} few {# позиції} many {# позицій} other {# позиції}}",
   "present": "Дотепер",
+  "restHeading": "Ранні ролі та робота поза розробкою",
   "open": {
     "expand": "Розгорнути",
     "collapse": "Згорнути"

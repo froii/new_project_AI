@@ -11,13 +11,21 @@
 - **FR-201**: System MUST present the owner's real career record: summary, personal note, skills,
   experience, education and certifications.
 - **FR-220**: The intro MUST state the engagement model and availability, not only the location:
-  contract shape and work eligibility are what a remote hire is screened on first.
+  contract shape and work eligibility are what a remote hire is screened on first. The engagement
+  line names the *category* of hiring platform with examples, never a closed list of brands: the
+  reader's question is whether the owner fits the process they already run, and two brand names
+  invite the answer "but we are on a third one".
 - ~~**FR-221**~~: *Withdrawn 2026-08-23.* Experience carried a line saying the product code is
   private and pointing at LinkedIn references. On paper it was a paragraph of apology above the
   record itself, and the LinkedIn address is already in the intro contacts. A CV that lists no
   repositories does not need to explain the absence.
 - **FR-222**: The record MUST show the owner working directly with EU and US clients and owning the
   logic end to end - the contractor's differentiator, which a stack list cannot carry.
+- **FR-227**: The printed sheet MUST survive text extraction, because the PDF is read by a parser
+  before a human sees it. A compound that carries a search keyword uses a non-breaking hyphen
+  (U+2011): broken across a line, `AI-powered` extracts as `AIpowered` and the `AI` token is gone.
+  Role dates print as one line with a separator, never as two stacked lines, which a parser reads as
+  two fields and never resolves into a range.
 - **FR-226**: About MUST open on the career arc as three widening layers (frontend, then backend,
   then AI), naming no technology. Listing the tools instead reads as ten years of swapping
   libraries; the layers read as widening ownership, which is what the target roles screen for. The

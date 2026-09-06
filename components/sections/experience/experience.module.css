@@ -20,6 +20,17 @@
   }
 }
 
+/* The group restarts the dates at a later year than the one above it ended on.
+   Unlabelled, that reads as an error in the record rather than a second list. */
+.restHeading {
+  margin-block-start: var(--space-l);
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .rest > :first-child {
   border-block-start: var(--border-width) solid var(--color-hairline);
 }
