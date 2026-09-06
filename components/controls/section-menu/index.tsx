@@ -33,6 +33,7 @@ export function SectionMenu() {
 
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<ToggleSectionId | null>(null);
+  const [wasActive, setWasActive] = useState(active);
   const [drag, setDrag] = useState(0);
   const dragFrom = useRef(0);
   const panelId = useId();
@@ -61,9 +62,13 @@ export function SectionMenu() {
     };
   }, [open]);
 
-  useEffect(() => {
+  /* The reader's own choice owns this, so it cannot be derived outright; the
+     section scrolled into only overrides it on the frame the section changes.
+     Adjusted during render, or the panel paints the previous group first. */
+  if (active !== wasActive) {
+    setWasActive(active);
     if (active && isToggleSection(active)) setExpanded(active);
-  }, [active]);
+  }
 
   const away = useScrollAway(open);
   const count = visibilityCount(visible);

@@ -1,0 +1,71 @@
+# Words LanguageTool does not know but this CV uses on purpose.
+# One per line, lowercase, compared against the exact flagged substring.
+
+# Product and brand names
+nedyx
+bechacant
+mackiev
+adraba
+upwork
+neoversity
+linksquares
+openrouter
+codemirror
+chevrotain
+lezer
+
+# Tech register kept in Latin
+low-code
+back-office
+e-commerce
+full-time
+part-time
+undo/redo
+mobile-first
+b2b
+eor
+deel
+pwa
+llm
+rag
+graphql
+apollo
+postgresql
+nestjs
+typescript
+javascript
+next.js
+node.js
+
+# Transliterated tech terms
+бекенд
+фронтенд
+бекенду
+фронтенду
+бекендом
+фронтендом
+бек-офісні
+бек-офіс
+продакшені
+продакшену
+рантаймі
+бандл
+вебхуки
+пейволи
+стримінг
+промпти
+промптів
+фідбек
+менторив
+тикети
+канбаном
+парсер
+вебзастосунки
+
+# Compounds LanguageTool has no entry for
+демо-чат-боті
+офлайн-придатні
+пуш-сповіщеннями
+адмін-логіка
+адмін-панелі
+сторах

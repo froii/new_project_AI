@@ -3,7 +3,7 @@ import { defaultLocale } from "@/i18n/config";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "OTyshchenko",
+    name: "Oleksa Tyshchenko",
     short_name: "OT",
     start_url: `/${defaultLocale}`,
     display: "standalone",

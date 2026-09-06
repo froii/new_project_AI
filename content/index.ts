@@ -17,12 +17,16 @@ export const owner: OwnerProfile = {
     { id: "cyberpunk", src: "/photos/cyberpunk.webp", width: 600, height: 800 },
   ],
   contacts: [
-    { id: "email", kind: "email", value: "lestyshchenko@gmail.com" },
+    { id: "email", kind: "email", value: "dev@oleksatyshchenko.com" },
     { id: "phone", kind: "phone", value: "+380734074118" },
     { id: "linkedin", kind: "link", value: "https://www.linkedin.com/in/oleksa-t-90a050a8" },
     { id: "github", kind: "link", value: "https://github.com/froii" },
   ],
 };
+
+/* Where the form delivers, deliberately not the address on the page: the
+   published one can change without moving the inbox the messages land in. */
+export const contactInbox = "lestyshchenko@gmail.com";
 
 export const achievements: Achievement[] = [
   { id: "language" },
