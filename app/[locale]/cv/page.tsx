@@ -11,7 +11,7 @@ import { Skills } from "@/components/sections/skills";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SectionSlot } from "@/components/visibility/section-slot";
 import { toggleSectionIds } from "@/content/sections";
-import { locales } from "@/i18n/config";
+import { defaultLocale, locales } from "@/i18n/config";
 import { ogImage } from "@/lib/og-image";
 
 const bySection = {
@@ -40,7 +40,10 @@ export async function generateMetadata({ params }: CvParams): Promise<Metadata> 
     title,
     alternates: {
       canonical: `/${locale}/cv`,
-      languages: Object.fromEntries(locales.map((value) => [value, `/${value}/cv`])),
+      languages: {
+        ...Object.fromEntries(locales.map((value) => [value, `/${value}/cv`])),
+        "x-default": `/${defaultLocale}/cv`,
+      },
     },
     /* Description and site name repeated, not inherited: nested metadata
        replaces the parent object rather than merging into it, so leaving them

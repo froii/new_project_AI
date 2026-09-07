@@ -30,7 +30,7 @@
     },
     "performance": {
       "short": "Kept large tables and charts responsive on codebases too large for one engineer to hold in full context.",
-      "detail": "Virtualised the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with fragment-level caching."
+      "detail": "Virtualized the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with fragment-level caching."
     },
     "review": {
       "short": "Set up the code review process, and mentored the developers who joined after.",

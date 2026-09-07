@@ -33,6 +33,7 @@ export function SectionMenu() {
 
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<ToggleSectionId | null>(null);
+  const [wasActive, setWasActive] = useState(active);
   const [drag, setDrag] = useState(0);
   const dragFrom = useRef(0);
   const panelId = useId();
@@ -61,9 +62,10 @@ export function SectionMenu() {
     };
   }, [open]);
 
-  useEffect(() => {
+  if (active !== wasActive) {
+    setWasActive(active);
     if (active && isToggleSection(active)) setExpanded(active);
-  }, [active]);
+  }
 
   const away = useScrollAway(open);
   const count = visibilityCount(visible);
@@ -163,7 +165,9 @@ export function SectionMenu() {
                         className={styles.partsToggle}
                         aria-expanded={isExpanded}
                         aria-label={t("partsLabel", { section: label })}
-                        onClick={() => setExpanded((value) => (value === toggleId ? null : toggleId))}
+                        onClick={() =>
+                          setExpanded((value) => (value === toggleId ? null : toggleId))
+                        }
                       >
                         <span className={styles.partsCount} aria-live="polite">
                           {parts.on}/{parts.total}
@@ -175,8 +179,22 @@ export function SectionMenu() {
                             strokeWidth="1.4"
                             strokeLinecap="round"
                           />
-                          <circle cx="7.5" cy="6.5" r="2.2" fill="var(--color-panel)" stroke="currentColor" strokeWidth="1.4" />
-                          <circle cx="13" cy="13.5" r="2.2" fill="var(--color-panel)" stroke="currentColor" strokeWidth="1.4" />
+                          <circle
+                            cx="7.5"
+                            cy="6.5"
+                            r="2.2"
+                            fill="var(--color-panel)"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                          />
+                          <circle
+                            cx="13"
+                            cy="13.5"
+                            r="2.2"
+                            fill="var(--color-panel)"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                          />
                         </svg>
                       </button>
                     )}

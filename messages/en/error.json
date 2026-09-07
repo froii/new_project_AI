@@ -2,7 +2,7 @@
   "notFound": {
     "code": "404",
     "heading": "This page does not exist",
-    "body": "The link is wrong or the page has moved. Head back home, or write to me.",
+    "body": "The link is wrong, or the page has moved. Head back home, or write to me.",
     "home": "Home page",
     "email": "Contact me"
   },

@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { owner } from "@/content";
+import { contactInbox } from "@/content";
 import { contactLimits, headerSafe, invalidContactFields } from "@/lib/contact-message";
 import { rateLimiter } from "@/lib/rate-limit";
 
@@ -21,9 +21,7 @@ export async function POST(request: Request) {
   const user = process.env.GMAIL_USER;
   /* Google prints it in four groups of four; SMTP wants the sixteen. */
   const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
-  const to = owner.contacts.find((contact) => contact.kind === "email")?.value;
-
-  if (!user || !pass || !to) return Response.json({ ok: false }, { status: 503 });
+  if (!user || !pass) return Response.json({ ok: false }, { status: 503 });
 
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
   if (limit.hit(forwarded || "unknown")) return Response.json({ ok: false }, { status: 429 });
@@ -60,7 +58,7 @@ export async function POST(request: Request) {
     /* Gmail allows no From but the authenticated account. */
     await nodemailer.createTransport({ service: "gmail", auth: { user, pass } }).sendMail({
       from: { name: FROM_NAME, address: user },
-      to,
+      to: contactInbox,
       replyTo: headerSafe(draft.email),
       subject: SUBJECT,
       text: `${details.join("\n")}\n\n${draft.message}`,

@@ -6,12 +6,15 @@ const step = 8;
 
 export function useScrollAway(held: boolean) {
   const [away, setAway] = useState(false);
+  const [wasHeld, setWasHeld] = useState(held);
+
+  if (held !== wasHeld) {
+    setWasHeld(held);
+    if (held) setAway(false);
+  }
 
   useEffect(() => {
-    if (held) {
-      setAway(false);
-      return;
-    }
+    if (held) return;
 
     let last = window.scrollY;
 

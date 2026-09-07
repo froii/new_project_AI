@@ -15,10 +15,7 @@ export function Certifications() {
       <ul className={styles.list} role="list">
         {certifications.map((item) => {
           const credential = item.href ? readCredential(item.href) : null;
-          const meta = [
-            t(`entries.${item.id}.issuer`),
-            credential?.host,
-          ].filter(Boolean);
+          const meta = [t(`entries.${item.id}.issuer`), credential?.host].filter(Boolean);
 
           return (
             <li key={item.id} className={styles.entry}>

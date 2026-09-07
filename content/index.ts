@@ -17,12 +17,14 @@ export const owner: OwnerProfile = {
     { id: "cyberpunk", src: "/photos/cyberpunk.webp", width: 600, height: 800 },
   ],
   contacts: [
-    { id: "email", kind: "email", value: "lestyshchenko@gmail.com" },
+    { id: "email", kind: "email", value: "dev@oleksatyshchenko.com" },
     { id: "phone", kind: "phone", value: "+380734074118" },
     { id: "linkedin", kind: "link", value: "https://www.linkedin.com/in/oleksa-t-90a050a8" },
     { id: "github", kind: "link", value: "https://github.com/froii" },
   ],
 };
+
+export const contactInbox = "lestyshchenko@gmail.com";
 
 export const achievements: Achievement[] = [
   { id: "language" },
@@ -237,7 +239,7 @@ export const education: EducationEntry[] = [
   },
   {
     id: "kai",
-    institution: "National University \"Kyiv Aviation Institute\"",
+    institution: 'National University "Kyiv Aviation Institute"',
     start: "2011",
     end: "2012",
     skills: [
@@ -255,7 +257,7 @@ export const education: EducationEntry[] = [
     end: "2011",
     skills: [
       "Data analysis",
-      "Statistical modelling",
+      "Statistical modeling",
       "Scientific method",
       "GIS",
       "Large datasets",

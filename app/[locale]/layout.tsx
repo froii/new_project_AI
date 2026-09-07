@@ -6,7 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { Inspector } from "@/components/dev/inspector";
 import { SectionsProvider } from "@/components/providers/sections-provider";
 import { owner } from "@/content";
-import { isLocale, locales } from "@/i18n/config";
+import { defaultLocale, isLocale, locales } from "@/i18n/config";
 import { ogImage } from "@/lib/og-image";
 import { jsonLd, personSchema } from "@/lib/person-schema";
 import { siteUrl } from "@/lib/site";
@@ -44,7 +44,10 @@ export async function generateMetadata({ params }: LocaleParams): Promise<Metada
     description: t("description"),
     alternates: {
       canonical: `/${locale}`,
-      languages: Object.fromEntries(locales.map((value) => [value, `/${value}`])),
+      languages: {
+        ...Object.fromEntries(locales.map((value) => [value, `/${value}`])),
+        "x-default": `/${defaultLocale}`,
+      },
     },
     openGraph: {
       type: "profile",
@@ -94,10 +97,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }} />
         <noscript>
           <div className="noscript">
             <strong>{t("heading")}</strong>

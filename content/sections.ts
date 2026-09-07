@@ -28,9 +28,7 @@ export type PartId = {
    ends on, so there is nothing for a visitor to switch off. It renders always. */
 export type ToggleSectionId = Exclude<SectionId, "contact">;
 
-export const toggleSectionIds = sectionIds.filter(
-  (id): id is ToggleSectionId => id !== "contact",
-);
+export const toggleSectionIds = sectionIds.filter((id): id is ToggleSectionId => id !== "contact");
 
 export type ToggleId = ToggleSectionId | PartId;
 
