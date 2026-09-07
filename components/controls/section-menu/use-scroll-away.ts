@@ -8,9 +8,6 @@ export function useScrollAway(held: boolean) {
   const [away, setAway] = useState(false);
   const [wasHeld, setWasHeld] = useState(held);
 
-  /* Adjusted during render rather than in an effect: an effect commits the old
-     value first and corrects it on a second pass, which is a visible flick of
-     the trigger every time the panel opens. */
   if (held !== wasHeld) {
     setWasHeld(held);
     if (held) setAway(false);

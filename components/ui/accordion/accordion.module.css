@@ -156,8 +156,6 @@
     break-after: avoid;
   }
 
-  /* One line, not stacked: an ATS reads two lines as two fields and never
-     computes the range. 28mm of rail holds the compact form, not a spaced one. */
   .lead {
     grid-column: auto;
     flex-direction: row;

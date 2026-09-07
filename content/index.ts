@@ -24,8 +24,6 @@ export const owner: OwnerProfile = {
   ],
 };
 
-/* Where the form delivers, deliberately not the address on the page: the
-   published one can change without moving the inbox the messages land in. */
 export const contactInbox = "lestyshchenko@gmail.com";
 
 export const achievements: Achievement[] = [
@@ -241,7 +239,7 @@ export const education: EducationEntry[] = [
   },
   {
     id: "kai",
-    institution: "National University \"Kyiv Aviation Institute\"",
+    institution: 'National University "Kyiv Aviation Institute"',
     start: "2011",
     end: "2012",
     skills: [
@@ -259,7 +257,7 @@ export const education: EducationEntry[] = [
     end: "2011",
     skills: [
       "Data analysis",
-      "Statistical modelling",
+      "Statistical modeling",
       "Scientific method",
       "GIS",
       "Large datasets",
