@@ -4,9 +4,15 @@ next-env.d.ts
 *.tsbuildinfo
 dist/
 build/
+coverage/
+.vercel/
+*.log
 .env*
 !.env.example
 .idea/
+.vscode/
 .DS_Store
 
-.claude/settings.local.json
+.claude/
+.kiro/
+CLAUDE.md
