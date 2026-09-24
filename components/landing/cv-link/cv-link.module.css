@@ -1,0 +1,35 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 3rem;
+  padding-inline: var(--space-xl);
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-md);
+  font-size: var(--step-0);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background-color 200ms ease,
+    translate 150ms ease;
+}
+
+.link:hover {
+  background: color-mix(in srgb, var(--color-accent) 85%, var(--color-text));
+  color: var(--color-bg);
+  translate: 0 -1px;
+}
+
+.link svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 200ms ease;
+}
+
+.link:hover svg {
+  translate: 0.2rem 0;
+}

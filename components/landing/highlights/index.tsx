@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { CvLink } from "@/components/landing/cv-link";
 import { TagList } from "@/components/ui/tag-list";
 import { skills } from "@/content";
 import { Carousel } from "./carousel";
@@ -30,6 +31,12 @@ export function Highlights() {
         <div className={styles.stack}>
           <p className={styles.stackLabel}>{t("stackHeading")}</p>
           <TagList items={stack} label={t("stackHeading")} />
+          <p className={styles.nda}>{t("nda")}</p>
+        </div>
+
+        <div className={styles.more}>
+          <CvLink>{t("cta")}</CvLink>
+          <p className={styles.hint}>{t("ctaHint")}</p>
         </div>
       </div>
     </section>

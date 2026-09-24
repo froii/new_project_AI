@@ -26,16 +26,40 @@
 }
 
 .viewport {
+  --gap: var(--space-m);
+  display: grid;
   flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
+}
+
+/* Every card stacked in one cell, invisible: the row takes the tallest card's
+   height, so rotating to a longer text no longer moves the page below. */
+.track,
+.sizer {
+  grid-area: 1 / 1;
+}
+
+.sizer {
+  display: grid;
+  width: 100%;
+  visibility: hidden;
+}
+
+.sizer > * {
+  grid-area: 1 / 1;
+}
+
+@media (min-width: 48rem) {
+  .sizer {
+    width: calc((100% - 2 * var(--gap)) / 3);
+  }
 }
 
 /* `width: 100%` is what makes the percentages agree: the column width and the
    slide distance both have to resolve against the viewport, and a track free to
    grow with its overflowing columns would measure them against itself. */
 .track {
-  --gap: var(--space-m);
   --step: calc(100% + var(--gap));
   width: 100%;
   display: grid;
@@ -125,4 +149,27 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-text-faint);
+}
+
+.nda {
+  color: var(--color-text-faint);
+  font-size: var(--step--1);
+}
+
+.more {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-s);
+}
+
+.hint {
+  color: var(--color-text-faint);
+  font-size: var(--step--1);
+}
+
+@media (max-width: 34rem) {
+  .more > a {
+    align-self: stretch;
+  }
 }

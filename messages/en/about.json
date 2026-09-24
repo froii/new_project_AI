@@ -9,37 +9,37 @@
   },
   "achievements": {
     "language": {
-      "short": "Designed the DSL behind a low-code reporting platform, so analysts could write their own formulas instead of filing tickets.",
-      "detail": "Grammar, editor and evaluation: a parser built with Chevrotain and Lezer, wired into a CodeMirror editor with completion and inline errors."
+      "short": "Designed a DSL for a low-code reporting platform, so analysts write formulas themselves instead of filing tickets.",
+      "detail": "Wrote the grammar, the editor and the evaluator: a parser built with Chevrotain and Lezer, wired into a CodeMirror editor with completion and inline errors."
     },
     "clients": {
-      "short": "Worked directly with clients in the EU and the US, no manager in between: from deciding what to build, through the trade-offs, to what shipped.",
+      "short": "Worked directly with clients in the EU and the US: from deciding what to build, through the trade-offs, to what shipped.",
       "detail": "Small teams, so the same person owned the frontend, the backend and the release."
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
-      "detail": "Every table, chart and text block is defined by the user, over data read from their own databases, with archive creation and PDF export on top. Custom-built drag-and-resize and undo/redo for performance, react-dnd for page ordering and smaller block moves."
+      "detail": "Every table, chart and text block is defined by the user over data from their own databases, with archive creation and PDF export on top. Built drag-and-resize and undo/redo in-house for performance, and used react-dnd for page ordering and smaller block moves."
     },
     "payments": {
-      "short": "Built payments and subscriptions from the store receipt through to the renewal job.",
-      "detail": "Receipt verification, webhooks, background jobs for renewal and expiry, and PostgreSQL access rules with logging that never writes a token."
+      "short": "Built premium subscriptions for a PWA that also runs in native apps: a paywall plus store purchases and restores.",
+      "detail": "Purchases go through a native bridge to the store, while premium banners and promo-code and referral rewards live in the web app."
     },
     "ai": {
-      "short": "Took LLM features from prototype to production, inside real product flows, not a demo chatbot.",
-      "detail": "Retrieval over the product's own documents, streaming responses, tool calling and agent-style flows, routed through OpenRouter rather than tied to a single vendor."
+      "short": "Took LLM features from prototype to production inside real product flows.",
+      "detail": "Built retrieval over the product's own documents, streaming responses, tool calling and agent-style flows. All of it runs through OpenRouter rather than one vendor."
     },
     "performance": {
-      "short": "Kept large tables and charts responsive on codebases too large for one engineer to hold in full context.",
+      "short": "Kept large tables and charts responsive on codebases too large for one engineer to keep in their head.",
       "detail": "Virtualized the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with fragment-level caching."
     },
     "review": {
-      "short": "Set up the code review process, and mentored the developers who joined after.",
-      "detail": "Wrote the specs the code was built from, and the shared AI coding rules and prompts the team worked to."
+      "short": "Set up the code review process and mentored the developers who joined later.",
+      "detail": "Wrote the specs the code was built from, and the shared rules and prompts the team used with AI coding tools."
     }
   },
-  "personalHeading": "Beyond the Code",
+  "personalHeading": "Beyond the code",
   "personal": [
-    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing that early stops you reading a blunt sentence as a personal problem.",
+    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing that early keeps you from reading a blunt sentence as a personal problem.",
     "I like difficult problems and play too much Dark Souls. My approach to both is the same: understand how something works before trying harder.",
     "Outside work: manga, long walks and tea. Tea is the only skill on my LinkedIn that was endorsed without me asking."
   ]

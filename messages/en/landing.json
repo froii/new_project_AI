@@ -7,10 +7,27 @@
     "platform": "A low-code platform",
     "ai": "AI in production",
     "language": "A language and its editor",
-    "payments": "Payments and subscriptions",
+    "payments": "Premium subscriptions",
     "performance": "Performance under load",
     "review": "Review and mentoring",
     "previous": "Previous highlights",
     "next": "Next highlights"
+  },
+  "nda": "All commercial code is under NDA, in client repositories.",
+  "principles": {
+    "heading": "How I work",
+    "ownership": {
+      "title": "From task to production",
+      "body": "I take a task from the first discussion to the release."
+    },
+    "quality": {
+      "title": "Quality over speed",
+      "body": "Work done right the first time does not need redoing."
+    },
+    "respect": {
+      "title": "Respect for people",
+      "body": "I have been to more than 45 countries and know how much people and their values differ, so at work understanding and respect come first."
+    },
+    "aside": "Outside work I keep moving: gym, running, hiking and long walks. I unwind with an audiobook, music, anime or a game, and my cat waits for me at home."
   }
 }

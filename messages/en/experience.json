@@ -18,32 +18,33 @@
     "responsibilities": "Scope",
     "techStack": "Stack",
     "alsoUsed": "Adjacent",
-    "link": "Link"
+    "link": "Link",
+    "challenges": "Technical challenges"
   },
   "entries": {
     "bechacant": {
       "role": "Full Stack Developer - BechaCant, remote (US)",
-      "project": "Web and PWA products built with React, Next.js and TypeScript, with backend services and AI‑powered features. Ran in parallel with my last months at eTeam.",
-      "result": "Owned monetization end to end, and put the product's first LLM features into production.",
-      "responsibilities": "Built product features end to end: paywalls and in-app purchases, offline-friendly mobile-first PWAs with push notifications, and parts of a code editor UI (editing, tabs, file tree, live preview).\n\nBackend in NestJS and Express with REST and GraphQL: payments and subscriptions with store receipt verification, webhooks and background jobs for renewal and expiry, PostgreSQL with safe logging and access rules.\n\nLLM features in production: RAG retrieval, streaming responses, tool calling and agent-style flows, with the prompt design behind them. Wrote the spec before the code and kept both in sync."
+      "project": "A social app built around challenges between users: a Next.js PWA with LLM features that also runs inside the iOS and Android apps.",
+      "result": "Built the client side of the premium subscription and put the product's first LLM features into production.",
+      "responsibilities": "Product features in the PWA: one-on-one and one-against-many challenges with voting, a feed of posts and comments, notifications with push delivery, profiles and followers, an onboarding tutorial and a wallet with promo-code and referral rewards.\n\nMobile fixes: layouts that hold under Android's large font sizes, modal inputs kept clear of the on-screen keyboard, and shared links that open in the app instead of the browser.\n\nAssistant panel: streamed answers and a choice of model and reasoning effort, tool calling and agent-style flows behind it, and every AI edit undoable as one step. Wrote the spec before the code and kept both in sync."
     },
     "eteam": {
       "role": "Full Stack Developer - eTeam, contract, remote",
       "project": "nedyx - a low-code platform for business reporting, built by a small international team.",
       "result": "Shipped the widget system, undo/redo, archives and PDF export that the platform's reporting runs on, plus its own functional language.",
-      "responsibilities": "Supported and developed the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualization control, large tables, charts and a text editor, reading data from external databases for many users."
+      "responsibilities": "Maintained and extended the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualization control, large tables, charts and a text editor, reading data from external databases for many users."
     },
     "danit": {
       "role": "Frontend Instructor - dan.it",
       "project": "An introductory frontend course.",
       "result": "Took a group of 25 beginners from nothing to working HTML, CSS and Git.",
-      "responsibilities": "Lectures, practicals and homework review across the full course."
+      "responsibilities": "Lectures, hands-on sessions and homework review across the full course."
     },
     "ugenius": {
-      "role": "Frontend Developer - U-Genius, contract, remote (Ukraine / USA)",
+      "role": "Frontend Developer - U-Genius, contract, remote (Ukraine / US)",
       "project": "Three applications for LinkSquares: contract lifecycle and legal project management.",
       "result": "Delivered three LinkSquares applications; the dynamic form and table layer became the base the later features were built on.",
-      "responsibilities": "Built the logic for rendering dynamic and asynchronous forms, tables and components, plus PDF editors, working from Figma and a kanban board. Used React with hooks, GraphQL, Apollo Server, Redux, Saga, Ant Design, Ramda and several form libraries, alongside my own utilities."
+      "responsibilities": "Built the logic for rendering dynamic and asynchronous forms, tables and components, plus PDF editors, working from Figma and a kanban board. Used React with hooks, GraphQL, Apollo Server, Redux, Redux-Saga, Ant Design, Ramda and several form libraries, alongside my own utilities."
     },
     "adraba": {
       "role": "Frontend Developer - Adraba, contract, Kyiv",
@@ -69,5 +70,17 @@
       "result": "Published research on water pollution monitoring.",
       "responsibilities": "Monitoring and analysis of pollution data, with ArcMap for the spatial work."
     }
+  },
+  "challenges": {
+    "bechacant": [
+      "Three challenge types with separate screens and statuses: every notification, shared link and expiring timer has to land on the right type and state, and the server's deadlines decide that state.",
+      "In-app purchases: the monthly subscription and restoring purchases go through a native bridge to the store, and every outcome (success, failure, cancellation, nothing to restore) maps to one status for the UI.",
+      "Keeping the model from inventing features: its context is built from the product's function list and docs, and the build fails as soon as the two drift apart."
+    ],
+    "eteam": [
+      "Undo/redo for the whole app: widget moves, formulas, styles and other changes share one history, a change across several pages undoes as one step, and the history is kept in IndexedDB so it survives a reload.",
+      "Formula editor: references to widgets and cells are highlighted and autocompleted from page and widget names, errors show as you type and after server validation, and clicking a reference selects the widget on the page.",
+      "User-built pages: users configure tables, charts and text blocks on top of data from their own databases, and layout, alignment guides and PDF export work for any set of widgets."
+    ]
   }
 }

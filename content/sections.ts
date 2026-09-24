@@ -14,7 +14,7 @@ export const sectionParts = {
   hero: ["photo", "contacts"],
   about: ["achievementsFull", "personal"],
   skills: ["full"],
-  experience: ["all", "project", "result", "responsibilities", "techStack", "alsoUsed", "link"],
+  experience: ["all", "project", "result", "challenges", "responsibilities", "techStack", "alsoUsed", "link"],
   education: ["all", "skills"],
   certifications: [],
   contact: [],
@@ -45,6 +45,7 @@ export const toggleCodes = {
   "experience.all": "ea",
   "experience.project": "ep",
   "experience.result": "eo",
+  "experience.challenges": "ec",
   "experience.responsibilities": "er",
   "experience.techStack": "et",
   "experience.alsoUsed": "eu",
@@ -68,6 +69,7 @@ export const toggleDefaults = {
   "experience.all": true,
   "experience.project": true,
   "experience.result": true,
+  "experience.challenges": true,
   "experience.responsibilities": true,
   "experience.techStack": true,
   "experience.alsoUsed": false,
@@ -88,10 +90,10 @@ export function partsOf(section: ToggleSectionId): PartId[] {
   return sectionParts[section].map((part) => `${section}.${part}` as PartId);
 }
 
-/* Ordered by how much detail survives, widest first (14, 11, 11, 6, 2), so
+/* Ordered by how much detail survives, widest first (15, 12, 12, 6, 6, 2), so
    the list reads as one scale. Not by section count: `screening` keeps fewer
    sections than `short` but more inside them, and the two orderings disagree. */
-export const presetIds = ["full", "us", "tech", "screening", "short"] as const;
+export const presetIds = ["full", "us", "tech", "cases", "screening", "short"] as const;
 
 export type PresetId = (typeof presetIds)[number];
 
@@ -122,6 +124,18 @@ export const presets = {
     "about.personal": false,
     "skills.full": false,
     "experience.all": false,
+    "experience.challenges": false,
+    "experience.responsibilities": false,
+    "experience.alsoUsed": false,
+    education: false,
+    certifications: false,
+  },
+  cases: {
+    "hero.photo": false,
+    "about.achievementsFull": false,
+    "about.personal": false,
+    "skills.full": false,
+    "experience.all": false,
     "experience.responsibilities": false,
     "experience.alsoUsed": false,
     education: false,
@@ -138,6 +152,7 @@ export const presets = {
     "skills.full": false,
     "experience.all": false,
     "experience.project": false,
+    "experience.challenges": false,
     "experience.responsibilities": false,
     "experience.techStack": false,
     "experience.alsoUsed": false,
