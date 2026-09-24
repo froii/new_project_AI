@@ -100,7 +100,7 @@
   scale: 0 1;
 }
 
-.challenges {
+.bullets {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);

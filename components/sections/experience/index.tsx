@@ -55,7 +55,7 @@ export function Experience() {
           {hardParts && (
             <Part id="experience.challenges">
               <Field term={t("fields.challenges")}>
-                <ul className={styles.challenges} role="list">
+                <ul className={styles.bullets} role="list">
                   {hardParts.map((item) => (
                     <li key={item.slice(0, 24)}>{item}</li>
                   ))}
@@ -66,11 +66,13 @@ export function Experience() {
 
           <Part id="experience.responsibilities">
             <Field term={t("fields.responsibilities")}>
-              {t(`entries.${entry.id}.responsibilities`)
-                .split("\n\n")
-                .map((paragraph) => (
-                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-                ))}
+              <ul className={styles.bullets} role="list">
+                {t(`entries.${entry.id}.responsibilities`)
+                  .split("\n\n")
+                  .map((item) => (
+                    <li key={item.slice(0, 24)}>{item}</li>
+                  ))}
+              </ul>
             </Field>
           </Part>
 

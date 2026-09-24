@@ -105,6 +105,15 @@ export function Carousel({
             </li>
           ))}
         </ul>
+
+        <div className={styles.sizer} aria-hidden="true">
+          {items.map((item) => (
+            <div key={item.id} className={styles.card}>
+              <h3 className={styles.cardTitle}>{item.title}</h3>
+              <p className={styles.cardBody}>{item.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <button

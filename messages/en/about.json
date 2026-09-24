@@ -9,24 +9,24 @@
   },
   "achievements": {
     "language": {
-      "short": "Designed the DSL behind a low-code reporting platform, so analysts could write their own formulas instead of filing tickets.",
-      "detail": "Grammar, editor and evaluation: a parser built with Chevrotain and Lezer, wired into a CodeMirror editor with completion and inline errors."
+      "short": "Designed a DSL for a low-code reporting platform, so analysts write formulas themselves instead of filing tickets.",
+      "detail": "Wrote the grammar, the editor and the evaluator: a parser built with Chevrotain and Lezer, wired into a CodeMirror editor with completion and inline errors."
     },
     "clients": {
-      "short": "Worked directly with clients in the EU and the US, no manager in between: from deciding what to build, through the trade-offs, to what shipped.",
+      "short": "Worked directly with clients in the EU and the US: from deciding what to build, through the trade-offs, to what shipped.",
       "detail": "Small teams, so the same person owned the frontend, the backend and the release."
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
-      "detail": "Every table, chart and text block is defined by the user, over data read from their own databases, with archive creation and PDF export on top. Custom-built drag-and-resize and undo/redo for performance, react-dnd for page ordering and smaller block moves."
+      "detail": "Every table, chart and text block is defined by the user over data from their own databases, with archive creation and PDF export on top. Built drag-and-resize and undo/redo in-house for performance, and used react-dnd for page ordering and smaller block moves."
     },
     "payments": {
-      "short": "Built premium subscriptions into a PWA that also runs inside native apps: a paywall, store purchases and restores, and promo-code and referral rewards.",
-      "detail": "Premium banners in the web app, and a native bridge that hands purchases and restores to the store."
+      "short": "Built premium subscriptions for a PWA that also runs in native apps: a paywall plus store purchases and restores.",
+      "detail": "Purchases go through a native bridge to the store, while premium banners and promo-code and referral rewards live in the web app."
     },
     "ai": {
-      "short": "Took LLM features from prototype to production, inside real product flows, not a demo chatbot.",
-      "detail": "Retrieval over the product's own documents, streaming responses, tool calling and agent-style flows, routed through OpenRouter rather than tied to a single vendor."
+      "short": "Took LLM features from prototype to production inside real product flows.",
+      "detail": "Built retrieval over the product's own documents, streaming responses, tool calling and agent-style flows. All of it runs through OpenRouter rather than one vendor."
     },
     "performance": {
       "short": "Kept large tables and charts responsive on codebases too large for one engineer to keep in their head.",

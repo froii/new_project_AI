@@ -28,7 +28,7 @@
     },
     "cases": {
       "label": "Case studies",
-      "note": "for a technical interview: hard problems and results"
+      "note": "for a technical interview: challenges and results"
     }
   },
   "labels": {
@@ -60,7 +60,7 @@
       "techStack": "Stack",
       "alsoUsed": "Adjacent",
       "link": "Link",
-      "challenges": "Hard problems"
+      "challenges": "Technical challenges"
     },
     "education": {
       "all": "Earlier entries",
