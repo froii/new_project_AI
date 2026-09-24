@@ -103,7 +103,6 @@
   margin-block-start: var(--space-xl);
 }
 
-.primary,
 .secondary {
   display: inline-flex;
   align-items: center;
@@ -117,35 +116,9 @@
   line-height: 1;
   text-decoration: none;
   transition:
-    background-color 200ms ease,
     border-color 200ms ease,
     color 200ms ease,
     translate 150ms ease;
-}
-
-.primary {
-  background: var(--color-accent);
-  color: var(--color-bg);
-  box-shadow: var(--shadow-md);
-}
-
-.primary:hover {
-  background: color-mix(in srgb, var(--color-accent) 85%, var(--color-text));
-  color: var(--color-bg);
-  translate: 0 -1px;
-}
-
-.primary svg {
-  width: 1.15em;
-  height: 1.15em;
-  transition: translate 200ms ease;
-}
-
-.primary:hover svg {
-  translate: 0.2rem 0;
-}
-
-.secondary {
   border: var(--border-width) solid var(--color-border);
   background: var(--color-bg);
   color: var(--color-text);
@@ -167,7 +140,7 @@
 .portrait {
   position: relative;
   justify-self: center;
-  width: min(100%, 21rem);
+  width: min(100%, 17rem);
 }
 
 .portrait::before {

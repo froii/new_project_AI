@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
-import { Link } from "@/i18n/navigation";
+import { CvLink } from "@/components/landing/cv-link";
 import styles from "./intro.module.css";
 import { WriteButton } from "./write-button";
 
@@ -28,19 +28,7 @@ export function Intro() {
           </ul>
 
           <div className={styles.actions}>
-            <Link className={styles.primary} href="/cv">
-              {t("cta")}
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M4 12h15m-6-6 6 6-6 6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
+            <CvLink>{t("cta")}</CvLink>
 
             <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
           </div>
@@ -54,7 +42,7 @@ export function Intro() {
               src={photo.src}
               width={photo.width}
               height={photo.height}
-              sizes="(max-width: 45.99rem) 62vw, 21rem"
+              sizes="(max-width: 45.99rem) 62vw, 17rem"
               priority
               alt={tHero("photoAlt", { name: tCommon("name") })}
             />

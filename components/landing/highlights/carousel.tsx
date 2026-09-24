@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState, type TransitionEvent } from "react";
+import { useEffect, useState, type TouchEvent, type TransitionEvent } from "react";
 import styles from "./highlights.module.css";
 
 type Item = { id: string; title: string; body: string };
 
 const VISIBLE = 3;
-const INTERVAL = 5000;
+const INTERVAL = 3000;
+const SWIPE = 40;
 
 /* The track renders one card either side of the three on show, so a shift has
    something to slide in from and the animation can start from the outgoing
@@ -25,6 +26,7 @@ export function Carousel({
   const [start, setStart] = useState(0);
   const [shift, setShift] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [touch, setTouch] = useState<{ x: number; y: number } | null>(null);
 
   const move = (step: 1 | -1) => {
     if (shift !== 0) return;
@@ -39,6 +41,14 @@ export function Carousel({
     if (event.target !== event.currentTarget || shift === 0) return;
     setStart((value) => (value - shift + items.length) % items.length);
     setShift(0);
+  };
+
+  const swipe = (event: TouchEvent) => {
+    if (!touch) return;
+    const dx = event.changedTouches[0].clientX - touch.x;
+    const dy = event.changedTouches[0].clientY - touch.y;
+    setTouch(null);
+    if (Math.abs(dx) > SWIPE && Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1);
   };
 
   useEffect(() => {
@@ -70,7 +80,13 @@ export function Carousel({
         <Chevron />
       </button>
 
-      <div className={styles.viewport}>
+      <div
+        className={styles.viewport}
+        onTouchStart={(event) =>
+          setTouch({ x: event.touches[0].clientX, y: event.touches[0].clientY })
+        }
+        onTouchEnd={swipe}
+      >
         <ul
           className={styles.track}
           style={{ "--shift": shift } as React.CSSProperties}

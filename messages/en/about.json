@@ -21,25 +21,25 @@
       "detail": "Every table, chart and text block is defined by the user, over data read from their own databases, with archive creation and PDF export on top. Custom-built drag-and-resize and undo/redo for performance, react-dnd for page ordering and smaller block moves."
     },
     "payments": {
-      "short": "Built payments and subscriptions from the store receipt through to the renewal job.",
-      "detail": "Receipt verification, webhooks, background jobs for renewal and expiry, and PostgreSQL access rules with logging that never writes a token."
+      "short": "Built premium subscriptions into a PWA that also runs inside native apps: a paywall, store purchases and restores, and promo-code and referral rewards.",
+      "detail": "Premium banners in the web app, and a native bridge that hands purchases and restores to the store."
     },
     "ai": {
       "short": "Took LLM features from prototype to production, inside real product flows, not a demo chatbot.",
       "detail": "Retrieval over the product's own documents, streaming responses, tool calling and agent-style flows, routed through OpenRouter rather than tied to a single vendor."
     },
     "performance": {
-      "short": "Kept large tables and charts responsive on codebases too large for one engineer to hold in full context.",
+      "short": "Kept large tables and charts responsive on codebases too large for one engineer to keep in their head.",
       "detail": "Virtualized the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with fragment-level caching."
     },
     "review": {
-      "short": "Set up the code review process, and mentored the developers who joined after.",
-      "detail": "Wrote the specs the code was built from, and the shared AI coding rules and prompts the team worked to."
+      "short": "Set up the code review process and mentored the developers who joined later.",
+      "detail": "Wrote the specs the code was built from, and the shared rules and prompts the team used with AI coding tools."
     }
   },
-  "personalHeading": "Beyond the Code",
+  "personalHeading": "Beyond the code",
   "personal": [
-    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing that early stops you reading a blunt sentence as a personal problem.",
+    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing that early keeps you from reading a blunt sentence as a personal problem.",
     "I like difficult problems and play too much Dark Souls. My approach to both is the same: understand how something works before trying harder.",
     "Outside work: manga, long walks and tea. Tea is the only skill on my LinkedIn that was endorsed without me asking."
   ]

@@ -16,7 +16,7 @@
     },
     "tech": {
       "label": "Deep dive",
-      "note": "full stack detail, every role"
+      "note": "the full stack, every role"
     },
     "screening": {
       "label": "First look",
@@ -25,6 +25,10 @@
     "short": {
       "label": "One-pager",
       "note": "roles and outcomes, nothing else"
+    },
+    "cases": {
+      "label": "Case studies",
+      "note": "for a technical interview: hard problems and results"
     }
   },
   "labels": {
@@ -43,7 +47,7 @@
     },
     "about": {
       "achievementsFull": "Full detail",
-      "personal": "Beyond the Code"
+      "personal": "Beyond the code"
     },
     "skills": {
       "full": "Full skill list"
@@ -55,7 +59,8 @@
       "responsibilities": "Scope",
       "techStack": "Stack",
       "alsoUsed": "Adjacent",
-      "link": "Link"
+      "link": "Link",
+      "challenges": "Hard problems"
     },
     "education": {
       "all": "Earlier entries",
