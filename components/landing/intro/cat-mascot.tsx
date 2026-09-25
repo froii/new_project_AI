@@ -58,9 +58,13 @@ const TAP_HOLD_MS = 400;
 const TAP_REWIND_MS = 45;
 const TAP_SETTLE_MS = 70;
 
+// Every length is in base rem times --cat-scale (set per breakpoint in the CSS module), so the whole
+// cat - size, walk, seat fix, paw landing - scales around its anchor without re-measuring.
+const rem = (value: number) => `calc(${value}rem * var(--cat-scale))`;
+
 function showFrame(node: HTMLDivElement, frame: number) {
-  node.style.backgroundPosition = `${-(frame % COLS) * FRAME_W_REM}rem ${-Math.floor(frame / COLS) * FRAME_H_REM}rem`;
-  node.style.transform = `translateX(${boxAt(frame)}rem)`;
+  node.style.backgroundPosition = `${rem(-(frame % COLS) * FRAME_W_REM)} ${rem(-Math.floor(frame / COLS) * FRAME_H_REM)}`;
+  node.style.transform = `translateX(${rem(boxAt(frame))})`;
 }
 
 export function CatMascot() {
@@ -70,9 +74,9 @@ export function CatMascot() {
     const wrap = wrapRef.current;
     if (!wrap) return;
 
-    wrap.style.width = `${FRAME_W_REM}rem`;
-    wrap.style.height = `${FRAME_H_REM}rem`;
-    wrap.style.backgroundSize = `${COLS * FRAME_W_REM}rem ${ROWS * FRAME_H_REM}rem`;
+    wrap.style.width = rem(FRAME_W_REM);
+    wrap.style.height = rem(FRAME_H_REM);
+    wrap.style.backgroundSize = `${rem(COLS * FRAME_W_REM)} ${rem(ROWS * FRAME_H_REM)}`;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       wrap.style.backgroundImage = "url(/cat/cat.webp)";

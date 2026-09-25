@@ -100,7 +100,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-s);
-  margin-block-start: var(--space-xl);
+  margin-block-start: var(--space-l);
 }
 
 /* The cat mascot sits in the room after the CV button and walks in from behind it, so the button
@@ -108,7 +108,7 @@
 .cvSlot {
   position: relative;
   display: flex;
-  margin-inline-end: 5rem;
+  margin-inline-end: 5.75rem;
 }
 
 .cvSlot > a {
