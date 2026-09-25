@@ -233,8 +233,8 @@ a:hover {
   --color-danger: #ff9b91;
   --color-focus: #8fb0ff;
 
-  --wash-near: 14%;
-  --wash-far: 8%;
+  --wash-near: 16%;
+  --wash-far: 9%;
 
   --color-invert-bg: #1c212a;
   --color-invert-text: #f2f4f7;
@@ -262,8 +262,8 @@ a:hover {
     --color-danger: #ff9b91;
     --color-focus: #8fb0ff;
 
-    --wash-near: 14%;
-    --wash-far: 8%;
+    --wash-near: 16%;
+    --wash-far: 9%;
 
     --color-invert-bg: #1c212a;
     --color-invert-text: #f2f4f7;

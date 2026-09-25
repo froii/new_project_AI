@@ -103,6 +103,27 @@
   margin-block-start: var(--space-xl);
 }
 
+/* The cat mascot sits in the room after the CV button and walks in from behind it, so the button
+   paints over it; the room fits the seated cat plus its tail at full swing. */
+.cvSlot {
+  position: relative;
+  display: flex;
+  margin-inline-end: 5rem;
+}
+
+.cvSlot > a {
+  position: relative;
+  z-index: 1;
+}
+
+/* While the cat walks behind the button, let it show through. On stacked (narrow) layouts it walks
+   above the button instead, so the button stays solid there. */
+@media (min-width: 34.01rem) {
+  .cvSlot[data-cat-behind] > a {
+    opacity: 0.6;
+  }
+}
+
 .secondary {
   display: inline-flex;
   align-items: center;
@@ -178,5 +199,13 @@
 @media (max-width: 34rem) {
   .actions > * {
     flex: 1 1 100%;
+  }
+
+  .cvSlot {
+    margin-inline-end: 0;
+  }
+
+  .cvSlot > a {
+    flex: 1;
   }
 }
