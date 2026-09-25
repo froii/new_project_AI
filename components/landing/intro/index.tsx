@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
 import { CvLink } from "@/components/landing/cv-link";
+import { CatMascot } from "./cat-mascot";
 import styles from "./intro.module.css";
 import { WriteButton } from "./write-button";
 
@@ -28,7 +29,10 @@ export function Intro() {
           </ul>
 
           <div className={styles.actions}>
-            <CvLink>{t("cta")}</CvLink>
+            <span className={styles.cvSlot}>
+              <CvLink>{t("cta")}</CvLink>
+              <CatMascot />
+            </span>
 
             <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
           </div>

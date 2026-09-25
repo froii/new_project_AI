@@ -15,7 +15,8 @@
   text-decoration: none;
   transition:
     background-color 200ms ease,
-    translate 150ms ease;
+    translate 150ms ease,
+    opacity 400ms ease;
 }
 
 .link:hover {

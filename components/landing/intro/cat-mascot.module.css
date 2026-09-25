@@ -1,0 +1,20 @@
+/* Anchored at the CV button's right edge, feet on the buttons' baseline (the sprite has 0.24rem of
+   empty floor under the paws). */
+.wrap {
+  --cat-scale: 1.15;
+  position: absolute;
+  inset-inline-start: 100%;
+  inset-block-end: calc(-0.24rem * var(--cat-scale));
+  visibility: hidden;
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+
+/* Stacked full-width buttons leave no room beside the button: the cat sits on top of it instead,
+   pulled in from the right edge so the whole cat stays on screen. */
+@media (max-width: 34rem) {
+  .wrap {
+    inset-inline-start: calc(100% - 7rem);
+    inset-block-end: calc(100% + var(--space-2xs));
+  }
+}
