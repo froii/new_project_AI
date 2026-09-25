@@ -28,6 +28,7 @@
 .viewport {
   --gap: var(--space-m);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
