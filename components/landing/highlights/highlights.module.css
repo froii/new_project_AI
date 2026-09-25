@@ -33,8 +33,7 @@
   overflow: hidden;
 }
 
-/* Every card stacked in one cell, invisible: the row takes the tallest card's
-   height, so rotating to a longer text no longer moves the page below. */
+/* Invisible stack of all cards: the row keeps the tallest card's height. */
 .track,
 .sizer {
   grid-area: 1 / 1;
@@ -56,9 +55,7 @@
   }
 }
 
-/* `width: 100%` is what makes the percentages agree: the column width and the
-   slide distance both have to resolve against the viewport, and a track free to
-   grow with its overflowing columns would measure them against itself. */
+/* `width: 100%` makes column width and step resolve against the viewport. */
 .track {
   --step: calc(100% + var(--gap));
   width: 100%;
@@ -66,7 +63,9 @@
   grid-auto-flow: column;
   grid-auto-columns: 100%;
   gap: var(--gap);
-  translate: calc((var(--shift, 0) - 1) * var(--step));
+  translate: calc(var(--pos, 1) * -1 * var(--step));
+  /* Keeps the layer after a slide, so the text isn't re-rasterized. */
+  will-change: translate;
 }
 
 .track[data-sliding] {

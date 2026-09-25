@@ -9,11 +9,8 @@ const VISIBLE = 3;
 const INTERVAL = 3000;
 const SWIPE = 40;
 
-/* The track renders one card either side of the three on show, so a shift has
-   something to slide in from and the animation can start from the outgoing
-   frame instead of a gap. `shift` is the slide in progress: the track moves by
-   one step, and only when it lands does `start` take over the same offset, with
-   the transition off so nothing moves back. */
+/* Static track with edge copies: a slide only moves `translate`. Past either
+   end, `pos` snaps back to the identical frame once the slide lands. */
 export function Carousel({
   items,
   prevLabel,
@@ -23,24 +20,27 @@ export function Carousel({
   prevLabel: string;
   nextLabel: string;
 }) {
-  const [start, setStart] = useState(0);
-  const [shift, setShift] = useState(0);
+  const [pos, setPos] = useState(0);
+  const [sliding, setSliding] = useState(false);
   const [paused, setPaused] = useState(false);
   const [touch, setTouch] = useState<{ x: number; y: number } | null>(null);
 
+  const wrap = (value: number) => (value + items.length) % items.length;
+
   const move = (step: 1 | -1) => {
-    if (shift !== 0) return;
+    if (sliding) return;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setStart((value) => (value + step + items.length) % items.length);
+      setPos((value) => wrap(value + step));
       return;
     }
-    setShift(-step);
+    setSliding(true);
+    setPos((value) => value + step);
   };
 
   const land = (event: TransitionEvent<HTMLUListElement>) => {
-    if (event.target !== event.currentTarget || shift === 0) return;
-    setStart((value) => (value - shift + items.length) % items.length);
-    setShift(0);
+    if (event.target !== event.currentTarget || !sliding) return;
+    setSliding(false);
+    setPos(wrap);
   };
 
   const swipe = (event: TouchEvent) => {
@@ -52,15 +52,18 @@ export function Carousel({
   };
 
   useEffect(() => {
-    if (paused || shift !== 0 || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (paused || sliding || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const timer = setTimeout(() => setShift(-1), INTERVAL);
+    const timer = setTimeout(() => {
+      setSliding(true);
+      setPos((value) => value + 1);
+    }, INTERVAL);
     return () => clearTimeout(timer);
-  }, [paused, shift]);
+  }, [paused, sliding]);
 
   const slots = Array.from(
-    { length: VISIBLE + 2 },
-    (_, slot) => items[(start + slot - 1 + items.length) % items.length],
+    { length: items.length + VISIBLE + 1 },
+    (_, slot) => items[wrap(slot - 1)],
   );
 
   return (
@@ -89,16 +92,16 @@ export function Carousel({
       >
         <ul
           className={styles.track}
-          style={{ "--shift": shift } as React.CSSProperties}
-          data-sliding={shift !== 0 ? "" : undefined}
+          style={{ "--pos": pos + 1 } as React.CSSProperties}
+          data-sliding={sliding ? "" : undefined}
           onTransitionEnd={land}
           role="list"
         >
           {slots.map((item, slot) => (
             <li
-              key={item.id}
+              key={slot}
               className={styles.card}
-              aria-hidden={slot === 0 || slot === VISIBLE + 1 || undefined}
+              aria-hidden={slot <= pos || slot > pos + VISIBLE || undefined}
             >
               <h3 className={styles.cardTitle}>{item.title}</h3>
               <p className={styles.cardBody}>{item.body}</p>
