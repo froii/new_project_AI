@@ -39,3 +39,10 @@ codemirror
 lodash
 chart.js
 d3.js
+redis
+taras
+frontendexpert
+memoization
+usememo
+usecallback
+httponly

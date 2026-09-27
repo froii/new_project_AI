@@ -9,7 +9,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-@media screen and (max-width: 47.99rem) {
+@media screen and (width < 48rem) {
   .span {
     flex-direction: column;
     gap: 0;

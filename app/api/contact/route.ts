@@ -1,13 +1,10 @@
-import nodemailer from "nodemailer";
-import { contactInbox } from "@/content";
 import { contactLimits, headerSafe, invalidContactFields } from "@/lib/contact-message";
-import { rateLimiter } from "@/lib/rate-limit";
+import { mailer } from "@/lib/mail";
+import { clientIp, rateLimiter } from "@/lib/rate-limit";
 
 /* nodemailer needs a raw socket; edge has none. */
 export const runtime = "nodejs";
 
-/* One constant header, so one inbox filter catches every message. */
-const FROM_NAME = "Website";
 const SUBJECT = "New message from the website";
 
 const limit = rateLimiter(5, 60 * 60 * 1000);
@@ -18,13 +15,10 @@ function text(body: Record<string, unknown>, key: string): string {
 }
 
 export async function POST(request: Request) {
-  const user = process.env.GMAIL_USER;
-  /* Google prints it in four groups of four; SMTP wants the sixteen. */
-  const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
-  if (!user || !pass) return Response.json({ ok: false }, { status: 503 });
+  const send = mailer();
+  if (!send) return Response.json({ ok: false }, { status: 503 });
 
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  if (limit.hit(forwarded || "unknown")) return Response.json({ ok: false }, { status: 429 });
+  if (limit.hit(clientIp(request))) return Response.json({ ok: false }, { status: 429 });
 
   let body: unknown;
   try {
@@ -55,10 +49,7 @@ export async function POST(request: Request) {
   if (draft.phone) details.push(`Phone: ${draft.phone}`);
 
   try {
-    /* Gmail allows no From but the authenticated account. */
-    await nodemailer.createTransport({ service: "gmail", auth: { user, pass } }).sendMail({
-      from: { name: FROM_NAME, address: user },
-      to: contactInbox,
+    await send({
       replyTo: headerSafe(draft.email),
       subject: SUBJECT,
       text: `${details.join("\n")}\n\n${draft.message}`,

@@ -26,7 +26,7 @@ export function PhotoSwitcher({ photos, alt, groupLabel, optionLabels }: PhotoSw
         src={active.src}
         width={active.width}
         height={active.height}
-        sizes="(max-width: 47.99rem) 100vw, 18rem"
+        sizes="(width < 48rem) 100vw, 18rem"
         priority
         alt={alt}
       />

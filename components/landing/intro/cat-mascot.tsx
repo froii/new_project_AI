@@ -109,11 +109,14 @@ export function CatMascot() {
           wrap.style.pointerEvents = "auto";
           const img = new Image();
           img.src = "/cat/cat-idle.webp";
-          img.decode().then(() => {
-            if (disposed) return;
-            idle.style.backgroundImage = `url(${img.src})`;
-            scheduleIdle();
-          }, () => {});
+          img.decode().then(
+            () => {
+              if (disposed) return;
+              idle.style.backgroundImage = `url(${img.src})`;
+              scheduleIdle();
+            },
+            () => {},
+          );
         }
       };
       raf = requestAnimationFrame(tick);

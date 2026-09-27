@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
 import { owner } from "@/content";
+import { Link, usePathname } from "@/i18n/navigation";
 import { contactLimits, invalidContactFields, type ContactField } from "@/lib/contact-message";
 import { CONTACT_OPEN } from "@/lib/contact-open";
 import { messengerLinks } from "@/lib/contacts";
@@ -23,6 +24,8 @@ function scrollToForm() {
 
 export function Contact({ pdf }: { pdf?: string }) {
   const t = useTranslations("contact");
+  const tAsk = useTranslations("ask");
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<ContactField[]>([]);
@@ -142,6 +145,12 @@ export function Contact({ pdf }: { pdf?: string }) {
                   <Button type="button" variant="outline" onClick={() => window.print()}>
                     {t("savePdf")}
                   </Button>
+                )}
+
+                {pathname !== "/questions" && (
+                  <Link className={styles.questions} href="/questions">
+                    {tAsk("title")}
+                  </Link>
                 )}
               </div>
             </div>

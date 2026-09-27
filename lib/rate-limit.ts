@@ -1,5 +1,10 @@
 export type RateLimit = { hit: (key: string, now?: number) => boolean };
 
+/* Vercel overwrites x-forwarded-for. */
+export function clientIp(request: Request): string {
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+}
+
 /* Out of the route handler so the rule can be tested: the handler itself pulls
    in nodemailer and reads the environment, and this is where the bug was. */
 export function rateLimiter(max: number, windowMs: number, maxKeys = 500): RateLimit {

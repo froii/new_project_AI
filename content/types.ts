@@ -50,3 +50,8 @@ export type Certification = {
 export type Achievement = {
   id: string;
 };
+
+export type QuestionTopic = {
+  id: string;
+  items: string[];
+};

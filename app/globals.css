@@ -340,7 +340,7 @@ a:hover {
 /* Below the sidebar breakpoint the section-menu pill sits fixed over the thumb.
    The band the page ends on pays for it in its own padding, so the clearance
    stays inside the dark card instead of showing as a strip of canvas. */
-@media (max-width: 79.99rem) {
+@media (width < 80rem) {
   .sheet {
     --thumb-clearance: calc(2.75rem + max(var(--space-m), env(safe-area-inset-bottom)));
   }
@@ -358,7 +358,7 @@ a:hover {
 
 /* On a phone the sheet metaphor costs more than it gives: the frame eats the
    gutter twice and the prose loses a word per line. */
-@media (max-width: 47.99rem) {
+@media (width < 48rem) {
   .sheet {
     padding-block-start: 0;
   }
@@ -455,7 +455,7 @@ a:hover {
 /* The sidebar already answers this on a wide screen; the bar is for phones,
    and only where the browser can drive it without a scroll listener. */
 @supports (animation-timeline: scroll()) {
-  @media (max-width: 79.99rem) {
+  @media (width < 80rem) {
     .progress {
       position: fixed;
       inset-inline: 0;

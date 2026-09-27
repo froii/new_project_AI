@@ -1,0 +1,143 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+  padding: var(--space-l);
+  border: var(--border-width) solid var(--line, var(--color-border));
+  border-radius: var(--radius);
+  background: var(--card, var(--color-paper));
+  color: var(--ink, var(--color-text));
+}
+
+.heading {
+  font-size: var(--step-1);
+}
+
+.disclaimer {
+  color: var(--color-text-faint);
+  font-size: var(--step--1);
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+  list-style: none;
+}
+
+.question,
+.answer {
+  max-width: min(100%, var(--measure));
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--radius);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.question {
+  align-self: flex-end;
+  background: color-mix(in srgb, var(--color-accent) 12%, var(--color-bg));
+  white-space: pre-wrap;
+}
+
+.answer {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  background: var(--line-soft, var(--color-surface));
+}
+
+.text {
+  white-space: pre-wrap;
+}
+
+.thinking {
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .thinking {
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-s);
+  color: var(--color-text-faint);
+  font-size: var(--step--2);
+}
+
+.failed {
+  border: var(--border-width) solid color-mix(in srgb, var(--color-danger) 40%, transparent);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.input {
+  min-height: 4.5rem;
+}
+
+/* Half-strength placeholder. */
+.form .input {
+  background: var(--backdrop, var(--color-bg));
+}
+
+.form .input::placeholder {
+  color: color-mix(in srgb, var(--color-text) 45%, transparent);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-s);
+}
+
+.model {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+}
+
+.model select {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2xs) var(--space-xs);
+  border: var(--border-width) solid var(--line, var(--color-border));
+  border-radius: var(--radius-sm);
+  background: var(--backdrop, var(--color-bg));
+  color: var(--color-text);
+  font: inherit;
+}
+
+@media (min-width: 40rem) {
+  .controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .model select {
+    flex: none;
+  }
+}
+
+.action {
+  min-width: 8rem;
+}

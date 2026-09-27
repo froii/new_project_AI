@@ -1,0 +1,19 @@
+{
+  "title": "Questions",
+  "heading": "Questions recruiters ask",
+  "intro": "Short answers, grouped by topic. If yours is not here, try the chat below.",
+  "chat": {
+    "heading": "Ask a question",
+    "disclaimer": "A free AI model answers based on this page and my CV. It can get things wrong, so for anything important, ask me directly.",
+    "placeholder": "For example: has he worked with React Native?",
+    "label": "Your question",
+    "send": "Send",
+    "stop": "Stop",
+    "thinking": "Looking for an answer...",
+    "sources": "Based on:",
+    "answeredBy": "Model: {model}",
+    "model": "Model",
+    "auto": "Auto",
+    "limit": "Today's limit for the free model is used up, sorry. Please send your question through the contact form."
+  }
+}

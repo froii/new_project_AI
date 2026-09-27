@@ -1,4 +1,4 @@
-import { Inter, JetBrains_Mono, Literata } from "next/font/google";
+import { Inter, JetBrains_Mono, Spectral } from "next/font/google";
 
 /* Self-hosted, and Cyrillic on purpose: the PDF is the page, so a font the
    visitor's machine happens to lack is a CV that prints differently for every
@@ -23,8 +23,10 @@ export const sans = Inter({
 /* Not preloaded: two families times two subsets was ~200KB of render-blocking
    preload on a page whose serif is one heading and whose mono is date labels.
    `adjustFontFallback` (on by default) matches the fallback metrics, so the
-   swap costs no layout shift and the first paint arrives sooner. */
-export const serif = Literata({
+   swap costs no layout shift and the first paint arrives sooner. Spectral is
+   not variable, so only the weights in use: 300 (h1), 400, 500 (h2/h3). */
+export const serif = Spectral({
+  weight: ["300", "400", "500"],
   subsets: ["latin", "cyrillic"],
   variable: "--font-serif",
   display: "swap",

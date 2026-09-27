@@ -41,6 +41,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  /* AI tooling config stays out of the repo (see 4cf11b3). */
+  agentRules: false,
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {
