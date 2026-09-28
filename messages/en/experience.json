@@ -26,7 +26,7 @@
       "role": "Full Stack Developer - BechaCant, remote (US)",
       "project": "A social app built around challenges between users: a Next.js PWA with LLM features that also runs inside the iOS and Android apps.",
       "result": "Built the client side of the premium subscription and put the product's first LLM features into production.",
-      "responsibilities": "Product features in the PWA: one-on-one and one-against-many challenges with voting, a feed of posts and comments, notifications with push delivery, profiles and followers, an onboarding tutorial and a wallet with promo-code and referral rewards.\n\nMobile fixes: layouts that hold under Android's large font sizes, modal inputs kept clear of the on-screen keyboard, and shared links that open in the app instead of the browser.\n\nAssistant panel: streamed answers and a choice of model and reasoning effort, tool calling and agent-style flows behind it, and every AI edit undoable as one step. Wrote the spec before the code and kept both in sync."
+      "responsibilities": "Product features in the PWA: one-on-one and one-against-many challenges with voting, a feed of posts and comments, push notifications, profiles and followers, an onboarding tutorial and a wallet with promo-code and referral rewards.\n\nMobile fixes: layouts that hold under Android's large font sizes, modal inputs kept clear of the on-screen keyboard, and shared links that open in the app instead of the browser.\n\nAssistant panel: streamed answers and a choice of model and reasoning effort, tool calling and agent-style flows, and every AI edit undoable as one step. Wrote the spec before the code and kept both in sync."
     },
     "eteam": {
       "role": "Full Stack Developer - eTeam, contract, remote",
@@ -37,7 +37,7 @@
     "danit": {
       "role": "Frontend Instructor - dan.it",
       "project": "An introductory frontend course.",
-      "result": "Took a group of 25 beginners from nothing to working HTML, CSS and Git.",
+      "result": "Took a group of 25 beginners from nothing to a working knowledge of HTML, CSS and Git.",
       "responsibilities": "Lectures, hands-on sessions and homework review across the full course."
     },
     "ugenius": {
@@ -80,7 +80,7 @@
     "eteam": [
       "Undo/redo for the whole app: widget moves, formulas, styles and other changes share one history, a change across several pages undoes as one step, and the history is kept in IndexedDB so it survives a reload.",
       "Formula editor: references to widgets and cells are highlighted and autocompleted from page and widget names, errors show as you type and after server validation, and clicking a reference selects the widget on the page.",
-      "User-built pages: users configure tables, charts and text blocks on top of data from their own databases, and layout, alignment guides and PDF export work for any set of widgets."
+      "User-built pages: users configure tables, charts and text blocks from database data, and layout, alignment guides and PDF export work for any set of widgets."
     ]
   }
 }

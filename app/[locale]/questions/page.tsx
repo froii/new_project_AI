@@ -8,6 +8,7 @@ import { defaultLocale, isLocale, locales } from "@/i18n/config";
 import { faqTopics } from "@/lib/ask/chunks";
 import { freeModels } from "@/lib/ask/models";
 import { ogImage } from "@/lib/og-image";
+import { jsonLd } from "@/lib/person-schema";
 import styles from "./questions.module.css";
 
 type QuestionsParams = { params: Promise<{ locale: string }> };
@@ -17,8 +18,8 @@ export async function generateMetadata({ params }: QuestionsParams): Promise<Met
   const t = await getTranslations({ locale, namespace: "common" });
   const tAsk = await getTranslations({ locale, namespace: "ask" });
 
-  const title = `${t("name")} - ${tAsk("title")}`;
-  const description = tAsk("intro");
+  const title = `${t("name")} - ${tAsk("metaTitle")}`;
+  const description = tAsk("metaDescription", { name: t("name") });
   const images = ogImage(locale, title);
 
   return {
@@ -42,9 +43,23 @@ export default async function QuestionsPage({ params }: QuestionsParams) {
   const t = await getTranslations({ locale, namespace: "ask" });
   const tCommon = await getTranslations({ locale, namespace: "common" });
   const models = await freeModels();
+  const topics = faqTopics(isLocale(locale) ? locale : defaultLocale);
+  /* Visible topics only: the markup has to match what the page shows. */
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: topics.flatMap((topic) =>
+      topic.items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    ),
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
       <a href="#main" className="skip-link visually-hidden">
         {tCommon("skipToContent")}
       </a>
@@ -56,7 +71,7 @@ export default async function QuestionsPage({ params }: QuestionsParams) {
             <p className={styles.lead}>{t("intro")}</p>
           </header>
 
-          <Faq topics={faqTopics(isLocale(locale) ? locale : defaultLocale)} />
+          <Faq topics={topics} />
           <Chat models={models} />
         </main>
       </div>

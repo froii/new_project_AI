@@ -34,6 +34,10 @@ describe("keywordRetriever", () => {
   });
 
   it("returns nothing for a question the corpus has no words for", async () => {
-    expect(await ids("salary", "en")).toEqual([]);
+    expect(await ids("zeppelin", "en")).toEqual([]);
+  });
+
+  it("finds answers from topics the page hides", async () => {
+    expect(await ids("What are your salary expectations?", "en")).toContain("faq.salary");
   });
 });

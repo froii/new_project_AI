@@ -1,5 +1,6 @@
 import { certifications, education, experience, owner, skills } from "@/content";
 import { questionTopics } from "@/content/questions";
+import type { QuestionTopic } from "@/content/types";
 import type { Locale } from "@/i18n/config";
 import en from "@/messages/en";
 import enQuestions from "@/messages/en/questions.json";
@@ -42,10 +43,10 @@ export type FaqTopic = {
 };
 
 /* Same records for the page and the index. Drafts (empty `a`) stay out of both. */
-export function faqTopics(locale: Locale): FaqTopic[] {
+function answeredTopics(locale: Locale, source: QuestionTopic[]): FaqTopic[] {
   const { topics, items } = catalogs[locale].questions;
 
-  return questionTopics
+  return source
     .map((topic) => ({
       id: topic.id,
       title: topics[topic.id as keyof typeof topics],
@@ -56,8 +57,15 @@ export function faqTopics(locale: Locale): FaqTopic[] {
     .filter((topic) => topic.items.length > 0);
 }
 
+export function faqTopics(locale: Locale): FaqTopic[] {
+  return answeredTopics(
+    locale,
+    questionTopics.filter((topic) => !topic.hidden),
+  );
+}
+
 function faqChunks(locale: Locale): Chunk[] {
-  return faqTopics(locale).flatMap((topic) =>
+  return answeredTopics(locale, questionTopics).flatMap((topic) =>
     topic.items.map((item) => ({
       id: `faq.${item.id}`,
       title: item.q,

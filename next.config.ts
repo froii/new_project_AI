@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
-import { defaultLocale } from "./i18n/config";
+import { defaultLocale, locales } from "./i18n/config";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -46,7 +46,18 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   async redirects() {
-    return [{ source: "/", destination: `/${defaultLocale}`, permanent: false }];
+    /* Any path without a locale gets the default one. Redirects run before
+       public files, so anything with a dot (robots.txt, icons, photos) and
+       anything starting with `_` (_next, _vercel, dev's __nextjs) is left alone. */
+    const skip = [...locales, "api"].join("|");
+    return [
+      { source: "/", destination: `/${defaultLocale}`, permanent: false },
+      {
+        source: `/:path((?!(?:${skip})(?:/|$)|_)[^.]+)`,
+        destination: `/${defaultLocale}/:path`,
+        permanent: false,
+      },
+    ];
   },
 };
 

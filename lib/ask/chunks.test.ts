@@ -3,7 +3,7 @@ import { questionTopics } from "@/content/questions";
 import { locales } from "@/i18n/config";
 import enQuestions from "@/messages/en/questions.json";
 import ukQuestions from "@/messages/uk/questions.json";
-import { chunks, profileChunk } from "./chunks";
+import { chunks, faqTopics, profileChunk } from "./chunks";
 
 const catalogs = { en: enQuestions, uk: ukQuestions };
 const ids = questionTopics.flatMap((topic) => topic.items);
@@ -45,6 +45,10 @@ describe("chunks", () => {
 
     expect(new Set(all.map((chunk) => chunk.id)).size).toBe(all.length);
     for (const chunk of all) expect(chunk.text.trim(), chunk.id).not.toBe("");
+  });
+
+  it("keeps hidden topics off the page", () => {
+    expect(faqTopics("en").map((topic) => topic.id)).not.toContain("details");
   });
 
   it("keeps the phone number out of the profile", () => {

@@ -46,3 +46,6 @@ memoization
 usememo
 usecallback
 httponly
+minisearch
+minio
+grep
