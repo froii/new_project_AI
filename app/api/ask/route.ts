@@ -126,6 +126,7 @@ export async function POST(request: Request) {
         let rest = "";
         let finished = false;
         let truncated = false;
+        let answered = false;
         let answeredBy: string | undefined;
 
         while (!finished) {
@@ -136,7 +137,10 @@ export async function POST(request: Request) {
           rest = parsed.rest;
           answeredBy ??= parsed.model;
           truncated ||= parsed.truncated;
-          for (const content of parsed.texts) emit({ type: "text", content });
+          for (const content of parsed.texts) {
+            answered ||= content.trim() !== "";
+            emit({ type: "text", content });
+          }
 
           if (parsed.failed) {
             fail(`${models.join(", ")} failed mid-stream`);
@@ -148,6 +152,11 @@ export async function POST(request: Request) {
         const who = answeredBy ?? models.join(", ");
         if (!finished) {
           fail(`${who} closed the stream before [DONE]`);
+          return;
+        }
+        /* Reasoning models can finish with no content; the client would show nothing. */
+        if (!answered && !truncated) {
+          fail(`${who} finished with an empty answer`);
           return;
         }
 

@@ -111,7 +111,7 @@ export default async function LocaleLayout({
             {process.env.NODE_ENV === "development" && <Inspector />}
           </ThemeProvider>
         </NextIntlClientProvider>
-        <Analytics />
+        {process.env.NODE_ENV !== "development" && <Analytics />}
       </body>
     </html>
   );
