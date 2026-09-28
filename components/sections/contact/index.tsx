@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent, type TransitionEvent } from "react";
 import { useTranslations } from "next-intl";
+import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Button } from "@/components/ui/button";
 import buttonStyles from "@/components/ui/button/button.module.css";
 import { Input } from "@/components/ui/input";
@@ -145,6 +146,7 @@ export function Contact({ pdf }: { pdf?: string }) {
                 {pathname !== "/questions" && (
                   <Link className={styles.questions} href="/questions">
                     {tAsk("title")}
+                    <ArrowIcon />
                   </Link>
                 )}
               </div>

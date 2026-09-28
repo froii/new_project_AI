@@ -203,6 +203,36 @@
         "courses"
       ]
     },
+    "msc": {
+      "q": "What does the MSc cover?",
+      "a": "Machine learning, neural networks, statistics and algorithms. It is the theoretical side of the AI work I do in production. I have been studying at Neoversity IT University since 2025.",
+      "keywords": [
+        "MSc",
+        "master's",
+        "Neoversity",
+        "machine learning",
+        "neural networks",
+        "statistics",
+        "algorithms",
+        "AI"
+      ]
+    },
+    "background": {
+      "q": "What did the earlier degrees cover?",
+      "a": "My bachelor's in hydrometeorology gave me a grounding in science: physics, statistics and modeling complex systems. During my postgraduate studies at the National Academy of Sciences of Ukraine, I worked on environmental safety, mostly its chemical and radiation side. I also did research on pollution monitoring there and published papers. In my master's in project management, I developed and defended my own projects and took part in student conferences.",
+      "keywords": [
+        "background",
+        "hydrometeorology",
+        "environmental safety",
+        "radiation",
+        "chemistry",
+        "physics",
+        "statistics",
+        "research",
+        "data validation",
+        "project management"
+      ]
+    },
     "teams": {
       "q": "Worked in international teams?",
       "a": "Yes, with German, American, Israeli and Ukrainian teams, mostly remotely. Over the last five years, though, the communication has been largely technical.",

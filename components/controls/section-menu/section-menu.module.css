@@ -383,17 +383,30 @@
   color: var(--color-bg);
 }
 
-.reset {
+.questions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
   font-size: var(--step--2);
   line-height: 1;
 }
 
-.reset:hover {
+.questions svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 200ms ease;
+}
+
+.questions:hover {
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+.questions:hover svg {
+  translate: 0.2rem 0;
 }
 
 @media (min-width: 72rem) {

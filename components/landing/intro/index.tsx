@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
 import { CvLink } from "@/components/landing/cv-link";
+import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Link } from "@/i18n/navigation";
 import { CatMascot } from "./cat-mascot";
 import styles from "./intro.module.css";
@@ -41,6 +42,7 @@ export function Intro() {
               <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
               <Link className={styles.textLink} href="/questions">
                 {tAsk("title")}
+                <ArrowIcon />
               </Link>
             </span>
           </div>

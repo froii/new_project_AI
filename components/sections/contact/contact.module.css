@@ -99,6 +99,7 @@
 .questions {
   display: inline-flex;
   align-items: center;
+  gap: 0.35em;
   min-height: 2.75rem;
   padding-inline: var(--space-xs);
   color: var(--color-accent);
@@ -110,6 +111,16 @@
 
 .questions:hover {
   text-decoration-thickness: 2px;
+}
+
+.questions svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 200ms ease;
+}
+
+.questions:hover svg {
+  translate: 0.2rem 0;
 }
 
 .aside {

@@ -160,6 +160,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.35em;
   min-height: 3rem;
   padding-inline: var(--space-xs);
   color: var(--color-accent);
@@ -172,6 +173,16 @@
 
 .textLink:hover {
   text-decoration-thickness: 2px;
+}
+
+.textLink svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 200ms ease;
+}
+
+.textLink:hover svg {
+  translate: 0.2rem 0;
 }
 
 .hint {

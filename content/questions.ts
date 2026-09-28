@@ -46,7 +46,7 @@ export const questionTopics: QuestionTopic[] = [
       "aiTools",
     ],
   },
-  { id: "education", items: ["degrees", "certifications", "languages"] },
+  { id: "education", items: ["degrees", "msc", "background", "certifications", "languages"] },
   {
     id: "personal",
     items: [
