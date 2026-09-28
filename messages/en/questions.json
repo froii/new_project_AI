@@ -70,7 +70,7 @@
     },
     "clients": {
       "q": "Worked directly with clients?",
-      "a": "Yes, constantly. I worked most closely with the CEO, who set priorities, and we discussed upcoming features together. With clients in the EU and the US, I took features end to end: from deciding what to build, through the trade-offs, to the release.",
+      "a": "Yes, constantly. I worked most closely with the CEO, who set the project's priorities and brought ideas for tasks, and we discussed upcoming features together. With clients in the EU and the US, I took features end to end: from deciding what to build, through the trade-offs, to the release.",
       "keywords": [
         "clients",
         "customers",
@@ -84,7 +84,7 @@
     },
     "leadership": {
       "q": "Leadership or mentoring experience?",
-      "a": "I have worked in small, flat teams where everyone helps each other. I did code review, helped new developers get up to speed on the project, and wrote specs and common rules for working with AI coding tools. In 2020, I taught an introductory frontend course at dan.it and took a group of 25 beginners from zero to a working knowledge of HTML, CSS and Git.",
+      "a": "I have worked in small, flat teams where everyone helps each other. I did code review, helped new developers get up to speed on the project, and wrote specs and shared rules for working with AI coding tools. In 2020, I taught an introductory frontend course at dan.it and took a group of 25 beginners from zero to a working knowledge of HTML, CSS and Git.",
       "keywords": [
         "lead",
         "leadership",
@@ -236,7 +236,7 @@
     },
     "teams": {
       "q": "Worked in international teams?",
-      "a": "Yes, with German, American, Israeli and Ukrainian teams, mostly remotely. Over the last five years, though, the communication has been largely technical.",
+      "a": "Yes, with German, American, Israeli and Ukrainian teams. I have been working remotely for over five years.",
       "keywords": [
         "international",
         "culture",
@@ -371,7 +371,7 @@
       "keywords": ["startup", "large company", "company size", "team", "culture"]
     },
     "typescript": {
-      "q": "How deep is the TypeScript knowledge?",
+      "q": "Experience with TypeScript?",
       "a": "TypeScript is my main language on both the frontend and the backend. Types make the code easier to read and reason about.",
       "keywords": ["TypeScript", "types", "typing", "JavaScript", "level"]
     },
@@ -402,7 +402,7 @@
     },
     "backend": {
       "q": "How strong is the backend: Node.js, databases, APIs?",
-      "a": "I have used Node.js for four years, mostly with Express, NestJS and TypeORM. I have worked with both SQL and NoSQL databases, mainly PostgreSQL, and built many integrations with external APIs, including Microsoft (Azure among them) and Google services. Integrating a new API is routine work for me.",
+      "a": "I have used Node.js for four years, mostly with Express, NestJS and TypeORM. I have worked with both SQL and NoSQL databases, mainly PostgreSQL, and built many integrations with external APIs, including Microsoft services such as Azure, and Google services. Integrating a new API is routine work for me.",
       "keywords": [
         "backend",
         "Node.js",
@@ -437,7 +437,7 @@
     },
     "security": {
       "q": "Approach to web application security?",
-      "a": "I write code with security in mind for every possible scenario, from the architecture and the choice of libraries to individual decisions in the code. I pick secure defaults up front so that I do not have to patch problems in production later: httpOnly cookies, parameterized queries, secrets kept on the server, validation at every layer.",
+      "a": "I think about security from the start: in the architecture, the choice of libraries and individual decisions in the code. I pick secure defaults up front so that I do not have to patch problems in production later: httpOnly cookies, parameterized queries, secrets kept on the server, validation at every layer.",
       "keywords": [
         "security",
         "injection",

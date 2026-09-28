@@ -31,7 +31,7 @@
     "eteam": {
       "role": "Full Stack Developer - eTeam, contract, remote",
       "project": "nedyx - a low-code platform for business reporting, built by a small international team.",
-      "result": "Shipped the widget system, undo/redo, archives and PDF export that the platform's reporting runs on, plus its own functional language.",
+      "result": "Shipped the widget system, undo/redo, archives and PDF export that the platform's reporting runs on, plus the platform's own functional language for formulas.",
       "responsibilities": "Maintained and extended the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualization control, large tables, charts and a text editor, reading data from external databases for many users."
     },
     "danit": {
@@ -48,7 +48,7 @@
     },
     "adraba": {
       "role": "Frontend Developer - Adraba, contract, Kyiv",
-      "project": "A dynamic site generator, mostly back office and admin logic. Alongside it, an online store for recreation events and a TED-style speaker platform in London.",
+      "project": "A site generator: a back office whose settings define how another site is displayed. Alongside it, an online store for leisure events and a TED-style speaker platform in London.",
       "result": "Delivered the client side and the back office of a generator that builds and runs other sites.",
       "responsibilities": "Email templates and business logic across a large admin panel, with tables and charts for creating dynamic pages, forms, info blocks and galleries."
     },
