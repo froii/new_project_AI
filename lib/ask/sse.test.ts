@@ -54,6 +54,11 @@ describe("parseUpstream", () => {
 
     expect(result.failed).toBe(true);
   });
+
+  it("reports an answer cut by max_tokens", () => {
+    const chunk = { choices: [{ delta: { content: "" }, finish_reason: "length" }] };
+    expect(parseUpstream(`data: ${JSON.stringify(chunk)}\n`).truncated).toBe(true);
+  });
 });
 
 describe("parseUpstream model", () => {

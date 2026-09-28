@@ -18,7 +18,6 @@ function isTurn(value: unknown): value is ChatTurn {
   return (turn.role === "user" || turn.role === "assistant") && typeof turn.content === "string";
 }
 
-/* Only the tail of the chat reaches the prompt. */
 export function parseAsk(body: unknown): AskRequest | null {
   if (typeof body !== "object" || body === null) return null;
   const fields = body as Record<string, unknown>;
@@ -49,7 +48,7 @@ export function parseAsk(body: unknown): AskRequest | null {
   return model ? { question, history, locale, model } : { question, history, locale };
 }
 
-/* Content in the question's script, not the page's: a Ukrainian question on /en finds nothing in the English index. */
+/* By the question's script, not the page: a Ukrainian question on /en finds nothing in English. */
 export function contentLocale(question: string): Locale {
   return /\p{Script=Cyrillic}/u.test(question) ? "uk" : "en";
 }

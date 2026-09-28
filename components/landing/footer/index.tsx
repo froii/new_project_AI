@@ -13,12 +13,10 @@ export function LandingFooter() {
       <Contact pdf={cvPdf} />
 
       <div className={`shell ${styles.bottom}`}>
-        {/* No year: every page here is prerendered, so `getFullYear()` froze at
-            build time and would have read 2026 all through 2027. */}
+        {/* No year: the page is prerendered, `getFullYear()` freezes at build. */}
         <p className={styles.copy}>© {t("name")}</p>
 
-        {/* The contact card above already carries the profiles; a second copy
-            of the same two icons a screen below says nothing new. */}
+        {/* No social links: the contact card above has them. */}
         <div className={styles.controls}>
           <LocaleSwitcher label={t("language")} />
           <ThemeToggle label={t("theme")} />

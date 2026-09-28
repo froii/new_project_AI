@@ -22,8 +22,7 @@ export function Experience() {
   const challenges: Partial<Record<string, string[]>> = t.raw("challenges");
   const span = experienceSpan(experience);
 
-  /* Teaching is not the pitch: a non-dev role earns its place only once the
-     visitor has asked for the whole history. */
+  /* Non-dev roles show only in the full history. */
   const shortlist = shortlistExperience(experience);
   const rest = entries.filter((entry) => !shortlist.includes(entry));
 

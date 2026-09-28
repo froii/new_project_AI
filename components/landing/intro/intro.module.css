@@ -33,7 +33,6 @@
   width: 100%;
 }
 
-/* Photo column fits the portrait; the rest goes to the actions row. */
 @media (min-width: 46rem) {
   .layout {
     grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
@@ -53,8 +52,8 @@
   text-transform: uppercase;
 }
 
-/* See the note in hero.module.css: the cap stacks the two words, it must never
-   split either of them, whatever the serif measures a `ch` as. */
+/* Same as `.name` in hero.module.css: the cap stacks the two words,
+   `overflow-wrap: normal` keeps either from splitting. */
 .name {
   max-inline-size: 12ch;
   margin-block-start: var(--space-m);
@@ -218,7 +217,6 @@
   }
 }
 
-/* Stacked buttons should share a width. */
 @media (max-width: 34rem) {
   .actions > * {
     flex: 1 1 100%;

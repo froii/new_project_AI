@@ -13,8 +13,6 @@ const catalogs = {
   uk: { messages: uk, questions: ukQuestions },
 };
 
-const span = (start: string, end?: string) => `${start} - ${end ?? ""}`.trim();
-
 /* Always in context, so the model knows whose CV it is. */
 export function profileChunk(locale: Locale): Chunk {
   const { common, hero } = catalogs[locale].messages;
@@ -71,6 +69,7 @@ function faqChunks(locale: Locale): Chunk[] {
 
 function cvChunks(locale: Locale): Chunk[] {
   const m = catalogs[locale].messages;
+  const span = (start: string, end?: string) => `${start} - ${end ?? m.experience.present}`;
 
   const about: Chunk[] = [
     { id: "about", title: m.about.heading, text: m.about.body, keywords: [] },

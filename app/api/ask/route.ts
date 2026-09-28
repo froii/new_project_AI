@@ -15,25 +15,27 @@ export const runtime = "nodejs";
 export const maxDuration = 30;
 
 const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+const MAX_TOKENS = 1000;
 
-/* ~50 free requests a day per account. */
+/* Per IP, so one visitor cannot drain the free tier's ~50 requests a day. */
 const limit = rateLimiter(10, 60 * 60 * 1000);
 
-/* Mail once a day on 429; every failure goes to the log. */
-let alertedOn = "";
+/* Mail once a day per subject; every failure goes to the log. */
+const alertedOn = new Map<string, string>();
 
-async function alertLimit(detail: string): Promise<void> {
+async function alertOwner(subject: string, detail: string): Promise<void> {
   const today = new Date().toISOString().slice(0, 10);
+  if (alertedOn.get(subject) === today) return;
   const send = mailer();
-  if (alertedOn === today || !send) return;
+  if (!send) return;
 
-  /* Claimed before the send, so parallel 429s mail once. */
-  alertedOn = today;
+  /* Claimed before the send, so parallel failures mail once. */
+  alertedOn.set(subject, today);
   try {
-    await send({ subject: "Website chat: the free model limit is reached", text: detail });
+    await send({ subject, text: detail });
   } catch (error) {
-    alertedOn = "";
-    console.error(`[ask] limit alert not sent: ${String(error)}`);
+    alertedOn.delete(subject);
+    console.error(`[ask] alert not sent: ${String(error)}`);
   }
 }
 
@@ -54,14 +56,20 @@ export async function POST(request: Request) {
   if (!ask) return Response.json({ ok: false }, { status: 400 });
 
   const sourceLocale = contentLocale(ask.question);
-  const found = await keywordRetriever(searchQuery(ask), sourceLocale);
+  const [found, catalog] = await Promise.all([
+    keywordRetriever(searchQuery(ask), sourceLocale),
+    freeModels(),
+  ]);
   const messages = buildMessages(profileChunk(sourceLocale), found, ask);
-  /* Curated only, minus retired ids (the catalog is cached for an hour); OpenRouter caps `models` at three. */
-  const live = (await freeModels()).map((model) => model.id);
+  /* Empty catalog means the fetch failed: fall back to the curated list. */
+  const live = catalog.map((model) => model.id);
   const pool = live.length > 0 ? live : curatedModels;
-  const models = (ask.model ? [ask.model, ...pool.filter((id) => id !== ask.model)] : pool)
+  /* A stale tab may still offer a retired pick. */
+  const pick = ask.model && pool.includes(ask.model) ? ask.model : undefined;
+  const models = (pick ? [pick, ...pool.filter((id) => id !== pick)] : pool)
     /* Last gate before the bill: a paid id never leaves the server. */
     .filter(isFreeModelId)
+    /* OpenRouter caps `models` at three. */
     .slice(0, 3);
 
   /* Abort on every exit so the model call never outlives the response. */
@@ -95,7 +103,7 @@ export async function POST(request: Request) {
             models,
             messages,
             stream: true,
-            max_tokens: 1000,
+            max_tokens: MAX_TOKENS,
             reasoning: { effort: "low", exclude: true },
           }),
         });
@@ -104,14 +112,20 @@ export async function POST(request: Request) {
           const reason = (await upstream.text().catch(() => "")).slice(0, 500);
           const detail = `${models.join(", ")} answered ${upstream.status}\n\n${reason}`;
           fail(detail);
-          /* All models refused. Mail after the response. */
-          if (upstream.status === 429) after(() => alertLimit(detail));
+          /* Own subject for the daily quota, so a short throttle does not use up its mail. */
+          if (upstream.status === 429) {
+            const subject = reason.includes("per-day")
+              ? "Website chat: the free model limit is reached"
+              : "Website chat: the free model is rate-limited";
+            after(() => alertOwner(subject, detail));
+          }
           return;
         }
 
         const reader = upstream.body.pipeThrough(new TextDecoderStream()).getReader();
         let rest = "";
         let finished = false;
+        let truncated = false;
         let answeredBy: string | undefined;
 
         while (!finished) {
@@ -121,6 +135,7 @@ export async function POST(request: Request) {
           const parsed = parseUpstream(rest + value);
           rest = parsed.rest;
           answeredBy ??= parsed.model;
+          truncated ||= parsed.truncated;
           for (const content of parsed.texts) emit({ type: "text", content });
 
           if (parsed.failed) {
@@ -130,13 +145,18 @@ export async function POST(request: Request) {
           finished = parsed.done;
         }
 
-        /* Closed before [DONE]: the answer is cut short. */
+        const who = answeredBy ?? models.join(", ");
         if (!finished) {
-          fail(`${answeredBy ?? models.join(", ")} closed the stream before [DONE]`);
+          fail(`${who} closed the stream before [DONE]`);
           return;
         }
 
-        emit({ type: "done", model: answeredBy });
+        emit({ type: "done", model: answeredBy, truncated });
+        if (truncated) {
+          const detail = `${who} hit max_tokens (${MAX_TOKENS})`;
+          console.error(`[ask] ${detail}`);
+          after(() => alertOwner("Website chat: an answer was cut off", detail));
+        }
         /* Questions go to the log only, never to analytics. */
         // eslint-disable-next-line no-console -- info level, read by hand
         console.log(

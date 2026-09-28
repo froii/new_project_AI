@@ -54,8 +54,8 @@
     column-gap: var(--space-s);
   }
 
-  /* The rail is cut to hold the longest term; body's break-word would still
-     split it mid-syllable rather than let it use the room. */
+  /* The rail fits the longest term, but body's break-word would still split it
+     mid-syllable; `normal` lets it use the room. */
   .term {
     overflow-wrap: normal;
     letter-spacing: 0.02em;

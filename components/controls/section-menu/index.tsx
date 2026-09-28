@@ -128,8 +128,8 @@ export function SectionMenu() {
           <ul className={styles.list} role="list">
             {sectionIds.map((id, index) => {
               const label = t(`labels.${id}`);
-              /* Contact is listed so a visitor can jump to it, but it carries no
-                 switch: it is screen-only and never reaches the PDF. */
+              /* Contact is listed for navigation but has no switch: it is
+                 screen-only and never reaches the PDF. */
               const toggleId = isToggleSection(id) ? id : null;
               const on = toggleId ? visible[toggleId] : true;
               const hasParts = sectionParts[id].length > 0;

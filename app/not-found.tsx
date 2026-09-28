@@ -7,10 +7,8 @@ import { contactHref } from "@/lib/contacts";
 import { mono, sans, serif } from "./fonts";
 import "./globals.css";
 
-/* `/blog` matches `[locale]`, so the locale layout runs, fails `isLocale` and
-   throws - from the root layout, which is above its own `not-found` boundary.
-   This is that boundary, and being above the locale it owns its own document.
-   The default locale is the only honest answer: the URL named no valid one. */
+/* `/blog` matches `[locale]`, fails `isLocale` and throws from the locale layout,
+   above its own not-found. This root boundary catches it, in the default locale. */
 export default async function RootNotFound() {
   const t = await getTranslations({ locale: defaultLocale, namespace: "error.notFound" });
   const email = owner.contacts.find((contact) => contact.kind === "email");

@@ -44,8 +44,8 @@ const TAP_HOLD_MS = 400;
 const TAP_REWIND_MS = 45;
 const TAP_SETTLE_MS = 70;
 
-// Cut at the idle clip's frames closest to the rest pose; the fade hides what is left of the gap.
-// [from, to, scale at from, scale at to]: the idle cat sits up to 5px lower than the rest pose.
+// [from, to, scale at from, scale at to]. Cut at the idle frames closest to the rest pose,
+// the fade hides the rest of the gap; scale offsets the idle cat sitting up to 5px lower.
 const IDLE_EVENTS: [number, number, number, number][] = [
   [0, 45, 1.036, 1],
   [45, 90, 1, 1.014],

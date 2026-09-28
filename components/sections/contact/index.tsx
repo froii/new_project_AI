@@ -17,7 +17,7 @@ import styles from "./contact.module.css";
 type Status = "idle" | "sending" | "sent" | "failed";
 
 /* The form is the last block on both pages. No `behavior`: it inherits
-   `scroll-behavior` from html, which reduced motion turns off. */
+   html's `scroll-behavior`, which reduced motion turns off. */
 function scrollToForm() {
   window.scrollTo({ top: document.documentElement.scrollHeight });
 }
@@ -37,9 +37,6 @@ export function Contact({ pdf }: { pdf?: string }) {
   const phone = owner.contacts.find((contact) => contact.kind === "phone")?.value;
   const broken = (field: ContactField) => errors.includes(field);
 
-  /* One row of ways to reach me: the messengers the phone number opens, then
-     the profiles. Splitting them into two labelled groups asked the visitor to
-     care about a distinction that only matters to the code. */
   const reach = [
     ...(phone
       ? messengerLinks(phone).map((link) => ({ ...link, label: t(`messengers.${link.id}`) }))
@@ -59,9 +56,7 @@ export function Contact({ pdf }: { pdf?: string }) {
 
   useEffect(() => {
     const request = () => {
-      /* Reopening after a send has to give back the form. Without this the
-         panel came back showing the old confirmation and no fields, and only a
-         reload got out of it. */
+      /* Reopening after a send shows the form, not the old confirmation. */
       setStatus("idle");
       setErrors([]);
       setOpen(true);

@@ -24,8 +24,8 @@
   background: var(--color-surface);
 }
 
-/* A date column narrow enough to fit beside the role leaves the role a few
-   pixels, so on small widths the span sits above the title as one range. */
+/* Narrow: a date column beside the role would leave the role a few pixels,
+   so the range sits above the title on one line. */
 .lead {
   grid-column: 1 / -1;
   display: flex;
@@ -130,18 +130,14 @@
   padding-block: 0 var(--space-m);
 }
 
-/* The sheet prints what the screen shows: a role left open prints its fields,
-   a closed one prints its header and the stack preview under it. */
+/* Print matches the screen: closed roles print header and preview only. */
 @media print {
   .content {
     overflow: visible;
   }
 
-  /* A whole role - header plus every field - is too large a unit to keep off a
-     fold; one that refuses to break leaves a third of a page empty. The header
-     is the part that must not be orphaned, so the rule sits there instead.
-     Its inline padding is the hover box, and on paper it only indents the
-     header away from the fields underneath it. */
+  /* Avoid-break on the header only: a whole role kept together leaves a third of a
+     page empty. Inline padding is the hover box; on paper it would only indent. */
   .trigger {
     width: 100%;
     margin-inline: 0;

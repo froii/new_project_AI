@@ -3,7 +3,7 @@ export type AskEvent =
   | { type: "sources"; items: { id: string; title: string }[] }
   | { type: "text"; content: string }
   /* Who answered: OpenRouter may fall back past the pick. */
-  | { type: "done"; model?: string }
+  | { type: "done"; model?: string; truncated?: boolean }
   /* Every failure reads as "limit reached" to the visitor. */
   | { type: "error" };
 
@@ -34,6 +34,7 @@ export function parseUpstream(buffer: string): {
   texts: string[];
   done: boolean;
   failed: boolean;
+  truncated: boolean;
   model?: string;
   rest: string;
 } {
@@ -42,6 +43,7 @@ export function parseUpstream(buffer: string): {
   const texts: string[] = [];
   let done = false;
   let failed = false;
+  let truncated = false;
   let model: string | undefined;
 
   for (const raw of lines) {
@@ -58,16 +60,19 @@ export function parseUpstream(buffer: string): {
       const parsed = JSON.parse(data) as {
         error?: unknown;
         model?: unknown;
-        choices?: { delta?: { content?: unknown } }[];
+        choices?: { delta?: { content?: unknown }; finish_reason?: unknown }[];
       };
       if (parsed.error) failed = true;
       if (typeof parsed.model === "string") model ??= parsed.model;
-      const content = parsed.choices?.[0]?.delta?.content;
+      const choice = parsed.choices?.[0];
+      /* Hit max_tokens: [DONE] still follows. */
+      if (choice?.finish_reason === "length") truncated = true;
+      const content = choice?.delta?.content;
       if (typeof content === "string" && content) texts.push(content);
     } catch {
       /* not JSON */
     }
   }
 
-  return { texts, done, failed, model, rest };
+  return { texts, done, failed, truncated, model, rest };
 }

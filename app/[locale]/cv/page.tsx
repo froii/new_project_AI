@@ -45,9 +45,8 @@ export async function generateMetadata({ params }: CvParams): Promise<Metadata> 
         "x-default": `/${defaultLocale}/cv`,
       },
     },
-    /* Description and site name repeated, not inherited: nested metadata
-       replaces the parent object rather than merging into it, so leaving them
-       out shipped the CV card with an empty description. */
+    /* Nested metadata replaces the parent object instead of merging, so description
+       and site name are repeated; without them the CV card had no description. */
     openGraph: {
       title,
       description: t("description"),
@@ -84,8 +83,8 @@ export default async function CvPage({ params }: CvParams) {
             })}
           </div>
 
-          {/* The slot is layout, not visibility: it is what makes the band span
-              the sheet. Contact has no toggle - it always renders. */}
+          {/* Plain `.section-slot`, not SectionSlot: contact has no toggle, and
+              the class is what makes the band span the sheet. */}
           <div className="section-slot">
             <Contact />
           </div>

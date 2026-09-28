@@ -73,8 +73,8 @@
   margin-block-start: var(--space-l);
 }
 
-/* The auxiliary route, under the profile links: text, not a button - the solid
-   weight belongs to the write action. The min-height stays, it is a tap target. */
+/* Text, not a button: the solid style belongs to the write action.
+   The min-height stays as a tap target. */
 .email {
   display: inline-flex;
   align-items: center;
@@ -146,9 +146,7 @@
   overflow: hidden;
 }
 
-/* Below the width that holds both actions on one line they stack full-width,
-   the way they do on a phone - a wrapped, partly filled second row read as a
-   mistake. */
+/* Stack full-width instead of a half-filled wrapped row. */
 @container (width < 50rem) {
   .bar > * {
     flex: 1 1 100%;
@@ -255,8 +253,7 @@
   color: var(--color-invert-text);
 }
 
-/* The band spans the viewport, so on a wide screen it can hold more than the
-   paper column it inherits its width from. */
+/* The band spans the viewport, so it can outgrow the paper width. */
 @container (min-width: 65rem) {
   .top,
   .revealInner {

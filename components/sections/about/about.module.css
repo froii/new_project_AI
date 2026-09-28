@@ -39,9 +39,8 @@
   color: var(--color-text-muted);
 }
 
-/* A border, not a background: the browser's print dialog drops backgrounds
-   unless the visitor ticks "background graphics", and the marker went with
-   them. Same one-pixel rule on screen. */
+/* A border, not a background: print drops backgrounds unless the visitor ticks
+   "background graphics", and the marker went with them. */
 .result::before {
   content: "";
   position: absolute;

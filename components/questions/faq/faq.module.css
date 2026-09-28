@@ -11,10 +11,6 @@
   border-block-start: var(--border-width) solid var(--line);
 }
 
-.topicHeading {
-  margin: 0;
-}
-
 .topicTrigger,
 .questionTrigger {
   display: flex;
@@ -24,9 +20,16 @@
   padding: 10px;
   border-radius: var(--radius-sm);
   text-align: start;
+  list-style: none;
+  cursor: pointer;
   transition:
     background-color 150ms ease,
     color 150ms ease;
+}
+
+.topicTrigger::-webkit-details-marker,
+.questionTrigger::-webkit-details-marker {
+  display: none;
 }
 
 .topicTrigger:hover,
@@ -45,7 +48,7 @@
 }
 
 .topicTrigger:hover,
-.topicTrigger[data-state="open"] {
+.topic[open] > .topicTrigger {
   color: var(--ink);
 }
 
@@ -68,14 +71,9 @@
     translate 200ms ease;
 }
 
-.topicTrigger[data-state="closed"] .caret {
+.topic:not([open]) > .topicTrigger .caret {
   translate: 0 -25%;
   rotate: 225deg;
-}
-
-/* forceMount: hiding is ours. */
-.content[data-state="closed"] {
-  display: none;
 }
 
 .questions {
@@ -87,10 +85,6 @@
 
 .question + .question {
   border-block-start: var(--border-width) solid var(--line-soft);
-}
-
-.questionHeading {
-  margin: 0;
 }
 
 .questionTrigger {
@@ -129,11 +123,11 @@
   rotate: 90deg;
 }
 
-.questionTrigger[data-state="open"] .plus {
+.question[open] > .questionTrigger .plus {
   color: var(--ink);
 }
 
-.questionTrigger[data-state="open"] .plus::after {
+.question[open] > .questionTrigger .plus::after {
   rotate: 0deg;
 }
 

@@ -23,9 +23,8 @@ export function generateStaticParams() {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  /* Per scheme, because the browser chrome paints before the theme script runs.
-     `--color-canvas`, which is what `body` paints: `--color-bg` is the paper, and
-     it left the address bar a visibly different shade from the page. */
+  /* Per scheme, because browser chrome paints before the theme script runs.
+     `--color-canvas`, not `--color-bg`: the address bar matches the page, not the paper. */
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f2f0eb" },
     { media: "(prefers-color-scheme: dark)", color: "#090b0e" },

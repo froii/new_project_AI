@@ -2,8 +2,6 @@
   min-width: 0;
 }
 
-/* ---------- the pill that lives where the thumb is ---------- */
-
 .trigger {
   position: fixed;
   inset-inline: 0;
@@ -93,8 +91,6 @@
   touch-action: none;
 }
 
-/* ---------- the panel: a sheet on a phone, a column on a desktop ---------- */
-
 .panel {
   position: fixed;
   inset-inline: 0;
@@ -117,7 +113,6 @@
   display: none;
 }
 
-/* A real drag, because a grip that does not move is a lie. */
 .grip {
   flex: none;
   display: flex;
@@ -135,8 +130,6 @@
   border-radius: 999px;
   background: var(--color-border);
 }
-
-/* ---------- versions: a row of pills, nothing else ---------- */
 
 .versionRow {
   display: flex;
@@ -168,8 +161,6 @@
   background: var(--color-invert-bg);
   color: var(--color-invert-text);
 }
-
-/* ---------- section rows: the reason the panel exists ---------- */
 
 .scroll {
   flex: 1;
@@ -252,8 +243,6 @@
   --switch-knob-size: 1.125rem;
 }
 
-/* ---------- part chips ---------- */
-
 .partsToggle {
   flex: none;
   display: inline-flex;
@@ -303,9 +292,7 @@
   gap: var(--space-2xs);
 }
 
-/* A switch says "turn this mode on"; picking a subset out of a set is what a
-   chip is for. The tick keeps its space when off, so the row does not reflow
-   on every press. */
+/* The tick keeps its space when off, so the row does not reflow. */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -352,8 +339,6 @@
   color: var(--color-accent);
 }
 
-/* ---------- the footer: what switching off costs, and the way out ---------- */
-
 .tools {
   flex: none;
   display: flex;
@@ -363,8 +348,6 @@
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
-/* The same micro-rubric the page uses over its own blocks, so the panel reads
-   as part of the site rather than as a control surface bolted onto it. */
 .groupLabel {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -412,8 +395,6 @@
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
-
-/* ---------- sidebar layout ---------- */
 
 @media (min-width: 72rem) {
   .root {

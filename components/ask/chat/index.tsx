@@ -40,7 +40,9 @@ export function Chat({ models }: { models: FreeModel[] }) {
     status === "idle" && last?.role === "assistant"
       ? last.failed
         ? t("limit")
-        : last.content
+        : last.truncated
+          ? [last.content, t("truncated")].filter(Boolean).join(" ")
+          : last.content
       : "";
 
   return (
@@ -135,16 +137,14 @@ function Answer({
     );
   }
 
-  /* Stopped before any text. */
-  if (!message.content && status !== "thinking") return null;
+  /* Stopped before any text. Blank opening lines stream as "". */
+  if (!message.content && !message.truncated && status === "idle") return null;
 
   return (
     <li className={styles.answer} aria-busy={status !== "idle"}>
-      {message.content ? (
-        <p className={styles.text}>{message.content}</p>
-      ) : (
-        <p className={styles.thinking}>{t("thinking")}</p>
-      )}
+      {message.content && <p className={styles.text}>{message.content}</p>}
+      {!message.content && !message.truncated && <p className={styles.thinking}>{t("thinking")}</p>}
+      {message.truncated && <p className={styles.truncated}>{t("truncated")}</p>}
 
       {status === "idle" && (message.sources?.length || modelName) ? (
         <p className={styles.meta}>

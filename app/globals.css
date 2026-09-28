@@ -185,9 +185,7 @@ a:hover {
   --radius-sm: 0.375rem;
   --border-width: 1px;
 
-  /* The landing wash. Light needs more of the accent than dark does to read
-     as a gradient at all: the same mix that glows on #0f1115 is invisible on
-     white. */
+  /* Landing wash: light needs more accent than dark to read as a gradient. */
   --wash-near: 22%;
   --wash-far: 13%;
   --shadow-sm: 0 1px 3px rgb(16 20 28 / 0.06);
@@ -299,8 +297,6 @@ a:hover {
   gap: var(--cluster-gap, var(--space-s));
 }
 
-/* ---------- workspace: panel beside the sheet ---------- */
-
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -337,17 +333,15 @@ a:hover {
   padding-inline: 0;
 }
 
-/* Below the sidebar breakpoint the section-menu pill sits fixed over the thumb.
-   The band the page ends on pays for it in its own padding, so the clearance
-   stays inside the dark card instead of showing as a strip of canvas. */
+/* Clearance for the fixed section-menu pill. The contact band adds it to its own
+   padding, so the gap stays inside the dark band instead of showing canvas. */
 @media (width < 80rem) {
   .sheet {
     --thumb-clearance: calc(2.75rem + max(var(--space-m), env(safe-area-inset-bottom)));
   }
 }
 
-/* A slot placed directly in the sheet instead of on the paper spans the whole
-   viewport: the page ends on a band, not on a card floating in the canvas. */
+/* A slot outside the paper spans the viewport: the page ends on a band. */
 .sheet > .section-slot {
   width: 100%;
 }
@@ -356,8 +350,8 @@ a:hover {
   padding-block: 0;
 }
 
-/* On a phone the sheet metaphor costs more than it gives: the frame eats the
-   gutter twice and the prose loses a word per line. */
+/* No sheet frame on a phone: frame plus gutter doubles the side padding and
+   the prose loses a word per line. */
 @media (width < 48rem) {
   .sheet {
     padding-block-start: 0;
@@ -374,13 +368,10 @@ a:hover {
   }
 }
 
-/* ---------- sections ---------- */
-
 .section-slot {
   min-width: 0;
 }
 
-/* The intro is a masthead, not a block: it sits closer to the summary that follows. */
 #hero {
   padding-block-end: var(--space-s);
 }
@@ -398,8 +389,6 @@ a:hover {
   scroll-margin-block-start: calc(var(--header-height) + var(--space-m));
 }
 
-/* A quiet rubric, the way a printed CV marks its blocks - no number, no rail,
-   sitting right on top of the content it names. */
 .section h2 {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -409,8 +398,7 @@ a:hover {
   color: var(--color-text-faint);
 }
 
-/* Prose names itself: the intro, the summary and the contact band read as what
-   they are, so a label over them is noise. Record lists need the marker. */
+/* Prose blocks need no visible label; record lists keep it. */
 .section:is(#hero, #about, #contact) h2 {
   clip-path: inset(50%);
   position: absolute;
@@ -437,8 +425,6 @@ a:hover {
   min-width: 0;
 }
 
-/* ---------- reading progress: where am I in the page ---------- */
-
 .progress {
   display: none;
 }
@@ -452,8 +438,7 @@ a:hover {
   }
 }
 
-/* The sidebar already answers this on a wide screen; the bar is for phones,
-   and only where the browser can drive it without a scroll listener. */
+/* Narrow screens only (the sidebar covers desktop); CSS scroll timeline, no JS. */
 @supports (animation-timeline: scroll()) {
   @media (width < 80rem) {
     .progress {
@@ -470,8 +455,6 @@ a:hover {
     }
   }
 }
-
-/* ---------- small shared pieces ---------- */
 
 .eyebrow {
   font-family: var(--font-mono);
@@ -557,10 +540,7 @@ a:hover {
   }
 }
 
-/* ---------- paper: the type and spacing the printed file is set in ---------- */
-
-/* Paper is the base and screen is the override, so print inherits these
-   untouched and no rule has to be written twice. */
+/* Paper values are the default and screen overrides them, so print needs no copy. */
 :root {
   --paper-font-size: 11pt;
   --paper-section-lead: 2.5mm;
@@ -569,8 +549,7 @@ a:hover {
   --paper-field-gap: var(--space-2xs);
   --paper-para-gap: var(--space-2xs);
 
-  /* One left rail for every label column on paper - accordion dates, field
-     terms, skill group names - so the values start on a single edge. */
+  /* Shared label-column width on paper, so values start on one edge. */
   --paper-rail: 28mm;
 }
 
@@ -589,12 +568,7 @@ html {
   font-size: var(--paper-font-size);
 }
 
-/* ---------- where a page may be cut ---------- */
-
-/* The unit of a CV is a record, not a paragraph: a job, a degree, a credential.
-   Splitting one across the fold costs the reader the context; splitting between
-   two costs nothing. So the avoid-rules sit on the records and nowhere else -
-   a section that refuses to break is what leaves half a page empty. */
+/* Avoid-rules on records only: an unbreakable section leaves half a page empty. */
 .block-head {
   break-inside: avoid;
   break-after: avoid;
@@ -612,12 +586,9 @@ dd {
   widows: 2;
 }
 
-/* ---------- print: the file the visitor actually keeps ---------- */
-
 @media print {
-  /* The screen scale is fluid because the viewport is; the sheet is 210mm and
-     always will be. Left on the clamps every step and space resolves near its
-     vw maximum, and the sheet carries a third of the text it could. */
+  /* Fixed scale on paper: the fluid clamps resolve near their vw max on a 210mm
+     sheet, which then fits a third less text. */
   :root {
     --step--2: 8pt;
     --step--1: 9.5pt;
@@ -637,7 +608,6 @@ dd {
     --space-2xl: 22pt;
   }
 
-  /* A printed CV is always light, whatever the screen was set to. */
   :root,
   :root[data-theme="dark"] {
     --color-bg: #ffffff;
@@ -662,8 +632,6 @@ dd {
     background: #ffffff;
   }
 
-  /* Chrome is for choosing; paper only carries the choice. Anything that acts
-     rather than informs is marked `screen-only` where it is written. */
   .screen-only,
   .progress,
   .skip-link {
@@ -690,7 +658,6 @@ dd {
     box-shadow: none;
   }
 
-  /* The summary answers the masthead: on paper it follows the contacts directly. */
   #hero {
     padding-block: 0 2mm;
   }
@@ -700,11 +667,7 @@ dd {
     text-decoration: none;
   }
 
-  /* A `ch` cap is a screen measure: it exists because a browser window is wider
-     than a column of text. The sheet already is the column, so every cap inside
-     it prints as blank paper on the right - and a `ch` is the element's own
-     font, so the same cap bites hardest exactly where the type is smallest. The
-     page margin sets the measure on paper; nothing inside it does. */
+  /* `ch` caps are a screen measure; on paper they print as a blank right edge. */
   #main * {
     max-inline-size: none;
     max-width: none;
@@ -722,20 +685,14 @@ dd {
     letter-spacing: normal;
   }
 
-  /* The rule under a rubric separates the block above from the block below, so
-     it needs room on both sides. Sitting a hair over the first line of content
-     it reads as an underline on that line instead of a divider. */
+  /* Space on both sides, or the rule reads as an underline of the next line. */
   .block-head {
     padding-block-end: var(--space-s);
     margin-block-end: var(--space-s);
   }
 }
 
-/* 8mm is not a taste, it is a threshold. Chrome draws its own header and footer
-   - the date, the page title, the localhost URL - inside the page margin, and
-   the visitor controls that from the print dialog, not from here. Below 8.5mm
-   there is no room for it and the browser drops it; at 8.5mm it comes back. So
-   the sheet gets the largest vertical margin that still keeps the file clean. */
+/* 8mm vertical: under 8.5mm Chrome omits its date/URL print header and footer. */
 @page {
   size: A4;
   margin: 8mm 14mm;

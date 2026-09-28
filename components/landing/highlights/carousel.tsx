@@ -9,8 +9,8 @@ const VISIBLE = 3;
 const INTERVAL = 3000;
 const SWIPE = 40;
 
-/* Static track with edge copies: a slide only moves `translate`. Past either
-   end, `pos` snaps back to the identical frame once the slide lands. */
+/* Endless loop via edge copies; a slide only moves `translate`. Past either end,
+   `pos` jumps to the matching real slide once the transition lands. */
 export function Carousel({
   items,
   prevLabel,

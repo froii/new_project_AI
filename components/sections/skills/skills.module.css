@@ -30,7 +30,6 @@
   color: var(--color-text);
 }
 
-/* Everything past the core stack is context, not the pitch. */
 .more .items,
 .tail {
   color: var(--color-text-muted);
@@ -48,7 +47,6 @@
   break-inside: avoid;
 }
 
-/* Group names share the rail every other label column on paper stands on. */
 @media print {
   .row {
     grid-template-columns: var(--paper-rail) minmax(0, 1fr);

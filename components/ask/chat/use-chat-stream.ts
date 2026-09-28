@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/config";
+import { askLimits } from "@/lib/ask/request";
 import { decodeEvents } from "@/lib/ask/sse";
 
 export type ChatMessage = {
@@ -11,8 +12,10 @@ export type ChatMessage = {
   sources?: { id: string; title: string }[];
   model?: string;
   failed?: boolean;
-  /* Got `done`: not stopped, not cut off. */
+  /* Got `done`: not stopped, not dropped mid-stream. */
   complete?: boolean;
+  /* Hit max_tokens; the fragment still goes into history. */
+  truncated?: boolean;
 };
 
 export type ChatStatus = "idle" | "thinking" | "streaming";
@@ -26,16 +29,18 @@ export function useChatStream(locale: Locale) {
 
   const send = useCallback(
     async (question: string, model?: string) => {
-      /* Answered pairs only: a stopped answer is a fragment. */
-      const history = messages.flatMap((message, index) => {
-        const answer = messages[index + 1];
-        return message.role === "user" && answer?.complete && answer.content
-          ? [
-              { role: "user" as const, content: message.content },
-              { role: "assistant" as const, content: answer.content },
-            ]
-          : [];
-      });
+      /* Completed pairs only; the server keeps the same tail. */
+      const history = messages
+        .flatMap((message, index) => {
+          const answer = messages[index + 1];
+          return message.role === "user" && answer?.complete && answer.content
+            ? [
+                { role: "user" as const, content: message.content },
+                { role: "assistant" as const, content: answer.content },
+              ]
+            : [];
+        })
+        .slice(-askLimits.turns);
 
       const id = crypto.randomUUID();
       const update = (patch: (message: ChatMessage) => ChatMessage) =>
@@ -89,13 +94,18 @@ export function useChatStream(locale: Locale) {
             }
             if (event.type === "done") {
               complete = true;
-              update((message) => ({ ...message, model: event.model, complete: true }));
+              update((message) => ({
+                ...message,
+                model: event.model,
+                complete: true,
+                truncated: event.truncated,
+              }));
             }
             if (event.type === "error") update((message) => ({ ...message, failed: true }));
           }
         }
 
-        /* Closed without `done`: the function hit its time limit mid-answer. */
+        /* No `done`: the function timed out mid-answer. */
         if (!complete) update((message) => ({ ...message, failed: true }));
       } catch {
         /* Stop keeps the partial answer. */
