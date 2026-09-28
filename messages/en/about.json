@@ -14,18 +14,18 @@
     },
     "clients": {
       "short": "Worked directly with clients in the EU and the US: from deciding what to build, through the trade-offs, to what shipped.",
-      "detail": "Small teams, so I worked across the whole path: the frontend, the backend and the release."
+      "detail": "Small teams, so I was responsible for the frontend, the backend, the release and more."
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
-      "detail": "Every table, chart and text block is defined by the user over data from their own databases, with archive creation and PDF export on top. Built drag-and-resize and undo/redo in-house for performance, and used react-dnd for page ordering and smaller block moves."
+      "detail": "Every table, chart and text block is configured by the user from database data, and there are also archives and PDF export. Built drag-and-resize and undo/redo in-house for performance, and used react-dnd for page ordering and smaller block moves."
     },
     "payments": {
       "short": "Built premium subscriptions for a PWA that also runs in native apps: a paywall plus store purchases and restores.",
       "detail": "Purchases go through a native bridge to the store, while premium banners and promo-code and referral rewards live in the web app."
     },
     "ai": {
-      "short": "Took LLM features from prototype to production inside real product flows.",
+      "short": "Took LLM features from prototype to production.",
       "detail": "Built retrieval over the product's own documents, streaming responses, tool calling and agent-style flows. All of it runs through OpenRouter rather than one vendor."
     },
     "performance": {

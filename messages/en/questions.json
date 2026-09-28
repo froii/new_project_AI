@@ -287,7 +287,7 @@
     },
     "failure": {
       "q": "A project that went wrong: what was learned?",
-      "a": "On the engineering side, every project shipped with its full planned scope. What fell short was traction: not enough marketing and too few clients. The market keeps changing and clients are getting harder to find, especially now that AI has pushed low-code and small apps aside. The lesson I took: first work out who you are selling to, and only then grow the product. A buyer tells you what is worth building, while features added at random, just to have them, rarely make a difference. On the technical side there was only the usual startup trade-off: early on you pick whichever free library is fastest to integrate, such as Chart.js instead of the far more flexible D3.js, and later they have to be replaced. That takes time, but it is a normal part of a product growing up.",
+      "a": "On the engineering side, every project shipped with its full planned scope. What fell short was traction: not enough marketing and too few clients. The market keeps changing and clients are getting harder to find, especially now that AI has pushed low-code and small apps aside. The lesson I took: first work out who you are selling to, and only then grow the product. A buyer tells you what is worth building, while features added at random, just to have them, rarely make a difference. On the technical side there was only the usual startup trade-off: early on you pick whichever free library is fastest to integrate, such as Chart.js instead of the far more flexible D3.js, and later it has to be replaced. That takes time, but it is a normal part of a product growing up.",
       "keywords": [
         "failure",
         "what went wrong",
@@ -556,7 +556,7 @@
     },
     "site": {
       "q": "How are this site and its chat built?",
-      "a": "Next.js 16 with the App Router, TypeScript, and next-intl for English and Ukrainian. The chat is RAG: keyword search with MiniSearch finds the relevant CV and FAQ entries, and a free model on OpenRouter answers from them, and the answer streams to the page. Requests from one IP are rate-limited.",
+      "a": "Next.js 16 with the App Router, TypeScript, and next-intl for English and Ukrainian. The chat is RAG: keyword search with MiniSearch finds the relevant CV and FAQ entries, and a free model on OpenRouter streams an answer from them. Requests from one IP are rate-limited.",
       "keywords": [
         "this site",
         "website",
@@ -665,7 +665,7 @@
     },
     "llmStack": {
       "q": "Embeddings, vector databases, LLM providers?",
-      "a": "The RAG I built in production worked without a vector database: for a small set of documents, keyword search over the documentation was enough, the same grep style approach coding agents use. I have studied vector databases, but they pay off with large volumes of data, so I have not used one in a product yet. In my MSc, I work with embeddings and transformer models. As the provider I use OpenRouter: it gives access to free models and makes switching between models quick.",
+      "a": "The RAG I built in production worked without a vector database: for a small set of documents, keyword search over the documentation was enough, the same grep-style approach coding agents use. I have studied vector databases, but they pay off with large volumes of data, so I have not used one in a product yet. In my MSc, I work with embeddings and transformer models. As the provider I use OpenRouter: it gives access to free models and makes switching between models quick.",
       "keywords": [
         "embeddings",
         "vector database",
@@ -680,7 +680,7 @@
     },
     "payments": {
       "q": "Payments outside the app stores, such as Stripe?",
-      "a": "No: my payment work was store purchases, made from a PWA through a native bridge.",
+      "a": "No: I have only built in-app store purchases, from a PWA through a native bridge.",
       "keywords": ["payments", "Stripe", "billing", "checkout", "subscriptions", "in-app purchases"]
     },
     "pdf": {

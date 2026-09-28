@@ -56,15 +56,15 @@
       "all": "Ранні позиції",
       "project": "Проєкт",
       "result": "Результат",
-      "responsibilities": "Обсяг",
+      "responsibilities": "Обов'язки",
       "techStack": "Стек",
-      "alsoUsed": "Суміжне",
+      "alsoUsed": "Також",
       "link": "Посилання",
       "challenges": "Складні задачі"
     },
     "education": {
       "all": "Ранні записи",
-      "skills": "Здобуте"
+      "skills": "Навички"
     },
     "certifications": {}
   }
