@@ -18,8 +18,7 @@ describe("rateLimiter", () => {
     const limit = rateLimiter(3, HOUR);
     for (let i = 0; i < 3; i++) limit.hit("a", i);
 
-    /* The regression: each of these used to be recorded, pushing the window
-       forward, so the sender was locked out for as long as they kept trying. */
+    /* Regression: refused hits used to be recorded and push the window forward. */
     for (let at = HOUR / 2; at < HOUR; at += HOUR / 10) expect(limit.hit("a", at)).toBe(true);
 
     expect(limit.hit("a", HOUR + 1)).toBe(false);
@@ -39,8 +38,8 @@ describe("rateLimiter", () => {
     limit.hit("c", 0);
     limit.hit("d", 0);
 
-    /* The second call is what proves the map was cleared: with a's first hit
-       still on record it would already be at the limit here. */
+    /* The second call proves the map was cleared: with a's first hit still
+       recorded it would already be at the limit. */
     expect(limit.hit("a", 1)).toBe(false);
     expect(limit.hit("a", 2)).toBe(false);
     expect(limit.hit("a", 3)).toBe(true);

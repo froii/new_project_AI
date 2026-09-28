@@ -2,12 +2,14 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent, type TransitionEvent } from "react";
 import { useTranslations } from "next-intl";
+import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Button } from "@/components/ui/button";
 import buttonStyles from "@/components/ui/button/button.module.css";
 import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
 import { owner } from "@/content";
+import { Link, usePathname } from "@/i18n/navigation";
 import { contactLimits, invalidContactFields, type ContactField } from "@/lib/contact-message";
 import { CONTACT_OPEN } from "@/lib/contact-open";
 import { messengerLinks } from "@/lib/contacts";
@@ -16,13 +18,15 @@ import styles from "./contact.module.css";
 type Status = "idle" | "sending" | "sent" | "failed";
 
 /* The form is the last block on both pages. No `behavior`: it inherits
-   `scroll-behavior` from html, which reduced motion turns off. */
+   html's `scroll-behavior`, which reduced motion turns off. */
 function scrollToForm() {
   window.scrollTo({ top: document.documentElement.scrollHeight });
 }
 
 export function Contact({ pdf }: { pdf?: string }) {
   const t = useTranslations("contact");
+  const tAsk = useTranslations("ask");
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<ContactField[]>([]);
@@ -34,9 +38,6 @@ export function Contact({ pdf }: { pdf?: string }) {
   const phone = owner.contacts.find((contact) => contact.kind === "phone")?.value;
   const broken = (field: ContactField) => errors.includes(field);
 
-  /* One row of ways to reach me: the messengers the phone number opens, then
-     the profiles. Splitting them into two labelled groups asked the visitor to
-     care about a distinction that only matters to the code. */
   const reach = [
     ...(phone
       ? messengerLinks(phone).map((link) => ({ ...link, label: t(`messengers.${link.id}`) }))
@@ -56,9 +57,7 @@ export function Contact({ pdf }: { pdf?: string }) {
 
   useEffect(() => {
     const request = () => {
-      /* Reopening after a send has to give back the form. Without this the
-         panel came back showing the old confirmation and no fields, and only a
-         reload got out of it. */
+      /* Reopening after a send shows the form, not the old confirmation. */
       setStatus("idle");
       setErrors([]);
       setOpen(true);
@@ -142,6 +141,13 @@ export function Contact({ pdf }: { pdf?: string }) {
                   <Button type="button" variant="outline" onClick={() => window.print()}>
                     {t("savePdf")}
                   </Button>
+                )}
+
+                {pathname !== "/questions" && (
+                  <Link className={styles.questions} href="/questions">
+                    {tAsk("title")}
+                    <ArrowIcon />
+                  </Link>
                 )}
               </div>
             </div>

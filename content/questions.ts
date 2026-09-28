@@ -1,0 +1,63 @@
+import type { QuestionTopic } from "./types";
+
+/* Order only; text lives in messages/{locale}/questions.json. */
+export const questionTopics: QuestionTopic[] = [
+  {
+    id: "format",
+    items: ["availability", "engagement", "relocation", "trial", "contact"],
+  },
+  {
+    id: "experience",
+    items: [
+      "focus",
+      "recent",
+      "clients",
+      "leadership",
+      "scope",
+      "teamSize",
+      "hardest",
+      "failure",
+      "legacy",
+      "companyType",
+      "domains",
+    ],
+  },
+  {
+    id: "motivation",
+    items: ["whyLooking", "idealRole", "interests", "growth", "track", "companySize"],
+  },
+  {
+    id: "stack",
+    items: [
+      "core",
+      "ai",
+      "performance",
+      "testing",
+      "devops",
+      "typescript",
+      "nextjs",
+      "state",
+      "backend",
+      "systemDesign",
+      "mobile",
+      "frameworks",
+      "accessibility",
+      "security",
+      "aiTools",
+    ],
+  },
+  { id: "education", items: ["degrees", "msc", "background", "certifications", "languages"] },
+  {
+    id: "personal",
+    items: [
+      "teams",
+      "principles",
+      "hobbies",
+      "conflict",
+      "review",
+      "estimation",
+      "learning",
+      "weakness",
+    ],
+  },
+];

@@ -121,7 +121,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 47.99rem) {
+@media (width < 48rem) {
   .card {
     justify-content: center;
   }
@@ -155,4 +155,3 @@
   color: var(--color-text-faint);
   font-size: var(--step--1);
 }
-

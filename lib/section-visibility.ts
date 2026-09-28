@@ -40,9 +40,7 @@ export function presetVisibility(id: PresetId): Visibility {
   return { ...defaultVisibility, ...presets[id] };
 }
 
-/* What a version actually contains, counted off the toggles themselves, so the
-   panel cannot describe a version the data no longer produces. Details inside a
-   switched-off section do not count: nothing renders them. */
+/* Details inside a switched-off section do not count: nothing renders them. */
 export function visibilityCount(visible: Visibility): { sections: number; details: number } {
   const sections = toggleSectionIds.filter((id) => visible[id]);
 

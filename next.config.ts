@@ -4,11 +4,6 @@ import { defaultLocale } from "./i18n/config";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
-/* No nonce, and that is the trade: a nonce is per request, and a per-request
-   header makes every page dynamic - the whole site is prerendered today. So
-   scripts and styles stay 'unsafe-inline' (Next and next-themes both inline),
-   and the policy earns its place on the directives that do bite here: where the
-   page may connect, what may frame it, and where a form may post. */
 const isDev = process.env.NODE_ENV === "development";
 
 const csp = [
@@ -20,11 +15,12 @@ const csp = [
   "img-src 'self' data: blob:",
   "font-src 'self'",
   "connect-src 'self'",
+  /* 'unsafe-inline', not a nonce: Next and next-themes inline scripts, and a
+     per-request nonce would make every prerendered page dynamic. */
   "style-src 'self' 'unsafe-inline'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  /* Production only: on the dev server it rewrites every `/_next/*` request to
-     https, and opening the dev server from a phone over the LAN - the only way
-     to test the panel on a real touch screen - then loads a blank page. */
+  /* Prod only: it rewrites `/_next/*` to https, so the http dev server opened
+     from a phone over LAN renders a blank page. */
   ...(isDev ? [] : ["upgrade-insecure-requests"]),
 ].join("; ");
 
@@ -41,6 +37,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  /* Stops `next dev` generating AGENTS.md and CLAUDE.md at the root:
+     AI tooling config stays out of the repo (4cf11b3). */
+  agentRules: false,
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {

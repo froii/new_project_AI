@@ -32,6 +32,12 @@
 @container (min-width: 34rem) {
   .top {
     grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--space-l);
+  }
+}
+
+@container (max-width: 800px) {
+  .top {
     column-gap: var(--space-2xl);
   }
 }
@@ -67,8 +73,8 @@
   margin-block-start: var(--space-l);
 }
 
-/* The auxiliary route, under the profile links: text, not a button - the solid
-   weight belongs to the write action. The min-height stays, it is a tap target. */
+/* Text, not a button: the solid style belongs to the write action.
+   The min-height stays as a tap target. */
 .email {
   display: inline-flex;
   align-items: center;
@@ -88,6 +94,33 @@
 .email:hover {
   color: var(--color-invert-accent);
   text-decoration-color: currentColor;
+}
+
+.questions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  min-height: 2.75rem;
+  padding-inline: var(--space-xs);
+  color: var(--color-accent);
+  font-size: var(--step-0);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.questions:hover {
+  text-decoration-thickness: 2px;
+}
+
+.questions svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 200ms ease;
+}
+
+.questions:hover svg {
+  translate: 0.2rem 0;
 }
 
 .aside {
@@ -124,13 +157,17 @@
   overflow: hidden;
 }
 
-/* Below the width that holds both actions on one line they stack full-width,
-   the way they do on a phone - a wrapped, partly filled second row read as a
-   mistake. */
-@container (max-width: 49.99rem) {
+/* Stack full-width instead of a half-filled wrapped row. */
+@container (width < 50rem) {
   .bar > * {
     flex: 1 1 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .bar > :not(.questions) {
+    padding-inline: var(--space-s);
   }
 }
 
@@ -227,8 +264,7 @@
   color: var(--color-invert-text);
 }
 
-/* The band spans the viewport, so on a wide screen it can hold more than the
-   paper column it inherits its width from. */
+/* The band spans the viewport, so it can outgrow the paper width. */
 @container (min-width: 65rem) {
   .top,
   .revealInner {

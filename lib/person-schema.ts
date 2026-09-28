@@ -8,8 +8,6 @@ type PersonInput = {
   image: string;
 };
 
-/* Every value comes from `content/`, so the machine-readable copy of the CV
-   cannot drift from the rendered one. */
 export function personSchema(input: PersonInput) {
   const email = owner.contacts.find((contact) => contact.kind === "email")?.value;
   const phone = owner.contacts.find((contact) => contact.kind === "phone")?.value;
@@ -29,8 +27,8 @@ export function personSchema(input: PersonInput) {
   };
 }
 
-/* A closing tag inside a JSON string ends the script element. Nothing here is
-   visitor input, but the escape costs one call and removes the class of bug. */
+/* A `</script>` inside the JSON would end the script element. No visitor input
+   here, but escaping `<` removes that class of bug for one call. */
 export function jsonLd(value: unknown): string {
   return JSON.stringify(value).replace(/</g, "\\u003c");
 }

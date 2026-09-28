@@ -13,8 +13,7 @@
   }
 }
 
-/* With the portrait off there is no second column to leave room for, so the
-   caps that kept the name and the headline clear of it come off too. */
+/* Portrait off: no column to keep clear of, so the caps come off. */
 .layout:has(> [hidden]) {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -43,9 +42,8 @@
   white-space: nowrap;
 }
 
-/* `overflow-wrap: normal` overrides the document default: a `ch` is measured in
-   the element own font, so any cap set for one serif chops a long surname in the
-   next one. The cap is here to stack the two words, never to split either. */
+/* The cap stacks the two words. `overflow-wrap: normal` overrides body's break-word:
+   `ch` depends on the font, so a cap tuned for one serif splits a long surname in another. */
 .name {
   max-inline-size: 12ch;
   margin-block-start: var(--space-m);
@@ -62,8 +60,6 @@
   color: var(--color-text-muted);
 }
 
-/* Accent is the link colour everywhere else on the page, so a static line
-   wearing it reads as clickable. Weight carries the distinction instead. */
 .facts {
   display: flex;
   flex-direction: column;
@@ -107,17 +103,9 @@
   justify-self: start;
 }
 
-/* Paper keeps the portrait, but not at the screen's 18rem: that column is a
-   quarter of the sheet and the masthead is the one block that must not cost a
-   page of its own.
-
-   The masthead is also where the print scale flattened worst. Every step here
-   is fluid on screen, so on paper the name lost most of its lead over the
-   headline while the contacts - bumped a step "so an email survives a
-   photocopier" - ended up larger than the availability lines and level with the
-   pitch. Reference data was outranking the argument. The order is set here
-   explicitly, and it is the screen's order: name, headline, summary, then the
-   two blocks of facts. */
+/* Paper keeps the portrait at 32mm, not 18rem, so the masthead does not take a page.
+   Sizes are explicit: the fluid scale shrank the name's lead over the headline and made
+   the contacts as large as the pitch. Order follows the screen: name, headline, facts. */
 @media print {
   .layout {
     padding-block: 0;
@@ -135,8 +123,7 @@
     font-size: 13.5pt;
   }
 
-  /* Three groups, not four evenly spaced lines: the eyebrow, name and headline
-     are one unit; availability is the second; the contacts are the third. */
+  /* Three groups: title block, availability, contacts. */
   .facts {
     margin-block-start: var(--space-l);
   }

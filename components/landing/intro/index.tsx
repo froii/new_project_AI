@@ -2,6 +2,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
 import { CvLink } from "@/components/landing/cv-link";
+import { ArrowIcon } from "@/components/ui/arrow-icon";
+import { Link } from "@/i18n/navigation";
 import { CatMascot } from "./cat-mascot";
 import styles from "./intro.module.css";
 import { WriteButton } from "./write-button";
@@ -11,6 +13,7 @@ export function Intro() {
   const tHero = useTranslations("hero");
   const tCommon = useTranslations("common");
   const tContact = useTranslations("contact");
+  const tAsk = useTranslations("ask");
 
   const photo = owner.photos[0];
 
@@ -34,7 +37,14 @@ export function Intro() {
               <CatMascot />
             </span>
 
-            <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
+            {/* Wraps as one unit, so the link never leaves the button. */}
+            <span className={styles.more}>
+              <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
+              <Link className={styles.textLink} href="/questions">
+                {tAsk("title")}
+                <ArrowIcon />
+              </Link>
+            </span>
           </div>
 
           <p className={styles.hint}>{t("ctaHint")}</p>
@@ -46,7 +56,7 @@ export function Intro() {
               src={photo.src}
               width={photo.width}
               height={photo.height}
-              sizes="(max-width: 45.99rem) 62vw, 17rem"
+              sizes="(width < 46rem) 62vw, 17rem"
               priority
               alt={tHero("photoAlt", { name: tCommon("name") })}
             />

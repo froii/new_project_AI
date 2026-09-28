@@ -1,4 +1,3 @@
-/* Shared by 404 and 500: one dead end, two reasons for it. */
 .status {
   display: grid;
   align-content: center;

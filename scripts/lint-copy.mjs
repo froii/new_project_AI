@@ -25,6 +25,8 @@ function strings(value, path, out) {
 }
 
 const isMarkup = (text) => /\{[^}]*(plural|select)/.test(text);
+/* Search terms, not sentences. */
+const isSearchTerm = (path) => /\.keywords\[\d+\]$/.test(path);
 const clean = (text) => text.replace(/\{[^}]*\}/g, "…");
 
 async function dictionary(file) {
@@ -57,7 +59,8 @@ async function collect(dir) {
   for (const name of files) {
     const parsed = JSON.parse(await readFile(join(dir, name), "utf8"));
     for (const entry of strings(parsed, "", [])) {
-      if (!isMarkup(entry.text)) entries.push({ ...entry, file: `${dir}/${name}` });
+      if (!isMarkup(entry.text) && !isSearchTerm(entry.path))
+        entries.push({ ...entry, file: `${dir}/${name}` });
     }
   }
   return entries;

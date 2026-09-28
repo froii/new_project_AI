@@ -1,0 +1,48 @@
+/* Page-only palette: visible lines in light, softer text in dark. */
+.backdrop {
+  --card: color-mix(in srgb, var(--color-paper) 50%, var(--color-surface));
+  --line: color-mix(in srgb, var(--color-text) 14%, transparent);
+  --line-soft: color-mix(in srgb, var(--color-text) 8%, transparent);
+  --hover: color-mix(in srgb, var(--color-text) 5%, transparent);
+  --ink: color-mix(in srgb, var(--color-text) 82%, var(--card));
+
+  background: var(--backdrop, transparent);
+}
+
+:global(:root[data-theme="dark"]) .backdrop {
+  --backdrop: #161a20;
+  --card: #1f242c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme])) .backdrop {
+    --backdrop: #161a20;
+    --card: #1f242c;
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  max-width: calc(var(--paper-max) + 2 * var(--gutter));
+  padding-block: var(--space-2xl);
+  color: var(--ink);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.heading {
+  font-size: var(--step-4);
+  line-height: 1.1;
+}
+
+.lead {
+  max-width: var(--measure);
+  color: var(--color-text-muted);
+  font-size: var(--step-1);
+}

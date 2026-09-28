@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { defaultLocale, locales } from "@/i18n/config";
 import { siteUrl } from "@/lib/site";
 
-const paths = ["", "/cv"];
+const paths = ["", "/cv", "/questions"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return paths.flatMap((path) =>

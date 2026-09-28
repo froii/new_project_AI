@@ -1,4 +1,5 @@
 import about from "./about.json";
+import ask from "./ask.json";
 import certifications from "./certifications.json";
 import common from "./common.json";
 import contact from "./contact.json";
@@ -13,6 +14,7 @@ import skills from "./skills.json";
 
 const en = {
   about,
+  ask,
   certifications,
   common,
   contact,

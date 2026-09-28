@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSections } from "@/components/providers/sections-provider";
+import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Switch } from "@/components/ui/switch";
 import {
   isToggleSection,
@@ -14,8 +15,8 @@ import {
   type ToggleId,
   type ToggleSectionId,
 } from "@/content/sections";
+import { Link } from "@/i18n/navigation";
 import {
-  defaultVisibility,
   matchPreset,
   partsCount,
   presetVisibility,
@@ -28,6 +29,7 @@ import styles from "./section-menu.module.css";
 
 export function SectionMenu() {
   const t = useTranslations("sections");
+  const tAsk = useTranslations("ask");
   const { visible, toggle, apply } = useSections();
   const active = useActiveSection(visible);
 
@@ -128,8 +130,8 @@ export function SectionMenu() {
           <ul className={styles.list} role="list">
             {sectionIds.map((id, index) => {
               const label = t(`labels.${id}`);
-              /* Contact is listed so a visitor can jump to it, but it carries no
-                 switch: it is screen-only and never reaches the PDF. */
+              /* Contact is listed for navigation but has no switch: it is
+                 screen-only and never reaches the PDF. */
               const toggleId = isToggleSection(id) ? id : null;
               const on = toggleId ? visible[toggleId] : true;
               const hasParts = sectionParts[id].length > 0;
@@ -248,13 +250,10 @@ export function SectionMenu() {
           </div>
 
           <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.reset}
-              onClick={() => apply({ ...defaultVisibility })}
-            >
-              {t("reset")}
-            </button>
+            <Link className={styles.questions} href="/questions">
+              {tAsk("title")}
+              <ArrowIcon />
+            </Link>
             <button type="button" className={styles.print} onClick={() => window.print()}>
               {t("print")}
             </button>

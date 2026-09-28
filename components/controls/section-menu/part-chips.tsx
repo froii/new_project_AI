@@ -24,8 +24,7 @@ export function PartChips({
     refs.current[index]?.focus();
   };
 
-  /* One tab stop for the whole group, arrows inside: thirteen parts across the
-     panel would otherwise be thirteen stops between the list and the footer. */
+  /* Roving tabindex: one tab stop for the group, arrows inside. */
   const onKeyDown = (event: React.KeyboardEvent) => {
     const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
 

@@ -35,8 +35,8 @@
 
 @media (min-width: 46rem) {
   .layout {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    column-gap: clamp(var(--space-2xl), 6vw, 5rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
+    column-gap: clamp(var(--space-xl), 4vw, 5rem);
   }
 }
 
@@ -52,8 +52,8 @@
   text-transform: uppercase;
 }
 
-/* See the note in hero.module.css: the cap stacks the two words, it must never
-   split either of them, whatever the serif measures a `ch` as. */
+/* Same as `.name` in hero.module.css: the cap stacks the two words,
+   `overflow-wrap: normal` keeps either from splitting. */
 .name {
   max-inline-size: 12ch;
   margin-block-start: var(--space-m);
@@ -99,7 +99,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-s);
+  gap: var(--space-xs);
   margin-block-start: var(--space-l);
 }
 
@@ -116,7 +116,7 @@
 }
 
 /* Stacked layouts: the cat walks above the button, not behind it. */
-@media (min-width: 34.01rem) {
+@media (width > 34rem) {
   .cvSlot[data-cat-behind] > a {
     opacity: 0.6;
   }
@@ -128,7 +128,7 @@
   justify-content: center;
   gap: var(--space-xs);
   min-height: 3rem;
-  padding-inline: var(--space-xl);
+  padding-inline: var(--space-l);
   border-radius: var(--radius);
   font-size: var(--step-0);
   font-weight: 500;
@@ -148,6 +148,41 @@
   border-color: var(--color-accent);
   color: var(--color-accent);
   translate: 0 -1px;
+}
+
+.more {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  min-height: 3rem;
+  padding-inline: var(--space-xs);
+  color: var(--color-accent);
+  font-size: var(--step-0);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+.textLink:hover {
+  text-decoration-thickness: 2px;
+}
+
+.textLink svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 200ms ease;
+}
+
+.textLink:hover svg {
+  translate: 0.2rem 0;
 }
 
 .hint {
@@ -180,7 +215,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-@media (max-width: 45.99rem) {
+@media (width < 46rem) {
   .portrait {
     order: -1;
     justify-self: center;
@@ -193,7 +228,6 @@
   }
 }
 
-/* Stacked buttons should share a width. */
 @media (max-width: 34rem) {
   .actions > * {
     flex: 1 1 100%;
@@ -205,5 +239,10 @@
 
   .cvSlot > a {
     flex: 1;
+  }
+
+  .more {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

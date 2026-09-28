@@ -1,10 +1,8 @@
 import type { ReactNode } from "react";
 import styles from "./status.module.css";
 
-/* The shell the three dead ends share - 404 inside a locale, 404 above one, and
-   a render error. What differs between them is not the shape but how they get
-   the visitor out: a next-intl Link, a plain anchor, a reset button. So the
-   actions stay with the caller and only the shell lives here. */
+/* Shell for 404 inside a locale, 404 above one, and the render error. The way out
+   differs (next-intl Link, plain anchor, reset button), so the caller passes the actions. */
 export function Status({
   code,
   heading,

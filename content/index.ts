@@ -117,16 +117,9 @@ export const experience: ExperienceEntry[] = [
     id: "bechacant",
     organisation: "BechaCant",
     link: projectLinks.bechacant,
-    start: "2024-05",
+    start: "2025-03",
     end: "2026-07",
-    techStack: [
-      "TypeScript",
-      "React",
-      "Next.js",
-      "PWA",
-      "Node.js",
-      "REST",
-    ],
+    techStack: ["TypeScript", "React", "Next.js", "PWA", "Node.js", "REST"],
     alsoUsed: ["LLM APIs", "RAG", "Push notifications", "In-app purchases", "Git"],
   },
   {

@@ -14,7 +14,7 @@
     },
     "clients": {
       "short": "Worked directly with clients in the EU and the US: from deciding what to build, through the trade-offs, to what shipped.",
-      "detail": "Small teams, so the same person owned the frontend, the backend and the release."
+      "detail": "Small teams, so I worked across the whole path: the frontend, the backend and the release."
     },
     "platform": {
       "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",

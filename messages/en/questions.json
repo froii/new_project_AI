@@ -1,0 +1,529 @@
+{
+  "topics": {
+    "format": "Work format",
+    "experience": "Experience",
+    "motivation": "Motivation",
+    "stack": "Stack and skills",
+    "education": "Education and certifications",
+    "personal": "Working style and life outside work"
+  },
+  "items": {
+    "availability": {
+      "q": "Full-time or part-time?",
+      "a": "Either works for me.",
+      "keywords": [
+        "full-time",
+        "part-time",
+        "contract",
+        "availability",
+        "employment type",
+        "workload"
+      ]
+    },
+    "engagement": {
+      "q": "How can the contract be set up?",
+      "a": "As a Ukrainian sole trader (FOP) or through any EOR, such as Deel or Remote.com.",
+      "keywords": [
+        "FOP",
+        "sole trader",
+        "EOR",
+        "Deel",
+        "Remote.com",
+        "contractor",
+        "B2B",
+        "invoice",
+        "hiring"
+      ]
+    },
+    "relocation": {
+      "q": "Open to relocation?",
+      "a": "Yes, I am open to relocation.",
+      "keywords": ["relocation", "relocate", "move", "visa", "onsite", "office"]
+    },
+    "focus": {
+      "q": "Frontend or full stack?",
+      "a": "I work full stack: the frontend, the backend and LLM features. My deepest experience is on the frontend, and it is still the part I enjoy most, but at a senior level you have to see web development as a whole rather than one layer of it.",
+      "keywords": [
+        "frontend",
+        "backend",
+        "full stack",
+        "fullstack",
+        "role",
+        "specialization",
+        "position"
+      ]
+    },
+    "recent": {
+      "q": "What was the most recent work?",
+      "a": "From 2025 to mid-2026 I worked at BechaCant on a social app built around challenges between users: a Next.js PWA that also runs inside the product's iOS and Android apps. There I built the client side of the premium subscription and shipped the product's first LLM features. Before that, from 2021 to 2024, I worked at eTeam on nedyx, a low-code platform for business reporting, where I built the widget system, undo/redo, archives, PDF export and the platform's own formula language.",
+      "keywords": [
+        "recent",
+        "last job",
+        "current",
+        "projects",
+        "BechaCant",
+        "eTeam",
+        "nedyx",
+        "previous employer"
+      ]
+    },
+    "clients": {
+      "q": "Worked directly with clients?",
+      "a": "Yes, constantly. I worked most closely with the CEO, who set priorities, and we discussed upcoming features together. With clients in the EU and the US, I took features end to end: from deciding what to build, through the trade-offs, to the release.",
+      "keywords": [
+        "clients",
+        "customers",
+        "stakeholders",
+        "communication",
+        "requirements",
+        "product",
+        "ownership",
+        "CEO"
+      ]
+    },
+    "leadership": {
+      "q": "Leadership or mentoring experience?",
+      "a": "I have worked in small, flat teams where everyone helps each other. I did code review, helped new developers get up to speed on the project, and wrote specs and common rules for working with AI coding tools. In 2020, I taught an introductory frontend course at dan.it and took a group of 25 beginners from zero to a working knowledge of HTML, CSS and Git.",
+      "keywords": [
+        "lead",
+        "leadership",
+        "mentor",
+        "mentoring",
+        "code review",
+        "teaching",
+        "team lead",
+        "tech lead"
+      ]
+    },
+    "core": {
+      "q": "What is the main stack?",
+      "a": "Frontend: React, Next.js, TypeScript, GraphQL with Apollo Client, PWA. State: Redux, Zustand, React Query. Backend: Node.js, Express, NestJS, PostgreSQL, TypeORM, Redis, WebSockets. AI: LLM APIs, RAG, agents, OpenRouter.",
+      "keywords": [
+        "stack",
+        "technologies",
+        "React",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "tools"
+      ]
+    },
+    "ai": {
+      "q": "What is the experience with AI and LLMs?",
+      "a": "AI has been my main area of growth for the last two years: I use it every day and build it into products. I have taken LLM features from prototype to production: retrieval over the product's own documents (RAG), streaming responses, tool calling and agent flows, all through OpenRouter rather than a single vendor. For the theory, I am doing an MSc in Computer Science, AI and Machine Learning at Neoversity.",
+      "keywords": [
+        "AI",
+        "LLM",
+        "RAG",
+        "OpenRouter",
+        "agents",
+        "tool calling",
+        "streaming",
+        "machine learning",
+        "prompts"
+      ]
+    },
+    "performance": {
+      "q": "Approach to frontend performance?",
+      "a": "I measure first and optimize second. For diagnosis, I use Lighthouse, the Performance panel in Chrome DevTools, a bundle analyzer (@next/bundle-analyzer) and the React DevTools Profiler to find unnecessary re-renders. Core Web Vitals (LCP, INP, CLS) are the target. The usual fixes are code splitting and lazy-loaded routes, optimized images and fonts, request caching, and virtualization for long lists and tables. That is how I kept heavy tables and charts responsive in large applications: virtualized the tables, trimmed the bundle and cut repeat GraphQL requests with fragment-level caching. With React Compiler, manual memoization through useMemo and useCallback is needed far less often.",
+      "keywords": [
+        "performance",
+        "optimization",
+        "speed",
+        "virtualization",
+        "bundle size",
+        "lazy loading",
+        "caching",
+        "React Compiler",
+        "useMemo",
+        "memoization",
+        "Lighthouse",
+        "Chrome DevTools",
+        "Core Web Vitals",
+        "LCP",
+        "INP",
+        "CLS",
+        "profiling"
+      ]
+    },
+    "testing": {
+      "q": "Which testing tools?",
+      "a": "Jest and Vitest with React Testing Library, plus Enzyme on the U-Genius projects.",
+      "keywords": [
+        "testing",
+        "tests",
+        "unit tests",
+        "Jest",
+        "Vitest",
+        "React Testing Library",
+        "QA"
+      ]
+    },
+    "devops": {
+      "q": "DevOps or cloud experience?",
+      "a": "I have a working knowledge of DevOps and hold the AWS Cloud Technical Essentials certificate, though it is not my main role. I have deployed sites and services with Docker, including a standalone PDF service, and worked with CI pipelines in Jenkins and GitHub Actions. For my own and smaller projects, I set up the cloud infrastructure myself; at larger companies, DevOps engineers handled it. I understand how the pieces fit together and keep deepening that knowledge.",
+      "keywords": [
+        "DevOps",
+        "cloud",
+        "AWS",
+        "Docker",
+        "CI/CD",
+        "Jenkins",
+        "GitHub Actions",
+        "deployment",
+        "infrastructure",
+        "PDF"
+      ]
+    },
+    "degrees": {
+      "q": "What education?",
+      "a": "I have been studying for an MSc in Computer Science, AI and Machine Learning at Neoversity IT University since 2025. Before that, I earned a master's degree in Project Management from Kyiv Aviation Institute and a bachelor's degree in Hydrometeorology from Taras Shevchenko National University of Kyiv, and did postgraduate studies in Environmental Safety at the National Academy of Sciences of Ukraine.",
+      "keywords": [
+        "education",
+        "degree",
+        "university",
+        "master's",
+        "bachelor's",
+        "MSc",
+        "computer science",
+        "studies"
+      ]
+    },
+    "certifications": {
+      "q": "Any certifications?",
+      "a": "AWS Cloud Technical Essentials (2025), English C1 Advanced from EF SET (2024), and the AlgoExpert and FrontendExpert certificates.",
+      "keywords": [
+        "certificates",
+        "certification",
+        "AWS",
+        "AlgoExpert",
+        "FrontendExpert",
+        "EF SET",
+        "courses"
+      ]
+    },
+    "msc": {
+      "q": "What does the MSc cover?",
+      "a": "Machine learning, neural networks, statistics and algorithms. It is the theoretical side of the AI work I do in production. I have been studying at Neoversity IT University since 2025.",
+      "keywords": [
+        "MSc",
+        "master's",
+        "Neoversity",
+        "machine learning",
+        "neural networks",
+        "statistics",
+        "algorithms",
+        "AI"
+      ]
+    },
+    "background": {
+      "q": "What did the earlier degrees cover?",
+      "a": "My bachelor's in hydrometeorology gave me a grounding in science: physics, statistics and modeling complex systems. During my postgraduate studies at the National Academy of Sciences of Ukraine, I worked on environmental safety, mostly its chemical and radiation side. I also did research on pollution monitoring there and published papers. In my master's in project management, I developed and defended my own projects and took part in student conferences.",
+      "keywords": [
+        "background",
+        "hydrometeorology",
+        "environmental safety",
+        "radiation",
+        "chemistry",
+        "physics",
+        "statistics",
+        "research",
+        "data validation",
+        "project management"
+      ]
+    },
+    "teams": {
+      "q": "Worked in international teams?",
+      "a": "Yes, with German, American, Israeli and Ukrainian teams, mostly remotely. Over the last five years, though, the communication has been largely technical.",
+      "keywords": [
+        "international",
+        "culture",
+        "communication",
+        "feedback",
+        "team",
+        "collaboration",
+        "soft skills"
+      ]
+    },
+    "principles": {
+      "q": "Working principles?",
+      "a": "I take a task from the first discussion to the release. I put quality over speed: work done right the first time does not need redoing. And at work, understanding and respect come first for me: I have been to more than 45 countries and know how much people and their values differ.",
+      "keywords": [
+        "principles",
+        "how I work",
+        "working style",
+        "quality",
+        "ownership",
+        "respect",
+        "values"
+      ]
+    },
+    "hobbies": {
+      "q": "Hobbies and life outside work?",
+      "a": "Gym, running, mountain hikes and long walks. I unwind with an audiobook, music, anime, cartoons, manga or a game, and play too much Dark Souls. Tea is the only skill on my LinkedIn that was endorsed without me asking. My cat waits for me at home.",
+      "keywords": ["hobbies", "interests", "free time", "personal", "sport", "travel", "countries"]
+    },
+    "trial": {
+      "q": "Open to a test task or a paid trial period?",
+      "a": "Yes, depending on the role.",
+      "keywords": ["test task", "trial period", "take-home", "interview"]
+    },
+    "scope": {
+      "q": "What was owned personally, and what did the team deliver?",
+      "a": "I took on every task that came from the client and implemented almost all of them myself. On nedyx, that meant the widget system, undo/redo, archives, PDF export and the platform's own formula language, from the grammar and parser to the editor with autocomplete. At BechaCant, it meant the client side of the premium subscription with in-app purchases, the product's first LLM features, including the assistant panel, and the PWA's product features: challenges, the feed, notifications, profiles and the wallet.",
+      "keywords": ["personal contribution", "ownership", "scope", "nedyx", "BechaCant", "team"]
+    },
+    "teamSize": {
+      "q": "What team sizes, and in what role?",
+      "a": "Mostly small teams of 5 to 15 people. Over my career I grew from junior to senior, and in recent years I have worked as a Senior Full Stack Engineer.",
+      "keywords": ["team size", "team", "role", "senior", "seniority", "Senior Full Stack"]
+    },
+    "hardest": {
+      "q": "Hardest technical problem solved?",
+      "a": "The two hardest were both on nedyx. The first was the platform's own formula language, so analysts could write formulas themselves instead of filing tickets: I wrote the grammar, the parser (Chevrotain, Lezer) and the evaluator, and built them into a CodeMirror editor with autocomplete and inline errors as you type. The second was app-wide undo/redo: widget moves, formulas and styles share one history, a change across several pages is undone in one step, and the history lives in IndexedDB, so it survives a reload.",
+      "keywords": ["hardest problem", "challenge", "DSL", "formula language", "undo/redo", "parser"]
+    },
+    "failure": {
+      "q": "A project that went wrong: what was learned?",
+      "a": "On the engineering side, every project shipped with its full planned scope. What fell short was traction: not enough marketing and too few clients. The market keeps changing and clients are getting harder to find, especially now that AI has pushed low-code and small apps aside. The lesson I took: first work out who you are selling to, and only then grow the product. A buyer tells you what is worth building, while features added at random, just to have them, rarely make a difference. On the technical side there was only the usual startup trade-off: early on you pick whichever free library is fastest to integrate, such as Chart.js instead of the far more flexible D3.js, and later they have to be replaced. That takes time, but it is a normal part of a product growing up.",
+      "keywords": [
+        "failure",
+        "what went wrong",
+        "lessons",
+        "marketing",
+        "clients",
+        "audience",
+        "product",
+        "startup",
+        "packages"
+      ]
+    },
+    "legacy": {
+      "q": "Worked with legacy code and large refactors?",
+      "a": "Often, early in my career. Later I mostly built MVPs and startup products from scratch, where legacy code had no time to pile up. There I shaped the architecture around each product's specific goals.",
+      "keywords": ["legacy", "refactoring", "old code", "MVP", "startup", "architecture"]
+    },
+    "companyType": {
+      "q": "Product companies or outsourcing?",
+      "a": "Both. I started at a product company, Software MacKiev, and later worked mostly in outsourcing, building for clients.",
+      "keywords": ["product company", "outsourcing", "outstaffing", "clients", "company type"]
+    },
+    "domains": {
+      "q": "Which business domains?",
+      "a": "Quite a range: business reporting and low-code (nedyx), a social app built around challenges (BechaCant), legal tech for contract management (LinkSquares, through U-Genius), a site generator with a back office, e-commerce for events and a speaker platform (Adraba), and product sites for a software company (Software MacKiev).",
+      "keywords": [
+        "domains",
+        "industries",
+        "low-code",
+        "legal tech",
+        "e-commerce",
+        "social app",
+        "reporting"
+      ]
+    },
+    "whyLooking": {
+      "q": "Why the job search?",
+      "a": "The project I was on has wrapped up: the product is built and is now looking for customers. It does not need development right now, so I am looking for a new role.",
+      "keywords": ["why looking", "job search", "new job", "reason", "leaving"]
+    },
+    "idealRole": {
+      "q": "What should the next role look like?",
+      "a": "One where I can keep growing, especially in AI, and do interesting work for fair pay. I have enjoyed every project I worked on, and I still get real satisfaction from web development, so I want to keep going in this direction and, over time, move into a lead or management role without giving up writing code.",
+      "keywords": ["ideal role", "next role", "expectations", "AI", "growth", "lead", "manager"]
+    },
+    "interests": {
+      "q": "Which products or problems are the most interesting?",
+      "a": "Ones with plenty of logic, visualization and non-trivial integrations: AI, PDF services, image and video processing. Most of all, anything around data: processing it and presenting it clearly through statistics and charts. This is exactly where AI helps most right now, which is why it is one of my main focus areas.",
+      "keywords": [
+        "interests",
+        "products",
+        "problems",
+        "data",
+        "visualization",
+        "charts",
+        "AI",
+        "PDF"
+      ]
+    },
+    "growth": {
+      "q": "Plans for the next few years?",
+      "a": "Finish my MSc in Computer Science, AI and Machine Learning at Neoversity and widen what I can do in web development. There is still room to grow: in particular, I want to go deeper into Kubernetes and other infrastructure tools.",
+      "keywords": ["plans", "growth", "future", "few years", "studies", "MSc", "Kubernetes"]
+    },
+    "track": {
+      "q": "Management or hands-on engineering?",
+      "a": "Right now I am looking for a development role. At the same time, as AI advances, management skills matter more, so over time I would like to move into a Tech Lead role and later an Engineering Manager role, if the opportunity comes on the right terms.",
+      "keywords": [
+        "management",
+        "engineering",
+        "career",
+        "Tech Lead",
+        "Engineering Manager",
+        "lead",
+        "hands-on"
+      ]
+    },
+    "companySize": {
+      "q": "Startups or larger companies?",
+      "a": "Mostly startups, apart from my first job at a company of more than 200 people. I work best in small, friendly teams, and those exist at companies of any size: a large company is still made up of small teams. So what matters to me is not the size of the company but how the team works and where the manager takes it.",
+      "keywords": ["startup", "large company", "company size", "team", "culture"]
+    },
+    "typescript": {
+      "q": "How deep is the TypeScript knowledge?",
+      "a": "TypeScript is my main language on both the frontend and the backend. Types make the code easier to read and reason about.",
+      "keywords": ["TypeScript", "types", "typing", "JavaScript", "level"]
+    },
+    "nextjs": {
+      "q": "Experience with Next.js and server-side rendering?",
+      "a": "I worked with Next.js at BechaCant, and this site is built on it too. BechaCant ran on an earlier version, while I now work with the latest one. The approach to rendering and caching has changed noticeably between versions, so I am going deeper into the new model.",
+      "keywords": [
+        "Next.js",
+        "SSR",
+        "server-side rendering",
+        "App Router",
+        "React Server Components"
+      ]
+    },
+    "state": {
+      "q": "Which state lives on the client and which on the server?",
+      "a": "Anything that comes from the server stays server state: React Query or Apollo Client caches it and keeps it in sync, and in Next.js some of it is rendered on the server right away. On the client I keep only UI state: open panels, form input, user selections, with Zustand or Redux once that state grows. If state has to survive a reload or be shared via a link, it goes into the URL.",
+      "keywords": [
+        "state",
+        "state management",
+        "client",
+        "server",
+        "React Query",
+        "Redux",
+        "Zustand",
+        "caching"
+      ]
+    },
+    "backend": {
+      "q": "How strong is the backend: Node.js, databases, APIs?",
+      "a": "I have used Node.js for four years, mostly with Express, NestJS and TypeORM. I have worked with both SQL and NoSQL databases, mainly PostgreSQL, and built many integrations with external APIs, including Microsoft (Azure among them) and Google services. Integrating a new API is routine work for me.",
+      "keywords": [
+        "backend",
+        "Node.js",
+        "databases",
+        "PostgreSQL",
+        "SQL",
+        "NoSQL",
+        "API",
+        "Azure",
+        "integrations"
+      ]
+    },
+    "systemDesign": {
+      "q": "Designed a system architecture from scratch?",
+      "a": "Yes, at my last two jobs, both startups built from the ground up. I handled almost all the frontend and worked with the backend developers on parts of the server code and its architecture.",
+      "keywords": ["architecture", "system design", "from scratch", "startup"]
+    },
+    "mobile": {
+      "q": "Worked with React Native or mobile apps?",
+      "a": "I have not worked with React Native, but I have built mobile PWAs that behave like native apps. At BechaCant, the PWA also runs inside the product's iOS and Android apps.",
+      "keywords": ["mobile apps", "React Native", "PWA", "iOS", "Android", "mobile development"]
+    },
+    "frameworks": {
+      "q": "Worked with Vue or Angular?",
+      "a": "I worked with Vue a long time ago, on version 2. It has changed substantially since then, and going back would mean relearning it, so I do not treat it as my main framework. I have not worked with Angular. I enjoy React, and it is what I write now.",
+      "keywords": ["Vue", "Angular", "frameworks", "React"]
+    },
+    "accessibility": {
+      "q": "Approach to accessibility?",
+      "a": "I follow the core accessibility principles and build them into the markup from the start.",
+      "keywords": ["accessibility", "a11y", "screen reader", "WCAG"]
+    },
+    "security": {
+      "q": "Approach to web application security?",
+      "a": "I write code with security in mind for every possible scenario, from the architecture and the choice of libraries to individual decisions in the code. I pick secure defaults up front so that I do not have to patch problems in production later: httpOnly cookies, parameterized queries, secrets kept on the server, validation at every layer.",
+      "keywords": [
+        "security",
+        "injection",
+        "XSS",
+        "secrets",
+        "env",
+        "validation",
+        "OWASP",
+        "tokens",
+        "sessions",
+        "SQL injection"
+      ]
+    },
+    "aiTools": {
+      "q": "AI coding tools in daily work?",
+      "a": "Constantly. My main tool is Claude Code, but I work with others as well and keep trying new ones. I set them up per project with skills, shared rules and configurations, and I understand how agents, task queues, automated code review and n8n automations work. AI helps me optimize code, debug and review changes.",
+      "keywords": [
+        "AI tools",
+        "Claude Code",
+        "Copilot",
+        "agents",
+        "productivity",
+        "n8n",
+        "skills",
+        "code review"
+      ]
+    },
+    "languages": {
+      "q": "Which languages?",
+      "a": "Ukrainian and English. My English is C1 Advanced, confirmed by an EF SET certificate (2024).",
+      "keywords": [
+        "languages",
+        "Ukrainian",
+        "spoken languages",
+        "English",
+        "language",
+        "level",
+        "C1",
+        "EF SET",
+        "communication",
+        "speaking"
+      ]
+    },
+    "conflict": {
+      "q": "How to handle disagreement with a teammate or a manager?",
+      "a": "First, I talk it through calmly and find out what the problem really is, then look for a solution that works for both sides. A lot depends on the people and the culture: I have worked with teams from different countries, and what sounds normal in one can land quite differently in another. So I always keep in mind who I am talking to and adapt my approach to the person. Disagreement is a normal part of the work for me, not something personal.",
+      "keywords": [
+        "conflict",
+        "disagreement",
+        "communication",
+        "compromise",
+        "teammate",
+        "manager",
+        "feedback"
+      ]
+    },
+    "review": {
+      "q": "Giving and receiving feedback in code review?",
+      "a": "Code review is a daily practice for me, in both directions. My changes get reviewed by teammates and AI tools, including GitHub Copilot, and in other people's code I look for mistakes and suggest better solutions. The discussion happens in GitHub comments or in chat.",
+      "keywords": ["code review", "feedback", "pull request", "GitHub", "Copilot"]
+    },
+    "estimation": {
+      "q": "Estimating tasks and handling deadlines?",
+      "a": "First I make sure I understand the task and discuss it with the team, then I estimate it in story points or hours. My estimates are mostly relative, because estimates in hours always carry some error: a familiar task can be estimated fairly accurately, an unfamiliar one to within about 20%. Deadlines have not been a problem: when a task does not fit, we discuss it, and the manager either reschedules it or gives it more time and moves the rest to the next sprint.",
+      "keywords": ["estimation", "story points", "deadlines", "sprint", "planning", "Scrum"]
+    },
+    "learning": {
+      "q": "How to keep skills up to date?",
+      "a": "I test new things on my own projects first and only then use them at work. Alongside that, I am doing an MSc in AI at Neoversity and follow the releases of the tools I use. In this field there is no way around it.",
+      "keywords": ["learning", "growth", "self-education", "new technologies", "courses"]
+    },
+    "weakness": {
+      "q": "Biggest area for growth?",
+      "a": "Right now it is DevOps, especially Kubernetes. I also want to keep growing in AI and build more applications with it. Robotics interests me too, but for now it stays a hobby.",
+      "keywords": [
+        "weaknesses",
+        "area for growth",
+        "development",
+        "DevOps",
+        "Kubernetes",
+        "robotics"
+      ]
+    },
+    "contact": {
+      "q": "How to get in touch?",
+      "a": "Through the contact form on this page: the message goes straight to my inbox, and I reply as soon as I can.",
+      "keywords": ["contact", "get in touch", "form", "email", "reach out"]
+    }
+  }
+}

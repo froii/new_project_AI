@@ -18,4 +18,4 @@ export const projectLinks = {
 
 /* Printing the landing page yields the landing page, not the CV, so the button
    there hands over the prepared file instead. */
-export const cvPdf = "/pdf/Oleksa%20Tyshchenko%20short.pdf";
+export const cvPdf = "/pdf/Oleksa%20Tyshchenko%20-%20CV.pdf";

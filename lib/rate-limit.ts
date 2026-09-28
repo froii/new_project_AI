@@ -1,7 +1,10 @@
 export type RateLimit = { hit: (key: string, now?: number) => boolean };
 
-/* Out of the route handler so the rule can be tested: the handler itself pulls
-   in nodemailer and reads the environment, and this is where the bug was. */
+/* Vercel overwrites x-forwarded-for. */
+export function clientIp(request: Request): string {
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+}
+
 export function rateLimiter(max: number, windowMs: number, maxKeys = 500): RateLimit {
   const seen = new Map<string, number[]>();
 
@@ -9,9 +12,8 @@ export function rateLimiter(max: number, windowMs: number, maxKeys = 500): RateL
     hit(key, now = Date.now()) {
       const recent = (seen.get(key) ?? []).filter((at) => now - at < windowMs);
 
-      /* A refused attempt is not recorded. Counting it kept pushing the newest
-         timestamp forward, so anyone who retried inside the window could never
-         leave it: the limit stopped rolling and became permanent. */
+      /* Refused hits are not recorded. Recording them pushed the newest timestamp
+         forward, so a visitor who kept retrying never left the window. */
       if (recent.length >= max) {
         seen.set(key, recent);
         return true;

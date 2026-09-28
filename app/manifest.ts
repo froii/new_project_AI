@@ -7,10 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "OT",
     start_url: `/${defaultLocale}`,
     display: "standalone",
-    /* A manifest colour cannot be media-gated, and on Android an installed app
-       takes these over the scheme-aware meta tags. Light `--color-canvas`, since
-       an unset OS preference resolves light and a light splash under a dark app
-       is the milder mismatch of the two. */
+    /* A manifest colour cannot follow the colour scheme, and an installed Android app
+       uses it over the meta tags. Light `--color-canvas`: an unset OS preference is light. */
     background_color: "#f2f0eb",
     theme_color: "#f2f0eb",
     icons: [
