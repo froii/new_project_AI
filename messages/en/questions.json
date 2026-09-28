@@ -5,7 +5,8 @@
     "motivation": "Motivation",
     "stack": "Stack and skills",
     "education": "Education and certifications",
-    "personal": "Working style and life outside work"
+    "personal": "Working style and life outside work",
+    "details": "More details"
   },
   "items": {
     "availability": {
@@ -524,6 +525,168 @@
       "q": "How to get in touch?",
       "a": "Through the contact form on this page: the message goes straight to my inbox, and I reply as soon as I can.",
       "keywords": ["contact", "get in touch", "form", "email", "reach out"]
+    },
+    "auth": {
+      "q": "Experience with authentication?",
+      "a": "I have implemented authentication with OAuth, JWT and sessions, including sign-in with Google and Microsoft accounts.",
+      "keywords": [
+        "authentication",
+        "auth",
+        "OAuth",
+        "JWT",
+        "sessions",
+        "login",
+        "SSO",
+        "Google sign-in",
+        "Microsoft sign-in"
+      ]
+    },
+    "realtime": {
+      "q": "Real-time features and WebSockets?",
+      "a": "Yes: I have built WebSocket connections for real-time features such as chats.",
+      "keywords": [
+        "WebSocket",
+        "WebSockets",
+        "real-time",
+        "realtime",
+        "chat",
+        "socket",
+        "live updates"
+      ]
+    },
+    "site": {
+      "q": "How are this site and its chat built?",
+      "a": "Next.js 16 with the App Router, TypeScript, and next-intl for English and Ukrainian. The chat is RAG: keyword search with MiniSearch finds the relevant CV and FAQ entries, and a free model on OpenRouter answers from them, and the answer streams to the page. Requests from one IP are rate-limited.",
+      "keywords": [
+        "this site",
+        "website",
+        "chat",
+        "RAG",
+        "how built",
+        "MiniSearch",
+        "OpenRouter",
+        "Next.js",
+        "retrieval",
+        "streaming"
+      ]
+    },
+    "process": {
+      "q": "Which team processes and tools?",
+      "a": "Agile, mostly Scrum and Kanban, with Jira for tasks and Figma for designs.",
+      "keywords": ["Scrum", "Kanban", "Agile", "Jira", "Figma", "process", "sprints", "workflow"]
+    },
+    "salary": {
+      "q": "What are the salary expectations?",
+      "a": "It depends on the country, the taxes and the role, so I discuss it directly. Write through the contact form on this page or by email.",
+      "keywords": ["salary", "rate", "hourly rate", "compensation", "pay", "expectations", "budget"]
+    },
+    "startDate": {
+      "q": "When can work start, and what is the notice period?",
+      "a": "It depends on the offer, so the start date is best agreed directly: write through the contact form or by email.",
+      "keywords": ["start date", "notice period", "start", "available from", "when", "onboarding"]
+    },
+    "hours": {
+      "q": "Which time zone and working hours?",
+      "a": "I work remotely. If the role is a good fit, I can work any hours, so overlapping with the team's time zone is not a problem.",
+      "keywords": [
+        "time zone",
+        "timezone",
+        "working hours",
+        "hours",
+        "overlap",
+        "schedule",
+        "US hours"
+      ]
+    },
+    "contractTerms": {
+      "q": "Contract length and overtime?",
+      "a": "Any contract length works for me. Overtime depends on the job and is best agreed for the specific project.",
+      "keywords": [
+        "contract length",
+        "duration",
+        "long-term",
+        "short-term",
+        "overtime",
+        "on-call",
+        "weekends"
+      ]
+    },
+    "previousJobs": {
+      "q": "Why did the previous jobs end?",
+      "a": "Each time, because the project ended.",
+      "keywords": ["previous jobs", "why left", "left", "job change", "previous employer"]
+    },
+    "code": {
+      "q": "Is there code or a portfolio to look at?",
+      "a": "The commercial projects were under NDA, so their code and the products themselves are closed. This site is my own project.",
+      "keywords": [
+        "GitHub",
+        "portfolio",
+        "code samples",
+        "open source",
+        "NDA",
+        "repository",
+        "demo"
+      ]
+    },
+    "references": {
+      "q": "Can you provide references?",
+      "a": "Yes, on request: write through the contact form or by email.",
+      "keywords": ["references", "recommendations", "referees", "former colleagues"]
+    },
+    "python": {
+      "q": "Experience with Python and ML libraries?",
+      "a": "I use Python in my MSc studies, not in production work. At the university I work with PyTorch and NumPy, mostly with matrices and tensors.",
+      "keywords": [
+        "Python",
+        "PyTorch",
+        "NumPy",
+        "machine learning",
+        "ML",
+        "tensors",
+        "data science"
+      ]
+    },
+    "tooling": {
+      "q": "Which code quality and CI tooling?",
+      "a": "Prettier and ESLint through Husky git hooks: formatting on commit, and type checks, linting and tests for the changed files before each push. In GitHub Actions, CI runs the type check, linting, tests and build on every pull request, and Claude and GitHub Copilot review the changes. I work with Docker: images, containers and Docker Compose, for example to run PostgreSQL, Redis, Keycloak, Vault and MinIO locally.",
+      "keywords": [
+        "CI/CD",
+        "GitHub Actions",
+        "Husky",
+        "git hooks",
+        "ESLint",
+        "Prettier",
+        "lint-staged",
+        "Docker Compose",
+        "code quality",
+        "pipeline"
+      ]
+    },
+    "llmStack": {
+      "q": "Embeddings, vector databases, LLM providers?",
+      "a": "The RAG I built in production worked without a vector database: for a small set of documents, keyword search over the documentation was enough, the same grep style approach coding agents use. I have studied vector databases, but they pay off with large volumes of data, so I have not used one in a product yet. In my MSc, I work with embeddings and transformer models. As the provider I use OpenRouter: it gives access to free models and makes switching between models quick.",
+      "keywords": [
+        "embeddings",
+        "vector database",
+        "vector DB",
+        "LLM provider",
+        "OpenRouter",
+        "transformers",
+        "RAG",
+        "OpenAI",
+        "Anthropic"
+      ]
+    },
+    "payments": {
+      "q": "Payments outside the app stores, such as Stripe?",
+      "a": "No: my payment work was store purchases, made from a PWA through a native bridge.",
+      "keywords": ["payments", "Stripe", "billing", "checkout", "subscriptions", "in-app purchases"]
+    },
+    "pdf": {
+      "q": "PDF generation?",
+      "a": "Yes, with Puppeteer, including a standalone PDF service in Docker.",
+      "keywords": ["PDF", "Puppeteer", "PDF generation", "export", "headless Chrome", "documents"]
     }
   }
 }

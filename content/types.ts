@@ -54,4 +54,6 @@ export type Achievement = {
 export type QuestionTopic = {
   id: string;
   items: string[];
+  /* Indexed for the chat, not rendered on the page. */
+  hidden?: boolean;
 };

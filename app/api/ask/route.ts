@@ -111,7 +111,6 @@ export async function POST(request: Request) {
         if (!upstream.ok || !upstream.body) {
           const reason = (await upstream.text().catch(() => "")).slice(0, 500);
           const detail = `${models.join(", ")} answered ${upstream.status}\n\n${reason}`;
-          fail(detail);
           /* Own subject for the daily quota, so a short throttle does not use up its mail. */
           if (upstream.status === 429) {
             const subject = reason.includes("per-day")
@@ -119,6 +118,7 @@ export async function POST(request: Request) {
               : "Website chat: the free model is rate-limited";
             after(() => alertOwner(subject, detail));
           }
+          fail(detail);
           return;
         }
 

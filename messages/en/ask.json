@@ -1,5 +1,7 @@
 {
   "title": "FAQ",
+  "metaTitle": "FAQ for recruiters",
+  "metaDescription": "{name}, Senior Frontend / Full Stack Engineer, answers the questions recruiters ask: work format, experience, stack, AI and education.",
   "heading": "Questions recruiters ask",
   "intro": "Short answers, grouped by topic. If yours is not here, try the chat below.",
   "chat": {
