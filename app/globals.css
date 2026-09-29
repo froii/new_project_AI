@@ -19,6 +19,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Column on screen so a short page still ends on its footer; print keeps block flow. */
+@media screen {
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+}
+
 body,
 h1,
 h2,

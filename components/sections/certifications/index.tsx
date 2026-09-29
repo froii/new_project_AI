@@ -1,15 +1,17 @@
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { certifications } from "@/content";
 import { readCredential } from "@/lib/credentials";
 import styles from "./certifications.module.css";
 
 export function Certifications() {
+  const headingId = useId();
   const t = useTranslations("certifications");
 
   return (
-    <section className="section" id="certifications">
+    <section className="section" id="certifications" aria-labelledby={headingId}>
       <div className="block-head">
-        <h2>{t("heading")}</h2>
+        <h2 id={headingId}>{t("heading")}</h2>
       </div>
 
       <ul className={styles.list} role="list">

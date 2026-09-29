@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { achievements } from "@/content";
 import { Part } from "@/components/visibility/part";
@@ -5,11 +6,12 @@ import { PartToggle } from "@/components/visibility/part-toggle";
 import styles from "./about.module.css";
 
 export function About() {
+  const headingId = useId();
   const t = useTranslations("about");
 
   return (
-    <section className="section" id="about">
-      <h2>{t("heading")}</h2>
+    <section className="section" id="about" aria-labelledby={headingId}>
+      <h2 id={headingId}>{t("heading")}</h2>
 
       <div className="body">
         <div className={styles.summary}>

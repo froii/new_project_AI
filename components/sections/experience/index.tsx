@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Roles } from "./roles";
 import { OpenAll } from "./open-all";
@@ -16,6 +17,7 @@ import {
 import styles from "./experience.module.css";
 
 export function Experience() {
+  const headingId = useId();
   const t = useTranslations("experience");
 
   const entries = sortExperience(experience);
@@ -102,10 +104,10 @@ export function Experience() {
   };
 
   return (
-    <section className="section" id="experience">
+    <section className="section" id="experience" aria-labelledby={headingId}>
       <div className="block-head">
         <div className={styles.title}>
-          <h2>{t("heading")}</h2>
+          <h2 id={headingId}>{t("heading")}</h2>
           <OpenAll
             ids={shortlist.map((entry) => entry.id)}
             extra={rest.map((entry) => entry.id)}
