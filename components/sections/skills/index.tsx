@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
@@ -7,6 +8,7 @@ import styles from "./skills.module.css";
 const featured = 5;
 
 export function Skills() {
+  const headingId = useId();
   const t = useTranslations("skills");
 
   const rows = (groups: typeof skills) =>
@@ -23,9 +25,9 @@ export function Skills() {
     ));
 
   return (
-    <section className="section" id="skills">
+    <section className="section" id="skills" aria-labelledby={headingId}>
       <div className="block-head">
-        <h2>{t("heading")}</h2>
+        <h2 id={headingId}>{t("heading")}</h2>
         <PartToggle
           id="skills.full"
           label={t("scope.label")}

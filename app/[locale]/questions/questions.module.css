@@ -6,6 +6,7 @@
   --hover: color-mix(in srgb, var(--color-text) 5%, transparent);
   --ink: color-mix(in srgb, var(--color-text) 82%, var(--card));
 
+  flex-grow: 1;
   background: var(--backdrop, transparent);
 }
 

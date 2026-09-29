@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useId } from "react";
 import { useTranslations } from "next-intl";
 import { PhotoSwitcher } from "@/components/controls/photo-switcher";
 import { Part } from "@/components/visibility/part";
@@ -7,16 +7,19 @@ import { contactHref, contactText } from "@/lib/contacts";
 import styles from "./hero.module.css";
 
 export function Hero() {
+  const headingId = useId();
   const t = useTranslations("hero");
   const tCommon = useTranslations("common");
   const tContact = useTranslations("contact");
 
   return (
-    <section className="section" id="hero">
+    <section className="section" id="hero" aria-labelledby={headingId}>
       <div className={styles.layout}>
         <div className={styles.intro}>
           <p className={styles.title}>{t("title")}</p>
-          <h1 className={styles.name}>{tCommon("name")}</h1>
+          <h1 id={headingId} className={styles.name}>
+            {tCommon("name")}
+          </h1>
           <p className={styles.headline}>{t("headline")}</p>
 
           <ul className={styles.facts} role="list">

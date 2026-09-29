@@ -24,6 +24,7 @@ function scrollToForm() {
 }
 
 export function Contact({ pdf }: { pdf?: string }) {
+  const headingId = useId();
   const t = useTranslations("contact");
   const tAsk = useTranslations("ask");
   const pathname = usePathname();
@@ -111,12 +112,14 @@ export function Contact({ pdf }: { pdf?: string }) {
   };
 
   return (
-    <section className="section screen-only" id="contact">
+    <section className="section screen-only" id="contact" aria-labelledby={headingId}>
       <div className="body">
         <div className={styles.card}>
           <div className={styles.top}>
             <div className={styles.intro}>
-              <h2 className={styles.kicker}>{t("heading")}</h2>
+              <h2 id={headingId} className={styles.kicker}>
+                {t("heading")}
+              </h2>
               <p className={styles.headline}>{t("intro")}</p>
 
               <div className={styles.bar}>

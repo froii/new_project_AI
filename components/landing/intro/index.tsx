@@ -1,3 +1,4 @@
+import { useId } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
@@ -9,6 +10,7 @@ import styles from "./intro.module.css";
 import { WriteButton } from "./write-button";
 
 export function Intro() {
+  const headingId = useId();
   const t = useTranslations("landing");
   const tHero = useTranslations("hero");
   const tCommon = useTranslations("common");
@@ -18,11 +20,13 @@ export function Intro() {
   const photo = owner.photos[0];
 
   return (
-    <section className={styles.intro}>
+    <section className={styles.intro} aria-labelledby={headingId}>
       <div className={`shell ${styles.layout}`}>
         <div className={styles.text}>
           <p className={styles.eyebrow}>{tHero("title")}</p>
-          <h1 className={styles.name}>{tCommon("name")}</h1>
+          <h1 id={headingId} className={styles.name}>
+            {tCommon("name")}
+          </h1>
           <p className={styles.headline}>{tHero("headline")}</p>
 
           <ul className={styles.facts} role="list">

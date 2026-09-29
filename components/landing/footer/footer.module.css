@@ -10,6 +10,7 @@
   --color-accent: var(--color-invert-accent);
   --color-focus: var(--color-invert-accent);
 
+  margin-block-start: auto;
   padding-block-end: var(--space-l);
   background: var(--color-invert-bg);
   color: var(--color-invert-text);

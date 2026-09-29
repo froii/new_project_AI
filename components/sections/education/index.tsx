@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
@@ -8,6 +9,7 @@ import styles from "./education.module.css";
 const recent = 2;
 
 export function Education() {
+  const headingId = useId();
   const t = useTranslations("education");
   const tExperience = useTranslations("experience");
 
@@ -34,9 +36,9 @@ export function Education() {
   );
 
   return (
-    <section className="section" id="education">
+    <section className="section" id="education" aria-labelledby={headingId}>
       <div className="block-head">
-        <h2>{t("heading")}</h2>
+        <h2 id={headingId}>{t("heading")}</h2>
         <PartToggle
           id="education.all"
           label={t("scope.label")}

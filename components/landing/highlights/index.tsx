@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { TagList } from "@/components/ui/tag-list";
 import { skills } from "@/content";
@@ -11,6 +12,7 @@ const stack = ["frontend", "backend", "ai"].flatMap(
 );
 
 export function Highlights() {
+  const headingId = useId();
   const t = useTranslations("landing");
   const tAbout = useTranslations("about");
 
@@ -21,9 +23,11 @@ export function Highlights() {
   }));
 
   return (
-    <section className={styles.highlights}>
+    <section className={styles.highlights} aria-labelledby={headingId}>
       <div className={`shell ${styles.layout}`}>
-        <h2 className={styles.heading}>{t("work.heading")}</h2>
+        <h2 id={headingId} className={styles.heading}>
+          {t("work.heading")}
+        </h2>
 
         <Carousel items={items} prevLabel={t("work.previous")} nextLabel={t("work.next")} />
 
