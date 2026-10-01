@@ -19,6 +19,8 @@
   --py: var(--y);
   --cx: var(--gx);
   --cy: var(--gy);
+  --cols: 6;
+  --step: min(var(--pitch), 100cqw / var(--cols));
   position: absolute;
   left: calc(var(--px) * 1%);
   top: calc(var(--py) * 1%);
@@ -35,6 +37,7 @@
     --py: var(--yn);
     --cx: var(--gxn);
     --cy: var(--gyn);
+    --cols: 3;
   }
 }
 
@@ -73,7 +76,7 @@
 
   /* the packed grid: centred across, bottom row on the section's bottom edge */
   to {
-    translate: calc(var(--cx) - (var(--px) - 50) * 1cqw)
-      calc(100cqh - var(--hang) + var(--cy) - var(--py) * 1cqh);
+    translate: calc(var(--cx) * var(--step) + var(--jx) - (var(--px) - 50) * 1cqw)
+      calc(100cqh - var(--hang) + var(--cy) * var(--step) + var(--jy) - var(--py) * 1cqh);
   }
 }

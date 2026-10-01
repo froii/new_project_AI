@@ -557,7 +557,7 @@ a:hover {
   --paper-section-lead: 2.5mm;
   --paper-section-tail: 4mm;
   --paper-body-gap: var(--space-l);
-  --paper-field-gap: var(--space-2xs);
+  --paper-field-gap: var(--space-s);
   --paper-para-gap: var(--space-2xs);
 }
 
@@ -567,7 +567,6 @@ a:hover {
     --paper-section-lead: var(--space-xl);
     --paper-section-tail: var(--space-xl);
     --paper-body-gap: var(--space-l);
-    --paper-field-gap: var(--space-s);
     --paper-para-gap: var(--space-s);
   }
 }
@@ -684,6 +683,11 @@ dd {
 
   #main :is(p, li, dt, dd, span, a) {
     line-height: 1.45;
+  }
+
+  #experience dl,
+  #experience dl * {
+    line-height: 1.4;
   }
 
   #main :is(h1, h2, h3, h4) {

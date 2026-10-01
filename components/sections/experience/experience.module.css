@@ -14,6 +14,7 @@
   font-size: var(--step--2);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  break-after: avoid;
 }
 
 .earlier {

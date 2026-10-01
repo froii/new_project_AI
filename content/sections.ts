@@ -51,7 +51,8 @@ export const toggleCodes = {
   skills: "k",
   "skills.full": "kf",
   experience: "e",
-  "experience.all": "ea",
+  // Not "ea": it meant the opposite while the default was true, and old share links still carry it.
+  "experience.all": "ex",
   "experience.project": "ep",
   "experience.result": "eo",
   "experience.challenges": "ec",

@@ -14,7 +14,7 @@ const noise = (i: number, salt: number) => {
   return v - Math.floor(v);
 };
 
-// x/y: scatter in %. gx/gy: px offset in the packed grid, gy up from its bottom row.
+// x/y: scatter in %. gx/gy: cell in the packed grid, gx from its centre, gy up from its bottom row.
 const cell = (i: number, cols: number) => {
   const rows = Math.ceil(icons.length / cols);
   const col = i % cols;
@@ -22,8 +22,8 @@ const cell = (i: number, cols: number) => {
   return {
     x: Math.round(((col + 0.2 + 0.6 * noise(i, 1)) / cols) * 100),
     y: Math.round(((row + 0.2 + 0.6 * noise(i, 2)) / rows) * 100),
-    gx: `${Math.round((col - (cols - 1) / 2) * PITCH + (noise(i, 1) - 0.5) * 60)}px`,
-    gy: `${Math.round((row - rows + 1) * PITCH + (noise(i, 2) - 0.5) * 60)}px`,
+    gx: col - (cols - 1) / 2,
+    gy: row - rows + 1,
   };
 };
 
@@ -39,6 +39,9 @@ const items = icons.map(({ name, body }, i) => {
     "--gy": wide.gy,
     "--gxn": narrow.gx,
     "--gyn": narrow.gy,
+    "--jx": `${Math.round((noise(i, 1) - 0.5) * 60)}px`,
+    "--jy": `${Math.round((noise(i, 2) - 0.5) * 60)}px`,
+    "--pitch": `${PITCH}px`,
     "--size": `${SIZE_MIN + Math.round(SIZE_RANGE * noise(i, 3))}px`,
     "--depth": `${12 + Math.round(36 * noise(i, 4))}px`,
     "--tilt": `${Math.round((noise(i, 5) - 0.5) * 30)}deg`,
