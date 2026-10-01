@@ -3,6 +3,7 @@ import { LocaleSwitcher } from "@/components/controls/locale-switcher";
 import { ThemeToggle } from "@/components/controls/theme-toggle";
 import { Contact } from "@/components/sections/contact";
 import { cvPdf } from "@/content/links";
+import { FooterCat } from "./footer-cat";
 import styles from "./footer.module.css";
 
 export function LandingFooter() {
@@ -13,6 +14,7 @@ export function LandingFooter() {
       <Contact pdf={cvPdf} />
 
       <div className={`shell ${styles.bottom}`}>
+        <FooterCat />
         {/* No year: the page is prerendered, `getFullYear()` freezes at build. */}
         <p className={styles.copy}>© {t("name")}</p>
 

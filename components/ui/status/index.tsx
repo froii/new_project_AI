@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { StatusCat } from "./status-cat";
 import styles from "./status.module.css";
 
 /* Shell for 404 inside a locale, 404 above one, and the render error. The way out
@@ -7,11 +8,13 @@ export function Status({
   code,
   heading,
   body,
+  cat,
   children,
 }: {
   code: string;
   heading: string;
   body: string;
+  cat: "search" | "oops";
   children: ReactNode;
 }) {
   return (
@@ -19,7 +22,10 @@ export function Status({
       <p className={styles.code}>{code}</p>
       <h1 className={styles.heading}>{heading}</h1>
       <p className={styles.body}>{body}</p>
-      <div className={styles.actions}>{children}</div>
+      <div className={styles.actions}>
+        {children}
+        <StatusCat variant={cat} />
+      </div>
     </main>
   );
 }

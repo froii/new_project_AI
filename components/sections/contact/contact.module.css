@@ -16,8 +16,11 @@
   color: var(--color-invert-text);
 }
 
+/* Above the footer cat, which reaches up into the card's bottom padding. */
 .top,
 .revealInner {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: var(--paper-max);
   margin-inline: auto;
@@ -272,7 +275,7 @@
   }
 
   .card {
-    padding-block: calc(var(--space-2xl) * 1.5);
+    padding-block: calc(var(--space-2xl) * 1);
   }
 
   .headline {

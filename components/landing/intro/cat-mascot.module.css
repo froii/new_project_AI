@@ -14,8 +14,6 @@
   inset: 0;
   background-repeat: no-repeat;
   opacity: 0;
-  /* the seated cat's paws */
-  transform-origin: 52% 95%;
 }
 
 /* No room beside stacked buttons: the cat sits on top instead. */
