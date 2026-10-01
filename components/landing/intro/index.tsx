@@ -50,8 +50,6 @@ export function Intro() {
               </Link>
             </span>
           </div>
-
-          <p className={styles.hint}>{t("ctaHint")}</p>
         </div>
 
         {photo && (

@@ -55,45 +55,21 @@
   break-inside: avoid;
 }
 
-/* On paper a degree is set like a role: period in the shared rail, the rest on
-   the content edge. Otherwise the date floats to the right margin. */
 @media print {
   .list {
-    gap: var(--space-l);
+    gap: var(--space-m);
+  }
+
+  .head {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
   }
 
   .note {
     font-size: var(--step--1);
   }
 
-  .entry {
-    display: grid;
-    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
-    column-gap: var(--space-s);
-  }
-
-  /* Every row but the period goes to the content column. Matched by child, not class:
-     a switchable part comes wrapped in its own div and would auto-place into the rail. */
-  .entry > * {
-    grid-column: 2;
-  }
-
-  .head {
-    display: contents;
-  }
-
-  .period {
-    grid-area: 1 / 1;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .period > :last-child::before {
-    content: none;
-  }
-
   .degree {
-    grid-area: 1 / 2;
     font-family: var(--font-serif);
   }
 }

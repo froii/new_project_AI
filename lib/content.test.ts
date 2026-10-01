@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ExperienceEntry } from "@/content/types";
 import { experience } from "@/content";
-import { dottedDate, experienceSpan, isCurrent, sortExperience } from "./content";
+import { experienceSpan, isCurrent, monthYear, sortExperience } from "./content";
 
 const entry = (id: string, start: string, end?: string): ExperienceEntry => ({
   id,
@@ -50,13 +50,13 @@ describe("sortExperience", () => {
   });
 });
 
-describe("dottedDate", () => {
+describe("monthYear", () => {
   it("turns a month into the printed form", () => {
-    expect(dottedDate("2024-05")).toBe("2024.05");
+    expect(monthYear("2024-05")).toBe("05/2024");
   });
 
   it("leaves a bare year alone", () => {
-    expect(dottedDate("2011")).toBe("2011");
+    expect(monthYear("2011")).toBe("2011");
   });
 });
 

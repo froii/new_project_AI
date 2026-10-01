@@ -44,7 +44,7 @@ export function Contact({ pdf }: { pdf?: string }) {
       ? messengerLinks(phone).map((link) => ({ ...link, label: t(`messengers.${link.id}`) }))
       : []),
     ...owner.contacts
-      .filter((contact) => contact.kind === "link")
+      .filter((contact) => contact.kind === "link" && contact.id !== "site")
       .map((contact) => ({
         id: contact.id,
         href: contact.value,

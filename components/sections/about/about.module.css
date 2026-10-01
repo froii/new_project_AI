@@ -1,5 +1,4 @@
 .summary > p {
-  max-inline-size: 65ch;
   font-family: var(--font-serif);
   font-size: 1.125rem;
   line-height: 1.65;
@@ -28,15 +27,14 @@
 .results {
   display: grid;
   gap: var(--space-s);
-  max-inline-size: 68ch;
 }
 
 .result {
   position: relative;
   padding-inline-start: var(--space-m);
   font-size: var(--step--1);
-  line-height: 1.4;
-  color: var(--color-text-muted);
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 /* A border, not a background: print drops backgrounds unless the visitor ticks
@@ -55,19 +53,18 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  max-inline-size: 64ch;
 }
 
 .personal p {
   font-family: var(--font-serif);
   font-size: var(--step-0);
-  line-height: 1.75;
-  color: var(--color-text-muted);
+  line-height: 1.6;
+  color: var(--color-text);
 }
 
 .detail {
   margin-block-start: var(--space-2xs);
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
 }
 
 .result {
@@ -76,13 +73,29 @@
 
 /* At print scale `--space-xs` is under a millimetre of rule - a speck. */
 @media print {
+  /* Block, not flex/grid: Chrome moved the whole list to the next page instead of splitting it. */
+  .group,
   .results {
-    gap: var(--space-m);
+    display: block;
+  }
+
+  .group > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  .result + .result {
+    margin-block-start: var(--space-s);
   }
 
   .result {
     --marker-width: 2.5mm;
 
     padding-inline-start: 4mm;
+  }
+
+  /* Spectral 400 prints too thin to read comfortably. */
+  .summary > p,
+  .personal p {
+    font-weight: 500;
   }
 }

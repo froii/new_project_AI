@@ -1,0 +1,79 @@
+.field {
+  --mx: 0;
+  --my: 0;
+  --top: 96px;
+  /* room under the section for half an icon, its jitter and the parallax */
+  --hang: 112px;
+  position: absolute;
+  inset: calc(var(--top) * -1) 0 calc(0px - var(--hang));
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+  container-type: size;
+  view-timeline: --icon-field;
+  mask-image: linear-gradient(transparent, #000 var(--top));
+}
+
+.icon {
+  --px: var(--x);
+  --py: var(--y);
+  --cx: var(--gx);
+  --cy: var(--gy);
+  position: absolute;
+  left: calc(var(--px) * 1%);
+  top: calc(var(--py) * 1%);
+  width: var(--size);
+  margin: calc(var(--size) / -2);
+  rotate: var(--tilt);
+  transform: translate(calc(var(--mx) * var(--depth) * -1), calc(var(--my) * var(--depth) * -1));
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (max-width: 48rem) {
+  .icon {
+    --px: var(--xn);
+    --py: var(--yn);
+    --cx: var(--gxn);
+    --cy: var(--gyn);
+  }
+}
+
+/* transparent, not --color-bg: the overhang lies on neighbours with other backgrounds */
+.accent {
+  color: color-mix(in srgb, var(--color-accent) 24%, transparent);
+}
+
+.muted {
+  color: color-mix(in srgb, var(--color-text-faint) 20%, transparent);
+}
+
+.icon [data-fill] {
+  fill: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.icon [data-bold] {
+  stroke-width: 2.75;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .icon {
+      animation: gather linear both;
+      animation-timeline: --icon-field;
+      animation-range: cover 0% cover 50%;
+    }
+  }
+}
+
+@keyframes gather {
+  from {
+    translate: calc((var(--px) - 50) * var(--spread) * 1cqw / 100)
+      calc((var(--py) - 50) * var(--spread) * 1cqh / 100);
+  }
+
+  /* the packed grid: centred across, bottom row on the section's bottom edge */
+  to {
+    translate: calc(var(--cx) - (var(--px) - 50) * 1cqw)
+      calc(100cqh - var(--hang) + var(--cy) - var(--py) * 1cqh);
+  }
+}

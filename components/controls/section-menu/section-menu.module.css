@@ -156,10 +156,15 @@
     color 150ms ease;
 }
 
+.version:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  color: var(--color-accent);
+}
+
 .version[aria-pressed="true"] {
-  border-color: var(--color-invert-bg);
-  background: var(--color-invert-bg);
-  color: var(--color-invert-text);
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  color: var(--color-accent);
 }
 
 .scroll {
@@ -357,52 +362,74 @@
 }
 
 .actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-s);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xs);
   padding-block-start: calc(var(--space-2xs) + 10px);
 }
 
-.print {
-  min-height: 34px;
-  padding-inline: var(--space-s);
-  border-radius: var(--radius-sm);
-  background: var(--color-text);
-  color: var(--color-bg);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  vertical-align: bottom;
-}
-
-.print:hover {
-  background: var(--color-accent);
-  color: var(--color-bg);
-}
-
+.print,
 .questions {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
-  color: var(--color-text-muted);
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 36px;
+  padding-inline: var(--space-xs);
+  border: var(--border-width) solid transparent;
+  border-radius: calc(var(--radius-sm) + 4px);
   font-family: var(--font-mono);
   font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.08em;
   line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    translate 150ms ease;
 }
 
+.print svg,
 .questions svg {
-  width: 1.15em;
-  height: 1.15em;
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
   transition: translate 200ms ease;
 }
 
+.print:hover,
 .questions:hover {
+  translate: 0 -1px;
+}
+
+.print {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+.print:hover {
+  background: color-mix(in srgb, var(--color-accent) 85%, var(--color-text));
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.print:hover svg {
+  translate: 0 0.12rem;
+}
+
+.questions {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
   color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+}
+
+.questions:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
 }
 
 .questions:hover svg {

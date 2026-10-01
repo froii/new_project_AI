@@ -68,13 +68,18 @@
   break-inside: avoid;
 }
 
-/* No date, but starts at the rail like every other record. */
 @media print {
   .list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-s) var(--space-l);
-    padding-inline-start: calc(var(--paper-rail) + var(--space-s));
+    gap: var(--space-xs);
+  }
+
+  .name,
+  .meta {
+    display: inline;
+  }
+
+  .meta {
+    margin-inline-start: var(--space-s);
   }
 
   .entry {

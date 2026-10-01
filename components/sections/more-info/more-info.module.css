@@ -1,0 +1,22 @@
+.more {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-block: var(--space-m) var(--space-xl);
+  border-block-start: var(--border-width) solid var(--color-hairline);
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+  line-height: 1.5;
+  break-inside: avoid;
+}
+
+.more a {
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+@media print {
+  .more {
+    padding-block: var(--space-s) 0;
+  }
+}

@@ -8,8 +8,10 @@ export function sortExperience(entries: ExperienceEntry[]): ExperienceEntry[] {
   return [...entries].sort((a, b) => b.start.localeCompare(a.start));
 }
 
-export function dottedDate(value: string): string {
-  return value.replace("-", ".");
+/* MM/YYYY, the date format ATS parsers expect. */
+export function monthYear(value: string): string {
+  const [year, month] = value.split("-");
+  return month ? `${month}/${year}` : value;
 }
 
 /** The whole career as one range. `to: null` means it is still running. */
@@ -24,7 +26,7 @@ export function experienceSpan(entries: ExperienceEntry[]): { from: string; to: 
   };
 }
 
-const recentRoles = 4;
+const recentRoles = 3;
 
 export function shortlistExperience(entries: ExperienceEntry[]): ExperienceEntry[] {
   return sortExperience(entries)

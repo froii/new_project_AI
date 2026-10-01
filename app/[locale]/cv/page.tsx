@@ -7,6 +7,7 @@ import { Contact } from "@/components/sections/contact";
 import { Education } from "@/components/sections/education";
 import { Experience } from "@/components/sections/experience";
 import { Hero } from "@/components/sections/hero";
+import { MoreInfo } from "@/components/sections/more-info";
 import { Skills } from "@/components/sections/skills";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SectionSlot } from "@/components/visibility/section-slot";
@@ -81,6 +82,7 @@ export default async function CvPage({ params }: CvParams) {
                 </SectionSlot>
               );
             })}
+            <MoreInfo />
           </div>
 
           {/* Plain `.section-slot`, not SectionSlot: contact has no toggle, and

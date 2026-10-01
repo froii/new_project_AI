@@ -30,6 +30,7 @@ export function profileChunk(locale: Locale): Chunk {
       hero.location,
       hero.engagement,
       hero.availability,
+      hero.languages,
       contacts.join(", "),
     ].join("\n"),
     keywords: [],

@@ -19,7 +19,8 @@
     "email": "Пошта",
     "phone": "Телефон",
     "linkedin": "LinkedIn",
-    "github": "GitHub"
+    "github": "GitHub",
+    "site": "Сайт"
   },
   "open": "Написати",
   "close": "Сховати",

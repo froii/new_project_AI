@@ -327,6 +327,8 @@ a:hover {
 }
 
 .paper {
+  --measure: none;
+
   width: calc(100% - 2 * var(--gutter));
   max-width: var(--paper-max);
   padding-inline: clamp(var(--space-m), 5vw, 3.25rem);
@@ -553,13 +555,10 @@ a:hover {
 :root {
   --paper-font-size: 11pt;
   --paper-section-lead: 2.5mm;
-  --paper-section-tail: 6mm;
+  --paper-section-tail: 4mm;
   --paper-body-gap: var(--space-l);
   --paper-field-gap: var(--space-2xs);
   --paper-para-gap: var(--space-2xs);
-
-  /* Shared label-column width on paper, so values start on one edge. */
-  --paper-rail: 28mm;
 }
 
 @media screen {
@@ -599,8 +598,8 @@ dd {
   /* Fixed scale on paper: the fluid clamps resolve near their vw max on a 210mm
      sheet, which then fits a third less text. */
   :root {
-    --step--2: 8pt;
-    --step--1: 9.5pt;
+    --step--2: 9pt;
+    --step--1: 11pt;
     --step-0: 11pt;
     --step-1: 12.5pt;
     --step-2: 14pt;
@@ -617,6 +616,7 @@ dd {
     --space-2xl: 22pt;
   }
 
+  /* Paper: all text in one color. */
   :root,
   :root[data-theme="dark"] {
     --color-bg: #ffffff;
@@ -627,12 +627,12 @@ dd {
     --color-border: #c8c8c8;
     --color-hairline: #dcdcdc;
     --color-text: #101010;
-    --color-text-muted: #3a3a3a;
-    --color-text-faint: #6a6a6a;
-    --color-accent: #1a1a1a;
+    --color-text-muted: #101010;
+    --color-text-faint: #101010;
+    --color-accent: #101010;
     --color-invert-bg: #ffffff;
     --color-invert-text: #101010;
-    --color-invert-muted: #3a3a3a;
+    --color-invert-muted: #101010;
     --color-invert-border: #c8c8c8;
     color-scheme: light;
   }
@@ -683,7 +683,7 @@ dd {
   }
 
   #main :is(p, li, dt, dd, span, a) {
-    line-height: 1.6;
+    line-height: 1.45;
   }
 
   #main :is(h1, h2, h3, h4) {
@@ -696,8 +696,8 @@ dd {
 
   /* Space on both sides, or the rule reads as an underline of the next line. */
   .block-head {
-    padding-block-end: var(--space-s);
-    margin-block-end: var(--space-s);
+    padding-block-end: var(--space-xs);
+    margin-block-end: var(--space-xs);
   }
 }
 

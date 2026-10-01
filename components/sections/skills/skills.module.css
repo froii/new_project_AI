@@ -49,8 +49,15 @@
 
 @media print {
   .row {
-    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
-    column-gap: var(--space-s);
+    display: block;
     padding-block: 0;
+  }
+
+  .name {
+    margin-inline-end: var(--space-s);
+  }
+
+  .items {
+    display: inline;
   }
 }
