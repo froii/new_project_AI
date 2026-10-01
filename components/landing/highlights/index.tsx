@@ -5,7 +5,18 @@ import { skills } from "@/content";
 import { Carousel } from "./carousel";
 import styles from "./highlights.module.css";
 
-const featured = ["platform", "ai", "language", "payments", "performance", "review"] as const;
+const featured = [
+  "platform",
+  "language",
+  "undo",
+  "ai",
+  "llmGuard",
+  "aiTools",
+  "payments",
+  "performance",
+  "forms",
+  "review",
+] as const;
 
 const stack = ["frontend", "backend", "ai"].flatMap(
   (id) => skills.find((group) => group.id === id)?.items.slice(0, 3) ?? [],
@@ -14,12 +25,11 @@ const stack = ["frontend", "backend", "ai"].flatMap(
 export function Highlights() {
   const headingId = useId();
   const t = useTranslations("landing");
-  const tAbout = useTranslations("about");
 
   const items = featured.map((id) => ({
     id,
-    title: t(`work.${id}`),
-    body: tAbout(`achievements.${id}.short`),
+    title: t(`work.${id}.title`),
+    body: t(`work.${id}.body`),
   }));
 
   return (

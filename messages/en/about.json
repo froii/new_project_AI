@@ -1,7 +1,7 @@
 {
   "heading": "About",
   "body": "I started on the frontend, took on the backend, and now ship LLM features in production. Ten years in, the stack has changed more than once; what carries over is understanding how the whole system fits together. Most of what I ship is infrastructure other teams build on: low-code platforms, back-office systems, document management, e-commerce. I own architecture and performance on large codebases, and run the code review that keeps them maintainable. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it.",
-  "achievementsHeading": "What I've owned",
+  "achievementsHeading": "Key achievements",
   "achievementsScope": {
     "label": "Detail level",
     "short": "Short",
@@ -17,7 +17,7 @@
       "detail": "Small teams, so I was responsible for the frontend, the backend, the release and more."
     },
     "platform": {
-      "short": "Owned the frontend architecture of that platform: a widget system configured at runtime.",
+      "short": "Owned the frontend architecture of nedyx, a low-code platform for business reporting: a widget system configured at runtime.",
       "detail": "Every table, chart and text block is configured by the user from database data, and there are also archives and PDF export. Built drag-and-resize and undo/redo in-house for performance, and used react-dnd for page ordering and smaller block moves."
     },
     "payments": {
@@ -39,8 +39,8 @@
   },
   "personalHeading": "Beyond the code",
   "personal": [
-    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. Knowing that early keeps you from reading a blunt sentence as a personal problem.",
-    "I like difficult problems and play too much Dark Souls. My approach to both is the same: understand how something works before trying harder.",
-    "Outside work: manga, long walks and tea. Tea is the only skill on my LinkedIn that was endorsed without me asking."
+    "Most of my career has been remote, working with German, American, Israeli and Ukrainian teams. The same sentence carries different weight depending on who says it: direct feedback that is normal in one team reads as rudeness in another. Erin Meyer's \"The Culture Map\" is good on this. So I keep in mind who I am talking to and adapt how I communicate to the team.",
+    "I like difficult problems and games such as Dark Souls. My approach to both is the same: first understand how something works.",
+    "Outside work: manga, long walks and tea."
   ]
 }

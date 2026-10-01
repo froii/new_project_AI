@@ -1,23 +1,10 @@
 .span {
   flex: none;
-  display: flex;
-  gap: 0.4em;
   color: var(--color-text-faint);
   font-family: var(--font-mono);
   font-size: var(--step--2);
   letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
-}
-
-@media screen and (width < 48rem) {
-  .span {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .dot {
-    display: none;
-  }
 }
 
 .restHeading {
@@ -27,6 +14,34 @@
   font-size: var(--step--2);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  break-after: avoid;
+}
+
+.earlier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin-block-start: var(--space-xs);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.earlierDates {
+  white-space: nowrap;
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-variant-numeric: tabular-nums;
+}
+
+.history {
+  margin-block-start: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+}
+
+.history a {
+  overflow-wrap: anywhere;
 }
 
 .rest > :first-child {

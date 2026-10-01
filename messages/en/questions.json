@@ -23,7 +23,7 @@
     },
     "engagement": {
       "q": "How can the contract be set up?",
-      "a": "As a Ukrainian sole trader (FOP) or through any EOR, such as Deel or Remote.com.",
+      "a": "As a B2B contractor, or through an EOR such as Deel or Remote.com.",
       "keywords": [
         "FOP",
         "sole trader",
@@ -179,7 +179,7 @@
     },
     "degrees": {
       "q": "What education?",
-      "a": "I have been studying for an MSc in Computer Science, AI and Machine Learning at Neoversity IT University since 2025. Before that, I earned a master's degree in Project Management from Kyiv Aviation Institute and a bachelor's degree in Hydrometeorology from Taras Shevchenko National University of Kyiv, and did postgraduate studies in Environmental Safety at the National Academy of Sciences of Ukraine.",
+      "a": "I have been studying for an MSc in Computer Science, AI and Machine Learning at Neoversity IT University since 2025 and will graduate in 2027. Before that, I earned a master's degree in Project Management from Kyiv Aviation Institute and a bachelor's degree in Hydrometeorology from Taras Shevchenko National University of Kyiv, and did postgraduate studies in Environmental Safety at the National Academy of Sciences of Ukraine.",
       "keywords": [
         "education",
         "degree",
@@ -206,7 +206,7 @@
     },
     "msc": {
       "q": "What does the MSc cover?",
-      "a": "Machine learning, neural networks, statistics and algorithms. It is the theoretical side of the AI work I do in production. I have been studying at Neoversity IT University since 2025.",
+      "a": "Machine learning, neural networks, statistics and algorithms. It is the theoretical side of the AI work I do in production. I started at Neoversity IT University in 2025 and will graduate in 2027.",
       "keywords": [
         "MSc",
         "master's",
@@ -262,7 +262,7 @@
     },
     "hobbies": {
       "q": "Hobbies and life outside work?",
-      "a": "Gym, running, mountain hikes and long walks. I unwind with an audiobook, music, anime, cartoons, manga or a game, and play too much Dark Souls. Tea is the only skill on my LinkedIn that was endorsed without me asking. My cat waits for me at home.",
+      "a": "Gym, running, mountain hikes and long walks. I like learning new things: I watch tutorials on YouTube, take certifications and, alongside work, study for an MSc at Neoversity, which takes up much of my time. I unwind with an audiobook, music, anime, cartoons, manga or games like Dark Souls. My cat waits for me at home.",
       "keywords": ["hobbies", "interests", "free time", "personal", "sport", "travel", "countries"]
     },
     "trial": {
@@ -287,7 +287,7 @@
     },
     "failure": {
       "q": "A project that went wrong: what was learned?",
-      "a": "On the engineering side, every project shipped with its full planned scope. What fell short was traction: not enough marketing and too few clients. The market keeps changing and clients are getting harder to find, especially now that AI has pushed low-code and small apps aside. The lesson I took: first work out who you are selling to, and only then grow the product. A buyer tells you what is worth building, while features added at random, just to have them, rarely make a difference. On the technical side there was only the usual startup trade-off: early on you pick whichever free library is fastest to integrate, such as Chart.js instead of the far more flexible D3.js, and later it has to be replaced. That takes time, but it is a normal part of a product growing up.",
+      "a": "On the engineering side, every project shipped with its full planned scope. What fell short was traction: not enough marketing and too few clients. The lesson I took: first work out who you are selling to, and only then grow the product. A buyer tells you what is worth building, while features added at random, just to have them, rarely make a difference. On the technical side there was only the usual startup trade-off: early on you pick whichever free library is fastest to integrate, such as Chart.js instead of the far more flexible D3.js, and later it has to be replaced. That takes time, but it is a normal part of a product growing up.",
       "keywords": [
         "failure",
         "what went wrong",
@@ -325,13 +325,45 @@
     },
     "whyLooking": {
       "q": "Why the job search?",
-      "a": "The project I was on has wrapped up: the product is built and is now looking for customers. It does not need development right now, so I am looking for a new role.",
-      "keywords": ["why looking", "job search", "new job", "reason", "leaving"]
+      "a": "The project I was on has wrapped up: the product is built and is now looking for customers, so it does not need development right now. I am looking for a new project with more room to grow. Low-code and no-code platforms pair well with AI: I have already combined them in products and want to keep doing that in new projects.",
+      "keywords": [
+        "why looking",
+        "job search",
+        "new job",
+        "reason",
+        "leaving",
+        "low-code",
+        "no-code"
+      ]
     },
     "idealRole": {
       "q": "What should the next role look like?",
       "a": "One where I can keep growing, especially in AI, and do interesting work for fair pay. I have enjoyed every project I worked on, and I still get real satisfaction from web development, so I want to keep going in this direction and, over time, move into a lead or management role without giving up writing code.",
       "keywords": ["ideal role", "next role", "expectations", "AI", "growth", "lead", "manager"]
+    },
+    "companyFit": {
+      "q": "What matters in a company?",
+      "a": "That it keeps growing and works with new technology: I keep learning and want the work to grow with me. The areas closest to my experience are low-code platforms, back-office systems and AI. Games and graphics interest me too, both 3D and D3.js: I have little experience there, but I would be glad to try. I am moving toward web engineering as a whole, not only writing code.",
+      "keywords": [
+        "company",
+        "requirements",
+        "expectations",
+        "new technologies",
+        "low-code",
+        "back office",
+        "AI",
+        "games",
+        "gaming",
+        "graphics",
+        "3D",
+        "D3.js",
+        "web engineering"
+      ]
+    },
+    "team": {
+      "q": "What makes the work rewarding?",
+      "a": "A small, friendly team that builds its own product step by step, one that many people can use, rather than turning out the same sites over and over. When I see people using and liking a product I helped build, the work means much more to me. The team matters as much as the product: I want to work with people I enjoy talking to.",
+      "keywords": ["team", "product", "motivation", "what matters", "rewarding", "users", "culture"]
     },
     "interests": {
       "q": "Which products or problems are the most interesting?",
@@ -467,10 +499,15 @@
     },
     "languages": {
       "q": "Which languages?",
-      "a": "Ukrainian and English. My English is C1 Advanced, confirmed by an EF SET certificate (2024).",
+      "a": "Ukrainian is my native language, and I also speak Russian. I use English every day at work, with clients and the team. I am not a native speaker, so I describe my level as B2, professional working proficiency, although my EF SET certificate (2024) rates it C1.",
       "keywords": [
         "languages",
         "Ukrainian",
+        "Russian",
+        "native",
+        "B2",
+        "professional working proficiency",
+        "fluent",
         "spoken languages",
         "English",
         "language",
@@ -483,7 +520,7 @@
     },
     "conflict": {
       "q": "How to handle disagreement with a teammate or a manager?",
-      "a": "First, I talk it through calmly and find out what the problem really is, then look for a solution that works for both sides. A lot depends on the people and the culture: I have worked with teams from different countries, and what sounds normal in one can land quite differently in another. So I always keep in mind who I am talking to and adapt my approach to the person. Disagreement is a normal part of the work for me, not something personal.",
+      "a": "I have not had serious conflicts in a team. I settle disagreements at work by talking them through: first I listen to the other side and find out what the problem really is, then look for a solution that works for both sides. I keep the discussion on the task and the facts, not the people. A lot depends on the culture: I have worked with teams from different countries, and what sounds normal in one can land quite differently in another, so I adapt my approach to the person. If we still cannot agree, I weigh the options by what they give the product, make the call, explain to the team why, and own the outcome. Disagreement is a normal part of the work for me, not something personal.",
       "keywords": [
         "conflict",
         "disagreement",
@@ -596,6 +633,21 @@
         "overlap",
         "schedule",
         "US hours"
+      ]
+    },
+    "location": {
+      "q": "Current location?",
+      "a": "I work remotely as a B2B contractor registered in Ukraine. I am currently outside Ukraine, which does not affect the work: I adapt to the team's time zone. If the company helps with relocation, I can move, depending on the place.",
+      "keywords": [
+        "location",
+        "based",
+        "where",
+        "country",
+        "city",
+        "time zone",
+        "relocation",
+        "travel",
+        "remote"
       ]
     },
     "contractTerms": {

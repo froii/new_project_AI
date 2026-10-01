@@ -19,7 +19,8 @@
     "email": "Email",
     "phone": "Phone",
     "linkedin": "LinkedIn",
-    "github": "GitHub"
+    "github": "GitHub",
+    "site": "Website"
   },
   "open": "Contact me",
   "close": "Hide",

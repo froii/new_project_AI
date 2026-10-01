@@ -9,12 +9,12 @@
   gap: var(--space-2xs) var(--space-l);
   padding-block: var(--space-2xs);
   font-size: var(--step--1);
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 @container (min-width: 34rem) {
   .row {
-    grid-template-columns: 10rem minmax(0, 1fr);
+    grid-template-columns: var(--rail) minmax(0, 1fr);
     align-items: baseline;
   }
 }
@@ -23,7 +23,10 @@
   color: var(--color-text-faint);
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  line-height: 1.7;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .items {
@@ -49,8 +52,15 @@
 
 @media print {
   .row {
-    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
-    column-gap: var(--space-s);
+    display: block;
     padding-block: 0;
+  }
+
+  .name {
+    margin-inline-end: var(--space-s);
+  }
+
+  .items {
+    display: inline;
   }
 }

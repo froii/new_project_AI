@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
 import { education } from "@/content";
-import { dottedDate } from "@/lib/content";
+import { monthYear } from "@/lib/content";
 import styles from "./education.module.css";
 
 const recent = 2;
@@ -18,8 +18,8 @@ export function Education() {
       <div className={styles.head}>
         <p className={styles.degree}>{t(`entries.${item.id}.degree`)}</p>
         <p className={styles.period}>
-          <span>{dottedDate(item.start)}</span>
-          <span>{item.end ? dottedDate(item.end) : tExperience("present")}</span>
+          <span>{monthYear(item.start)}</span>
+          <span>{item.end ? monthYear(item.end) : tExperience("present")}</span>
         </p>
       </div>
 

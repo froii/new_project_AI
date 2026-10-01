@@ -22,10 +22,11 @@
 }
 
 .option:hover {
-  color: var(--color-text);
+  color: var(--color-accent);
 }
 
 .option[aria-pressed="true"] {
-  background: var(--color-invert-bg);
-  color: var(--color-invert-text);
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-accent);
 }

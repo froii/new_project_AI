@@ -164,7 +164,12 @@ export async function POST(request: Request) {
         if (truncated) {
           const detail = `${who} hit max_tokens (${MAX_TOKENS})`;
           console.error(`[ask] ${detail}`);
-          after(() => alertOwner("Website chat: an answer was cut off", detail));
+          const text = [
+            `${detail}.`,
+            "The model stopped mid-answer, so the visitor got a partial answer and a note to choose another model.",
+            "Reasoning tokens count toward max_tokens even though they are not streamed, so a model that thinks long leaves little room for the answer.",
+          ].join("\n\n");
+          after(() => alertOwner("Website chat: an answer was cut off", text));
         }
         /* Questions go to the log only, never to analytics. */
         // eslint-disable-next-line no-console -- info level, read by hand

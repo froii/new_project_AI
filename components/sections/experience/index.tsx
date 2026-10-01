@@ -6,11 +6,12 @@ import { Field, FieldList } from "@/components/ui/field-list";
 import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
-import { experience } from "@/content";
+import { experience, owner } from "@/content";
+import { contactHref, contactText } from "@/lib/contacts";
 import {
-  dottedDate,
   experienceSpan,
   isCurrent,
+  monthYear,
   shortlistExperience,
   sortExperience,
 } from "@/lib/content";
@@ -27,6 +28,8 @@ export function Experience() {
   /* Non-dev roles show only in the full history. */
   const shortlist = shortlistExperience(experience);
   const rest = entries.filter((entry) => !shortlist.includes(entry));
+  const earlier = rest.filter((entry) => !entry.nonDev);
+  const linkedin = owner.contacts.find((contact) => contact.id === "linkedin");
 
   const toItem = (entry: (typeof entries)[number]) => {
     const hardParts = challenges[entry.id];
@@ -35,8 +38,8 @@ export function Experience() {
       id: entry.id,
       lead: (
         <>
-          <span>{dottedDate(entry.start)}</span>
-          <span>{isCurrent(entry) ? t("present") : dottedDate(entry.end ?? "")}</span>
+          <span>{monthYear(entry.start)}</span>
+          <span>{isCurrent(entry) ? t("present") : monthYear(entry.end ?? "")}</span>
         </>
       ),
       title: t(`entries.${entry.id}.role`),
@@ -117,13 +120,7 @@ export function Experience() {
         </div>
 
         <span className={styles.span}>
-          <span>{t("summary", { count: entries.filter((entry) => !entry.nonDev).length })}</span>
-          <span className={styles.dot} aria-hidden="true">
-            ·
-          </span>
-          <span>
-            {span.from} - {span.to ?? t("present")}
-          </span>
+          {span.from} - {span.to ?? t("present")}
         </span>
         <PartToggle
           id="experience.all"
@@ -138,6 +135,27 @@ export function Experience() {
       <Part id="experience.all">
         <p className={styles.restHeading}>{t("restHeading")}</p>
         <Roles items={rest.map(toItem)} className={styles.rest} />
+      </Part>
+
+      {/* Earlier roles as one-liners while the full list is off. */}
+      <Part id="experience.all" whenOff>
+        <p className={styles.restHeading}>{t("earlierHeading")}</p>
+        <ul className={styles.earlier} role="list">
+          {earlier.map((entry) => (
+            <li key={entry.id}>
+              {t(`entries.${entry.id}.role`)}
+              {" · "}
+              <span className={styles.earlierDates}>
+                {monthYear(entry.start)} - {entry.end ? monthYear(entry.end) : t("present")}
+              </span>
+            </li>
+          ))}
+        </ul>
+        {linkedin && (
+          <p className={styles.history}>
+            {t("history")} <a href={contactHref(linkedin)}>{contactText(linkedin)}</a>
+          </p>
+        )}
       </Part>
     </section>
   );

@@ -22,24 +22,26 @@ export function Hero() {
           </h1>
           <p className={styles.headline}>{t("headline")}</p>
 
-          <ul className={styles.facts} role="list">
-            <li>{t("location")}</li>
-            <li>{t("availability")}</li>
-            <li>{t("engagement")}</li>
-          </ul>
-
-          <Part id="hero.contacts">
-            <dl className={styles.contacts} aria-label={t("contactsLabel")}>
-              {owner.contacts.map((contact) => (
-                <Fragment key={contact.id}>
-                  <dt>{tContact(`direct.${contact.id}`)}</dt>
-                  <dd>
-                    <a href={contactHref(contact)}>{contactText(contact)}</a>
-                  </dd>
-                </Fragment>
-              ))}
+          <div className={styles.contacts}>
+            <Part id="hero.contacts" className={styles.group}>
+              <dl className={styles.rows} aria-label={t("contactsLabel")}>
+                {owner.contacts.map((contact) => (
+                  <Fragment key={contact.id}>
+                    <dt>{tContact(`direct.${contact.id}`)}</dt>
+                    <dd>
+                      <a href={contactHref(contact)}>{contactText(contact)}</a>
+                    </dd>
+                  </Fragment>
+                ))}
+              </dl>
+            </Part>
+            <dl className={styles.rows}>
+              <dt>{t("formatLabel")}</dt>
+              <dd>{t("format")}</dd>
+              <dt>{t("languagesLabel")}</dt>
+              <dd>{t("languages")}</dd>
             </dl>
-          </Part>
+          </div>
         </div>
 
         <Part id="hero.photo" className={styles.portrait}>

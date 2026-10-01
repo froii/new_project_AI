@@ -21,6 +21,7 @@ export const owner: OwnerProfile = {
     { id: "phone", kind: "phone", value: "+380734074118" },
     { id: "linkedin", kind: "link", value: "https://www.linkedin.com/in/oleksa-t-90a050a8" },
     { id: "github", kind: "link", value: "https://github.com/froii" },
+    { id: "site", kind: "link", value: "https://oleksatyshchenko.com" },
   ],
 };
 
@@ -29,7 +30,6 @@ export const contactInbox = "lestyshchenko@gmail.com";
 export const achievements: Achievement[] = [
   { id: "language" },
   { id: "clients" },
-  { id: "platform" },
   { id: "payments" },
   { id: "ai" },
   { id: "performance" },
@@ -188,7 +188,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     id: "freelance",
-    organisation: "FL.ru / Upwork",
+    organisation: "Upwork",
     start: "2015-04",
     end: "2016-10",
     techStack: ["HTML", "CSS", "JavaScript", "jQuery"],
@@ -211,6 +211,7 @@ export const education: EducationEntry[] = [
     id: "neoversity",
     institution: "Neoversity IT University",
     start: "2025-09",
+    end: "2027-09",
     skills: [
       "Machine learning",
       "Neural networks",

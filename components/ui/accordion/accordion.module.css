@@ -142,9 +142,9 @@
     width: 100%;
     margin-inline: 0;
     padding-inline: 0;
-    padding-block: calc(var(--space-l) - 0.2rem) var(--space-2xs);
-    grid-template-columns: var(--paper-rail) minmax(0, 1fr);
-    column-gap: var(--space-s);
+    padding-block: var(--space-m) var(--space-2xs);
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
     break-inside: avoid;
   }
 
@@ -152,14 +152,15 @@
     break-after: avoid;
   }
 
+  /* Dates above the title: ATS parsers read a date column apart from the roles. */
   .lead {
-    grid-column: auto;
+    grid-column: 1;
     flex-direction: row;
-    gap: 0;
+    gap: var(--space-2xs);
   }
 
   .lead > :last-child::before {
-    content: "-";
+    content: "- ";
   }
 
   .trigger[data-state="open"] .meta {

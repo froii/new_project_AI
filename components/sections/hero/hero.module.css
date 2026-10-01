@@ -60,13 +60,8 @@
   color: var(--color-text-muted);
 }
 
-.facts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-  margin-block-start: var(--space-m);
-  color: var(--color-text-muted);
-  font-size: var(--step--1);
+.group {
+  display: contents;
 }
 
 .contacts {
@@ -78,7 +73,16 @@
   font-size: var(--step--1);
 }
 
-.contacts > dt {
+/* Both lists share the parent's label column. */
+.rows {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+  row-gap: var(--space-2xs);
+}
+
+.contacts dt {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   letter-spacing: 0.06em;
@@ -87,14 +91,14 @@
   line-height: 1.7;
 }
 
-.contacts > dd a {
+.contacts dd a {
   color: var(--color-text);
   text-decoration: none;
   border-block-end: var(--border-width) solid var(--color-border);
   overflow-wrap: anywhere;
 }
 
-.contacts > dd a:hover {
+.contacts dd a:hover {
   color: var(--color-accent);
   border-color: currentColor;
 }
@@ -105,7 +109,7 @@
 
 /* Paper keeps the portrait at 32mm, not 18rem, so the masthead does not take a page.
    Sizes are explicit: the fluid scale shrank the name's lead over the headline and made
-   the contacts as large as the pitch. Order follows the screen: name, headline, facts. */
+   the contacts as large as the pitch. Order follows the screen: name, headline, contacts. */
 @media print {
   .layout {
     padding-block: 0;
@@ -123,16 +127,12 @@
     font-size: 13.5pt;
   }
 
-  /* Three groups: title block, availability, contacts. */
-  .facts {
-    margin-block-start: var(--space-l);
-  }
-
   .contacts {
+    margin-block-start: var(--space-l);
     column-gap: var(--space-s);
   }
 
-  .contacts > dd a {
+  .contacts dd a {
     border-block-end: 0;
   }
 }

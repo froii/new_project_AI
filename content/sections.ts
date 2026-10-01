@@ -51,7 +51,8 @@ export const toggleCodes = {
   skills: "k",
   "skills.full": "kf",
   experience: "e",
-  "experience.all": "ea",
+  // Not "ea": it meant the opposite while the default was true, and old share links still carry it.
+  "experience.all": "ex",
   "experience.project": "ep",
   "experience.result": "eo",
   "experience.challenges": "ec",
@@ -75,7 +76,7 @@ export const toggleDefaults = {
   skills: true,
   "skills.full": true,
   experience: true,
-  "experience.all": true,
+  "experience.all": false,
   "experience.project": true,
   "experience.result": true,
   "experience.challenges": true,
@@ -99,10 +100,10 @@ export function partsOf(section: ToggleSectionId): PartId[] {
   return sectionParts[section].map((part) => `${section}.${part}` as PartId);
 }
 
-/* Ordered by how much detail survives, widest first (15, 12, 12, 6, 6, 2), so
+/* Ordered by how much detail survives, widest first (15, 10, 10, 6, 6, 2), so
    the list reads as one scale. Not by section count: `screening` keeps fewer
    sections than `short` but more inside them, and the two orderings disagree. */
-export const presetIds = ["full", "us", "tech", "cases", "screening", "short"] as const;
+export const presetIds = ["full", "tech", "us", "cases", "screening", "short"] as const;
 
 export type PresetId = (typeof presetIds)[number];
 
@@ -116,6 +117,7 @@ export const presets = {
   },
   us: {
     "hero.photo": false,
+    "about.achievementsFull": false,
     "about.personal": false,
     "experience.alsoUsed": false,
   },
@@ -124,8 +126,6 @@ export const presets = {
     "about.achievementsFull": true,
     "about.personal": false,
     "skills.full": true,
-    "experience.all": true,
-    "experience.alsoUsed": true,
     "education.all": false,
   },
   screening: {
@@ -150,11 +150,9 @@ export const presets = {
     education: false,
     certifications: false,
   },
-  /* Named for a page count, so it has to hold one: measured at 0.89 of an A4
-     text block against 1.62 before. Everything but the result comes off each
-     role - the accordion header still carries the dates and the top of the
-     stack, so what is dropped is the prose, not the facts. Dropping only the
-     stack lands on 1.00 exactly, which the next line of translated copy breaks. */
+  /* Named for a page count, so it has to hold one. Everything but the result
+     comes off each role - the accordion header still carries the dates and the
+     top of the stack, so what is dropped is the prose, not the facts. */
   short: {
     "hero.photo": false,
     about: false,

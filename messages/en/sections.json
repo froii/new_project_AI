@@ -16,7 +16,7 @@
     },
     "tech": {
       "label": "Deep dive",
-      "note": "the full stack, every role"
+      "note": "the full stack, recent roles in depth"
     },
     "screening": {
       "label": "First look",
@@ -56,9 +56,9 @@
       "all": "Earlier roles",
       "project": "Project",
       "result": "Result",
-      "responsibilities": "Scope",
+      "responsibilities": "Responsibilities",
       "techStack": "Stack",
-      "alsoUsed": "Adjacent",
+      "alsoUsed": "Also used",
       "link": "Link",
       "challenges": "Technical challenges"
     },

@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { useTranslations } from "next-intl";
+import { IconField } from "@/components/ui/icon-field";
 import styles from "./principles.module.css";
 
 const principles = ["ownership", "quality", "respect"] as const;
@@ -10,6 +11,7 @@ export function Principles() {
 
   return (
     <section className={styles.principles} aria-labelledby={headingId}>
+      <IconField />
       <div className={`shell ${styles.layout}`}>
         <h2 id={headingId} className={styles.heading}>
           {t("heading")}
