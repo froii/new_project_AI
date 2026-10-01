@@ -403,7 +403,7 @@ a:hover {
 .section h2 {
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-text-faint);
@@ -705,8 +705,13 @@ dd {
   }
 }
 
-/* 8mm vertical: under 8.5mm Chrome omits its date/URL print header and footer. */
+/* An author margin box turns off Chrome's own date/title/URL header and footer (Chrome 131+),
+   which a top margin over 8.5mm would otherwise show. Top + bottom stay 16mm so pages break as before. */
 @page {
   size: A4;
-  margin: 8mm 14mm;
+  margin: 10mm 14mm 6mm;
+
+  @top-center {
+    content: "";
+  }
 }
