@@ -80,18 +80,27 @@ export function CatMascot() {
     idle.style.backgroundSize = wrap.style.backgroundSize;
     idle.style.transition = `opacity ${IDLE_FADE_MS}ms ease-in-out`;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      wrap.style.backgroundImage = REST_IMAGE;
-      showFrame(wrap, FRAMES - 1);
-      wrap.style.visibility = "visible";
-      return;
-    }
-
     let raf = 0;
     let sitting = false;
     let disposed = false;
 
     const slot = wrap.parentElement;
+
+    const sit = () => {
+      sitting = true;
+      wrap.style.cursor = "pointer";
+      wrap.style.pointerEvents = "auto";
+      const img = new Image();
+      img.src = "/cat/cat-idle.webp";
+      img.decode().then(
+        () => {
+          if (disposed) return;
+          idle.style.backgroundImage = `url(${img.src})`;
+          scheduleIdle();
+        },
+        () => {},
+      );
+    };
 
     const run = (start: number) => {
       wrap.style.backgroundImage = REST_IMAGE;
@@ -104,34 +113,11 @@ export function CatMascot() {
         if (frame < FRAMES - 1) {
           raf = requestAnimationFrame(tick);
         } else {
-          sitting = true;
-          wrap.style.cursor = "pointer";
-          wrap.style.pointerEvents = "auto";
-          const img = new Image();
-          img.src = "/cat/cat-idle.webp";
-          img.decode().then(
-            () => {
-              if (disposed) return;
-              idle.style.backgroundImage = `url(${img.src})`;
-              scheduleIdle();
-            },
-            () => {},
-          );
+          sit();
         }
       };
       raf = requestAnimationFrame(tick);
     };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          raf = requestAnimationFrame(run);
-        }
-      },
-      { threshold: 0.6 },
-    );
-    observer.observe(wrap);
 
     let tapRaf = 0;
     let hovering = false;
@@ -216,10 +202,29 @@ export function CatMascot() {
     wrap.addEventListener("pointerenter", handlePointerEnter);
     wrap.addEventListener("pointerleave", handlePointerLeave);
 
+    let observer: IntersectionObserver | undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      wrap.style.backgroundImage = REST_IMAGE;
+      showFrame(wrap, FRAMES - 1);
+      wrap.style.visibility = "visible";
+      sit();
+    } else {
+      observer = new IntersectionObserver(
+        ([entry], self) => {
+          if (entry.isIntersecting) {
+            self.disconnect();
+            raf = requestAnimationFrame(run);
+          }
+        },
+        { threshold: 0.6 },
+      );
+      observer.observe(wrap);
+    }
+
     return () => {
       disposed = true;
       slot?.removeAttribute("data-cat-behind");
-      observer.disconnect();
+      observer?.disconnect();
       wrap.removeEventListener("pointerenter", handlePointerEnter);
       wrap.removeEventListener("pointerleave", handlePointerLeave);
       cancelAnimationFrame(raf);

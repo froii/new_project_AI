@@ -1,6 +1,7 @@
 {
   "cta": "Резюме",
-  "stackHeading": "Основний стек",
+  "askPrompt": "Маєте запитання - ",
+  "askLink": "ШІ асистент і готові відповіді",  "stackHeading": "Основний стек",
   "work": {
     "heading": "Що я створив",
     "platform": {

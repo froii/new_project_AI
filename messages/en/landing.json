@@ -1,6 +1,7 @@
 {
   "cta": "Full CV",
-  "stackHeading": "Core stack",
+  "askPrompt": "Got a question? Ask ",
+  "askLink": "the AI assistant or check FAQ",  "stackHeading": "Core stack",
   "work": {
     "heading": "What I have built",
     "platform": {
