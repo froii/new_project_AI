@@ -11,7 +11,7 @@ export default function Error({ reset }: { error: Error; reset: () => void }) {
   const email = owner.contacts.find((contact) => contact.kind === "email");
 
   return (
-    <Status code={t("code")} heading={t("heading")} body={t("body")}>
+    <Status code={t("code")} heading={t("heading")} body={t("body")} cat="oops">
       <button type="button" className={styles.primary} onClick={reset}>
         {t("retry")}
       </button>

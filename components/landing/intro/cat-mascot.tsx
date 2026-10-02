@@ -44,12 +44,12 @@ const TAP_HOLD_MS = 400;
 const TAP_REWIND_MS = 45;
 const TAP_SETTLE_MS = 70;
 
-// [from, to, scale at from, scale at to]. Cut at the idle frames closest to the rest pose,
-// the fade hides the rest of the gap; scale offsets the idle cat sitting up to 5px lower.
-const IDLE_EVENTS: [number, number, number, number][] = [
-  [0, 45, 1.036, 1],
-  [45, 90, 1, 1.014],
-  [90, 119, 1.014, 1],
+// Cut at the idle frames closest to the rest pose; the fade hides the rest of the gap.
+// Both sheets share one scale: any zoom here shows as a size jump during the fade.
+const IDLE_EVENTS: [number, number][] = [
+  [0, 43],
+  [43, 90],
+  [90, 119],
 ];
 const IDLE_GAP_MS = [2000, 6000];
 const IDLE_FADE_MS = 250;
@@ -80,18 +80,30 @@ export function CatMascot() {
     idle.style.backgroundSize = wrap.style.backgroundSize;
     idle.style.transition = `opacity ${IDLE_FADE_MS}ms ease-in-out`;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      wrap.style.backgroundImage = REST_IMAGE;
-      showFrame(wrap, FRAMES - 1);
-      wrap.style.visibility = "visible";
-      return;
-    }
-
     let raf = 0;
     let sitting = false;
     let disposed = false;
 
     const slot = wrap.parentElement;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Reduced motion keeps the hover animation (user-triggered) but drops the idle loop.
+    const sit = () => {
+      sitting = true;
+      wrap.style.cursor = "pointer";
+      wrap.style.pointerEvents = "auto";
+      if (reduced) return;
+      const img = new Image();
+      img.src = "/cat/cat-idle.webp";
+      img.decode().then(
+        () => {
+          if (disposed) return;
+          idle.style.backgroundImage = `url(${img.src})`;
+          scheduleIdle();
+        },
+        () => {},
+      );
+    };
 
     const run = (start: number) => {
       wrap.style.backgroundImage = REST_IMAGE;
@@ -104,34 +116,11 @@ export function CatMascot() {
         if (frame < FRAMES - 1) {
           raf = requestAnimationFrame(tick);
         } else {
-          sitting = true;
-          wrap.style.cursor = "pointer";
-          wrap.style.pointerEvents = "auto";
-          const img = new Image();
-          img.src = "/cat/cat-idle.webp";
-          img.decode().then(
-            () => {
-              if (disposed) return;
-              idle.style.backgroundImage = `url(${img.src})`;
-              scheduleIdle();
-            },
-            () => {},
-          );
+          sit();
         }
       };
       raf = requestAnimationFrame(tick);
     };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          raf = requestAnimationFrame(run);
-        }
-      },
-      { threshold: 0.6 },
-    );
-    observer.observe(wrap);
 
     let tapRaf = 0;
     let hovering = false;
@@ -179,10 +168,9 @@ export function CatMascot() {
       let event = Math.floor(Math.random() * IDLE_EVENTS.length);
       if (event === lastEvent) event = (event + 1) % IDLE_EVENTS.length;
       lastEvent = event;
-      const [from, to, scaleFrom, scaleTo] = IDLE_EVENTS[event];
+      const [from, to] = IDLE_EVENTS[event];
       const show = (f: number) => {
         idle.style.backgroundPosition = framePosition(f);
-        idle.style.transform = `scale(${scaleFrom + ((scaleTo - scaleFrom) * (f - from)) / (to - from)})`;
       };
       show(from);
       idle.style.opacity = "1";
@@ -216,10 +204,29 @@ export function CatMascot() {
     wrap.addEventListener("pointerenter", handlePointerEnter);
     wrap.addEventListener("pointerleave", handlePointerLeave);
 
+    let observer: IntersectionObserver | undefined;
+    if (reduced) {
+      wrap.style.backgroundImage = REST_IMAGE;
+      showFrame(wrap, FRAMES - 1);
+      wrap.style.visibility = "visible";
+      sit();
+    } else {
+      observer = new IntersectionObserver(
+        ([entry], self) => {
+          if (entry.isIntersecting) {
+            self.disconnect();
+            raf = requestAnimationFrame(run);
+          }
+        },
+        { threshold: 0.6 },
+      );
+      observer.observe(wrap);
+    }
+
     return () => {
       disposed = true;
       slot?.removeAttribute("data-cat-behind");
-      observer.disconnect();
+      observer?.disconnect();
       wrap.removeEventListener("pointerenter", handlePointerEnter);
       wrap.removeEventListener("pointerleave", handlePointerLeave);
       cancelAnimationFrame(raf);

@@ -16,7 +16,7 @@ export default async function RootNotFound() {
   return (
     <html lang={defaultLocale} className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
       <body>
-        <Status code={t("code")} heading={t("heading")} body={t("body")}>
+        <Status code={t("code")} heading={t("heading")} body={t("body")} cat="search">
           <a className={styles.primary} href={`/${defaultLocale}`}>
             {t("home")}
           </a>

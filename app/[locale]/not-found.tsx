@@ -13,7 +13,7 @@ export default function NotFound() {
   return (
     <>
       <SiteHeader />
-      <Status code={t("code")} heading={t("heading")} body={t("body")}>
+      <Status code={t("code")} heading={t("heading")} body={t("body")} cat="search">
         <Link className={styles.primary} href="/">
           {t("home")}
         </Link>

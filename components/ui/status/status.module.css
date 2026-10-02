@@ -36,6 +36,18 @@
   padding-block-start: var(--space-xs);
 }
 
+.cat {
+  height: 5.5rem;
+}
+
+/* Beside the buttons: stands on their bottom edge and rises above the row
+   instead of making it taller. Narrow screens wrap it to its own line. */
+@media (min-width: 34rem) {
+  .cat {
+    margin-block-start: calc(2.75rem - 5.5rem);
+  }
+}
+
 .primary,
 .secondary {
   display: inline-flex;

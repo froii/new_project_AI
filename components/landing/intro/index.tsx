@@ -15,7 +15,6 @@ export function Intro() {
   const tHero = useTranslations("hero");
   const tCommon = useTranslations("common");
   const tContact = useTranslations("contact");
-  const tAsk = useTranslations("ask");
 
   const photo = owner.photos[0];
 
@@ -41,15 +40,16 @@ export function Intro() {
               <CatMascot />
             </span>
 
-            {/* Wraps as one unit, so the link never leaves the button. */}
-            <span className={styles.more}>
-              <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
-              <Link className={styles.textLink} href="/questions">
-                {tAsk("title")}
-                <ArrowIcon />
-              </Link>
-            </span>
+            <WriteButton className={styles.secondary}>{tContact("open")}</WriteButton>
           </div>
+
+          <p className={styles.ask}>
+            {t("askPrompt")}
+            <Link className={styles.textLink} href="/questions">
+              {t("askLink")}
+              <ArrowIcon />
+            </Link>
+          </p>
         </div>
 
         {photo && (

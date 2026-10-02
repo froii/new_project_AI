@@ -1,0 +1,5 @@
+.cat {
+  visibility: hidden;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}

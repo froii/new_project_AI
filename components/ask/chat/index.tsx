@@ -8,6 +8,7 @@ import type { Locale } from "@/i18n/config";
 import type { FreeModel } from "@/lib/ask/models";
 import { askLimits } from "@/lib/ask/request";
 import { requestContactForm } from "@/lib/contact-open";
+import { type CatMood, ChatCat } from "./chat-cat";
 import { type ChatMessage, type ChatStatus, useChatStream } from "./use-chat-stream";
 import styles from "./chat.module.css";
 
@@ -18,6 +19,7 @@ export function Chat({ models }: { models: FreeModel[] }) {
   const [draft, setDraft] = useState("");
   /* "" = Auto */
   const [model, setModel] = useState("");
+  const [focused, setFocused] = useState(false);
   const busy = status !== "idle";
 
   const submit = (event?: { preventDefault(): void }) => {
@@ -44,6 +46,14 @@ export function Chat({ models }: { models: FreeModel[] }) {
           ? [last.content, t("truncated")].filter(Boolean).join(" ")
           : last.content
       : "";
+
+  const mood: CatMood = busy
+    ? "busy"
+    : last?.role === "assistant" && last.failed && !draft
+      ? "oops"
+      : focused || draft
+        ? "awake"
+        : "sleep";
 
   return (
     <section className={styles.chat} aria-labelledby="chat-heading">
@@ -74,7 +84,14 @@ export function Chat({ models }: { models: FreeModel[] }) {
         {announcement}
       </p>
 
-      <form className={styles.form} onSubmit={submit}>
+      <form
+        className={styles.form}
+        onSubmit={submit}
+        onFocus={() => setFocused(true)}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
+        }}
+      >
         <Textarea
           className={styles.input}
           value={draft}
@@ -109,6 +126,8 @@ export function Chat({ models }: { models: FreeModel[] }) {
           )}
         </div>
       </form>
+
+      <ChatCat mood={mood} className={styles.cat} />
     </section>
   );
 }
