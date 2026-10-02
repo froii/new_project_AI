@@ -55,6 +55,11 @@
   break-inside: avoid;
 }
 
+/* The section's flex gap is smaller than the list's, so the two lists would read as one squeezed entry. */
+.rest {
+  margin-block-start: calc(var(--space-m) - var(--space-xs));
+}
+
 @media print {
   .list {
     gap: var(--space-m);
@@ -70,6 +75,6 @@
   }
 
   .degree {
-    font-family: var(--font-serif);
+    font-size: 11.5pt;
   }
 }

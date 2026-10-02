@@ -58,7 +58,7 @@
   .term {
     display: inline;
     margin-inline-end: var(--space-s);
-    letter-spacing: 0.02em;
+    font-weight: 500;
   }
 
   .value {

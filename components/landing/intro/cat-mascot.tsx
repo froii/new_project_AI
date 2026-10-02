@@ -44,13 +44,21 @@ const TAP_HOLD_MS = 400;
 const TAP_REWIND_MS = 45;
 const TAP_SETTLE_MS = 70;
 
-// Cut at the idle frames closest to the rest pose; the fade hides the rest of the gap.
-// Both sheets share one scale: any zoom here shows as a size jump during the fade.
-const IDLE_EVENTS: [number, number][] = [
-  [0, 43],
-  [43, 90],
-  [90, 119],
-];
+// Only idle frames 45-46 and 115-119 match the rest pose; 0-44 sit 5px lower and show as a size jump.
+const IDLE_FROM = 45;
+const IDLE_TO = 119;
+// Sheet px the idle source camera drifts right by, measured on the paws against the rest pose.
+const IDLE_DRIFT_PX: Record<number, number> = {
+  96: 1,
+  97: 4,
+  98: 5,
+  99: 4,
+  100: 3,
+  101: 2,
+  102: 1,
+  103: 1,
+  104: 1,
+};
 const IDLE_GAP_MS = [2000, 6000];
 const IDLE_FADE_MS = 250;
 const REST_IMAGE = "url(/cat/cat.webp)";
@@ -60,24 +68,26 @@ const rem = (value: number) => `calc(${value}rem * var(--cat-scale))`;
 const framePosition = (frame: number) =>
   `${rem(-(frame % COLS) * FRAME_W_REM)} ${rem(-Math.floor(frame / COLS) * FRAME_H_REM)}`;
 
-function showFrame(node: HTMLDivElement, frame: number) {
-  node.style.backgroundPosition = framePosition(frame);
-  node.style.transform = `translateX(${rem(boxAt(frame))})`;
+function showFrame(wrap: HTMLDivElement, rest: HTMLDivElement, frame: number) {
+  rest.style.backgroundPosition = framePosition(frame);
+  wrap.style.transform = `translateX(${rem(boxAt(frame))})`;
 }
 
 export function CatMascot() {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const restRef = useRef<HTMLDivElement>(null);
   const idleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
+    const rest = restRef.current;
     const idle = idleRef.current;
-    if (!wrap || !idle) return;
+    if (!wrap || !rest || !idle) return;
 
     wrap.style.width = rem(FRAME_W_REM);
     wrap.style.height = rem(FRAME_H_REM);
-    wrap.style.backgroundSize = `${rem(COLS * FRAME_W_REM)} ${rem(ROWS * FRAME_H_REM)}`;
-    idle.style.backgroundSize = wrap.style.backgroundSize;
+    rest.style.backgroundSize = `${rem(COLS * FRAME_W_REM)} ${rem(ROWS * FRAME_H_REM)}`;
+    idle.style.backgroundSize = rest.style.backgroundSize;
     idle.style.transition = `opacity ${IDLE_FADE_MS}ms ease-in-out`;
 
     let raf = 0;
@@ -106,12 +116,12 @@ export function CatMascot() {
     };
 
     const run = (start: number) => {
-      wrap.style.backgroundImage = REST_IMAGE;
+      rest.style.backgroundImage = REST_IMAGE;
       wrap.style.visibility = "visible";
       slot?.setAttribute("data-cat-behind", "");
       const tick = (now: number) => {
         const frame = Math.min(FRAMES - 1, Math.floor((now - start) / FRAME_MS));
-        showFrame(wrap, frame);
+        showFrame(wrap, rest, frame);
         if (frame >= CLEAR_FRAME) slot?.removeAttribute("data-cat-behind");
         if (frame < FRAMES - 1) {
           raf = requestAnimationFrame(tick);
@@ -126,6 +136,8 @@ export function CatMascot() {
     let hovering = false;
     let frame = FRAMES - 1;
     let lastStep = 0;
+    let touchTap = false;
+    let struck = false;
 
     const nextTap = (): [number, number] => {
       if (!hovering) return [frame + 1, TAP_SETTLE_MS];
@@ -139,14 +151,18 @@ export function CatMascot() {
       if (now - lastStep >= ms) {
         lastStep = now;
         frame = next;
-        showFrame(wrap, frame);
+        showFrame(wrap, rest, frame);
+        if (touchTap && frame === TAP_START) struck = true;
+        if (touchTap && struck && frame === TAP_END) {
+          touchTap = false;
+          hovering = false;
+        }
       }
       tapRaf = hovering || frame < FRAMES - 1 ? requestAnimationFrame(tapTick) : 0;
     };
 
     let idleTimer = 0;
     let idleRaf = 0;
-    let lastEvent = -1;
 
     const scheduleIdle = () => {
       const [min, max] = IDLE_GAP_MS;
@@ -156,7 +172,7 @@ export function CatMascot() {
     const stopIdle = () => {
       cancelAnimationFrame(idleRaf);
       idleRaf = 0;
-      wrap.style.backgroundImage = REST_IMAGE;
+      rest.style.opacity = "1";
       idle.style.opacity = "0";
     };
 
@@ -165,21 +181,19 @@ export function CatMascot() {
         scheduleIdle();
         return;
       }
-      let event = Math.floor(Math.random() * IDLE_EVENTS.length);
-      if (event === lastEvent) event = (event + 1) % IDLE_EVENTS.length;
-      lastEvent = event;
-      const [from, to] = IDLE_EVENTS[event];
       const show = (f: number) => {
         idle.style.backgroundPosition = framePosition(f);
+        idle.style.transform = `translateX(${rem(-(IDLE_DRIFT_PX[f] ?? 0) * PX_REM)})`;
       };
-      show(from);
+      show(IDLE_FROM);
       idle.style.opacity = "1";
       const start = performance.now();
       const tick = (now: number) => {
-        const f = Math.min(to, from + Math.floor((now - start) / FRAME_MS));
+        const f = Math.min(IDLE_TO, IDLE_FROM + Math.floor((now - start) / FRAME_MS));
         show(f);
-        if (now - start >= IDLE_FADE_MS) wrap.style.backgroundImage = "none";
-        if (f < to) {
+        // Hidden, not unset: WebKit drops an unused sheet's decoded pixels and repaints it blank on return.
+        if (now - start >= IDLE_FADE_MS) rest.style.opacity = "0";
+        if (f < IDLE_TO) {
           idleRaf = requestAnimationFrame(tick);
         } else {
           stopIdle();
@@ -189,25 +203,28 @@ export function CatMascot() {
       idleRaf = requestAnimationFrame(tick);
     };
 
-    const handlePointerEnter = () => {
+    const handlePointerEnter = (event: PointerEvent) => {
       if (!sitting) return;
       if (idleRaf) {
         stopIdle();
         scheduleIdle();
       }
       hovering = true;
+      touchTap = event.pointerType === "touch";
+      struck = false;
       if (!tapRaf) tapRaf = requestAnimationFrame(tapTick);
     };
-    const handlePointerLeave = () => {
-      hovering = false;
+    // Touch fires leave as soon as the finger lifts, so a tap plays one full strike instead.
+    const handlePointerLeave = (event: PointerEvent) => {
+      if (event.pointerType !== "touch") hovering = false;
     };
     wrap.addEventListener("pointerenter", handlePointerEnter);
     wrap.addEventListener("pointerleave", handlePointerLeave);
 
     let observer: IntersectionObserver | undefined;
     if (reduced) {
-      wrap.style.backgroundImage = REST_IMAGE;
-      showFrame(wrap, FRAMES - 1);
+      rest.style.backgroundImage = REST_IMAGE;
+      showFrame(wrap, rest, FRAMES - 1);
       wrap.style.visibility = "visible";
       sit();
     } else {
@@ -238,6 +255,7 @@ export function CatMascot() {
 
   return (
     <div ref={wrapRef} className={styles.wrap} aria-hidden="true">
+      <div ref={restRef} className={styles.rest} />
       <div ref={idleRef} className={styles.idle} />
     </div>
   );

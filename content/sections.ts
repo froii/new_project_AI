@@ -100,7 +100,7 @@ export function partsOf(section: ToggleSectionId): PartId[] {
   return sectionParts[section].map((part) => `${section}.${part}` as PartId);
 }
 
-/* Ordered by how much detail survives, widest first (15, 10, 10, 6, 6, 2), so
+/* Ordered by how much detail survives, widest first (15, 9, 9, 5, 5, 2), so
    the list reads as one scale. Not by section count: `screening` keeps fewer
    sections than `short` but more inside them, and the two orderings disagree. */
 export const presetIds = ["full", "tech", "us", "cases", "screening", "short"] as const;
@@ -120,12 +120,14 @@ export const presets = {
     "about.achievementsFull": false,
     "about.personal": false,
     "experience.alsoUsed": false,
+    "experience.link": false,
   },
   tech: {
     "hero.photo": false,
     "about.achievementsFull": true,
     "about.personal": false,
     "skills.full": true,
+    "experience.link": false,
     "education.all": false,
   },
   screening: {
@@ -136,6 +138,7 @@ export const presets = {
     "experience.challenges": false,
     "experience.responsibilities": false,
     "experience.alsoUsed": false,
+    "experience.link": false,
     education: false,
     certifications: false,
   },
@@ -147,6 +150,7 @@ export const presets = {
     "experience.all": false,
     "experience.responsibilities": false,
     "experience.alsoUsed": false,
+    "experience.link": false,
     education: false,
     certifications: false,
   },

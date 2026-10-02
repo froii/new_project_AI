@@ -93,9 +93,16 @@
     padding-inline-start: 4mm;
   }
 
-  /* Spectral 400 prints too thin to read comfortably. */
-  .summary > p,
-  .personal p {
-    font-weight: 500;
+  .summary > p {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    text-indent: 0;
+  }
+
+  .label {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
   }
 }

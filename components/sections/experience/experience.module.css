@@ -48,15 +48,16 @@
   border-block-start: var(--border-width) solid var(--color-hairline);
 }
 
-/* Bold: the one line a skimmer reads per role. Lighter on paper: with every
-   entry bold, none of them stands out. */
+/* Bold: the one line a skimmer reads per role. Lighter on paper, where 600 across
+   two lines outweighs the role title above it. */
 .result {
   font-weight: 600;
   color: var(--color-text);
 }
 
 @media print {
-  .result {
+  .result,
+  .restHeading {
     font-weight: 500;
   }
 }

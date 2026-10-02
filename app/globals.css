@@ -594,10 +594,17 @@ dd {
 }
 
 @media print {
+  /* One family on paper: hierarchy comes from size, weight and gray. `html:root` outranks
+     the next/font class that defines these variables on <html>. */
+  html:root {
+    --font-serif: var(--font-sans);
+    --font-mono: var(--font-sans);
+  }
+
   /* Fixed scale on paper: the fluid clamps resolve near their vw max on a 210mm
      sheet, which then fits a third less text. */
   :root {
-    --step--2: 9pt;
+    --step--2: 8.5pt;
     --step--1: 11pt;
     --step-0: 11pt;
     --step-1: 12.5pt;
@@ -615,7 +622,7 @@ dd {
     --space-2xl: 22pt;
   }
 
-  /* Paper: all text in one color. */
+  /* Three grays: text, then muted, then labels and dates. */
   :root,
   :root[data-theme="dark"] {
     --color-bg: #ffffff;
@@ -626,8 +633,8 @@ dd {
     --color-border: #c8c8c8;
     --color-hairline: #dcdcdc;
     --color-text: #101010;
-    --color-text-muted: #101010;
-    --color-text-faint: #101010;
+    --color-text-muted: #404040;
+    --color-text-faint: #6b6b6b;
     --color-accent: #101010;
     --color-invert-bg: #ffffff;
     --color-invert-text: #101010;
@@ -696,6 +703,14 @@ dd {
 
   h1 {
     letter-spacing: normal;
+  }
+
+  /* Section heads are the page's anchors: the only black bold caps on it. */
+  .section h2 {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
   }
 
   /* Space on both sides, or the rule reads as an underline of the next line. */

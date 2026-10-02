@@ -30,7 +30,7 @@ export function Education() {
       )}
 
       <Part id="education.skills">
-        <p className={styles.skills}>{item.skills.join(" · ")}</p>
+        <p className={styles.skills}>{item.skills.join(" · ")}</p>
       </Part>
     </li>
   );
@@ -51,7 +51,7 @@ export function Education() {
         {education.slice(0, recent).map(entry)}
       </ul>
 
-      <Part id="education.all">
+      <Part id="education.all" className={styles.rest}>
         <ul className={styles.list} role="list">
           {education.slice(recent).map(entry)}
         </ul>

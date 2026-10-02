@@ -7,6 +7,9 @@ import styles from "./skills.module.css";
 
 const featured = 5;
 
+/* No-break space before the dot, so a wrapped line never starts with it. */
+const separator = " · ";
+
 export function Skills() {
   const headingId = useId();
   const t = useTranslations("skills");
@@ -16,9 +19,11 @@ export function Skills() {
       <li key={group.id} className={styles.row}>
         <span className={styles.name}>{t(`groups.${group.id}`)}</span>
         <div className={styles.items}>
-          {group.items.join(" · ")}
+          {group.items.join(separator)}
           {group.more && (
-            <Part id="skills.full" className={styles.tail}>{` · ${group.more.join(" · ")}`}</Part>
+            <Part id="skills.full" className={styles.tail}>
+              {separator + group.more.join(separator)}
+            </Part>
           )}
         </div>
       </li>

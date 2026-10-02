@@ -6,13 +6,16 @@
   inset-block-end: calc(-0.24rem * var(--cat-scale));
   visibility: hidden;
   pointer-events: none;
-  background-repeat: no-repeat;
 }
 
+.rest,
 .idle {
   position: absolute;
   inset: 0;
   background-repeat: no-repeat;
+}
+
+.idle {
   opacity: 0;
 }
 
