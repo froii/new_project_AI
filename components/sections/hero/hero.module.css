@@ -107,24 +107,38 @@
   justify-self: start;
 }
 
-/* Paper keeps the portrait at 32mm, not 18rem, so the masthead does not take a page.
+/* Paper keeps the portrait at 38mm, not 18rem, so the masthead does not take a page.
    Sizes are explicit: the fluid scale shrank the name's lead over the headline and made
    the contacts as large as the pitch. Order follows the screen: name, headline, contacts. */
 @media print {
   .layout {
     padding-block: 0;
     gap: var(--space-s) var(--space-l);
-    grid-template-columns: minmax(0, 1fr) 32mm;
+    grid-template-columns: minmax(0, 1fr) 40mm;
+  }
+
+  /* The portrait ends above the long FORMAT and LANGUAGES rows, so the contacts run
+     under it at full width instead of wrapping beside it. */
+  .layout:not(:has(> [hidden])) .contacts {
+    margin-inline-end: calc(-38mm - var(--space-l));
+  }
+
+  .title {
+    color: var(--color-text);
+    font-weight: 500;
+    letter-spacing: 0.08em;
   }
 
   .name {
     margin-block-start: var(--space-xs);
-    font-size: 26pt;
+    font-size: 24pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   .headline {
     margin-block-start: var(--space-s);
-    font-size: 13.5pt;
+    font-size: 12.5pt;
   }
 
   .contacts {

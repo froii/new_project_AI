@@ -34,10 +34,13 @@
     padding: 0;
     border: 0;
     background: none;
+    white-space: nowrap;
   }
 
+  /* No-break space before the dot, so a wrapped line never starts with it. */
   .tag:not(:last-child)::after {
-    content: " · ";
+    content: "\00a0· ";
+    white-space: normal;
     color: var(--color-text-faint);
   }
 }

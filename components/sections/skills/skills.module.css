@@ -58,6 +58,7 @@
 
   .name {
     margin-inline-end: var(--space-s);
+    font-weight: 500;
   }
 
   .items {
