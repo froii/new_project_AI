@@ -37,7 +37,7 @@
   position: absolute;
   inset-block-end: 100%;
   inset-inline-end: var(--gutter);
-  height: 6rem;
+  height: 96px;
   translate: 0 3%;
 }
 

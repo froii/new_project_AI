@@ -4,8 +4,8 @@
   justify-content: center;
   gap: var(--space-xs);
   text-decoration: none;
-  min-height: 2.75rem;
-  min-width: 12.5rem;
+  min-height: 44px;
+  min-width: 200px;
   padding-inline: var(--space-m);
   border-radius: var(--radius);
   font-size: var(--step-0);

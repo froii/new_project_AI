@@ -10,7 +10,10 @@
   break-inside: avoid;
 }
 
+/* Inline-block moves the URL to its own line whole instead of splitting it at a hyphen. */
 .more a {
+  display: inline-block;
+  max-width: 100%;
   color: var(--color-text);
   overflow-wrap: anywhere;
 }

@@ -26,6 +26,20 @@
   "close": "Hide",
   "savePdf": "Save as PDF",
   "downloadPdf": "Download PDF",
+  "pdf": {
+    "heading": "Download CV",
+    "intro": "Pick the version that fits the reader.",
+    "close": "Close",
+    "pages": "{count, plural, one {# page} other {# pages}}",
+    "notes": {
+      "full": "every section, every role in full",
+      "tech": "the full stack, recent roles in depth",
+      "us": "no photo, nothing personal",
+      "cases": "achievements, challenges",
+      "screening": "the essentials",
+      "short": "roles and outcomes only"
+    }
+  },
   "phone": "Phone",
   "optional": "(optional)",
   "messengers": {

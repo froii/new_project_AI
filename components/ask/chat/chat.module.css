@@ -19,7 +19,7 @@
   position: absolute;
   inset-block-end: 100%;
   inset-inline-end: var(--space-l);
-  height: 4.5rem;
+  height: 72px;
 }
 
 .disclaimer {
@@ -102,7 +102,7 @@
 }
 
 .input {
-  min-height: 4.5rem;
+  min-height: 72px;
 }
 
 .form .input {
@@ -139,7 +139,7 @@
   font: inherit;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 640px) {
   .controls {
     flex-direction: row;
     align-items: center;
@@ -152,5 +152,5 @@
 }
 
 .action {
-  min-width: 8rem;
+  min-width: 128px;
 }

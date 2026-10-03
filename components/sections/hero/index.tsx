@@ -29,7 +29,17 @@ export function Hero() {
                   <Fragment key={contact.id}>
                     <dt>{tContact(`direct.${contact.id}`)}</dt>
                     <dd>
-                      <a href={contactHref(contact)}>{contactText(contact)}</a>
+                      <a href={contactHref(contact)}>
+                        {/* A URL wraps only after a slash, never at a hyphen inside the handle. */}
+                        {contactText(contact)
+                          .split(/(?<=\/)/)
+                          .map((part, index) => (
+                            <Fragment key={part}>
+                              {index > 0 && <wbr />}
+                              <span className={styles.segment}>{part}</span>
+                            </Fragment>
+                          ))}
+                      </a>
                     </dd>
                   </Fragment>
                 ))}

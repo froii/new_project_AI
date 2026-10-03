@@ -20,9 +20,9 @@
 }
 
 /* No room beside stacked buttons: the cat sits on top instead. */
-@media (max-width: 34rem) {
+@media (max-width: 544px) {
   .wrap {
-    inset-inline-start: calc(100% - 7rem);
+    inset-inline-start: calc(100% - 90px);
     inset-block-end: calc(100% + var(--space-2xs));
   }
 }

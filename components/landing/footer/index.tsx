@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "@/components/controls/locale-switcher";
 import { ThemeToggle } from "@/components/controls/theme-toggle";
 import { Contact } from "@/components/sections/contact";
-import { cvPdf } from "@/content/links";
+import { cvPdfs } from "@/content/links";
 import { FooterCat } from "./footer-cat";
 import styles from "./footer.module.css";
 
@@ -11,7 +11,7 @@ export function LandingFooter() {
 
   return (
     <footer className={styles.footer}>
-      <Contact pdf={cvPdf} />
+      <Contact pdfs={cvPdfs} />
 
       <div className={`shell ${styles.bottom}`}>
         <FooterCat />

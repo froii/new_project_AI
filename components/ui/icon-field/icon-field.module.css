@@ -31,7 +31,7 @@
   transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .icon {
     --px: var(--xn);
     --py: var(--yn);

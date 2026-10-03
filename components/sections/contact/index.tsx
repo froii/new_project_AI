@@ -4,16 +4,18 @@ import { useEffect, useId, useRef, useState, type FormEvent, type TransitionEven
 import { useTranslations } from "next-intl";
 import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Button } from "@/components/ui/button";
-import buttonStyles from "@/components/ui/button/button.module.css";
 import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
 import { owner } from "@/content";
+import type { CvPdf } from "@/content/links";
+import type { PresetId } from "@/content/sections";
 import { Link, usePathname } from "@/i18n/navigation";
 import { contactLimits, invalidContactFields, type ContactField } from "@/lib/contact-message";
 import { CONTACT_OPEN } from "@/lib/contact-open";
 import { messengerLinks } from "@/lib/contacts";
 import styles from "./contact.module.css";
+import { PdfDialog } from "./pdf-dialog";
 
 type Status = "idle" | "sending" | "sent" | "failed";
 
@@ -23,7 +25,7 @@ function scrollToForm() {
   window.scrollTo({ top: document.documentElement.scrollHeight });
 }
 
-export function Contact({ pdf }: { pdf?: string }) {
+export function Contact({ pdfs }: { pdfs?: Record<PresetId, CvPdf> }) {
   const headingId = useId();
   const t = useTranslations("contact");
   const tAsk = useTranslations("ask");
@@ -132,14 +134,8 @@ export function Contact({ pdf }: { pdf?: string }) {
                   {open ? t("close") : t("open")}
                 </Button>
 
-                {pdf ? (
-                  <a
-                    className={`${buttonStyles.button} ${buttonStyles.outline}`}
-                    href={pdf}
-                    download
-                  >
-                    {t("downloadPdf")}
-                  </a>
+                {pdfs ? (
+                  <PdfDialog pdfs={pdfs} />
                 ) : (
                   <Button type="button" variant="outline" onClick={() => window.print()}>
                     {t("savePdf")}

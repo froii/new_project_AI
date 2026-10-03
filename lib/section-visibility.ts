@@ -50,11 +50,23 @@ export function visibilityCount(visible: Visibility): { sections: number; detail
   };
 }
 
-export function matchPreset(visible: Visibility): PresetId | null {
+function sameIds(a: string[], b: string[]): boolean {
+  return a.length === b.length && a.every((id) => b.includes(id));
+}
+
+/* Open roles count too: a preset prints its roles expanded, so collapsing them changes the PDF. */
+export function matchPreset(
+  visible: Visibility,
+  open: string[],
+  presetOpen: (id: PresetId) => string[],
+): PresetId | null {
   return (
     presetIds.find((id) => {
       const candidate = presetVisibility(id);
-      return toggleIds.every((toggle) => candidate[toggle] === visible[toggle]);
+      return (
+        toggleIds.every((toggle) => candidate[toggle] === visible[toggle]) &&
+        sameIds(open, presetOpen(id))
+      );
     }) ?? null
   );
 }
@@ -64,8 +76,7 @@ export const OPEN_PARAM = "o";
 const NONE = "-";
 
 export function encodeOpen(open: string[], fallback: string[]): string | null {
-  const same = open.length === fallback.length && open.every((id) => fallback.includes(id));
-  if (same) return null;
+  if (sameIds(open, fallback)) return null;
   return open.length === 0 ? NONE : open.join(SEPARATOR);
 }
 

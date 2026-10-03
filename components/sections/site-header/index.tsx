@@ -21,7 +21,7 @@ export function SiteHeader() {
     <header className={`screen-only ${styles.header}`}>
       <div className={`shell ${styles.bar}`}>
         <div className={styles.identity}>
-          {/* Below 48rem only the chevron shows, so aria carries the label. */}
+          {/* Below 768px only the chevron shows, so aria carries the label. */}
           <Link className={styles.home} href="/" aria-label={t("home")}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path

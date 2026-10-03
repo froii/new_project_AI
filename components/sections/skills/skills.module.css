@@ -12,7 +12,7 @@
   line-height: 1.6;
 }
 
-@container (min-width: 34rem) {
+@container (min-width: 544px) {
   .row {
     grid-template-columns: var(--rail) minmax(0, 1fr);
     align-items: baseline;
@@ -31,6 +31,10 @@
 
 .items {
   color: var(--color-text);
+}
+
+.item {
+  white-space: nowrap;
 }
 
 .more .items,
@@ -56,9 +60,11 @@
     padding-block: 0;
   }
 
+  /* Same as the experience field labels on paper. */
   .name {
-    margin-inline-end: var(--space-s);
-    font-weight: 500;
+    margin-inline-end: var(--space-m);
+    font-size: calc(var(--step--2) + 2px);
+    font-weight: 700;
   }
 
   .items {

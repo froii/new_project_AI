@@ -1,3 +1,5 @@
+import type { PresetId } from "./sections";
+
 export const certificateLinks = {
   frontendexpert: "https://certificate.algoexpert.io/FrontendExpert%20Certificate%20FE-c97970c096",
   algoexpert: "https://certificate.algoexpert.io/AlgoExpert%20Certificate%20AE-79e5eb6004",
@@ -16,6 +18,22 @@ export const projectLinks = {
   nas: "https://scholar.google.com.ua/citations?user=m5WnOMEAAAAJ&hl=en",
 } as const;
 
+export type CvPdf = { href: string; pages: number };
+
+/* The file name is what a recruiter sees after the download, so it carries the
+   preset's English label. `pages` is read off the file by hand: re-export, recount. */
+const cvPdf = (file: string, pages: number): CvPdf => ({
+  href: `/pdf/Oleksa_Tyshchenko_CV-${file}.pdf`,
+  pages,
+});
+
 /* Printing the landing page yields the landing page, not the CV, so the button
-   there hands over the prepared file instead. */
-export const cvPdf = "/pdf/Oleksa%20Tyshchenko%20-%20CV.pdf";
+   there hands over prepared files instead. */
+export const cvPdfs = {
+  full: cvPdf("Full", 5),
+  tech: cvPdf("Detailed", 3),
+  us: cvPdf("ATS", 3),
+  cases: cvPdf("Technical_Interview", 2),
+  screening: cvPdf("Overview", 2),
+  short: cvPdf("One_Page", 1),
+} as const satisfies Record<PresetId, CvPdf>;

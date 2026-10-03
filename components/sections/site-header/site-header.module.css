@@ -60,13 +60,13 @@
   --cluster-gap: var(--space-xs);
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .name {
     display: none;
   }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 640px) {
   .controls :global(.share-label) {
     display: none;
   }

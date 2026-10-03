@@ -31,6 +31,15 @@
   content: "- ";
 }
 
+/* Narrow: a date column beside the degree squeezes it to a few words a line,
+   so the range sits above it, as in Experience. */
+@container (width < 544px) {
+  .head {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+}
+
 .institution {
   margin-block-start: var(--space-2xs);
   color: var(--color-text-muted);

@@ -15,7 +15,9 @@ import {
   type ToggleId,
   type ToggleSectionId,
 } from "@/content/sections";
+import { experience } from "@/content";
 import { Link } from "@/i18n/navigation";
+import { presetOpenRoles } from "@/lib/content";
 import {
   matchPreset,
   partsCount,
@@ -30,7 +32,7 @@ import styles from "./section-menu.module.css";
 export function SectionMenu() {
   const t = useTranslations("sections");
   const tAsk = useTranslations("ask");
-  const { visible, toggle, apply } = useSections();
+  const { visible, toggle, apply, open: rolesOpen, setOpen: setRolesOpen } = useSections();
   const active = useActiveSection(visible);
 
   const [open, setOpen] = useState(false);
@@ -71,7 +73,7 @@ export function SectionMenu() {
 
   const away = useScrollAway(open);
   const count = visibilityCount(visible);
-  const preset = matchPreset(visible);
+  const preset = matchPreset(visible, rolesOpen, (id) => presetOpenRoles(id, experience));
 
   return (
     <aside className={`screen-only ${styles.root}`} ref={rootRef} aria-label={t("menu")}>
@@ -242,7 +244,10 @@ export function SectionMenu() {
                 type="button"
                 className={styles.version}
                 aria-pressed={preset === id}
-                onClick={() => apply(presetVisibility(id))}
+                onClick={() => {
+                  apply(presetVisibility(id));
+                  setRolesOpen(presetOpenRoles(id, experience));
+                }}
               >
                 {t(`presets.${id}.label`)}
               </button>

@@ -2,8 +2,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 36px;
+  height: 36px;
   border: var(--border-width) solid var(--color-border);
   border-radius: 50%;
   background: var(--color-surface);

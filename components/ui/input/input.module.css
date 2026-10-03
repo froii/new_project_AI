@@ -1,6 +1,6 @@
 .input {
   width: 100%;
-  min-height: 2.75rem;
+  min-height: 44px;
   padding: var(--space-xs) var(--space-s);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);

@@ -1,6 +1,6 @@
 .textarea {
   width: 100%;
-  min-height: 8rem;
+  min-height: 128px;
   padding: var(--space-s);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);

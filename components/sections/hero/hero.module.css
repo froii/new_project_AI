@@ -5,9 +5,9 @@
   padding-block: var(--space-m) 0;
 }
 
-@container (min-width: 38rem) {
+@container (min-width: 608px) {
   .layout {
-    grid-template-columns: minmax(0, 1fr) 18rem;
+    grid-template-columns: minmax(0, 1fr) 288px;
     column-gap: var(--space-2xl);
     align-items: start;
   }
@@ -42,13 +42,19 @@
   white-space: nowrap;
 }
 
-/* The cap stacks the two words. `overflow-wrap: normal` overrides body's break-word:
-   `ch` depends on the font, so a cap tuned for one serif splits a long surname in another. */
+/* `overflow-wrap: normal` overrides body's break-word: `ch` depends on the font,
+   so a cap tuned for one serif splits a long surname in another. */
 .name {
-  max-inline-size: 12ch;
   margin-block-start: var(--space-m);
   font-size: var(--step-4);
   overflow-wrap: normal;
+}
+
+/* Beside the portrait the cap stacks the two words; in one column they share a line. */
+@container (min-width: 608px) {
+  .name {
+    max-inline-size: 12ch;
+  }
 }
 
 .headline {
@@ -98,16 +104,22 @@
   overflow-wrap: anywhere;
 }
 
+.segment {
+  white-space: nowrap;
+}
+
 .contacts dd a:hover {
   color: var(--color-accent);
   border-color: currentColor;
 }
 
+/* Explicit width: shrink-to-fit would take the loaded srcset image's natural width. */
 .portrait {
-  justify-self: start;
+  justify-self: center;
+  width: min(100%, 288px);
 }
 
-/* Paper keeps the portrait at 38mm, not 18rem, so the masthead does not take a page.
+/* Paper keeps the portrait at 38mm, not 288px, so the masthead does not take a page.
    Sizes are explicit: the fluid scale shrank the name's lead over the headline and made
    the contacts as large as the pitch. Order follows the screen: name, headline, contacts. */
 @media print {

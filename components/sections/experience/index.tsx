@@ -6,8 +6,7 @@ import { Field, FieldList } from "@/components/ui/field-list";
 import { TagList } from "@/components/ui/tag-list";
 import { Part } from "@/components/visibility/part";
 import { PartToggle } from "@/components/visibility/part-toggle";
-import { experience, owner } from "@/content";
-import { contactHref, contactText } from "@/lib/contacts";
+import { experience } from "@/content";
 import {
   experienceSpan,
   isCurrent,
@@ -29,7 +28,6 @@ export function Experience() {
   const shortlist = shortlistExperience(experience);
   const rest = entries.filter((entry) => !shortlist.includes(entry));
   const earlier = rest.filter((entry) => !entry.nonDev);
-  const linkedin = owner.contacts.find((contact) => contact.id === "linkedin");
 
   const toItem = (entry: (typeof entries)[number]) => {
     const hardParts = challenges[entry.id];
@@ -144,18 +142,14 @@ export function Experience() {
           {earlier.map((entry) => (
             <li key={entry.id}>
               {t(`entries.${entry.id}.role`)}
-              {" · "}
+              {/* No-break spaces keep the dates on the line with the role's last word. */}
+              {" · "}
               <span className={styles.earlierDates}>
                 {monthYear(entry.start)} - {entry.end ? monthYear(entry.end) : t("present")}
               </span>
             </li>
           ))}
         </ul>
-        {linkedin && (
-          <p className={styles.history}>
-            {t("history")} <a href={contactHref(linkedin)}>{contactText(linkedin)}</a>
-          </p>
-        )}
       </Part>
     </section>
   );
