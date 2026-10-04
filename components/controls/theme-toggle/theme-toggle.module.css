@@ -1,33 +1,80 @@
+/* Day/night switch. The theme selectors at the bottom only flip these variables. */
 .button {
+  --night: 0;
+  --knob-bg: #fff6d5;
+  --knob-fg: #f08c00;
+  --glow: rgb(255 196 60 / 0.4);
+
   position: relative;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: var(--border-width) solid var(--color-border);
-  border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-text-muted);
+  width: 48px;
+  height: 30px;
+  padding: 0;
+  border: var(--border-width) solid color-mix(in srgb, var(--color-text) 16%, transparent);
+  border-radius: 15px;
+  background: linear-gradient(90deg, #ffe08a, #8fd0ff);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition:
-    background-color 200ms ease,
-    color 200ms ease,
-    box-shadow 200ms ease;
 }
 
+/* Keeps the pill: the global :focus-visible rule sets a 2px radius. */
+.button:focus-visible {
+  border-radius: 15px;
+}
+
+/* Hit area. */
 .button::before {
   content: "";
   position: absolute;
   inset: -6px;
 }
 
-.button:hover {
-  color: var(--color-text);
-  box-shadow: 0 0 0 4px var(--color-surface);
+/* Night sky crossfades over the day gradient: gradients can't transition. Stars sit
+   on the left, the side the knob leaves. */
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 7px 8px, #fff 1px, transparent 2px),
+    radial-gradient(circle at 12px 19px, #fff 1px, transparent 2px),
+    radial-gradient(circle at 16px 11px, #dfe6ff 1px, transparent 2px),
+    linear-gradient(90deg, #2b2f6b, #11163a);
+  opacity: var(--night);
+  transition: opacity 300ms ease;
 }
 
-.button:active {
-  scale: 0.94;
+.knob {
+  position: absolute;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--knob-bg);
+  color: var(--knob-fg);
+  box-shadow:
+    0 0 0 3px var(--glow),
+    0 1px 3px rgb(0 0 0 / 0.25);
+  translate: calc(var(--night) * 18px) 0;
+  transition:
+    translate 350ms cubic-bezier(0.34, 1.4, 0.64, 1),
+    background-color 300ms ease,
+    color 300ms ease,
+    box-shadow 200ms ease;
+}
+
+.button:hover .knob {
+  box-shadow:
+    0 0 0 5px var(--glow),
+    0 1px 3px rgb(0 0 0 / 0.25);
+}
+
+.button:active .knob {
+  scale: 0.92;
 }
 
 .sun,
@@ -35,44 +82,34 @@
   grid-area: 1 / 1;
   transition:
     opacity 250ms ease,
-    rotate 250ms ease,
+    rotate 350ms ease,
     scale 250ms ease;
 }
 
 .sun {
-  opacity: 0;
-  rotate: -90deg;
-  scale: 0.4;
+  opacity: calc(1 - var(--night));
+  rotate: calc(var(--night) * 90deg);
+  scale: calc(1 - var(--night) * 0.6);
 }
 
 .moon {
-  opacity: 1;
-  rotate: 0deg;
-  scale: 1;
+  opacity: var(--night);
+  rotate: calc((1 - var(--night)) * -90deg);
+  scale: calc(0.4 + var(--night) * 0.6);
 }
 
-:global(:root[data-theme="dark"]) .sun {
-  opacity: 1;
-  rotate: 0deg;
-  scale: 1;
-}
-
-:global(:root[data-theme="dark"]) .moon {
-  opacity: 0;
-  rotate: 90deg;
-  scale: 0.4;
+:global(:root[data-theme="dark"]) .button {
+  --night: 1;
+  --knob-bg: #e8ecff;
+  --knob-fg: #4a52a8;
+  --glow: rgb(170 185 255 / 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
-  :global(:root:not([data-theme])) .sun {
-    opacity: 1;
-    rotate: 0deg;
-    scale: 1;
-  }
-
-  :global(:root:not([data-theme])) .moon {
-    opacity: 0;
-    rotate: 90deg;
-    scale: 0.4;
+  :global(:root:not([data-theme])) .button {
+    --night: 1;
+    --knob-bg: #e8ecff;
+    --knob-fg: #4a52a8;
+    --glow: rgb(170 185 255 / 0.3);
   }
 }

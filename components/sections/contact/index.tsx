@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { SocialLinks } from "@/components/ui/social-links";
 import { Textarea } from "@/components/ui/textarea";
 import { owner } from "@/content";
-import type { CvPdf } from "@/content/links";
-import type { PresetId } from "@/content/sections";
+import { cvPdfs } from "@/content/links";
 import { Link, usePathname } from "@/i18n/navigation";
 import { contactLimits, invalidContactFields, type ContactField } from "@/lib/contact-message";
 import { CONTACT_OPEN } from "@/lib/contact-open";
@@ -25,7 +24,7 @@ function scrollToForm() {
   window.scrollTo({ top: document.documentElement.scrollHeight });
 }
 
-export function Contact({ pdfs }: { pdfs?: Record<PresetId, CvPdf> }) {
+export function Contact() {
   const headingId = useId();
   const t = useTranslations("contact");
   const tAsk = useTranslations("ask");
@@ -134,15 +133,14 @@ export function Contact({ pdfs }: { pdfs?: Record<PresetId, CvPdf> }) {
                   {open ? t("close") : t("open")}
                 </Button>
 
-                {pdfs ? (
-                  <PdfDialog pdfs={pdfs} />
-                ) : (
-                  <Button type="button" variant="outline" onClick={() => window.print()}>
-                    {t("savePdf")}
-                  </Button>
-                )}
+                <PdfDialog pdfs={cvPdfs} />
 
-                {pathname !== "/questions" && (
+                {pathname === "/questions" ? (
+                  <Link className={styles.questions} href="/cv">
+                    {t("cv")}
+                    <ArrowIcon />
+                  </Link>
+                ) : (
                   <Link className={styles.questions} href="/questions">
                     {tAsk("title")}
                     <ArrowIcon />

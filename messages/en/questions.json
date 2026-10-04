@@ -98,7 +98,7 @@
     },
     "core": {
       "q": "What is the main stack?",
-      "a": "Frontend: React, Next.js, TypeScript, GraphQL with Apollo Client, PWA. State: Redux, Zustand, React Query. Backend: Node.js, Express, NestJS, PostgreSQL, TypeORM, Redis, WebSockets. AI: LLM APIs, RAG, agents, OpenRouter.",
+      "a": "Frontend: React, Next.js, TypeScript, GraphQL with Apollo Client, PWA.\nState: Redux, Zustand, React Query.\nBackend: Node.js, Express, NestJS, PostgreSQL, TypeORM, Redis, WebSockets.\nAI: LLM APIs, RAG, agents, OpenRouter.",
       "keywords": [
         "stack",
         "technologies",
@@ -282,7 +282,7 @@
     },
     "hardest": {
       "q": "Hardest technical problem solved?",
-      "a": "The two hardest were both on nedyx. The first was the platform's own formula language, so analysts could write formulas themselves instead of filing tickets: I wrote the grammar, the parser (Chevrotain, Lezer) and the evaluator, and built them into a CodeMirror editor with autocomplete and inline errors as you type. The second was app-wide undo/redo: widget moves, formulas and styles share one history, a change across several pages is undone in one step, and the history lives in IndexedDB, so it survives a reload.",
+      "a": "The two hardest were both on nedyx.\nThe first was the platform's own formula language, so analysts could write formulas themselves instead of filing tickets: I wrote the grammar, the parser (Chevrotain, Lezer) and the evaluator, and built them into a CodeMirror editor with autocomplete and inline errors as you type.\nThe second was app-wide undo/redo: widget moves, formulas and styles share one history, a change across several pages is undone in one step, and the history lives in IndexedDB, so it survives a reload.",
       "keywords": ["hardest problem", "challenge", "DSL", "formula language", "undo/redo", "parser"]
     },
     "failure": {
