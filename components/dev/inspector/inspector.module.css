@@ -15,9 +15,9 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  max-width: 30rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  max-width: 480px;
+  padding: 4px 8px;
+  border-radius: 4px;
   background: #1b1b1b;
   color: #f4f4f4;
   font-family: var(--font-mono, monospace);

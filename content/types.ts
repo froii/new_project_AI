@@ -38,6 +38,8 @@ export type EducationEntry = {
   institution: string;
   start: string;
   end?: string;
+  /* `end` is a planned date, not a finished degree. */
+  expected?: boolean;
   skills: string[];
 };
 

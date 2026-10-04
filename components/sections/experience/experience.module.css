@@ -7,6 +7,14 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Beside the heading, not centered by the head's space-between. Screen only: paper has no
+   toggle, so there the range keeps the right edge. */
+@media screen {
+  .span {
+    margin-inline-end: auto;
+  }
+}
+
 .restHeading {
   margin-block-start: var(--space-l);
   color: var(--color-text-faint);
@@ -34,16 +42,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.history {
-  margin-block-start: var(--space-xs);
-  color: var(--color-text-muted);
-  font-size: var(--step--1);
-}
-
-.history a {
-  overflow-wrap: anywhere;
-}
-
 .rest > :first-child {
   border-block-start: var(--border-width) solid var(--color-hairline);
 }
@@ -56,9 +54,13 @@
 }
 
 @media print {
-  .result,
-  .restHeading {
+  .result {
     font-weight: 500;
+  }
+
+  /* Matches the field labels, so every label on paper reads at one weight. */
+  .restHeading {
+    font-weight: 700;
   }
 }
 
@@ -87,8 +89,8 @@
 
 .openAllIcon {
   position: relative;
-  width: 0.625rem;
-  height: 0.625rem;
+  width: 10px;
+  height: 10px;
 }
 
 .openAllIcon::before,

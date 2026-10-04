@@ -6,6 +6,7 @@
     "all": "All"
   },
   "skillsLabel": "Takeaways",
+  "expected": "expected",
   "entries": {
     "neoversity": {
       "degree": "MSc in Computer Science, AI & Machine Learning",

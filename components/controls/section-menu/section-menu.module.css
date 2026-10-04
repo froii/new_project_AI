@@ -13,7 +13,7 @@
   align-items: center;
   gap: var(--space-xs);
   max-width: calc(100vw - 2 * var(--gutter));
-  height: 2.75rem;
+  height: 44px;
   padding-inline: var(--space-l);
   border: var(--border-width) solid var(--color-invert-border);
   border-radius: 999px;
@@ -58,7 +58,7 @@
 
 .count {
   flex: none;
-  padding: 0.125rem 0.5rem;
+  padding: 2px 8px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--color-invert-text) 12%, transparent);
   color: var(--color-invert-muted);
@@ -100,10 +100,10 @@
   flex-direction: column;
   max-height: 80dvh;
   padding-inline: var(--gutter);
-  padding-block-end: calc(3.5rem + max(var(--space-m), env(safe-area-inset-bottom)));
+  padding-block-end: calc(56px + max(var(--space-m), env(safe-area-inset-bottom)));
   border-block-start: var(--border-width) solid var(--color-border);
-  border-start-start-radius: 1.25rem;
-  border-start-end-radius: 1.25rem;
+  border-start-start-radius: 20px;
+  border-start-end-radius: 20px;
   background: var(--color-panel);
   box-shadow: 0 -8px 30px color-mix(in srgb, var(--color-invert-bg) 18%, transparent);
   transition: translate 220ms ease;
@@ -118,15 +118,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 1.5rem;
+  height: 24px;
   margin-inline: calc(-1 * var(--gutter));
   touch-action: none;
   cursor: grab;
 }
 
 .grip > span {
-  width: 2.375rem;
-  height: 0.25rem;
+  width: 38px;
+  height: 4px;
   border-radius: 999px;
   background: var(--color-border);
 }
@@ -195,7 +195,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2xs);
-  min-height: 2.875rem;
+  min-height: 46px;
   padding-inline: var(--space-2xs);
   border-radius: var(--radius-sm);
   transition: background-color 150ms ease;
@@ -207,7 +207,7 @@
 
 .num {
   flex: none;
-  width: 1.375rem;
+  width: 22px;
   font-family: var(--font-mono);
   font-size: var(--step--2);
   color: var(--color-text-faint);
@@ -243,18 +243,18 @@
 }
 
 .switch {
-  --switch-width: 2.5rem;
-  --switch-height: 1.5rem;
-  --switch-knob-size: 1.125rem;
+  --switch-width: 40px;
+  --switch-height: 24px;
+  --switch-knob-size: 18px;
 }
 
 .partsToggle {
   flex: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 4px;
   min-height: 28px;
-  margin-inline-end: 0.25rem;
+  margin-inline-end: 4px;
   padding-inline: 0.3rem;
   border-radius: var(--radius-sm);
   color: var(--color-text-faint);
@@ -274,8 +274,8 @@
 }
 
 .partsToggle svg {
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 14px;
+  height: 14px;
 }
 
 .partsCount {
@@ -288,7 +288,7 @@
 
 .parts {
   padding-block-end: var(--space-xs);
-  padding-inline-start: calc(1.375rem + var(--space-2xs));
+  padding-inline-start: calc(22px + var(--space-2xs));
 }
 
 .chips {
@@ -334,8 +334,8 @@
 
 .tick {
   flex: none;
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 12px;
+  height: 12px;
   opacity: 0;
 }
 
@@ -436,7 +436,7 @@
   translate: 0.2rem 0;
 }
 
-@media (min-width: 72rem) {
+@media (min-width: 1152px) {
   .root {
     height: 100%;
     border-inline-end: var(--border-width) solid var(--color-border);
@@ -464,7 +464,7 @@
   }
 
   .row {
-    min-height: 2.25rem;
+    min-height: 36px;
   }
 
   .partsToggle {
@@ -472,9 +472,9 @@
   }
 
   .switch {
-    --switch-width: 2rem;
-    --switch-height: 1.125rem;
-    --switch-knob-size: 0.75rem;
+    --switch-width: 32px;
+    --switch-height: 18px;
+    --switch-knob-size: 12px;
   }
 
   .chip {

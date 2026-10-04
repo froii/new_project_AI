@@ -27,7 +27,7 @@
   counter-reset: principle;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 768px) {
   .list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -71,7 +71,7 @@
 @keyframes rise {
   from {
     opacity: 0;
-    translate: 0 1.5rem;
+    translate: 0 24px;
   }
 }
 

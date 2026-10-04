@@ -50,7 +50,7 @@
   grid-area: 1 / 1;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 768px) {
   .sizer {
     width: calc((100% - 2 * var(--gap)) / 3);
   }
@@ -73,7 +73,7 @@
   transition: translate 450ms ease;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 768px) {
   .track {
     --step: calc((100% + var(--gap)) / 3);
     grid-auto-columns: calc((100% - 2 * var(--gap)) / 3);
@@ -84,8 +84,8 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 36px;
+  height: 36px;
   border: var(--border-width) solid var(--color-border);
   border-radius: 50%;
   background: var(--color-paper);
@@ -101,8 +101,8 @@
 }
 
 .arrow svg {
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
 }
 
 .next svg {
@@ -113,7 +113,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  min-height: 12rem;
+  min-height: 192px;
   padding: var(--space-l);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
@@ -121,7 +121,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-@media (width < 48rem) {
+@media (width < 768px) {
   .card {
     justify-content: center;
   }

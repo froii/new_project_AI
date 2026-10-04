@@ -100,9 +100,8 @@ export function partsOf(section: ToggleSectionId): PartId[] {
   return sectionParts[section].map((part) => `${section}.${part}` as PartId);
 }
 
-/* Ordered by how much detail survives, widest first (15, 9, 9, 5, 5, 2), so
-   the list reads as one scale. Not by section count: `screening` keeps fewer
-   sections than `short` but more inside them, and the two orderings disagree. */
+/* Pairs for the menu's pill row: `cases` has the longest label, and only the
+   short `us` leaves it room on one line in Ukrainian. */
 export const presetIds = ["full", "tech", "us", "cases", "screening", "short"] as const;
 
 export type PresetId = (typeof presetIds)[number];
@@ -142,10 +141,12 @@ export const presets = {
     education: false,
     certifications: false,
   },
+  /* The skill list goes so the detailed achievements fit two pages: each role
+     still lists its stack. */
   cases: {
     "hero.photo": false,
-    "about.achievementsFull": false,
     "about.personal": false,
+    skills: false,
     "skills.full": false,
     "experience.all": false,
     "experience.responsibilities": false,

@@ -175,23 +175,24 @@ a:hover {
   --step-4: clamp(1.95rem, 1.5rem + 2.25vw, 3.4rem);
   --step-5: clamp(2.35rem, 1.6rem + 3.75vw, 4.6rem);
 
-  --space-2xs: clamp(0.25rem, 0.23rem + 0.1vw, 0.31rem);
-  --space-xs: clamp(0.5rem, 0.46rem + 0.2vw, 0.63rem);
-  --space-s: clamp(0.75rem, 0.69rem + 0.3vw, 0.94rem);
-  --space-m: clamp(1rem, 0.91rem + 0.45vw, 1.25rem);
-  --space-l: clamp(1.5rem, 1.37rem + 0.65vw, 1.88rem);
-  --space-xl: clamp(2rem, 1.74rem + 1.3vw, 2.75rem);
-  --space-2xl: clamp(2.75rem, 2.3rem + 2.25vw, 4rem);
+  /* Whole px, stepped at the layout breakpoints below. */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-s: 12px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-2xl: 44px;
 
-  --header-height: 4rem;
-  --panel-width: 17.375rem;
+  --header-height: 64px;
+  --panel-width: 284px;
   --rail: 106px;
-  --paper-max: 49.625rem;
-  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --paper-max: 794px;
+  --gutter: clamp(16px, 4vw, 40px);
   --measure: 64ch;
-  --shell-max: 72rem;
-  --radius: 0.75rem;
-  --radius-sm: 0.375rem;
+  --shell-max: 1152px;
+  --radius: 12px;
+  --radius-sm: 6px;
   --border-width: 1px;
 
   /* Landing wash: light needs more accent than dark to read as a gradient. */
@@ -220,6 +221,23 @@ a:hover {
   --color-invert-muted: #a3abb9;
   --color-invert-border: #3a4048;
   --color-invert-accent: #8fb0ff;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-s: 14px;
+    --space-m: 20px;
+    --space-l: 28px;
+    --space-xl: 36px;
+    --space-2xl: 56px;
+  }
+}
+
+@media (min-width: 1152px) {
+  :root {
+    --space-xl: 44px;
+    --space-2xl: 64px;
+  }
 }
 
 :root[data-theme="dark"] {
@@ -312,7 +330,7 @@ a:hover {
   align-items: start;
 }
 
-@media (min-width: 72rem) {
+@media (min-width: 1152px) {
   .workspace {
     grid-template-columns: var(--panel-width) minmax(0, 1fr);
     align-items: stretch;
@@ -331,7 +349,7 @@ a:hover {
 
   width: calc(100% - 2 * var(--gutter));
   max-width: var(--paper-max);
-  padding-inline: clamp(var(--space-m), 5vw, 3.25rem);
+  padding-inline: clamp(var(--space-m), 5vw, 52px);
   margin-block-end: var(--space-2xl);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
@@ -346,9 +364,9 @@ a:hover {
 
 /* Clearance for the fixed section-menu pill. The contact band adds it to its own
    padding, so the gap stays inside the dark band instead of showing canvas. */
-@media (width < 80rem) {
+@media (width < 1280px) {
   .sheet {
-    --thumb-clearance: calc(2.75rem + max(var(--space-m), env(safe-area-inset-bottom)));
+    --thumb-clearance: calc(44px + max(var(--space-m), env(safe-area-inset-bottom)));
   }
 }
 
@@ -363,7 +381,7 @@ a:hover {
 
 /* No sheet frame on a phone: frame plus gutter doubles the side padding and
    the prose loses a word per line. */
-@media (width < 48rem) {
+@media (width < 768px) {
   .sheet {
     padding-block-start: 0;
   }
@@ -400,7 +418,8 @@ a:hover {
   scroll-margin-block-start: calc(var(--header-height) + var(--space-m));
 }
 
-.section h2 {
+/* `:not(dialog *)`: a dialog opened from a section is its own surface, not a section label. */
+.section h2:not(dialog *) {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   font-weight: 600;
@@ -410,7 +429,7 @@ a:hover {
 }
 
 /* Prose blocks need no visible label; record lists keep it. */
-.section:is(#hero, #about, #contact) h2 {
+.section:is(#hero, #about, #contact) h2:not(dialog *) {
   clip-path: inset(50%);
   position: absolute;
   width: 1px;
@@ -451,7 +470,7 @@ a:hover {
 
 /* Narrow screens only (the sidebar covers desktop); CSS scroll timeline, no JS. */
 @supports (animation-timeline: scroll()) {
-  @media (width < 80rem) {
+  @media (width < 1280px) {
     .progress {
       position: fixed;
       inset-inline: 0;

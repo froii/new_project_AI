@@ -1,3 +1,4 @@
+import type { PresetId } from "@/content/sections";
 import type { ExperienceEntry } from "@/content/types";
 
 export function isCurrent(entry: ExperienceEntry): boolean {
@@ -40,4 +41,10 @@ export function defaultOpenRoles(entries: ExperienceEntry[]): string[] {
   return shortlistExperience(entries)
     .slice(0, openRoles)
     .map((entry) => entry.id);
+}
+
+/* A preset also sets which roles print expanded: a role collapsed on screen
+   would otherwise reach the PDF as a title line. */
+export function presetOpenRoles(preset: PresetId, entries: ExperienceEntry[]): string[] {
+  return preset === "full" ? entries.map((entry) => entry.id) : defaultOpenRoles(entries);
 }

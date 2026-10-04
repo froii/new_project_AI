@@ -19,7 +19,11 @@ export function Education() {
         <p className={styles.degree}>{t(`entries.${item.id}.degree`)}</p>
         <p className={styles.period}>
           <span>{monthYear(item.start)}</span>
-          <span>{item.end ? monthYear(item.end) : tExperience("present")}</span>
+          <span>
+            {item.end
+              ? `${item.expected ? `${t("expected")} ` : ""}${monthYear(item.end)}`
+              : tExperience("present")}
+          </span>
         </p>
       </div>
 

@@ -33,10 +33,10 @@
   width: 100%;
 }
 
-@media (min-width: 46rem) {
+@media (min-width: 736px) {
   .layout {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
-    column-gap: clamp(var(--space-xl), 4vw, 5rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 304px);
+    column-gap: clamp(var(--space-xl), 4vw, 80px);
   }
 }
 
@@ -107,7 +107,7 @@
 .cvSlot {
   position: relative;
   display: flex;
-  margin-inline-end: 5.75rem;
+  margin-inline-end: 92px;
 }
 
 .cvSlot > a {
@@ -116,7 +116,7 @@
 }
 
 /* Stacked layouts: the cat walks above the button, not behind it. */
-@media (width > 34rem) {
+@media (width > 544px) {
   .cvSlot[data-cat-behind] > a {
     opacity: 0.6;
   }
@@ -127,7 +127,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  min-height: 3rem;
+  min-height: 48px;
   padding-inline: var(--space-l);
   border-radius: var(--radius);
   font-size: var(--step-0);
@@ -155,7 +155,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.35em;
-  min-height: 3rem;
+  min-height: 48px;
   padding-inline: var(--space-xs);
   color: var(--color-accent);
   font-size: var(--step-0);
@@ -193,7 +193,7 @@
 .portrait {
   position: relative;
   justify-self: center;
-  width: min(100%, 17rem);
+  width: min(100%, 272px);
 }
 
 .portrait::before {
@@ -214,11 +214,11 @@
   box-shadow: var(--shadow-lg);
 }
 
-@media (width < 46rem) {
+@media (width < 736px) {
   .portrait {
     order: -1;
     justify-self: center;
-    width: min(62%, 16rem);
+    width: min(62%, 256px);
   }
 
   /* No second column to keep clear of. */
@@ -227,7 +227,7 @@
   }
 }
 
-@media (max-width: 34rem) {
+@media (max-width: 544px) {
   .actions > * {
     flex: 1 1 100%;
   }

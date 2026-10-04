@@ -1,34 +1,34 @@
 {
   "menu": "Sections",
-  "intro": "Switch off anything a reader does not need - the page and the PDF follow.",
+  "intro": "Edit the CV through the navigation settings and save it as a PDF.",
   "toggle": "Show {section}",
   "partsLabel": "Parts of {section}",
-  "versionsHeading": "Presets",
+  "versionsHeading": "Ready-made versions",
   "print": "Create PDF",
   "presets": {
     "full": {
-      "label": "Everything",
+      "label": "Full",
       "note": "every section and every part"
     },
     "us": {
-      "label": "US / ATS",
+      "label": "ATS",
       "note": "no photo, nothing personal"
     },
     "tech": {
-      "label": "Deep dive",
+      "label": "Detailed",
       "note": "the full stack, recent roles in depth"
     },
     "screening": {
-      "label": "First look",
-      "note": "the first 30 seconds: core skills, recent roles"
+      "label": "Overview",
+      "note": "summary, achievements, recent roles"
     },
     "short": {
-      "label": "One-pager",
+      "label": "One page",
       "note": "roles and outcomes, nothing else"
     },
     "cases": {
-      "label": "Case studies",
-      "note": "for a technical interview: challenges and results"
+      "label": "Technical interview",
+      "note": "achievements and challenges"
     }
   },
   "labels": {
@@ -46,25 +46,25 @@
       "contacts": "Contacts"
     },
     "about": {
-      "achievementsFull": "Full detail",
-      "personal": "Beyond the code"
+      "achievementsFull": "Achievements",
+      "personal": "Personal"
     },
     "skills": {
-      "full": "Full skill list"
+      "full": "Extra"
     },
     "experience": {
-      "all": "Earlier roles",
+      "all": "History",
       "project": "Project",
       "result": "Result",
-      "responsibilities": "Responsibilities",
+      "responsibilities": "Scope",
       "techStack": "Stack",
-      "alsoUsed": "Also used",
+      "alsoUsed": "Secondary",
       "link": "Link",
-      "challenges": "Technical challenges"
+      "challenges": "Challenges"
     },
     "education": {
-      "all": "Earlier entries",
-      "skills": "Takeaways"
+      "all": "Earlier",
+      "skills": "Topics"
     },
     "certifications": {}
   }

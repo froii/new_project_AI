@@ -58,7 +58,7 @@ export function Intro() {
               src={photo.src}
               width={photo.width}
               height={photo.height}
-              sizes="(width < 46rem) 62vw, 17rem"
+              sizes="(width < 736px) 62vw, 272px"
               priority
               alt={tHero("photoAlt", { name: tCommon("name") })}
             />

@@ -9,7 +9,7 @@
 
 .option {
   padding: var(--space-2xs) var(--space-xs);
-  border-radius: calc(var(--radius) - 0.25rem);
+  border-radius: calc(var(--radius) - 4px);
   color: var(--color-text-muted);
   font-size: var(--step--1);
   line-height: 1;

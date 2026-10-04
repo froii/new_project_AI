@@ -129,7 +129,7 @@ function cvChunks(locale: Locale): Chunk[] {
       id: `education.${entry.id}`,
       title: `${m.education.heading}: ${entry.institution}`,
       text: [
-        `${text.degree}, ${entry.institution} (${span(entry.start, entry.end)})`,
+        `${text.degree}, ${entry.institution} (${span(entry.start, entry.expected ? `${m.education.expected} ${entry.end}` : entry.end)})`,
         text.note,
         entry.skills.join(", "),
       ].join("\n"),

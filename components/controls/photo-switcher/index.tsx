@@ -26,7 +26,7 @@ export function PhotoSwitcher({ photos, alt, groupLabel, optionLabels }: PhotoSw
         src={active.src}
         width={active.width}
         height={active.height}
-        sizes="(width < 48rem) 100vw, 18rem"
+        sizes="288px"
         priority
         alt={alt}
       />
@@ -46,7 +46,7 @@ export function PhotoSwitcher({ photos, alt, groupLabel, optionLabels }: PhotoSw
                 onChange={() => setActiveId(photo.id)}
               />
               <label className={styles.thumb} htmlFor={`${name}-${photo.id}`}>
-                {/* Matches the 3rem thumb, or the optimiser ships full portraits. */}
+                {/* Matches the 48px thumb, or the optimiser ships full portraits. */}
                 <Image
                   src={photo.src}
                   width={photo.width}

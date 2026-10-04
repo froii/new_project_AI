@@ -37,14 +37,14 @@
 }
 
 .cat {
-  height: 5.5rem;
+  height: 88px;
 }
 
 /* Beside the buttons: stands on their bottom edge and rises above the row
    instead of making it taller. Narrow screens wrap it to its own line. */
-@media (min-width: 34rem) {
+@media (min-width: 544px) {
   .cat {
-    margin-block-start: calc(2.75rem - 5.5rem);
+    margin-block-start: calc(44px - 88px);
   }
 }
 
@@ -52,7 +52,7 @@
 .secondary {
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
+  min-height: 44px;
   padding-inline: var(--space-l);
   border-radius: 999px;
   font-size: var(--step-0);

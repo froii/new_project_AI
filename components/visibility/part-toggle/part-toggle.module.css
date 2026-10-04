@@ -1,15 +1,15 @@
 .root {
   flex: none;
   display: inline-flex;
-  gap: 0.125rem;
-  padding: 0.125rem;
+  gap: 2px;
+  padding: 2px;
   border: var(--border-width) solid var(--color-border);
   border-radius: 999px;
   background: var(--color-bg);
 }
 
 .option {
-  min-height: 1.75rem;
+  min-height: 28px;
   padding-inline: var(--space-s);
   border-radius: 999px;
   color: var(--color-text-muted);

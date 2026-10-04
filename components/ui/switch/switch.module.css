@@ -12,11 +12,11 @@
 }
 
 .track {
-  --switch-width: 2.75rem;
+  --switch-width: 44px;
   --switch-height: 26px;
-  --switch-knob-size: 1.25rem;
+  --switch-knob-size: 20px;
   --switch-pad: calc((var(--switch-height) - var(--switch-knob-size)) / 2);
-  --switch-knob-offset: 0rem;
+  --switch-knob-offset: 0px;
   --switch-track-bg: var(--color-border);
 
   position: relative;
@@ -34,7 +34,7 @@
 .track::before {
   content: "";
   position: absolute;
-  inset: -0.5rem;
+  inset: -8px;
 }
 
 .input:checked + .track {
