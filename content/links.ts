@@ -27,8 +27,6 @@ const cvPdf = (file: string, pages: number): CvPdf => ({
   pages,
 });
 
-/* Printing the landing page yields the landing page, not the CV, so the button
-   there hands over prepared files instead. */
 export const cvPdfs = {
   full: cvPdf("Full", 5),
   tech: cvPdf("Detailed", 3),

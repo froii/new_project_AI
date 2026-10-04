@@ -24,8 +24,8 @@
   },
   "open": "Contact me",
   "close": "Hide",
-  "savePdf": "Save as PDF",
   "downloadPdf": "Download PDF",
+  "cv": "CV",
   "pdf": {
     "heading": "Download CV",
     "intro": "Pick the version that fits the reader.",

@@ -1,22 +1,45 @@
+/* 30px tall, like the theme toggle beside it. `--color-border` alone vanishes on the
+   white hero, hence the text-based mix. */
 .group {
   display: flex;
   align-items: center;
-  gap: var(--space-2xs);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius);
-  padding: var(--space-2xs);
+  height: 30px;
+  padding: 2px;
+  border: var(--border-width) solid color-mix(in srgb, var(--color-text) 16%, transparent);
+  /* The option's 10px plus its 2px offset from the outer edge, so the curves run parallel. */
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .option {
-  padding: var(--space-2xs) var(--space-xs);
-  border-radius: calc(var(--radius) - 4px);
+  display: grid;
+  place-items: center;
+  min-width: 29px;
+  height: 26px;
+  padding-inline: var(--space-2xs);
+  border-radius: 10px;
   color: var(--color-text-muted);
   font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.04em;
   line-height: 1;
   text-decoration: none;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+/* Keeps the pill: the global :focus-visible rule sets a 2px radius. */
+.option:focus-visible {
+  border-radius: 10px;
+}
+
+.option:not([aria-current="true"]):hover {
+  color: var(--color-accent);
 }
 
 .option[aria-current="true"] {
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--color-accent);
+  color: var(--color-bg);
 }

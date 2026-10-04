@@ -2,6 +2,8 @@ import { useId } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { owner } from "@/content";
+import { LocaleSwitcher } from "@/components/controls/locale-switcher";
+import { ThemeToggle } from "@/components/controls/theme-toggle";
 import { CvLink } from "@/components/landing/cv-link";
 import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Link } from "@/i18n/navigation";
@@ -20,6 +22,11 @@ export function Intro() {
 
   return (
     <section className={styles.intro} aria-labelledby={headingId}>
+      <div className={styles.controls}>
+        <LocaleSwitcher label={tCommon("language")} />
+        <ThemeToggle label={tCommon("theme")} />
+      </div>
+
       <div className={`shell ${styles.layout}`}>
         <div className={styles.text}>
           <p className={styles.eyebrow}>{tHero("title")}</p>

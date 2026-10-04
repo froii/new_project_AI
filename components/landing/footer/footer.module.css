@@ -45,10 +45,3 @@
   color: var(--color-text-faint);
   font-size: var(--step--1);
 }
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-s);
-}

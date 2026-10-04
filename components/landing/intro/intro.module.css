@@ -3,8 +3,20 @@
   display: flex;
   align-items: center;
   min-height: 100svh;
-  padding-block: var(--space-2xl);
+  /* 30px: the controls' height (theme-toggle.module.css), so the portrait stays clear of them. */
+  padding-block: calc(var(--space-2xl) + 30px) var(--space-2xl);
   background: var(--color-bg);
+}
+
+/* Absolute, not sticky: a pinned bar would cover content on mobile scroll. */
+.controls {
+  position: absolute;
+  inset-block-start: var(--space-s);
+  inset-inline-end: var(--gutter);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
 }
 
 .intro::before {

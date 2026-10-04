@@ -137,6 +137,7 @@
   margin-block-end: var(--space-s);
   color: var(--color-text-muted);
   line-height: 1.65;
+  white-space: pre-line;
 }
 
 @media (prefers-reduced-motion: reduce) {

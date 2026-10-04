@@ -24,6 +24,7 @@ export function LocaleSwitcher({ label }: { label: string }) {
           key={locale}
           href={{ pathname, query }}
           locale={locale}
+          scroll={false}
           className={styles.option}
           aria-current={locale === active ? "true" : undefined}
           hrefLang={locale}
