@@ -28,7 +28,7 @@
     },
     "cases": {
       "label": "Technical interview",
-      "note": "achievements and technical challenges"
+      "note": "achievements and challenges"
     }
   },
   "labels": {
@@ -46,25 +46,25 @@
       "contacts": "Contacts"
     },
     "about": {
-      "achievementsFull": "Full detail",
-      "personal": "Beyond the code"
+      "achievementsFull": "Achievements",
+      "personal": "Personal"
     },
     "skills": {
-      "full": "Full skill list"
+      "full": "Extra"
     },
     "experience": {
-      "all": "Earlier roles",
+      "all": "History",
       "project": "Project",
       "result": "Result",
       "responsibilities": "Scope",
       "techStack": "Stack",
-      "alsoUsed": "Also used",
+      "alsoUsed": "Secondary",
       "link": "Link",
-      "challenges": "Technical challenges"
+      "challenges": "Challenges"
     },
     "education": {
-      "all": "Earlier entries",
-      "skills": "Takeaways"
+      "all": "Earlier",
+      "skills": "Topics"
     },
     "certifications": {}
   }

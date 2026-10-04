@@ -28,7 +28,7 @@
     },
     "cases": {
       "label": "Технічна співбесіда",
-      "note": "досягнення й складні технічні задачі"
+      "note": "досягнення й складнощі"
     }
   },
   "labels": {
@@ -46,25 +46,25 @@
       "contacts": "Контакти"
     },
     "about": {
-      "achievementsFull": "Повні деталі",
-      "personal": "Поза роботою"
+      "achievementsFull": "Досягнення",
+      "personal": "Особисте"
     },
     "skills": {
-      "full": "Повний список навичок"
+      "full": "Додаткові"
     },
     "experience": {
-      "all": "Ранні позиції",
+      "all": "Історія",
       "project": "Проєкт",
       "result": "Результат",
       "responsibilities": "Обов'язки",
       "techStack": "Стек",
-      "alsoUsed": "Також",
+      "alsoUsed": "Додатково",
       "link": "Посилання",
-      "challenges": "Складні задачі"
+      "challenges": "Складнощі"
     },
     "education": {
-      "all": "Ранні записи",
-      "skills": "Навички"
+      "all": "Ранні",
+      "skills": "Теми"
     },
     "certifications": {}
   }
