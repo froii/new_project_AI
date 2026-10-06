@@ -236,7 +236,7 @@
     },
     "teams": {
       "q": "Worked in international teams?",
-      "a": "Yes, with German, American, Israeli and Ukrainian teams. I have been working remotely for over five years.",
+      "a": "Yes, with German, American, Israeli and Ukrainian teams. I have been working remotely for over six years.",
       "keywords": [
         "international",
         "culture",
@@ -307,7 +307,7 @@
     },
     "companyType": {
       "q": "Product companies or outsourcing?",
-      "a": "Both. I started at a product company, Software MacKiev, and later worked mostly in outsourcing, building for clients.",
+      "a": "Both. I started at a product company, Software MacKiev, and later worked mostly in outsourcing: Ukrainian companies building products for startups abroad.",
       "keywords": ["product company", "outsourcing", "outstaffing", "clients", "company type"]
     },
     "domains": {
@@ -434,7 +434,7 @@
     },
     "backend": {
       "q": "How strong is the backend: Node.js, databases, APIs?",
-      "a": "I have used Node.js for four years, mostly with Express, NestJS and TypeORM. I have worked with both SQL and NoSQL databases, mainly PostgreSQL, and built many integrations with external APIs, including Microsoft services such as Azure, and Google services. Integrating a new API is routine work for me.",
+      "a": "I have used Node.js for five years, mostly with Express, NestJS and TypeORM. I have worked with both SQL and NoSQL databases, mainly PostgreSQL, and built many integrations with external APIs, including Microsoft services such as Azure, and Google services. Integrating a new API is routine work for me.",
       "keywords": [
         "backend",
         "Node.js",

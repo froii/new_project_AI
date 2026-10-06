@@ -5,7 +5,7 @@
   --color-hairline: var(--color-invert-border);
   --color-text: var(--color-invert-text);
   --color-text-muted: var(--color-invert-muted);
-  --color-text-faint: color-mix(in srgb, var(--color-invert-muted) 65%, var(--color-invert-bg));
+  --color-text-faint: color-mix(in srgb, var(--color-invert-muted) 75%, var(--color-invert-bg));
   --color-accent: var(--color-invert-accent);
   --color-danger: #ff9b91;
   --color-focus: var(--color-invert-accent);

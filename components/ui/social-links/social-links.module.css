@@ -19,13 +19,13 @@
 }
 
 .link svg {
-  width: var(--social-icon, 1.4rem);
-  height: var(--social-icon, 1.4rem);
+  width: var(--social-icon, 22px);
+  height: var(--social-icon, 22px);
 }
 
 .compact {
   --social-size: 36px;
-  --social-icon: 1.15rem;
+  --social-icon: 18px;
   gap: 0.2rem;
 }
 

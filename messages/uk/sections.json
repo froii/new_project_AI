@@ -1,8 +1,8 @@
 {
   "menu": "Розділи",
   "intro": "Редагуйте CV через налаштування навігації й збережіть його як PDF.",
-  "toggle": "Показувати {section}",
-  "partsLabel": "Частини {section}",
+  "toggle": "Показувати розділ «{section}»",
+  "partsLabel": "Частини розділу «{section}»",
   "versionsHeading": "Готові версії",
   "print": "Створити PDF",
   "presets": {

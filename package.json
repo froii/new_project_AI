@@ -9,10 +9,12 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
     "lint": "eslint app components lib content i18n",
-    "check": "npm run format && npm run typecheck && npm run lint && npm run lint:copy && npm test",
+    "check": "npm run format && npm run typecheck && npm run lint && npm run lint:css && npm run lint:copy && npm test",
     "format": "prettier --write .",
-    "lint:copy": "node scripts/lint-copy.mjs"
+    "lint:copy": "node scripts/lint-copy.mjs",
+    "lint:css": "node scripts/lint-css-units.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "1.2.20",
@@ -26,6 +28,8 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0",
     "@types/node": "26.2.0",
     "@types/nodemailer": "8.0.1",
     "@types/react": "19.2.18",

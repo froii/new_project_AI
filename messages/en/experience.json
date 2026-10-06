@@ -23,13 +23,13 @@
   },
   "entries": {
     "bechacant": {
-      "role": "Full Stack Developer - BechaCant, remote (US)",
+      "role": "Full Stack Developer -BechaCant, remote (US)",
       "project": "A social app built around challenges between users: a Next.js PWA with LLM features that also runs inside the iOS and Android apps.",
       "result": "Built the client side of the premium subscription and put the product's first LLM features into production.",
       "responsibilities": "The whole frontend of the PWA: challenges, a feed, push notifications, profiles and a rewards wallet.\n\nAn AI assistant panel: streamed answers, model choice, tool calling and undoable AI edits. Wrote the spec before the code."
     },
     "eteam": {
-      "role": "Full Stack Developer - eTeam, remote",
+      "role": "Full Stack Developer -eTeam, remote",
       "project": "nedyx - a low-code platform for business reporting, built by a small international team.",
       "result": "Shipped the widget system, undo/redo, archives and PDF export that the platform's reporting runs on, plus the platform's own functional language for formulas.",
       "responsibilities": "Maintained and extended the product in React, TypeScript, Node.js, GraphQL and Apollo. Built a dynamic widget system with full visualization control, large tables, charts and a text editor, reading data from external databases for many users."
@@ -41,22 +41,22 @@
       "responsibilities": "Lectures, hands-on sessions and homework review across the full course."
     },
     "ugenius": {
-      "role": "Frontend Developer - U-Genius, remote (Ukraine / US)",
+      "role": "Frontend Developer -U-Genius, remote (Ukraine / US)",
       "project": "Three applications for LinkSquares: contract lifecycle and legal project management.",
       "result": "Delivered three LinkSquares applications; the dynamic form and table layer became the base the later features were built on.",
       "responsibilities": "Built the logic for rendering dynamic and asynchronous forms, tables and components, plus PDF editors, working from Figma and a kanban board. Used React with hooks, GraphQL, Apollo Server, Redux, Redux-Saga, Ant Design, Ramda and several form libraries, alongside my own utilities."
     },
     "adraba": {
-      "role": "Frontend Developer - Adraba, Kyiv",
+      "role": "Frontend Developer -Adraba, Kyiv",
       "project": "A site generator: a back office whose settings define how another site is displayed. Alongside it, an online store for leisure events and a TED-style speaker platform in London.",
       "result": "Delivered the client side and the back office of a generator that builds and runs other sites.",
       "responsibilities": "Email templates and business logic across a large admin panel, with tables and charts for creating dynamic pages, forms, info blocks and galleries."
     },
     "mackiev": {
-      "role": "Web Software Developer - Software MacKiev, Kyiv",
+      "role": "Web Software Developer -Software MacKiev, Kyiv",
       "project": "The company site and product pages, including Family Tree Maker.",
       "result": "Kept the site current through product launches, adding the pages and questionnaires each one needed.",
-      "responsibilities": "Built new page blocks and questionnaires for each product launch."
+      "responsibilities": "Extended the company's sales site: jQuery on the frontend, PHP on the backend."
     },
     "freelance": {
       "role": "Freelance Frontend Developer",
@@ -78,7 +78,7 @@
     ],
     "eteam": [
       "Undo/redo for the whole app, written in-house for performance: widget moves, formulas, styles and other changes share one history, a change across several pages undoes as one step, and the history is kept in IndexedDB so it survives a reload.",
-      "Formula editor for analysts rather than developers: references to widgets and cells are highlighted and autocompleted from page and widget names, errors show as you type and after server validation, and clicking a reference selects the widget on the page.",
+      "A formula editor for analysts rather than developers: references to widgets and cells are highlighted and autocompleted from page and widget names, errors show as you type and after server validation, and clicking a reference selects the widget on the page.",
       "User-built pages of tables, charts and text on data from SSAS, OData, Google Sheets and external databases: custom drag-and-resize, alignment guides and Puppeteer PDF export work for any set of widgets."
     ]
   }

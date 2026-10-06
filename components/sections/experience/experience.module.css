@@ -73,8 +73,8 @@
 .openAll {
   display: grid;
   place-items: center;
-  padding: 0.4rem;
-  margin: -0.4rem;
+  padding: 7px;
+  margin: -7px;
   color: var(--color-text-muted);
   transition: color 150ms ease;
 }

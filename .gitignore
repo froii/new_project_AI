@@ -16,3 +16,4 @@ coverage/
 .claude/
 .kiro/
 CLAUDE.md
+/test-results/
