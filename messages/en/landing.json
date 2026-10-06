@@ -1,7 +1,8 @@
 {
   "cta": "Full CV",
   "askPrompt": "Got a question? Ask ",
-  "askLink": "the AI assistant or check FAQ",  "stackHeading": "Core stack",
+  "askLink": "the AI assistant or check the FAQ",
+  "stackHeading": "Core stack",
   "work": {
     "heading": "What I have built",
     "platform": {
@@ -33,7 +34,7 @@
       "body": "Built premium subscriptions for a PWA that also runs in native apps: a paywall, plus purchases and restores through a native bridge to the store. Premium banners and promo-code and referral rewards live in the web app."
     },
     "performance": {
-      "title": "Performance under load",
+      "title": "Performance at scale",
       "body": "Kept large tables and charts responsive: virtualized the big tables, split and lazy-loaded the routes, trimmed the bundle, and cut repeat GraphQL round trips with fragment-level caching."
     },
     "forms": {

@@ -6,6 +6,8 @@
   /* 30px: the controls' height (theme-toggle.module.css), so the portrait stays clear of them. */
   padding-block: calc(var(--space-2xl) + 30px) var(--space-2xl);
   background: var(--color-bg);
+  /* The cat's sprite box overflows on mobile; a page width that changes mid-strike makes the browser zoom. */
+  overflow-x: clip;
 }
 
 /* Absolute, not sticky: a pinned bar would cover content on mobile scroll. */

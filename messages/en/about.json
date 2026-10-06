@@ -1,6 +1,6 @@
 {
   "heading": "About",
-  "body": "I started on the frontend, took on the backend, and now ship LLM features in production. Ten years in, the stack has changed more than once; what carries over is understanding how the whole system fits together. Most of what I ship is infrastructure other teams build on: low-code platforms, back-office systems, document management, e-commerce. I own architecture and performance on large codebases, and run the code review that keeps them maintainable. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it.",
+  "body": "I started on the frontend, took on the backend, and now ship LLM features in production. Over ten years, the stack has changed more than once; what carries over is understanding how the whole system fits together. Most of what I ship is infrastructure other teams build on: low-code platforms, back-office systems, document management, e-commerce. I own architecture and performance on large codebases, and run the code review that keeps them maintainable. React, Next.js and TypeScript on the front, Node.js and PostgreSQL behind it.",
   "achievementsHeading": "Key achievements",
   "achievementsScope": {
     "label": "Detail level",
