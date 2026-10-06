@@ -154,3 +154,11 @@
 .action {
   min-width: 128px;
 }
+
+/* iOS Safari zooms the page on focus of any field under 16px */
+@supports (-webkit-touch-callout: none) {
+  .form .input,
+  .model select {
+    font-size: 1rem;
+  }
+}
