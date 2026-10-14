@@ -62,3 +62,30 @@
   background: var(--color-text);
   border-color: var(--color-text);
 }
+
+/* Touch screens never see the hover colors, so the glyphs carry the brand instead. */
+@media (hover: none) {
+  .email {
+    color: var(--color-accent);
+  }
+
+  .linkedin {
+    color: #0a66c2;
+  }
+
+  .whatsapp {
+    color: #25d366;
+  }
+
+  .viber {
+    color: #7360f2;
+  }
+
+  .telegram {
+    color: #29a9eb;
+  }
+
+  .github {
+    color: var(--color-text);
+  }
+}

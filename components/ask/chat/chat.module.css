@@ -151,8 +151,41 @@
   }
 }
 
+.actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
 .action {
+  flex: 1;
   min-width: 128px;
+}
+
+.mic {
+  min-width: 44px;
+  padding-inline: 0;
+}
+
+.mic[aria-pressed="true"],
+.mic[aria-pressed="true"]:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mic[aria-pressed="true"] {
+    animation: recording 1.4s ease-out infinite;
+  }
+}
+
+@keyframes recording {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 10px transparent;
+  }
 }
 
 /* iOS Safari zooms the page on focus of any field under 16px */

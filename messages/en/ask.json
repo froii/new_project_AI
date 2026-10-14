@@ -11,6 +11,8 @@
     "label": "Your question",
     "send": "Send",
     "stop": "Stop",
+    "dictate": "Dictate",
+    "dictateStop": "Stop dictation",
     "thinking": "Looking for an answer...",
     "sources": "Based on:",
     "answeredBy": "Model: {model}",
