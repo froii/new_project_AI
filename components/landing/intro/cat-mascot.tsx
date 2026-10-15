@@ -44,9 +44,16 @@ const TAP_HOLD_MS = 400;
 const TAP_REWIND_MS = 45;
 const TAP_SETTLE_MS = 70;
 
-// Only idle frames 45-46 and 115-119 match the rest pose; 0-44 sit 5px lower and show as a size jump.
-const IDLE_FROM = 45;
-const IDLE_TO = 119;
+// Cut at the idle frames closest to the rest pose: looks aside, yawns, sweeps the tail.
+const IDLE_EVENTS: [number, number][] = [
+  [0, 43],
+  [43, 90],
+  [90, 119],
+];
+// At these cuts the idle cat holds its head lower than the rest pose, paws on the same line.
+// scaleY from the paws (transform-origin in the CSS) levels it there, then eases to 1 over the ramp.
+const IDLE_LIFT: Record<number, number> = { 0: 1.016, 43: 1.016, 90: 1.01 };
+const IDLE_LIFT_FRAMES = 6;
 // Sheet px the idle source camera drifts right by, measured on the paws against the rest pose.
 const IDLE_DRIFT_PX: Record<number, number> = {
   96: 1,
@@ -163,6 +170,7 @@ export function CatMascot() {
 
     let idleTimer = 0;
     let idleRaf = 0;
+    let lastEvent = -1;
 
     const scheduleIdle = () => {
       const [min, max] = IDLE_GAP_MS;
@@ -181,19 +189,32 @@ export function CatMascot() {
         scheduleIdle();
         return;
       }
+      const n = IDLE_EVENTS.length;
+      const event =
+        lastEvent < 0
+          ? Math.floor(Math.random() * n)
+          : (lastEvent + 1 + Math.floor(Math.random() * (n - 1))) % n;
+      lastEvent = event;
+      const [from, to] = IDLE_EVENTS[event];
+      const lift = (f: number) => {
+        const nearStart = f - from <= to - f;
+        const target = IDLE_LIFT[nearStart ? from : to] ?? 1;
+        const ramp = Math.max(0, 1 - (nearStart ? f - from : to - f) / IDLE_LIFT_FRAMES);
+        return 1 + (target - 1) * ramp;
+      };
       const show = (f: number) => {
         idle.style.backgroundPosition = framePosition(f);
-        idle.style.transform = `translateX(${rem(-(IDLE_DRIFT_PX[f] ?? 0) * PX_REM)})`;
+        idle.style.transform = `translateX(${rem(-(IDLE_DRIFT_PX[f] ?? 0) * PX_REM)}) scaleY(${lift(f)})`;
       };
-      show(IDLE_FROM);
+      show(from);
       idle.style.opacity = "1";
       const start = performance.now();
       const tick = (now: number) => {
-        const f = Math.min(IDLE_TO, IDLE_FROM + Math.floor((now - start) / FRAME_MS));
+        const f = Math.min(to, from + Math.floor((now - start) / FRAME_MS));
         show(f);
         // Hidden, not unset: WebKit drops an unused sheet's decoded pixels and repaints it blank on return.
         if (now - start >= IDLE_FADE_MS) rest.style.opacity = "0";
-        if (f < IDLE_TO) {
+        if (f < to) {
           idleRaf = requestAnimationFrame(tick);
         } else {
           stopIdle();

@@ -17,6 +17,8 @@
 
 .idle {
   opacity: 0;
+  /* paw line, sprite row 171 of 180: IDLE_LIFT in cat-mascot.tsx stretches from here */
+  transform-origin: 50% 95%;
 }
 
 /* No room beside stacked buttons: the cat sits on top instead. */
