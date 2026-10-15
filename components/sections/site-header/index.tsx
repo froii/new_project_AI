@@ -38,8 +38,11 @@ export function SiteHeader() {
           <SocialLinks links={links} label={t("socialLabel")} size="compact" />
         </div>
 
-        <div className={`cluster ${styles.controls}`}>
+        <div className={styles.share}>
           <ShareButton title={t("name")} />
+        </div>
+
+        <div className={`cluster ${styles.controls}`}>
           <LocaleSwitcher label={t("language")} />
           <ThemeToggle label={t("theme")} />
         </div>

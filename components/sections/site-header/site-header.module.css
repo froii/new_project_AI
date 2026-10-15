@@ -20,8 +20,14 @@
   display: flex;
   align-items: center;
   gap: var(--space-s);
-  flex: 1 1 0;
+  flex: 0 1 auto;
   min-width: 0;
+}
+
+/* Auto margins split the free space, centering share between contacts and controls. */
+.share {
+  flex: none;
+  margin-inline: auto;
 }
 
 .home {
@@ -55,7 +61,7 @@
 }
 
 /* `flex: none`, not `1 1 0`: with a shrinkable basis the controls gave way, and at
-   390px the theme toggle wrapped below the header. The identity fills the row. */
+   390px the theme toggle wrapped below the header. */
 .controls {
   flex: none;
   --cluster-gap: var(--space-xs);
@@ -68,7 +74,7 @@
 }
 
 @media (max-width: 640px) {
-  .controls :global(.share-label) {
+  .share :global(.share-label) {
     display: none;
   }
 }

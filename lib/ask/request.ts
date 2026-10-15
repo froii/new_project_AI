@@ -3,14 +3,38 @@ import { curatedModels } from "./models";
 
 export type ChatTurn = { role: "user" | "assistant"; content: string };
 
+/* A screenshot is a JPEG data URL, already scaled down in the browser. */
+export type Vacancy = { text: string } | { image: string };
+
 export type AskRequest = {
   question: string;
   history: ChatTurn[];
   locale: Locale;
   model?: string;
+  vacancy?: Vacancy;
 };
 
-export const askLimits = { question: 500, turns: 6, turn: 2000 };
+/* `image` counts data URL characters; Vercel refuses bodies over 4.5 MB. */
+export const askLimits = { question: 500, turns: 6, turn: 2000, vacancy: 15000, image: 3_000_000 };
+
+function parseVacancy(value: unknown): Vacancy | null | undefined {
+  if (value === undefined) return undefined;
+  if (typeof value !== "object" || value === null) return null;
+  const fields = value as Record<string, unknown>;
+
+  if (typeof fields.text === "string") {
+    const text = fields.text.trim();
+    return text && text.length <= askLimits.vacancy ? { text } : null;
+  }
+  if (typeof fields.image === "string") {
+    const image = fields.image;
+    return image.length <= askLimits.image &&
+      /^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(image)
+      ? { image }
+      : null;
+  }
+  return null;
+}
 
 function isTurn(value: unknown): value is ChatTurn {
   if (typeof value !== "object" || value === null) return false;
@@ -45,7 +69,16 @@ export function parseAsk(body: unknown): AskRequest | null {
       ? fields.model
       : undefined;
 
-  return model ? { question, history, locale, model } : { question, history, locale };
+  const vacancy = parseVacancy(fields.vacancy);
+  if (vacancy === null) return null;
+
+  return {
+    question,
+    history,
+    locale,
+    ...(model && { model }),
+    ...(vacancy && { vacancy }),
+  };
 }
 
 /* By the question's script, not the page: a Ukrainian question on /en finds nothing in English. */

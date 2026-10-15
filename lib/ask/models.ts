@@ -1,6 +1,7 @@
-export type FreeModel = { id: string; name: string };
+/* `vision`: reads a screenshot of a job posting. */
+export type FreeModel = { id: string; name: string; vision: boolean };
 
-type CatalogEntry = { id: string; name: string };
+type CatalogEntry = { id: string; name: string; architecture?: { input_modalities?: string[] } };
 
 /* Only :free ids cost nothing. */
 export const isFreeModelId = (id: string) => /^[\w.-]+\/[\w.-]+:free$/.test(id);
@@ -14,13 +15,24 @@ export const curatedModels = [
   "qwen/qwen3.8-27b:free",
 ];
 
+/* "Auto" pick for a pasted posting: it kept one line per requirement where dots without
+   reasoning wrote a paragraph. Text only, it cannot read a screenshot. */
+export const postingModel = "nvidia/nemotron-3-ultra-550b-a55b:free";
+
 /* Curated order, minus retired models. */
 export function pickFreeModels(catalog: CatalogEntry[], curated = curatedModels): FreeModel[] {
-  const names = new Map(catalog.map((entry) => [entry.id, entry.name]));
+  const byId = new Map(catalog.map((entry) => [entry.id, entry]));
 
   return curated.flatMap((id) => {
-    const name = names.get(id);
-    return name ? [{ id, name: name.replace(/\s*\(free\)\s*$/i, "").trim() }] : [];
+    const entry = byId.get(id);
+    if (!entry) return [];
+    return [
+      {
+        id,
+        name: entry.name.replace(/\s*\(free\)\s*$/i, "").trim(),
+        vision: entry.architecture?.input_modalities?.includes("image") ?? false,
+      },
+    ];
   });
 }
 

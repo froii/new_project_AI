@@ -10,6 +10,8 @@ import { askLimits } from "@/lib/ask/request";
 import { requestContactForm } from "@/lib/contact-open";
 import { type CatMood, ChatCat } from "./chat-cat";
 import { type ChatMessage, type ChatStatus, useChatStream } from "./use-chat-stream";
+import { useDictation } from "./use-dictation";
+import { pastedImage, useVacancy, VacancyField } from "./vacancy";
 import styles from "./chat.module.css";
 
 export function Chat({ models }: { models: FreeModel[] }) {
@@ -21,13 +23,16 @@ export function Chat({ models }: { models: FreeModel[] }) {
   const [model, setModel] = useState("");
   const [focused, setFocused] = useState(false);
   const busy = status !== "idle";
+  const dictation = useDictation(locale, draft, setDraft);
+  const posting = useVacancy();
 
   const submit = (event?: { preventDefault(): void }) => {
     event?.preventDefault();
-    const question = draft.trim();
+    const question = draft.trim() || (posting.vacancy ? t("vacancyAsk") : "");
     if (!question || busy) return;
+    dictation.cancel();
     setDraft("");
-    void send(question, model || undefined);
+    void send(question, model || undefined, posting.vacancy);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -92,10 +97,17 @@ export function Chat({ models }: { models: FreeModel[] }) {
           if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
         }}
       >
+        <VacancyField state={posting} />
         <Textarea
           className={styles.input}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
+          onPaste={(event) => {
+            const file = pastedImage(event);
+            if (!file) return;
+            event.preventDefault();
+            void posting.attach(file);
+          }}
           onKeyDown={onKeyDown}
           maxLength={askLimits.question}
           rows={2}
@@ -115,15 +127,46 @@ export function Chat({ models }: { models: FreeModel[] }) {
             </select>
           </label>
 
-          {busy ? (
-            <Button type="button" variant="outline" className={styles.action} onClick={stop}>
-              {t("stop")}
-            </Button>
-          ) : (
-            <Button type="submit" className={styles.action} disabled={!draft.trim()}>
-              {t("send")}
-            </Button>
-          )}
+          <div className={styles.actions}>
+            {!posting.draft && (
+              <Button type="button" variant="outline" onClick={posting.open}>
+                {t("vacancy")}
+              </Button>
+            )}
+            {dictation.supported && (
+              <Button
+                type="button"
+                variant="outline"
+                className={styles.mic}
+                onClick={dictation.toggle}
+                aria-label={dictation.listening ? t("dictateStop") : t("dictate")}
+                aria-pressed={dictation.listening}
+              >
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none">
+                  <path
+                    d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3ZM19 11a7 7 0 0 1-14 0M12 18v3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Button>
+            )}
+            {busy ? (
+              <Button type="button" variant="outline" className={styles.action} onClick={stop}>
+                {t("stop")}
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className={styles.action}
+                disabled={!draft.trim() && !posting.vacancy}
+              >
+                {t("send")}
+              </Button>
+            )}
+          </div>
         </div>
       </form>
 
