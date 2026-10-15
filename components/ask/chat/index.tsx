@@ -11,6 +11,7 @@ import { requestContactForm } from "@/lib/contact-open";
 import { type CatMood, ChatCat } from "./chat-cat";
 import { type ChatMessage, type ChatStatus, useChatStream } from "./use-chat-stream";
 import { useDictation } from "./use-dictation";
+import { pastedImage, useVacancy, VacancyField } from "./vacancy";
 import styles from "./chat.module.css";
 
 export function Chat({ models }: { models: FreeModel[] }) {
@@ -23,14 +24,15 @@ export function Chat({ models }: { models: FreeModel[] }) {
   const [focused, setFocused] = useState(false);
   const busy = status !== "idle";
   const dictation = useDictation(locale, draft, setDraft);
+  const posting = useVacancy();
 
   const submit = (event?: { preventDefault(): void }) => {
     event?.preventDefault();
-    const question = draft.trim();
+    const question = draft.trim() || (posting.vacancy ? t("vacancyAsk") : "");
     if (!question || busy) return;
     dictation.cancel();
     setDraft("");
-    void send(question, model || undefined);
+    void send(question, model || undefined, posting.vacancy);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -95,10 +97,17 @@ export function Chat({ models }: { models: FreeModel[] }) {
           if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
         }}
       >
+        <VacancyField state={posting} />
         <Textarea
           className={styles.input}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
+          onPaste={(event) => {
+            const file = pastedImage(event);
+            if (!file) return;
+            event.preventDefault();
+            void posting.attach(file);
+          }}
           onKeyDown={onKeyDown}
           maxLength={askLimits.question}
           rows={2}
@@ -119,6 +128,11 @@ export function Chat({ models }: { models: FreeModel[] }) {
           </label>
 
           <div className={styles.actions}>
+            {!posting.draft && (
+              <Button type="button" variant="outline" onClick={posting.open}>
+                {t("vacancy")}
+              </Button>
+            )}
             {dictation.supported && (
               <Button
                 type="button"
@@ -144,7 +158,11 @@ export function Chat({ models }: { models: FreeModel[] }) {
                 {t("stop")}
               </Button>
             ) : (
-              <Button type="submit" className={styles.action} disabled={!draft.trim()}>
+              <Button
+                type="submit"
+                className={styles.action}
+                disabled={!draft.trim() && !posting.vacancy}
+              >
                 {t("send")}
               </Button>
             )}

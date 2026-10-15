@@ -105,6 +105,21 @@
   min-height: 72px;
 }
 
+.vacancy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.vacancyImage {
+  align-self: flex-start;
+  max-width: 100%;
+  max-height: 240px;
+  border: var(--border-width) solid var(--line, var(--color-border));
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+
 .form .input {
   background: var(--backdrop, var(--color-bg));
 }
@@ -153,6 +168,7 @@
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-xs);
 }
 

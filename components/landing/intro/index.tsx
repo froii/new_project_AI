@@ -1,7 +1,5 @@
 import { useId } from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { owner } from "@/content";
 import { LocaleSwitcher } from "@/components/controls/locale-switcher";
 import { ThemeToggle } from "@/components/controls/theme-toggle";
 import { CvLink } from "@/components/landing/cv-link";
@@ -9,6 +7,7 @@ import { ArrowIcon } from "@/components/ui/arrow-icon";
 import { Link } from "@/i18n/navigation";
 import { CatMascot } from "./cat-mascot";
 import styles from "./intro.module.css";
+import { LivePortrait } from "./live-portrait";
 import { WriteButton } from "./write-button";
 
 export function Intro() {
@@ -17,8 +16,6 @@ export function Intro() {
   const tHero = useTranslations("hero");
   const tCommon = useTranslations("common");
   const tContact = useTranslations("contact");
-
-  const photo = owner.photos[0];
 
   return (
     <section className={styles.intro} aria-labelledby={headingId}>
@@ -59,18 +56,9 @@ export function Intro() {
           </p>
         </div>
 
-        {photo && (
-          <div className={styles.portrait}>
-            <Image
-              src={photo.src}
-              width={photo.width}
-              height={photo.height}
-              sizes="(width < 736px) 62vw, 272px"
-              priority
-              alt={tHero("photoAlt", { name: tCommon("name") })}
-            />
-          </div>
-        )}
+        <div className={styles.portrait}>
+          <LivePortrait label={tHero("photoAlt", { name: tCommon("name") })} />
+        </div>
       </div>
     </section>
   );

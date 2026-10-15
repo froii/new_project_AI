@@ -1,6 +1,6 @@
 import { after } from "next/server";
-import { profileChunk } from "@/lib/ask/chunks";
-import { curatedModels, freeModels, isFreeModelId } from "@/lib/ask/models";
+import { chunks, profileChunk } from "@/lib/ask/chunks";
+import { curatedModels, freeModels, isFreeModelId, postingModel } from "@/lib/ask/models";
 import { buildMessages } from "@/lib/ask/prompt";
 import { contentLocale, parseAsk, searchQuery } from "@/lib/ask/request";
 import { keywordRetriever } from "@/lib/ask/retriever";
@@ -15,7 +15,8 @@ export const runtime = "nodejs";
 export const maxDuration = 30;
 
 const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const MAX_TOKENS = 1000;
+/* A comparison runs to ten lines. */
+const MAX_TOKENS = { question: 1000, vacancy: 2000 };
 
 /* Per IP, so one visitor cannot drain the free tier's ~50 requests a day. */
 const limit = rateLimiter(10, 60 * 60 * 1000);
@@ -56,14 +57,20 @@ export async function POST(request: Request) {
   if (!ask) return Response.json({ ok: false }, { status: 400 });
 
   const sourceLocale = contentLocale(ask.question);
+  const image = ask.vacancy !== undefined && "image" in ask.vacancy;
+  /* A posting needs the whole CV: top-K by its words misses facts like "never used Angular". */
   const [found, catalog] = await Promise.all([
-    keywordRetriever(searchQuery(ask), sourceLocale),
+    ask.vacancy ? chunks(sourceLocale) : keywordRetriever(searchQuery(ask), sourceLocale),
     freeModels(),
   ]);
   const messages = buildMessages(profileChunk(sourceLocale), found, ask);
   /* Empty catalog means the fetch failed: fall back to the curated list. */
-  const live = catalog.map((model) => model.id);
-  const pool = live.length > 0 ? live : curatedModels;
+  const live = catalog.filter((model) => !image || model.vision).map((model) => model.id);
+  const curated = catalog.length > 0 ? live : curatedModels;
+  const pool =
+    ask.vacancy && !image && curated.includes(postingModel)
+      ? [postingModel, ...curated.filter((id) => id !== postingModel)]
+      : curated;
   /* A stale tab may still offer a retired pick. */
   const pick = ask.model && pool.includes(ask.model) ? ask.model : undefined;
   const models = (pick ? [pick, ...pool.filter((id) => id !== pick)] : pool)
@@ -71,6 +78,9 @@ export async function POST(request: Request) {
     .filter(isFreeModelId)
     /* OpenRouter caps `models` at three. */
     .slice(0, 3);
+  /* No live model reads images. */
+  if (models.length === 0) return Response.json({ ok: false }, { status: 503 });
+  const maxTokens = ask.vacancy ? MAX_TOKENS.vacancy : MAX_TOKENS.question;
 
   /* Abort on every exit so the model call never outlives the response. */
   const upstreamAbort = new AbortController();
@@ -86,7 +96,9 @@ export async function POST(request: Request) {
         emit({ type: "error" });
       };
 
-      emit({ type: "sources", items: found.map(({ id, title }) => ({ id, title })) });
+      /* The whole CV as sources says nothing. */
+      const sources = ask.vacancy ? [] : found;
+      emit({ type: "sources", items: sources.map(({ id, title }) => ({ id, title })) });
 
       try {
         const upstream = await fetch(ENDPOINT, {
@@ -98,13 +110,14 @@ export async function POST(request: Request) {
             "HTTP-Referer": siteUrl,
             "X-Title": "CV chat",
           },
-          /* Keep reasoning short and out of the stream. */
+          /* Keep reasoning short and out of the stream. Over a posting even "low" spent
+             ~1500 tokens and 24 s of the 30 s budget, so a posting gets none. */
           body: JSON.stringify({
             models,
             messages,
             stream: true,
-            max_tokens: MAX_TOKENS,
-            reasoning: { effort: "low", exclude: true },
+            max_tokens: maxTokens,
+            reasoning: ask.vacancy ? { enabled: false } : { effort: "low", exclude: true },
           }),
         });
 
@@ -162,7 +175,7 @@ export async function POST(request: Request) {
 
         emit({ type: "done", model: answeredBy, truncated });
         if (truncated) {
-          const detail = `${who} hit max_tokens (${MAX_TOKENS})`;
+          const detail = `${who} hit max_tokens (${maxTokens})`;
           console.error(`[ask] ${detail}`);
           const text = [
             `${detail}.`,
@@ -174,7 +187,7 @@ export async function POST(request: Request) {
         /* Questions go to the log only, never to analytics. */
         // eslint-disable-next-line no-console -- info level, read by hand
         console.log(
-          `[ask] ${ask.locale} ${answeredBy} [${found.map((chunk) => chunk.id).join(", ")}] ${JSON.stringify(ask.question)}`,
+          `[ask] ${ask.locale} ${answeredBy} [${ask.vacancy ? (image ? "vacancy image" : "vacancy text") : sources.map((chunk) => chunk.id).join(", ")}] ${JSON.stringify(ask.question)}`,
         );
       } catch (error) {
         /* Visitor left. */

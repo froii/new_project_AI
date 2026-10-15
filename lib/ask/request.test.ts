@@ -69,6 +69,27 @@ describe("parseAsk model", () => {
   });
 });
 
+describe("parseAsk vacancy", () => {
+  const base = { question: "Fit?", locale: "en" };
+
+  it("keeps a posting as text or as a JPEG data URL", () => {
+    expect(parseAsk({ ...base, vacancy: { text: "  React, 5+ years  " } })?.vacancy).toEqual({
+      text: "React, 5+ years",
+    });
+    expect(
+      parseAsk({ ...base, vacancy: { image: "data:image/jpeg;base64,AAAA" } })?.vacancy,
+    ).toEqual({ image: "data:image/jpeg;base64,AAAA" });
+  });
+
+  it("refuses an empty, oversized or non-JPEG posting instead of dropping it", () => {
+    expect(parseAsk({ ...base, vacancy: { text: " " } })).toBeNull();
+    expect(parseAsk({ ...base, vacancy: { text: "a".repeat(askLimits.vacancy + 1) } })).toBeNull();
+    expect(parseAsk({ ...base, vacancy: { image: "https://example.com/a.jpg" } })).toBeNull();
+    expect(parseAsk({ ...base, vacancy: { image: "data:image/svg+xml;base64,AAAA" } })).toBeNull();
+    expect(parseAsk({ ...base, vacancy: "React" })).toBeNull();
+  });
+});
+
 describe("parseAsk history shape", () => {
   it("keeps a strict user/assistant alternation without empty turns", () => {
     const parsed = parseAsk({

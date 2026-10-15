@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/config";
-import { askLimits } from "@/lib/ask/request";
+import { askLimits, type Vacancy } from "@/lib/ask/request";
 import { decodeEvents } from "@/lib/ask/sse";
 
 export type ChatMessage = {
@@ -28,7 +28,7 @@ export function useChatStream(locale: Locale) {
   useEffect(() => () => abortRef.current?.abort(), []);
 
   const send = useCallback(
-    async (question: string, model?: string) => {
+    async (question: string, model?: string, vacancy?: Vacancy) => {
       /* Completed pairs only; the server keeps the same tail. */
       const history = messages
         .flatMap((message, index) => {
@@ -60,7 +60,7 @@ export function useChatStream(locale: Locale) {
         const response = await fetch("/api/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, history, locale, model }),
+          body: JSON.stringify({ question, history, locale, model, vacancy }),
           signal: controller.signal,
         });
 

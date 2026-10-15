@@ -23,14 +23,18 @@ describe("pickFreeModels", () => {
       [
         { id: "x/other:free", name: "Other (free)" },
         { id: "b/two:free", name: "Two (free)" },
-        { id: "a/one:free", name: "One (free)" },
+        {
+          id: "a/one:free",
+          name: "One (free)",
+          architecture: { input_modalities: ["text", "image"] },
+        },
       ],
       ["a/one:free", "gone/retired:free", "b/two:free"],
     );
 
     expect(picked).toEqual([
-      { id: "a/one:free", name: "One" },
-      { id: "b/two:free", name: "Two" },
+      { id: "a/one:free", name: "One", vision: true },
+      { id: "b/two:free", name: "Two", vision: false },
     ]);
   });
 });
