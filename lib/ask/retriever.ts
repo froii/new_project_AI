@@ -1,6 +1,6 @@
 import MiniSearch from "minisearch";
 import type { Locale } from "@/i18n/config";
-import { type Chunk, chunks } from "./chunks";
+import { type Chunk, faqChunks } from "./chunks";
 
 /* Swap point for a vector store. */
 export type Retriever = (query: string, locale: Locale) => Promise<Chunk[]>;
@@ -30,7 +30,8 @@ function index(locale: Locale) {
   const cached = indexes.get(locale);
   if (cached) return cached;
 
-  const all = chunks(locale);
+  /* The CV goes into every prompt whole; only the FAQ is too big for that. */
+  const all = faqChunks(locale);
   const search = new MiniSearch<Chunk>({
     fields: ["title", "keywords", "text"],
     extractField: (doc, field) =>

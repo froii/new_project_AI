@@ -45,6 +45,8 @@
 
 .question {
   align-self: flex-end;
+  max-height: 240px;
+  overflow-y: auto;
   background: color-mix(in srgb, var(--color-accent) 12%, var(--color-bg));
   white-space: pre-wrap;
 }
@@ -86,6 +88,12 @@
   font-size: var(--step--2);
 }
 
+.sources {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-xs);
+}
+
 .truncated {
   color: var(--color-danger);
   font-size: var(--step--1);
@@ -103,21 +111,6 @@
 
 .input {
   min-height: 72px;
-}
-
-.vacancy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.vacancyImage {
-  align-self: flex-start;
-  max-width: 100%;
-  max-height: 240px;
-  border: var(--border-width) solid var(--line, var(--color-border));
-  border-radius: var(--radius-sm);
-  object-fit: contain;
 }
 
 .form .input {

@@ -72,7 +72,10 @@ export default async function QuestionsPage({ params }: QuestionsParams) {
           </header>
 
           <Faq topics={topics} />
-          <Chat models={models} />
+          <Chat
+            models={models}
+            faqIds={topics.flatMap((topic) => topic.items.map((item) => item.id))}
+          />
         </main>
       </div>
       <LandingFooter />

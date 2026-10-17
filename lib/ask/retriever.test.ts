@@ -25,8 +25,10 @@ describe("keywordRetriever", () => {
     expect(await ids("Чи готові ви до переїзду?", "uk")).toContain("faq.relocation");
   });
 
-  it("finds CV entries, not only the FAQ", async () => {
-    expect(await ids("What did you build at BechaCant?", "en")).toContain("experience.bechacant");
+  it("searches only the FAQ: the CV goes into the prompt whole", async () => {
+    expect(await ids("What did you build at BechaCant?", "en")).not.toContain(
+      "experience.bechacant",
+    );
   });
 
   it("returns at most five chunks", async () => {

@@ -1,7 +1,8 @@
 import { after } from "next/server";
-import { chunks, profileChunk } from "@/lib/ask/chunks";
-import { curatedModels, freeModels, isFreeModelId, postingModel } from "@/lib/ask/models";
+import { cvChunks, profileChunk } from "@/lib/ask/chunks";
+import { curatedModels, freeModels, isFreeModelId } from "@/lib/ask/models";
 import { buildMessages } from "@/lib/ask/prompt";
+import { logQuestion } from "@/lib/ask/question-log";
 import { contentLocale, parseAsk, searchQuery } from "@/lib/ask/request";
 import { keywordRetriever } from "@/lib/ask/retriever";
 import { type AskEvent, encodeEvent, parseUpstream } from "@/lib/ask/sse";
@@ -15,8 +16,8 @@ export const runtime = "nodejs";
 export const maxDuration = 30;
 
 const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-/* A comparison runs to ten lines. */
-const MAX_TOKENS = { question: 1000, vacancy: 2000 };
+/* Reasoning counts toward it; a requirement comparison runs to ten lines. */
+const MAX_TOKENS = 2000;
 
 /* Per IP, so one visitor cannot drain the free tier's ~50 requests a day. */
 const limit = rateLimiter(10, 60 * 60 * 1000);
@@ -57,20 +58,18 @@ export async function POST(request: Request) {
   if (!ask) return Response.json({ ok: false }, { status: 400 });
 
   const sourceLocale = contentLocale(ask.question);
-  const image = ask.vacancy !== undefined && "image" in ask.vacancy;
-  /* A posting needs the whole CV: top-K by its words misses facts like "never used Angular". */
-  const [found, catalog] = await Promise.all([
-    ask.vacancy ? chunks(sourceLocale) : keywordRetriever(searchQuery(ask), sourceLocale),
+  const [sources, catalog] = await Promise.all([
+    keywordRetriever(searchQuery(ask), sourceLocale),
     freeModels(),
   ]);
-  const messages = buildMessages(profileChunk(sourceLocale), found, ask);
+  /* Top-K by words covers about five of ten listed requirements, so the CV goes in whole. */
+  const messages = buildMessages(
+    profileChunk(sourceLocale),
+    [...cvChunks(sourceLocale), ...sources],
+    ask,
+  );
   /* Empty catalog means the fetch failed: fall back to the curated list. */
-  const live = catalog.filter((model) => !image || model.vision).map((model) => model.id);
-  const curated = catalog.length > 0 ? live : curatedModels;
-  const pool =
-    ask.vacancy && !image && curated.includes(postingModel)
-      ? [postingModel, ...curated.filter((id) => id !== postingModel)]
-      : curated;
+  const pool = catalog.length > 0 ? catalog.map((model) => model.id) : curatedModels;
   /* A stale tab may still offer a retired pick. */
   const pick = ask.model && pool.includes(ask.model) ? ask.model : undefined;
   const models = (pick ? [pick, ...pool.filter((id) => id !== pick)] : pool)
@@ -78,9 +77,6 @@ export async function POST(request: Request) {
     .filter(isFreeModelId)
     /* OpenRouter caps `models` at three. */
     .slice(0, 3);
-  /* No live model reads images. */
-  if (models.length === 0) return Response.json({ ok: false }, { status: 503 });
-  const maxTokens = ask.vacancy ? MAX_TOKENS.vacancy : MAX_TOKENS.question;
 
   /* Abort on every exit so the model call never outlives the response. */
   const upstreamAbort = new AbortController();
@@ -91,13 +87,11 @@ export async function POST(request: Request) {
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const emit = (event: AskEvent) => controller.enqueue(encoder.encode(encodeEvent(event)));
-      const fail = (detail: string) => {
+      const fail = (detail: string, limit?: boolean) => {
         console.error(`[ask] ${detail}`);
-        emit({ type: "error" });
+        emit({ type: "error", ...(limit && { limit }) });
       };
 
-      /* The whole CV as sources says nothing. */
-      const sources = ask.vacancy ? [] : found;
       emit({ type: "sources", items: sources.map(({ id, title }) => ({ id, title })) });
 
       try {
@@ -110,28 +104,28 @@ export async function POST(request: Request) {
             "HTTP-Referer": siteUrl,
             "X-Title": "CV chat",
           },
-          /* Keep reasoning short and out of the stream. Over a posting even "low" spent
-             ~1500 tokens and 24 s of the 30 s budget, so a posting gets none. */
+          /* Keep reasoning short and out of the stream. */
           body: JSON.stringify({
             models,
             messages,
             stream: true,
-            max_tokens: maxTokens,
-            reasoning: ask.vacancy ? { enabled: false } : { effort: "low", exclude: true },
+            max_tokens: MAX_TOKENS,
+            reasoning: { effort: "low", exclude: true },
           }),
         });
 
         if (!upstream.ok || !upstream.body) {
           const reason = (await upstream.text().catch(() => "")).slice(0, 500);
           const detail = `${models.join(", ")} answered ${upstream.status}\n\n${reason}`;
+          const daily = upstream.status === 429 && reason.includes("per-day");
           /* Own subject for the daily quota, so a short throttle does not use up its mail. */
           if (upstream.status === 429) {
-            const subject = reason.includes("per-day")
+            const subject = daily
               ? "Website chat: the free model limit is reached"
               : "Website chat: the free model is rate-limited";
             after(() => alertOwner(subject, detail));
           }
-          fail(detail);
+          fail(detail, daily);
           return;
         }
 
@@ -139,7 +133,7 @@ export async function POST(request: Request) {
         let rest = "";
         let finished = false;
         let truncated = false;
-        let answered = false;
+        let answer = "";
         let answeredBy: string | undefined;
 
         while (!finished) {
@@ -151,7 +145,7 @@ export async function POST(request: Request) {
           answeredBy ??= parsed.model;
           truncated ||= parsed.truncated;
           for (const content of parsed.texts) {
-            answered ||= content.trim() !== "";
+            answer += content;
             emit({ type: "text", content });
           }
 
@@ -168,14 +162,14 @@ export async function POST(request: Request) {
           return;
         }
         /* Reasoning models can finish with no content; the client would show nothing. */
-        if (!answered && !truncated) {
+        if (!answer.trim() && !truncated) {
           fail(`${who} finished with an empty answer`);
           return;
         }
 
         emit({ type: "done", model: answeredBy, truncated });
         if (truncated) {
-          const detail = `${who} hit max_tokens (${maxTokens})`;
+          const detail = `${who} hit max_tokens (${MAX_TOKENS})`;
           console.error(`[ask] ${detail}`);
           const text = [
             `${detail}.`,
@@ -187,7 +181,20 @@ export async function POST(request: Request) {
         /* Questions go to the log only, never to analytics. */
         // eslint-disable-next-line no-console -- info level, read by hand
         console.log(
-          `[ask] ${ask.locale} ${answeredBy} [${ask.vacancy ? (image ? "vacancy image" : "vacancy text") : sources.map((chunk) => chunk.id).join(", ")}] ${JSON.stringify(ask.question)}`,
+          `[ask] ${ask.locale} ${answeredBy} [${sources.map((chunk) => chunk.id).join(", ")}] ${JSON.stringify(ask.question)}`,
+        );
+        const entry = {
+          at: new Date().toISOString(),
+          locale: ask.locale,
+          model: answeredBy,
+          sources: sources.map((chunk) => chunk.id),
+          question: ask.question,
+          answer: answer.trim(),
+        };
+        after(() =>
+          logQuestion(entry).catch((error: unknown) =>
+            console.error(`[ask] question not logged: ${String(error)}`),
+          ),
         );
       } catch (error) {
         /* Visitor left. */

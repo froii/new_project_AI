@@ -65,7 +65,7 @@ export function faqTopics(locale: Locale): FaqTopic[] {
   );
 }
 
-function faqChunks(locale: Locale): Chunk[] {
+export function faqChunks(locale: Locale): Chunk[] {
   return answeredTopics(locale, questionTopics).flatMap((topic) =>
     topic.items.map((item) => ({
       id: `faq.${item.id}`,
@@ -76,7 +76,7 @@ function faqChunks(locale: Locale): Chunk[] {
   );
 }
 
-function cvChunks(locale: Locale): Chunk[] {
+export function cvChunks(locale: Locale): Chunk[] {
   const m = catalogs[locale].messages;
   const span = (start: string, end?: string) => `${start} - ${end ?? m.experience.present}`;
 
@@ -150,8 +150,4 @@ function cvChunks(locale: Locale): Chunk[] {
   };
 
   return [...about, ...roles, ...stack, ...degrees, certificates];
-}
-
-export function chunks(locale: Locale): Chunk[] {
-  return [...faqChunks(locale), ...cvChunks(locale)];
 }
