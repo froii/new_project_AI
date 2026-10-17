@@ -48,9 +48,15 @@ export function useDictation(locale: Locale, draft: string, setDraft: (text: str
     rec.lang = speechLang[locale];
     rec.continuous = true;
     rec.interimResults = true;
+    let finals = "";
     rec.onresult = (event) => {
-      const spoken = Array.from(event.results, (result) => result[0].transcript).join("");
-      setDraft([base, spoken.trim()].filter(Boolean).join(" "));
+      let interim = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) finals += result[0].transcript;
+        else interim += result[0].transcript;
+      }
+      setDraft([base, (finals + interim).trim()].filter(Boolean).join(" "));
     };
     rec.onend = () => {
       if (recognition.current !== rec) return;
