@@ -11,28 +11,35 @@ import { requestContactForm } from "@/lib/contact-open";
 import { type CatMood, ChatCat } from "./chat-cat";
 import { type ChatMessage, type ChatStatus, useChatStream } from "./use-chat-stream";
 import { useDictation } from "./use-dictation";
-import { pastedImage, useVacancy, VacancyField } from "./vacancy";
 import styles from "./chat.module.css";
 
-export function Chat({ models }: { models: FreeModel[] }) {
+/* A closed <details> has no box, so the link's jump needs it open first. */
+function openFaqItem(id: string) {
+  const item = document.getElementById(`faq-${id}`);
+  if (!(item instanceof HTMLDetailsElement)) return;
+  item.open = true;
+  const topic = item.parentElement?.closest("details");
+  if (topic) topic.open = true;
+}
+
+export function Chat({ models, faqIds }: { models: FreeModel[]; faqIds: string[] }) {
   const t = useTranslations("ask.chat");
   const locale = useLocale() as Locale;
-  const { messages, status, send, stop } = useChatStream(locale);
+  const { messages, status, send, retry, stop } = useChatStream(locale);
   const [draft, setDraft] = useState("");
   /* "" = Auto */
   const [model, setModel] = useState("");
   const [focused, setFocused] = useState(false);
   const busy = status !== "idle";
   const dictation = useDictation(locale, draft, setDraft);
-  const posting = useVacancy();
 
   const submit = (event?: { preventDefault(): void }) => {
     event?.preventDefault();
-    const question = draft.trim() || (posting.vacancy ? t("vacancyAsk") : "");
+    const question = draft.trim();
     if (!question || busy) return;
     dictation.cancel();
     setDraft("");
-    void send(question, model || undefined, posting.vacancy);
+    void send(question, model || undefined);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -46,7 +53,7 @@ export function Chat({ models }: { models: FreeModel[] }) {
   const announcement =
     status === "idle" && last?.role === "assistant"
       ? last.failed
-        ? t("limit")
+        ? t(last.failed === "limit" ? "limit" : "failed")
         : last.truncated
           ? [last.content, t("truncated")].filter(Boolean).join(" ")
           : last.content
@@ -80,6 +87,12 @@ export function Chat({ models }: { models: FreeModel[] }) {
                 message={message}
                 status={index === messages.length - 1 ? status : "idle"}
                 modelName={modelName(message.model)}
+                faqIds={faqIds}
+                onRetry={
+                  index === messages.length - 1 && !busy
+                    ? () => retry(model || undefined)
+                    : undefined
+                }
               />
             ),
           )}
@@ -97,17 +110,10 @@ export function Chat({ models }: { models: FreeModel[] }) {
           if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
         }}
       >
-        <VacancyField state={posting} />
         <Textarea
           className={styles.input}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
-          onPaste={(event) => {
-            const file = pastedImage(event);
-            if (!file) return;
-            event.preventDefault();
-            void posting.attach(file);
-          }}
           onKeyDown={onKeyDown}
           maxLength={askLimits.question}
           rows={2}
@@ -128,11 +134,6 @@ export function Chat({ models }: { models: FreeModel[] }) {
           </label>
 
           <div className={styles.actions}>
-            {!posting.draft && (
-              <Button type="button" variant="outline" onClick={posting.open}>
-                {t("vacancy")}
-              </Button>
-            )}
             {dictation.supported && (
               <Button
                 type="button"
@@ -158,11 +159,7 @@ export function Chat({ models }: { models: FreeModel[] }) {
                 {t("stop")}
               </Button>
             ) : (
-              <Button
-                type="submit"
-                className={styles.action}
-                disabled={!draft.trim() && !posting.vacancy}
-              >
+              <Button type="submit" className={styles.action} disabled={!draft.trim()}>
                 {t("send")}
               </Button>
             )}
@@ -179,22 +176,34 @@ function Answer({
   message,
   status,
   modelName,
+  faqIds,
+  onRetry,
 }: {
   message: ChatMessage;
   status: ChatStatus;
   modelName?: string;
+  faqIds: string[];
+  onRetry?: () => void;
 }) {
   const t = useTranslations("ask.chat");
   const tContact = useTranslations("contact");
 
   if (message.failed) {
+    const limit = message.failed === "limit";
     return (
       <li className={`${styles.answer} ${styles.failed}`}>
         {message.content && <p className={styles.text}>{message.content}</p>}
-        <p>{t("limit")}</p>
-        <Button type="button" variant="outline" onClick={requestContactForm}>
-          {tContact("open")}
-        </Button>
+        <p>{t(limit ? "limit" : "failed")}</p>
+        <div className={styles.actions}>
+          {!limit && onRetry && (
+            <Button type="button" variant="outline" onClick={onRetry}>
+              {t("retry")}
+            </Button>
+          )}
+          <Button type="button" variant="outline" onClick={requestContactForm}>
+            {tContact("open")}
+          </Button>
+        </div>
       </li>
     );
   }
@@ -211,10 +220,19 @@ function Answer({
       {status === "idle" && (message.sources?.length || modelName) ? (
         <p className={styles.meta}>
           {message.sources?.length ? (
-            <span>
-              {/* Achievement chunks share one title. */}
-              {t("sources")}{" "}
-              {[...new Set(message.sources.map((source) => source.title))].join(" · ")}
+            <span className={styles.sources}>
+              <span>{t("sources")}</span>
+              {message.sources.map((source) => {
+                const id = source.id.replace(/^faq\./, "");
+                /* Hidden topics feed the chat but are not on the page. */
+                return faqIds.includes(id) ? (
+                  <a key={source.id} href={`#faq-${id}`} onClick={() => openFaqItem(id)}>
+                    {source.title}
+                  </a>
+                ) : (
+                  <span key={source.id}>{source.title}</span>
+                );
+              })}
             </span>
           ) : null}
           {modelName && <span>{t("answeredBy", { model: modelName })}</span>}

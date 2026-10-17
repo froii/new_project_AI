@@ -4,8 +4,8 @@ export type AskEvent =
   | { type: "text"; content: string }
   /* Who answered: OpenRouter may fall back past the pick. */
   | { type: "done"; model?: string; truncated?: boolean }
-  /* Every failure reads as "limit reached" to the visitor. */
-  | { type: "error" };
+  /* `limit`: the free tier's daily quota is spent, so a retry cannot help. */
+  | { type: "error"; limit?: boolean };
 
 export function encodeEvent(event: AskEvent): string {
   return `data: ${JSON.stringify(event)}\n\n`;

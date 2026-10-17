@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/config";
-import { askLimits, type Vacancy } from "@/lib/ask/request";
+import { askLimits } from "@/lib/ask/request";
 import { decodeEvents } from "@/lib/ask/sse";
 
 export type ChatMessage = {
@@ -11,7 +11,8 @@ export type ChatMessage = {
   content: string;
   sources?: { id: string; title: string }[];
   model?: string;
-  failed?: boolean;
+  /* "limit": a daily quota is spent, so a retry cannot help. */
+  failed?: "limit" | "error";
   /* Got `done`: not stopped, not dropped mid-stream. */
   complete?: boolean;
   /* Hit max_tokens; the fragment still goes into history. */
@@ -28,7 +29,7 @@ export function useChatStream(locale: Locale) {
   useEffect(() => () => abortRef.current?.abort(), []);
 
   const send = useCallback(
-    async (question: string, model?: string, vacancy?: Vacancy) => {
+    async (question: string, model?: string) => {
       /* Completed pairs only; the server keeps the same tail. */
       const history = messages
         .flatMap((message, index) => {
@@ -45,6 +46,9 @@ export function useChatStream(locale: Locale) {
       const id = crypto.randomUUID();
       const update = (patch: (message: ChatMessage) => ChatMessage) =>
         setMessages((all) => all.map((message) => (message.id === id ? patch(message) : message)));
+      /* The first reason wins: a quota error is followed by a stream without `done`. */
+      const fail = (reason: "limit" | "error" = "error") =>
+        update((message) => ({ ...message, failed: message.failed ?? reason }));
 
       setMessages((all) => [
         ...all,
@@ -60,13 +64,13 @@ export function useChatStream(locale: Locale) {
         const response = await fetch("/api/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, history, locale, model, vacancy }),
+          body: JSON.stringify({ question, history, locale, model }),
           signal: controller.signal,
         });
 
-        /* Any failure shows the same message. */
+        /* 429 here is the per-IP hourly limit. */
         if (!response.ok || !response.body) {
-          update((message) => ({ ...message, failed: true }));
+          fail(response.status === 429 ? "limit" : "error");
           return;
         }
 
@@ -101,15 +105,15 @@ export function useChatStream(locale: Locale) {
                 truncated: event.truncated,
               }));
             }
-            if (event.type === "error") update((message) => ({ ...message, failed: true }));
+            if (event.type === "error") fail(event.limit ? "limit" : "error");
           }
         }
 
         /* No `done`: the function timed out mid-answer. */
-        if (!complete) update((message) => ({ ...message, failed: true }));
+        if (!complete) fail();
       } catch {
         /* Stop keeps the partial answer. */
-        if (!controller.signal.aborted) update((message) => ({ ...message, failed: true }));
+        if (!controller.signal.aborted) fail();
       } finally {
         if (abortRef.current === controller) abortRef.current = null;
         setStatus("idle");
@@ -118,7 +122,18 @@ export function useChatStream(locale: Locale) {
     [locale, messages],
   );
 
+  /* Replaces the failed pair, so the log keeps one copy of the question. */
+  const retry = useCallback(
+    (model?: string) => {
+      const question = messages.at(-2);
+      if (question?.role !== "user") return;
+      setMessages((all) => all.slice(0, -2));
+      void send(question.content, model);
+    },
+    [messages, send],
+  );
+
   const stop = useCallback(() => abortRef.current?.abort(), []);
 
-  return { messages, status, send, stop };
+  return { messages, status, send, retry, stop };
 }

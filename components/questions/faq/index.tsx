@@ -23,6 +23,7 @@ export function Faq({ topics }: { topics: FaqTopic[] }) {
             {topic.items.map((item) => (
               <details
                 key={item.id}
+                id={`faq-${item.id}`}
                 className={styles.question}
                 aria-labelledby={`${baseId}-q-${item.id}`}
               >
