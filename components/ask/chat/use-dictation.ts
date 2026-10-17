@@ -33,9 +33,15 @@ export function useDictation(locale: Locale, draft: string, setDraft: (text: str
 
   useEffect(() => () => recognition.current?.abort(), []);
 
-  const start = () => {
+  const start = async () => {
     const Ctor = recognitionCtor();
     if (!Ctor) return;
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((track) => track.stop());
+    } catch {
+      return;
+    }
     recognition.current?.abort();
     const base = draft.trimEnd();
     const rec = new Ctor();
