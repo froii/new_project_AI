@@ -71,6 +71,14 @@
   .name {
     display: none;
   }
+
+  .home {
+    min-width: 24px;
+  }
+
+  .identity {
+    gap: var(--space-2xs);
+  }
 }
 
 @media (max-width: 640px) {
