@@ -19,6 +19,7 @@ type RecognitionCtor = new () => Recognition;
 const speechLang: Record<Locale, string> = { uk: "uk-UA", en: "en-US" };
 
 function recognitionCtor(): RecognitionCtor | undefined {
+  if (/CriOS|FxiOS|EdgiOS/.test(navigator.userAgent)) return undefined;
   const w = window as unknown as {
     SpeechRecognition?: RecognitionCtor;
     webkitSpeechRecognition?: RecognitionCtor;
@@ -33,15 +34,9 @@ export function useDictation(locale: Locale, draft: string, setDraft: (text: str
 
   useEffect(() => () => recognition.current?.abort(), []);
 
-  const start = async () => {
+  const start = () => {
     const Ctor = recognitionCtor();
     if (!Ctor) return;
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach((track) => track.stop());
-    } catch {
-      return;
-    }
     recognition.current?.abort();
     const base = draft.trimEnd();
     const rec = new Ctor();
